@@ -13332,8 +13332,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 671244700}
-  - component: {fileID: 671244699}
   - component: {fileID: 671244698}
+  - component: {fileID: 671244701}
+  - component: {fileID: 671244699}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -13405,6 +13406,22 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 8de204bc-7458-4a77-a30b-15c877844e7b
     m_ActionName: Combat/Movement[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d,/DualSenseGamepadHID/leftStick,/XInputControllerWindows/leftStick]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 671244701}
+        m_TargetAssemblyTypeName: PlayerMovement, Assembly-CSharp
+        m_MethodName: Jump
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 637d1fc4-918b-4033-9eda-46bbfc72ff53
+    m_ActionName: Combat/Jump[/Keyboard/space]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Combat
@@ -13427,6 +13444,74 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &671244701
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 671244696}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b5b4e3635a87a51449c267bc6d5e0a23, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  move:
+    m_Name: Move
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: e296b43e-c5c7-4856-b6d3-825662a9d4b9
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: Keyboard
+      m_Id: 135fd13f-f788-4d7b-80d5-2143ee66eb5f
+      m_Path: 2DVector
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Move
+      m_Flags: 4
+    - m_Name: up
+      m_Id: bea979c2-ff71-4983-8f25-200063d54616
+      m_Path: <Keyboard>/w
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Move
+      m_Flags: 8
+    - m_Name: down
+      m_Id: 3ff8baf2-e05b-4bec-9cd7-e7db017602bb
+      m_Path: <Keyboard>/s
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Move
+      m_Flags: 8
+    - m_Name: left
+      m_Id: 093a4b38-7a2c-4e81-be54-28613fe0a226
+      m_Path: <Keyboard>/a
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Move
+      m_Flags: 8
+    - m_Name: right
+      m_Id: a6f482e7-29b6-46c2-a4c1-98a797da993c
+      m_Path: <Keyboard>/d
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Move
+      m_Flags: 8
+    m_Flags: 0
+  speed: 5
+  jumpHeight: 0
+  amountOfJumps: 0
+  dashLenght: 0
+  dashCooldown: 0
+  gravity: 1
+  gravityScale: -9
 --- !u!43 &672754482
 Mesh:
   m_ObjectHideFlags: 0
