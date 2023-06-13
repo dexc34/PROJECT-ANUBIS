@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(CharacterController))]
 
@@ -20,16 +21,29 @@ public class PlayerMovement : MonoBehaviour
     private float yMovement;
     private Vector3 moveDirection;
 
+    private AudioSource funnyBoom;
+
 
 
     private void Awake() 
     {
         characterController = GetComponent<CharacterController>();
+        funnyBoom = GetComponent<AudioSource>();
         move.Enable();
     }
 
     private void Update() 
     {
+        if(transform.position.y < -7)
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
+
+        if(Input.GetMouseButtonDown(0))
+        {
+            funnyBoom.Play();
+        }
+
         ApplyGravity();
         ApplyMovement();
 
