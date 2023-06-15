@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerHackingScript : MonoBehaviour
 {
@@ -16,6 +17,7 @@ public class PlayerHackingScript : MonoBehaviour
         "looks at them\n"
         )]
     [SerializeField]private Color highlightColour = Color.red;
+    [SerializeField]private Color hackingColour = Color.green;
 
     [Header(
         "How wide the outline \n" +
@@ -23,22 +25,53 @@ public class PlayerHackingScript : MonoBehaviour
         "player looks at them\n")]
     [SerializeField]private float highlightWidth = 7;
 
+    [SerializeField] private InputActionReference hackButton;
+
     private GameObject currentlySelectedEnemy = null;
-    private Outline enemiesOutline = null;
+    private Outline selectedEnemiesOutline = null;
+
+    private GameObject currentlyHackingEnemy = null;
+    private Outline hackingEnemiesOutline = null;
+
+    private GameObject currentlyStoredEnemy = null;
+
+    private CharacterController characterController;
+
+    [SerializeField] private LayerMask ignoredLayer;
+
+    private float hackingTimer = -1000;
+
+    private bool hacking = false;
 
 
-    // Start is called before the first frame update
+
+
+    //Built in stuff
+    //##############################################################################################
     void Start()
     {
-        
+        characterController= GetComponent<CharacterController>();
     }
 
-    // Update is called once per frame
+
     void Update()
     {
-        Raycasting();
+        if (hacking && hackButton.ToInputAction().WasReleasedThisFrame())
+            ExitHackMode();
+
+        if (!hacking)
+            Raycasting();
+
+        RunTimer();
     }
 
+
+
+
+
+
+    //The Raycasting
+    //##############################################################################################
     public void Raycasting()
     {
         //stores the data of the object that has been hit by the raycast
@@ -59,8 +92,10 @@ public class PlayerHackingScript : MonoBehaviour
                 //deletes the enemy's outline and unstores the gameobject and outline
                 if (currentlySelectedEnemy != null)
                 {
-                    Destroy(currentlySelectedEnemy.GetComponent<Outline>());
-                    enemiesOutline = null;
+                    if (currentlySelectedEnemy != currentlyHackingEnemy)
+                        Destroy(currentlySelectedEnemy.GetComponent<Outline>());
+
+                    selectedEnemiesOutline = null;
                     currentlySelectedEnemy = null;
                 }
             }
@@ -69,18 +104,30 @@ public class PlayerHackingScript : MonoBehaviour
             //runs if the object hit with the raycast has the Hackable tag
             if (hit.collider.gameObject.CompareTag("Hackable"))
             {
-                //stores the enemy's game object and also adds an outline to it
-                currentlySelectedEnemy = hit.collider.gameObject;
-                enemiesOutline = currentlySelectedEnemy.gameObject.AddComponent<Outline>();
+                if (currentlySelectedEnemy == null)
+                {
+                    //stores the enemy's game object and also adds an outline to it
+                    currentlySelectedEnemy = hit.collider.gameObject;
+                    selectedEnemiesOutline = currentlySelectedEnemy.gameObject.AddComponent<Outline>();
                 
-                //turns on the outline of the selected enemy, sets it's colour and it's width
-                enemiesOutline.enabled = true;
-                enemiesOutline.OutlineColor = highlightColour;
-                enemiesOutline.OutlineWidth = highlightWidth;
+                    //turns on the outline of the selected enemy, sets it's colour and it's width
+                    selectedEnemiesOutline.enabled = true;
+                    selectedEnemiesOutline.OutlineColor = highlightColour;
+                    selectedEnemiesOutline.OutlineWidth = highlightWidth;
+                }
 
                 //some debug stuff we can get rid of later
-                Debug.Log("yep");
                 Debug.DrawRay(raycastStart, raycastDirection * hit.distance, Color.yellow);
+
+                if (!hacking && hackButton.ToInputAction().WasPressedThisFrame())
+                {
+                    currentlyHackingEnemy = currentlySelectedEnemy;
+                    hackingEnemiesOutline = currentlyHackingEnemy.GetComponent<Outline>();
+                    hackingEnemiesOutline.OutlineColor = hackingColour;
+
+                    StartTimer(1);
+                    hacking= true;
+                }
             }
         }
         else
@@ -88,13 +135,90 @@ public class PlayerHackingScript : MonoBehaviour
             //deletes the enemy's outline and unstores the gameobject and outline
             if (currentlySelectedEnemy != null)
             {
-                Destroy(currentlySelectedEnemy.GetComponent<Outline>());
-                enemiesOutline = null;
+                if (currentlySelectedEnemy != currentlyHackingEnemy)
+                    Destroy(currentlySelectedEnemy.GetComponent<Outline>());
+
+                selectedEnemiesOutline = null;
                 currentlySelectedEnemy = null;
             }
 
             Debug.DrawRay(raycastStart, raycastDirection * 1000, Color.white);
-            Debug.Log("nope");
         }
+    }
+
+
+
+
+
+    //Timer Stuff
+    //##############################################################################################
+    public void StartTimer(float timerDurration)
+    {
+        hackingTimer = timerDurration;
+    }
+
+
+    private void RunTimer()
+    {
+        if (hackingTimer >0)
+        {
+            hackingTimer -= Time.deltaTime;
+        }
+        else if (hackingTimer < 0.1f && hackingTimer > -0.1f)
+        {
+            HackEnemy();
+        }
+    }
+
+
+
+
+    //Hacking Stuff
+    //##############################################################################################
+    private void HackEnemy()
+    {
+        Debug.Log("hacked");
+
+        //releases the currently stored enemy if there is one
+        if (currentlyStoredEnemy != null)
+        {
+            //sets the enemy back to being it's own parent and turns it back on
+            currentlyStoredEnemy.transform.parent = null;
+            currentlyStoredEnemy.SetActive(true);
+        }
+
+        //stores the currently hacking enemy as a variable
+        currentlyStoredEnemy = currentlyHackingEnemy;
+
+        //teleports to the position of the currently stored
+        //enemy and facing in the same direction (the character
+        //controller has to be turned off because it messes up
+        //the teleport)
+        characterController.enabled= false;
+        transform.position = currentlyStoredEnemy.transform.position;
+        transform.rotation = currentlyStoredEnemy.transform.rotation;
+        characterController.enabled= true;
+
+        //turns off the currently stored enemy and makes it the child of the player to be released later
+        currentlyStoredEnemy.SetActive(false);
+        currentlyStoredEnemy.transform.parent = transform;
+
+        ExitHackMode();
+    }
+
+
+    public void ExitHackMode()
+    {
+        hacking = false;
+
+        //resets the timer to a very low number so that it doesn't do anything (see RunTimer())
+        hackingTimer = -1000;
+
+        //gets rid of the outline of the enemy and then sets the
+        //variables that store the game object and the outline to
+        //nothing
+        Destroy(currentlyHackingEnemy.GetComponent<Outline>());
+        currentlyHackingEnemy = null;
+        hackingEnemiesOutline= null;
     }
 }

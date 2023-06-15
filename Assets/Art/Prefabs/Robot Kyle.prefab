@@ -334,9 +334,10 @@ GameObject:
   - component: {fileID: 2437060625171721727}
   - component: {fileID: 5717370821310611589}
   - component: {fileID: 678896483663062080}
+  - component: {fileID: 5895470232516386280}
   m_Layer: 0
   m_Name: Robot Kyle
-  m_TagString: Untagged
+  m_TagString: Hackable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -390,6 +391,20 @@ CapsuleCollider:
   m_Enabled: 1
   m_Radius: 0.23141143
   m_Height: 1.8418944
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.8816185, z: 0}
+--- !u!136 &5895470232516386280
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1696014694992928748}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.41
+  m_Height: 2.14
   m_Direction: 1
   m_Center: {x: 0, y: 0.8816185, z: 0}
 --- !u!1 &1759838451836578093
