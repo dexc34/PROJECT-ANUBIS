@@ -33,7 +33,6 @@ public class PlayerMovement : MonoBehaviour
     private int currentDashes; // Amount of dashes available to the player at any given time
     private bool dashCooldownDone = true;
     private bool isDashing = false;
-    private float holdTimer = 1;
 
     //Required components
     private CharacterController characterController; 
@@ -113,8 +112,6 @@ public class PlayerMovement : MonoBehaviour
         {
             yVelocity = jumpHeight;
             currentJumps --;
-            //delete later
-            holdTimer = 2;
         }
     }
 
@@ -122,8 +119,6 @@ public class PlayerMovement : MonoBehaviour
     {
         if(currentDashes == 0 || !context.performed || isDashing) return;
         StartCoroutine("Dashing");
-        //delete later
-        holdTimer = 3;
     }
 
     public IEnumerator Dashing()
