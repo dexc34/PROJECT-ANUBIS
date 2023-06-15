@@ -33,9 +33,9 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Dash",
+                    "name": "Hack",
                     "type": "Button",
-                    "id": "82388f85-a12f-4bd6-8314-6e106b9ae1e8",
+                    "id": "e1d5344e-5f8f-4b77-8d25-ec16a130aa93",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -133,12 +133,12 @@
                 },
                 {
                     "name": "",
-                    "id": "1519d0fe-3b81-4ad3-b134-6c4a84357963",
-                    "path": "<Keyboard>/leftShift",
+                    "id": "d2674a6c-731f-4243-9e81-15e234de974e",
+                    "path": "<Mouse>/rightButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Dash",
+                    "action": "Hack",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
