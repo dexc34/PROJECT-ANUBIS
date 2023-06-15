@@ -13423,6 +13423,38 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 637d1fc4-918b-4033-9eda-46bbfc72ff53
     m_ActionName: Combat/Jump[/Keyboard/space]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 671244701}
+        m_TargetAssemblyTypeName: PlayerMovement, Assembly-CSharp
+        m_MethodName: Dash
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 82388f85-a12f-4bd6-8314-6e106b9ae1e8
+    m_ActionName: Combat/Dash[/Keyboard/leftShift]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 671244701}
+        m_TargetAssemblyTypeName: PlayerMovement, Assembly-CSharp
+        m_MethodName: Hack
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 5d31b683-91ea-48be-bdf6-ff2b90df5bed
+    m_ActionName: Combat/Hack[/Mouse/rightButton]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Combat
@@ -13509,10 +13541,12 @@ MonoBehaviour:
   speed: 7
   jumpHeight: 2.5
   amountOfJumps: 2
-  dashLenght: 0
-  dashCooldown: 0
-  gravity: 1
-  gravityScale: -4.5
+  amountOfDashes: 2
+  dashSpeed: 50
+  dashDuration: 0.1
+  dashCooldown: 1.5
+  gravity: -1
+  gravityScale: 4.5
 --- !u!82 &671244702
 AudioSource:
   m_ObjectHideFlags: 0

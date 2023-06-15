@@ -2,43 +2,61 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Interactions;
 using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(CharacterController))]
 
 public class PlayerMovement : MonoBehaviour
 {
-    private CharacterController characterController;
+    //In-editor tools 
     [SerializeField] private InputAction move;
     [SerializeField] private float speed;
+
+    [Header ("Jump Settings")]
     [SerializeField] private float jumpHeight;
     [SerializeField] private int amountOfJumps = 2;
-    private int currentJumps;
-    [SerializeField] private float dashLenght;
-    [SerializeField] private float dashCooldown;
-    [SerializeField] private float gravity;
-    [SerializeField] private float gravityScale;
-    private float yMovement;
-    private Vector3 moveDirection;
 
-    private AudioSource funnyBoom;
+    [Header ("Dash Settings")]
+    [SerializeField] private int amountOfDashes = 2;
+    [SerializeField] [Tooltip ("How fast does the player become while dashing")]private float dashSpeed;
+    [SerializeField] [Tooltip ("How long does the dash go for in seconds")] private float dashDuration;
+    [SerializeField] [Tooltip("How long does the player wait to use the dash again after it's done in seconds")] private float dashCooldown;
 
+    [Header ("Gravity Settings")]
+    [SerializeField] [Tooltip ("-1 to go down, 0 for no gravity, 1 to go up")] [Range (-1, 1)] private int gravity;
+    [SerializeField] [Tooltip ("How strong is the gravity")] private float gravityScale;
 
+    //Private script variables
+    private float yVelocity; //Tracks vertical speed
+    private Vector3 moveDirection; //Makes sure direction is always camera dependent 
+    private int currentJumps; // Amount of jumps available to the player at any given time
+    private int currentDashes; // Amount of dashes available to the player at any given time
+    private bool dashCooldownDone = true;
+    private bool isDashing = false;
+    private float holdTimer = 1;
+
+    //Required components
+    private CharacterController characterController; 
+    private AudioSource funnyBoom; //haha
 
     private void Awake() 
     {
         characterController = GetComponent<CharacterController>();
         funnyBoom = GetComponent<AudioSource>();
+        currentDashes = amountOfDashes;
         move.Enable();
     }
 
     private void Update() 
     {
+        //Reload scene when falling off a certain value, only for debugging
         if(transform.position.y < -7)
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
 
+        //Plays the haha
         if(Input.GetMouseButtonDown(0))
         {
             funnyBoom.Play();
@@ -47,33 +65,45 @@ public class PlayerMovement : MonoBehaviour
         ApplyGravity();
         ApplyMovement();
 
+        //Restores jumps on landing
         if(characterController.isGrounded && currentJumps != amountOfJumps)
         {
             currentJumps = amountOfJumps;
+        }
+
+        //Removes one jump when leaving the ground
+        if(!characterController.isGrounded && currentJumps == amountOfJumps)
+        {
+            currentJumps --;
         }
     }
 
     private void ApplyGravity()
     {
+        if(isDashing) return;
         //No gravity gets applied if grounded
-        if (characterController.isGrounded && yMovement < 0)
+        if (characterController.isGrounded && yVelocity < 0)
         {
-            yMovement = -1;
+            yVelocity = -1;
         }
         //Apply gravity when not grounded
         else
         {
-            yMovement += gravity * gravityScale * Time.deltaTime;
+            yVelocity += gravity * gravityScale * Time.deltaTime;
         }
-        moveDirection.y = yMovement;
+        moveDirection.y = yVelocity;
     }
 
     private void ApplyMovement()
     {
+        if(isDashing)
+        {
+            characterController.Move(moveDirection * dashSpeed * Time.deltaTime);
+            return;
+        }
         Vector2 inputReadings = move.ReadValue<Vector2>();
         moveDirection = transform.right * inputReadings.x + transform.forward * inputReadings.y;
-        moveDirection = new Vector3(moveDirection.x, yMovement, moveDirection.z);   
-        //ApplyGravity();
+        moveDirection = new Vector3(moveDirection.x, yVelocity, moveDirection.z);   
         characterController.Move(moveDirection * speed * Time.deltaTime);
     }
 
@@ -82,11 +112,52 @@ public class PlayerMovement : MonoBehaviour
         if(!characterController.isGrounded && currentJumps == 0) return;
         if(context.performed)
         {
-            yMovement = jumpHeight;
+            yVelocity = jumpHeight;
             currentJumps --;
-            Debug.Log(currentJumps);
+            //delete later
+            holdTimer = 2;
         }
     }
 
+    public void Dash(InputAction.CallbackContext context)
+    {
+        if(currentDashes == 0 || !context.performed || isDashing) return;
+        StartCoroutine("Dashing");
+        //delete later
+        holdTimer = 3;
+    }
 
+    public IEnumerator Dashing()
+    {
+        currentDashes --;
+        yVelocity = 0;
+        moveDirection.y = yVelocity;
+        isDashing = true;
+
+        yield return new WaitForSeconds(dashDuration);
+        isDashing = false;
+
+        //Dont start cooldown timer until the previous one is done
+        while(!dashCooldownDone) yield return null;
+    
+        //Return ability to dash after cooldown
+        dashCooldownDone = false;
+
+        yield return new WaitForSeconds(dashCooldown);
+        dashCooldownDone = true;
+        currentDashes ++;
+    }
+
+    public void Hack(InputAction.CallbackContext context)
+    {
+        var holdInteraction = context.interaction as HoldInteraction;
+        holdInteraction.duration = holdTimer;
+        Debug.Log(holdInteraction.duration);
+
+        if(context.performed)
+        {
+            Debug.Log("hacked");
+        }
+    }
+    
 }
