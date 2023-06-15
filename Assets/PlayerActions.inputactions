@@ -40,15 +40,6 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
-                },
-                {
-                    "name": "Hack",
-                    "type": "Button",
-                    "id": "5d31b683-91ea-48be-bdf6-ff2b90df5bed",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "Hold(pressPoint=0.2)",
-                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -148,17 +139,6 @@
                     "processors": "",
                     "groups": "",
                     "action": "Dash",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "0c824ad9-37b8-415a-acc4-56bd32018ac8",
-                    "path": "<Mouse>/rightButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Hack",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.Interactions;
 using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(CharacterController))]
@@ -147,17 +146,4 @@ public class PlayerMovement : MonoBehaviour
         dashCooldownDone = true;
         currentDashes ++;
     }
-
-    public void Hack(InputAction.CallbackContext context)
-    {
-        var holdInteraction = context.interaction as HoldInteraction;
-        holdInteraction.duration = holdTimer;
-        Debug.Log(holdInteraction.duration);
-
-        if(context.performed)
-        {
-            Debug.Log("hacked");
-        }
-    }
-    
 }
