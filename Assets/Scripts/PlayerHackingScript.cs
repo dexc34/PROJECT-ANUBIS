@@ -26,6 +26,9 @@ public class PlayerHackingScript : MonoBehaviour
     [SerializeField]private float highlightWidth = 7;
 
     [SerializeField] private InputActionReference hackButton;
+    [SerializeField] [Tooltip("Player Camera prefab goes here")] private GameObject cameraPrefab;
+    private Cinemachine.CinemachineBrain mainCameraBrain;
+    private GameObject newCamera;
 
     private GameObject currentlySelectedEnemy = null;
     private Outline selectedEnemiesOutline = null;
@@ -51,6 +54,7 @@ public class PlayerHackingScript : MonoBehaviour
     void Start()
     {
         characterController= GetComponent<CharacterController>();
+        mainCameraBrain = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Cinemachine.CinemachineBrain>();
     }
 
 
@@ -195,9 +199,13 @@ public class PlayerHackingScript : MonoBehaviour
         //controller has to be turned off because it messes up
         //the teleport)
         characterController.enabled= false;
+        StartCoroutine("CameraTransition");
         transform.position = currentlyStoredEnemy.transform.position;
         transform.rotation = currentlyStoredEnemy.transform.rotation;
-        characterController.enabled= true;
+
+        //Parents new camera to the player
+        newCamera.transform.parent = transform;
+        
 
         //turns off the currently stored enemy and makes it the child of the player to be released later
         currentlyStoredEnemy.SetActive(false);
@@ -220,5 +228,26 @@ public class PlayerHackingScript : MonoBehaviour
         Destroy(currentlyHackingEnemy.GetComponent<Outline>());
         currentlyHackingEnemy = null;
         hackingEnemiesOutline= null;
+    }
+
+    private IEnumerator CameraTransition()
+    {
+        //Creates a new camera inside a set point of the hacked enemy
+        GameObject currentCamera  = transform.GetComponentInChildren<Cinemachine.CinemachineVirtualCamera>().gameObject;
+        newCamera = Instantiate(cameraPrefab, currentlyStoredEnemy.transform.Find("Camera Spawn Point").transform.position, currentlyStoredEnemy.transform.Find("Camera Spawn Point").transform.rotation);
+
+        //Unparents both cameras to avoid affecting their positions accidentally
+        currentCamera.transform.parent = null;
+        newCamera.transform.parent = null;
+
+        //Adds 1 to the priority parameter so that it will automatically target the new camera
+        newCamera.GetComponent<Cinemachine.CinemachineVirtualCamera>().Priority = currentCamera.GetComponent<Cinemachine.CinemachineVirtualCamera>().Priority + 1;
+         
+        //Waits until the the transition (or camera blend) is over to continue the code, this parameter should be dynamic in the future
+        yield return new WaitForSeconds(mainCameraBrain.m_DefaultBlend.BlendTime);
+
+        //Returns control to the player, destroys old camera
+        characterController.enabled = true;
+        Destroy(currentCamera);
     }
 }

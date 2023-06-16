@@ -141,4 +141,9 @@ public class PlayerMovement : MonoBehaviour
         dashCooldownDone = true;
         currentDashes ++;
     }
+
+    public void ChangeStats()
+    {
+        Debug.Log("Stats have been updated");
+    }
 }
