@@ -16,7 +16,6 @@ public class EnemyState_RunToCover : IState
     //Must implement or define all methods in IState
     public void OnEnter()
     {
-        //throw new System.NotImplementedException(); <- Use this to define if nothing needs to be filled in
         Cover nextCover = this.coverArea.GetRandomCover(enemyReferences.transform.position);
         enemyReferences.navMeshAgent.SetDestination(nextCover.transform.position);
 
@@ -35,5 +34,10 @@ public class EnemyState_RunToCover : IState
     public Color GizmoColor()
     {
         return Color.blue;
+    }
+
+    public bool HasArrivedAtDestination()
+    {
+        return enemyReferences.navMeshAgent.remainingDistance < 0.1f;
     }
 }

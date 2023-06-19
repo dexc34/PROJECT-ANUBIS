@@ -20,7 +20,11 @@ public class EnemyBrain_Smart : MonoBehaviour
 
         //STATES
         var runToCover = new EnemyState_RunToCover(enemyReferences, coverArea);
+        var delayAfterRun = new EnemyState_Delay(2f);
+        var cover = new EnemyState_Cover(enemyReferences);
         //TRANSITIONS
+        At(runToCover, delayAfterRun, () => runToCover.HasArrivedAtDestination());
+        At(delayAfterRun, cover, () => delayAfterRun.IsDone());
 
         //START STATE
         stateMachine.SetState(runToCover);
