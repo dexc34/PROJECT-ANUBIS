@@ -11493,7 +11493,7 @@ MonoBehaviour:
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
     m_FontSize: 80
-    m_FontStyle: 0
+    m_FontStyle: 3
     m_BestFit: 0
     m_MinSize: 5
     m_MaxSize: 80
@@ -11503,7 +11503,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: New Text
+  m_Text: Ammo display
 --- !u!222 &606518276
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -13683,6 +13683,8 @@ MonoBehaviour:
   totalAmmo: 64
   magazineSize: 16
   bulletsPerBurst: 1
+  bulletSpread:
+  - {x: 0, y: 0}
   bulletPrefab: {fileID: 3831864977455409483, guid: 6e034fb59448c7e49bbe67a93ada9bf0,
     type: 3}
   ammoText: {fileID: 606518275}

@@ -27,7 +27,6 @@ public class BulletSpreadVisualizer : Editor
 		return true;
 	}
 
-
 	public override GUIContent GetPreviewTitle()
 	{
 		return new GUIContent("Bullet Spread Pattern");
@@ -38,15 +37,13 @@ public class BulletSpreadVisualizer : Editor
 		rect = GetCenteredRect(rect);
 
 		// Draw background of the rect we plot points in
-		EditorGUI.DrawRect(rect, new Color(0.8f, 0.8f, 0.8f));
+		EditorGUI.DrawRect(rect, Color.black);
 
 		float dotSize = 5; // size in pixels of the point we draw
 		float halfDotSize = dotSize * 0.5f;
 
-		float viewportSize = 4; // size of our viewport in Units
-		// a value of 10 means we can display any vector from -5,-5 to 5,5 within our rect.
-		// change this value for your needs
-
+        //How big of a dimension the graph shows (4 means it'll show an axis fromm -2 to 2)
+		float viewportSize = 4; 
 
 		for (int i = 0; i < _vectors.arraySize; i++)
 		{
@@ -64,7 +61,7 @@ public class BulletSpreadVisualizer : Editor
 
 			Vector2 pixelPosition = rect.center + rect.size * normalizedPosition;
 
-			EditorGUI.DrawRect(new Rect(pixelPosition.x - halfDotSize, pixelPosition.y - halfDotSize, dotSize, dotSize), Color.blue);
+			EditorGUI.DrawRect(new Rect(pixelPosition.x - halfDotSize, pixelPosition.y - halfDotSize, dotSize, dotSize), Color.red);
 		}
 	}
 }
