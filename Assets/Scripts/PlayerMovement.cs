@@ -36,12 +36,10 @@ public class PlayerMovement : MonoBehaviour
 
     //Required components
     private CharacterController characterController; 
-    private AudioSource funnyBoom; //haha
 
     private void Awake() 
     {
         characterController = GetComponent<CharacterController>();
-        funnyBoom = GetComponent<AudioSource>();
         currentDashes = amountOfDashes;
         move.Enable();
     }
@@ -52,12 +50,6 @@ public class PlayerMovement : MonoBehaviour
         if(transform.position.y < -7)
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        }
-
-        //Plays the haha
-        if(Input.GetMouseButtonDown(0))
-        {
-            funnyBoom.Play();
         }
 
         ApplyGravity();
