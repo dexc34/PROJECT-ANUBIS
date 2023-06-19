@@ -15,6 +15,7 @@ public class Gun : MonoBehaviour
     [SerializeField] [Tooltip ("Total amount of bullets available")] private int totalAmmo;
     [SerializeField] [Tooltip ("How many bullets can be fired before needing to reload")] private int magazineSize;
     [SerializeField] [Tooltip ("How many bullets come out of the gun on shoot")] private int bulletsPerBurst;
+    [SerializeField] [Tooltip ("Array size should match the amount of Bullets Per Burst (0, 0, 0 means it will have no spread)")] private Vector2[] bulletSpread;
     [SerializeField] [Tooltip ("Bullet prefab goes here")] private GameObject bulletPrefab;
 
     [Header ("UI")]
@@ -53,7 +54,7 @@ public class Gun : MonoBehaviour
         //Fire a specified amount of bullets per burst
         for(int i = 0; i < bulletsPerBurst; i++)
         {
-            GameObject bullet = Instantiate(bulletPrefab, virtualCamera.position + virtualCamera.forward, virtualCamera.rotation);
+            GameObject bullet = Instantiate(bulletPrefab, virtualCamera.position + virtualCamera.forward + (virtualCamera.right * bulletSpread[i].x) + (virtualCamera.up * bulletSpread[i].y) , virtualCamera.rotation);
             bullet.GetComponent<Rigidbody>().AddForce(virtualCamera.forward* bulletSpeed, ForceMode.Impulse);
         }
 
