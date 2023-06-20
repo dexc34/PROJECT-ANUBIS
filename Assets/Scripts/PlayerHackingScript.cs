@@ -29,7 +29,7 @@ public class PlayerHackingScript : MonoBehaviour
     [SerializeField] private InputActionReference hackButton;
     [SerializeField] [Tooltip("Player Camera prefab goes here")] private GameObject cameraPrefab;
     //private float cameraTransitionSpeed = 0.5f;
-    //private Cinemachine.CinemachineBrain mainCameraBrain;
+    private Cinemachine.CinemachineBrain mainCameraBrain;
     private GameObject newCamera;
 
     private GameObject currentlySelectedEnemy = null;
