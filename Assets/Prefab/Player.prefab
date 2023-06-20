@@ -142,7 +142,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   highlightColour: {r: 1, g: 0, b: 0, a: 1}
   hackingColour: {r: 0, g: 1, b: 0, a: 1}
+  defaultTetherColour: {r: 1, g: 1, b: 1, a: 1}
+  hackInterruptionColour: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
   highlightWidth: 7
+  tempHackingDurration: 5
+  allowedHackingInterruption: 0.8
   hackButton: {fileID: -2689963866202231070, guid: 5c9ee7bb7d5992a4ca90d1c80b2b9d40,
     type: 3}
   cameraPrefab: {fileID: 2204471446375920961, guid: b3e138ead10845f489c0b036c6e863e9,

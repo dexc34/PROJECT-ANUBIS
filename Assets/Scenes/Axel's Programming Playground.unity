@@ -19468,7 +19468,7 @@ PrefabInstance:
     - target: {fileID: 5597575281648933856, guid: c998471f0194d20408535e85eebc45aa,
         type: 3}
       propertyPath: allowedHackingInterruption
-      value: 2
+      value: 0.8
       objectReference: {fileID: 0}
     - target: {fileID: 5597575281648933859, guid: c998471f0194d20408535e85eebc45aa,
         type: 3}
