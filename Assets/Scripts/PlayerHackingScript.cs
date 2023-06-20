@@ -47,6 +47,9 @@ public class PlayerHackingScript : MonoBehaviour
     private bool hacking = false;
 
 
+    private PlayerMovement playerMovementScript;
+    private Gun gunScript;
+
 
 
     //Built in stuff
@@ -55,6 +58,8 @@ public class PlayerHackingScript : MonoBehaviour
     {
         characterController= GetComponent<CharacterController>();
         mainCameraBrain = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Cinemachine.CinemachineBrain>();
+        playerMovementScript = GetComponent<PlayerMovement>();
+        gunScript = GetComponent<Gun>();
     }
 
 
@@ -199,6 +204,8 @@ public class PlayerHackingScript : MonoBehaviour
         //controller has to be turned off because it messes up
         //the teleport)
         characterController.enabled= false;
+
+
         StartCoroutine("CameraTransition");
         transform.position = currentlyStoredEnemy.transform.position;
         transform.rotation = currentlyStoredEnemy.transform.rotation;
@@ -206,6 +213,9 @@ public class PlayerHackingScript : MonoBehaviour
         //Parents new camera to the player
         newCamera.transform.parent = transform;
         
+        //Update player stats
+        //playerMovementScript.ChangeStats();
+        gunScript.UpdateGunStats(currentlyStoredEnemy.GetComponent<Gun>());
 
         //turns off the currently stored enemy and makes it the child of the player to be released later
         currentlyStoredEnemy.SetActive(false);
