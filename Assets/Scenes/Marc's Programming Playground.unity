@@ -442,6 +442,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 205742830}
+  - component: {fileID: 205742831}
   m_Layer: 0
   m_Name: Covers
   m_TagString: Untagged
@@ -476,6 +477,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &205742831
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 205742829}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb580853705c45543bce8c97e48f444b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &243571420
 GameObject:
   m_ObjectHideFlags: 0
@@ -1918,6 +1931,18 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &1189857827
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1189857819}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91e6082c511b6884db440cf14d13aff3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &1198037457 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2836004475591196973, guid: f432554f564e69242897607d34218939,
@@ -2671,6 +2696,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: PBRCharacter_Stupid
       objectReference: {fileID: 0}
+    - target: {fileID: 2836004475591695743, guid: f432554f564e69242897607d34218939,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f432554f564e69242897607d34218939, type: 3}
 --- !u!1001 &1611202344
@@ -3249,7 +3279,12 @@ PrefabInstance:
     - target: {fileID: 1696014694992928748, guid: 42a47c7f977732e4b9dee82f41a2071c,
         type: 3}
       propertyPath: m_Name
-      value: Robot Kyle
+      value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 1696014694992928748, guid: 42a47c7f977732e4b9dee82f41a2071c,
+        type: 3}
+      propertyPath: m_TagString
+      value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 2437060625171721727, guid: 42a47c7f977732e4b9dee82f41a2071c,
         type: 3}
