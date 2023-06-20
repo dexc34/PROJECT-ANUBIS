@@ -1,3 +1,4 @@
+using Cinemachine;
 using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
@@ -27,7 +28,8 @@ public class PlayerHackingScript : MonoBehaviour
 
     [SerializeField] private InputActionReference hackButton;
     [SerializeField] [Tooltip("Player Camera prefab goes here")] private GameObject cameraPrefab;
-    private Cinemachine.CinemachineBrain mainCameraBrain;
+    //private float cameraTransitionSpeed = 0.5f;
+    //private Cinemachine.CinemachineBrain mainCameraBrain;
     private GameObject newCamera;
 
     private GameObject currentlySelectedEnemy = null;
@@ -217,9 +219,7 @@ public class PlayerHackingScript : MonoBehaviour
         //playerMovementScript.ChangeStats();
         gunScript.UpdateGunStats(currentlyStoredEnemy.GetComponent<Gun>());
 
-        //turns off the currently stored enemy and makes it the child of the player to be released later
-        currentlyStoredEnemy.SetActive(false);
-        currentlyStoredEnemy.transform.parent = transform;
+
 
         ExitHackMode();
     }
@@ -246,9 +246,22 @@ public class PlayerHackingScript : MonoBehaviour
         GameObject currentCamera  = transform.GetComponentInChildren<Cinemachine.CinemachineVirtualCamera>().gameObject;
         newCamera = Instantiate(cameraPrefab, currentlyStoredEnemy.transform.Find("Camera Spawn Point").transform.position, currentlyStoredEnemy.transform.Find("Camera Spawn Point").transform.rotation);
 
+        //does a calculation based on the distance from the player to the enemy to dynamically change the blend time (if you want)
+        //CinemachineBrain mainCameraBrain = Camera.main.GetComponent<CinemachineBrain>();
+        //mainCameraBrain.m_DefaultBlend.m_Time = (Vector3.Distance(transform.position, currentlyStoredEnemy.transform.position) / cameraTransitionSpeed) * Time.deltaTime;
+
+        //gets the camera move script of the cameras and then turns them off (you can't rotate the camera if this is on)
+        CameraMove currentCameraMovementScript = currentCamera.GetComponent<CameraMove>();
+        CameraMove newCameraMovementScript = newCamera.GetComponent<CameraMove>();
+        currentCameraMovementScript.enabled = newCameraMovementScript.enabled = false;
+
         //Unparents both cameras to avoid affecting their positions accidentally
         currentCamera.transform.parent = null;
         newCamera.transform.parent = null;
+
+        //makes the current camera face towards the enemy and then makes the new camera face the same direction
+        currentCamera.transform.LookAt(newCamera.transform.position);
+        newCamera.transform.rotation = Quaternion.Euler(currentCamera.transform.eulerAngles);
 
         //Adds 1 to the priority parameter so that it will automatically target the new camera
         newCamera.GetComponent<Cinemachine.CinemachineVirtualCamera>().Priority = currentCamera.GetComponent<Cinemachine.CinemachineVirtualCamera>().Priority + 1;
@@ -256,8 +269,13 @@ public class PlayerHackingScript : MonoBehaviour
         //Waits until the the transition (or camera blend) is over to continue the code, this parameter should be dynamic in the future
         yield return new WaitForSeconds(mainCameraBrain.m_DefaultBlend.BlendTime);
 
-        //Returns control to the player, destroys old camera
+        //turns off the currently stored enemy and makes it the child of the player to be released later
+        currentlyStoredEnemy.SetActive(false);
+        currentlyStoredEnemy.transform.parent = transform;
+
+        //Returns control to the player, destroys old camera, and turns the camera move script back on
         characterController.enabled = true;
+        newCameraMovementScript.enabled = true;
         Destroy(currentCamera);
     }
 }

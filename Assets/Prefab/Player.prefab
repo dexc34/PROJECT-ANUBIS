@@ -146,9 +146,11 @@ MonoBehaviour:
     type: 3}
   cameraPrefab: {fileID: 2204471446375920961, guid: b3e138ead10845f489c0b036c6e863e9,
     type: 3}
+  cameraTransitionSpeed: 0.5
   ignoredLayer:
     serializedVersion: 2
     m_Bits: 4
+  testObject: {fileID: 0}
 --- !u!114 &5597575281648933855
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -560,7 +562,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 5996910235543822112}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 588a6f79731add041baf2f7578812bad, type: 3}
   m_Name: 
