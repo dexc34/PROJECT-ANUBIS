@@ -119,14 +119,14 @@ MonoBehaviour:
       m_Flags: 8
     m_Flags: 0
   speed: 7
-  jumpHeight: 2.5
-  amountOfJumps: 10
+  jumpHeight: 1.75
+  amountOfJumps: 2
   amountOfDashes: 2
   dashSpeed: 50
   dashDuration: 0.1
   dashCooldown: 1.5
   gravity: -1
-  gravityScale: 4.5
+  gravityScale: 3.5
 --- !u!114 &5597575281648933856
 MonoBehaviour:
   m_ObjectHideFlags: 0
