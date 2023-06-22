@@ -119,7 +119,7 @@ MonoBehaviour:
       m_Action: Move
       m_Flags: 8
     m_Flags: 0
-  speed: 7
+  speed: 9
   jumpHeight: 1.75
   amountOfJumps: 2
   amountOfDashes: 2
