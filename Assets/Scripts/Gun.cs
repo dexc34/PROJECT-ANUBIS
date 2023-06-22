@@ -7,6 +7,8 @@ using UnityEngine.UI;
 public class Gun : MonoBehaviour
 {
     //Editor tools
+    [HideInInspector] public int gunIndex = 0;
+    [HideInInspector] public string[] gunTypeArray = new string[] {"Pistol", "Shotgun", "Assault Rifle", "Rocket Launcher", "Staff"};
     [SerializeField] private bool isEnemy = true;
     [SerializeField] private float bulletSpeed;
     [SerializeField] private float damagePerBullet;
@@ -23,6 +25,7 @@ public class Gun : MonoBehaviour
     [SerializeField] private Text ammoText;
 
     //Script variables
+    private string gunName;
     private int currentAmmo;
     private int currentMagazine;
     private int ammoToDisplay;
@@ -118,6 +121,8 @@ public class Gun : MonoBehaviour
         canFire = true;
 
         //Apply serializable gun stats
+        gunIndex = gunScriptToPullFrom.gunIndex;
+        gunName = gunScriptToPullFrom.gunTypeArray[gunIndex];
         bulletSpeed = gunScriptToPullFrom.bulletSpeed;
         damagePerBullet = gunScriptToPullFrom.damagePerBullet;
         criticalMultiplier = gunScriptToPullFrom.criticalMultiplier;
@@ -136,6 +141,8 @@ public class Gun : MonoBehaviour
 
         if(isEnemy) return;
 
+        Debug.Log(gunName);
+
         //Update UI
         ammoText.text = currentMagazine.ToString() + "/" + ammoToDisplay.ToString();
 
@@ -152,7 +159,7 @@ public class Gun : MonoBehaviour
         //Fire a specified amount of bullets per burst
         for(int i = 0; i < bulletsPerBurst; i++)
         {
-            GameObject bullet = Instantiate(bulletPrefab, virtualCamera.position + virtualCamera.forward + (virtualCamera.right * bulletSpread[i].x) + (virtualCamera.up * bulletSpread[i].y) , virtualCamera.rotation);
+            GameObject bullet = Instantiate(bulletPrefab, virtualCamera.position + (virtualCamera.right * bulletSpread[i].x) + (virtualCamera.up * bulletSpread[i].y) , virtualCamera.rotation);
             bullet.GetComponent<Rigidbody>().AddForce(virtualCamera.forward* bulletSpeed, ForceMode.Impulse);
         }
 

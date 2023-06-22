@@ -19467,6 +19467,11 @@ PrefabInstance:
       objectReference: {fileID: 1369302911}
     - target: {fileID: 5597575281648933856, guid: c998471f0194d20408535e85eebc45aa,
         type: 3}
+      propertyPath: tempHackingDurration
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5597575281648933856, guid: c998471f0194d20408535e85eebc45aa,
+        type: 3}
       propertyPath: allowedHackingInterruption
       value: 0.8
       objectReference: {fileID: 0}
@@ -25930,7 +25935,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh404098
+  m_Name: pb_Mesh30428
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2

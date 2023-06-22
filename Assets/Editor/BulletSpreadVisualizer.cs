@@ -6,6 +6,18 @@ public class BulletSpreadVisualizer : Editor
 {
 	private SerializedProperty _vectors;
 
+	public override void OnInspectorGUI()
+    {
+		Gun gunScript = (Gun) target;
+
+        GUIContent dropdownName = new GUIContent("Gun Type");
+        gunScript.gunIndex = EditorGUILayout.Popup(dropdownName, gunScript.gunIndex, gunScript.gunTypeArray);
+
+		EditorUtility.SetDirty(target);
+
+        base.OnInspectorGUI();
+    }
+
 	private void OnEnable()
 	{
 		_vectors = serializedObject.FindProperty("bulletSpread");
