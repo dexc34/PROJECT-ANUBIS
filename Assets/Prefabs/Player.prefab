@@ -13,12 +13,13 @@ GameObject:
   - component: {fileID: 5597575281648933858}
   - component: {fileID: 5597575281648933856}
   - component: {fileID: 5597575281648933855}
+  - component: {fileID: 2655479027469224854}
   - component: {fileID: 5597575281648933860}
   - component: {fileID: 5597575281648933857}
   - component: {fileID: 724404433219266171}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -166,6 +167,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11c8381413c0c504f8dbe5bafa4437c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gunIndex: 0
+  gunTypeArray:
+  - Pistol
+  - Shotgun
+  - Assault Rifle
+  - Rocket Launcher
+  - Staff
+  secondaryIndex: 0
+  secondaryAbilityArray:
+  - Impact Grenade
+  - Barrage
+  - Wrath of Ra
+  - Closer to the Prey
   isEnemy: 0
   bulletSpeed: 50
   damagePerBullet: 33
@@ -180,6 +194,19 @@ MonoBehaviour:
   bulletPrefab: {fileID: 3831864977455409483, guid: 6e034fb59448c7e49bbe67a93ada9bf0,
     type: 3}
   ammoText: {fileID: 0}
+--- !u!114 &2655479027469224854
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5597575281648933863}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 139e61aeadb740f49a3937e7fe997eb4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  grenadePrefab: {fileID: 0}
 --- !u!114 &5597575281648933860
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -294,6 +321,10 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: e8f50b18-8930-4e42-865b-4ddfcfc64900
     m_ActionName: Combat/Reload[/Keyboard/r]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 1258d91d-7c31-48d5-abff-4d24d054b4f2
+    m_ActionName: Combat/Secondary Ability[/Keyboard/q]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Combat

@@ -10,8 +10,12 @@ public class BulletSpreadVisualizer : Editor
     {
 		Gun gunScript = (Gun) target;
 
-        GUIContent dropdownName = new GUIContent("Gun Type");
-        gunScript.gunIndex = EditorGUILayout.Popup(dropdownName, gunScript.gunIndex, gunScript.gunTypeArray);
+        GUIContent gunDropdownName = new GUIContent("Gun Type");
+        gunScript.gunIndex = EditorGUILayout.Popup(gunDropdownName, gunScript.gunIndex, gunScript.gunTypeArray);
+
+		gunScript.secondaryAbilityArray = new string[] {"ImpactGrenade", "Barrage", "WrathOfRa", "CloserToThePrey"};
+		GUIContent secondaryDropdownName = new GUIContent("Secondary Ability");
+        gunScript.secondaryIndex = EditorGUILayout.Popup(secondaryDropdownName, gunScript.secondaryIndex, gunScript.secondaryAbilityArray);
 
 		EditorUtility.SetDirty(target);
 
