@@ -7,22 +7,65 @@ using UnityEngine.UI;
 public class Gun : MonoBehaviour
 {
     //Editor tools
-    [SerializeField] private bool isEnemy = true;
-    [SerializeField] private float bulletSpeed;
-    [SerializeField] private float damagePerBullet;
-    [SerializeField] [Tooltip ("Damage multiplier when hitting a critical point (eg. headshots)")] private float criticalMultiplier;
-    [SerializeField] [Tooltip ("Meassured in bursts fired per second")] private float fireRate;
-    [SerializeField] [Tooltip ("How long it takes to reload, meassured in seconds")] private float reloadSpeed; 
-    [SerializeField] [Tooltip ("Total amount of bullets available")] private int totalAmmo;
-    [SerializeField] [Tooltip ("How many bullets can be fired before needing to reload")] private int magazineSize;
-    [SerializeField] [Tooltip ("How many bullets come out of the gun on shoot")] private int bulletsPerBurst;
-    [SerializeField] [Tooltip ("Array size should match the amount of Bullets Per Burst (0, 0, 0 means it will have no spread)")] private Vector2[] bulletSpread;
-    [SerializeField] [Tooltip ("Bullet prefab goes here")] private GameObject bulletPrefab;
+    [HideInInspector] 
+    public int gunIndex = 0;
+
+    [HideInInspector] 
+    public string[] gunTypeArray = new string[] {"Pistol", "Shotgun", "Assault Rifle", "Rocket Launcher", "Staff"};
+
+    [HideInInspector] 
+    public int secondaryIndex = 0;
+
+    [HideInInspector] 
+    public string[] secondaryAbilityArray;
+
+    [SerializeField] 
+    private bool isEnemy = true;
+
+    [SerializeField] 
+    private float bulletSpeed;
+
+    [SerializeField] 
+    private float damagePerBullet;
+
+    [SerializeField] 
+    [Tooltip ("Damage multiplier when hitting a critical point (eg. headshots)")] 
+    private float criticalMultiplier;
+
+    [SerializeField] 
+    [Tooltip ("Meassured in bursts fired per second")] 
+    private float fireRate;
+
+    [SerializeField] 
+    [Tooltip ("How long it takes to reload, meassured in seconds")] 
+    private float reloadSpeed; 
+
+    [SerializeField] 
+    [Tooltip ("Total amount of bullets available")] 
+    private int totalAmmo;
+
+    [SerializeField] 
+    [Tooltip ("How many bullets can be fired before needing to reload")] 
+    private int magazineSize;
+
+    [SerializeField] 
+    [Tooltip ("How many bullets come out of the gun on shoot")] 
+    private int bulletsPerBurst;
+
+    [SerializeField] 
+    [Tooltip ("Array size should match the amount of Bullets Per Burst (0, 0, 0 means it will have no spread)")] 
+    private Vector2[] bulletSpread;
+
+    [SerializeField] 
+    [Tooltip ("Bullet prefab goes here")] 
+    private GameObject bulletPrefab;
 
     [Header ("UI")]
     [SerializeField] private Text ammoText;
 
     //Script variables
+    private string gunName;
+    private string secondaryName;
     private int currentAmmo;
     private int currentMagazine;
     private int ammoToDisplay;
@@ -31,9 +74,11 @@ public class Gun : MonoBehaviour
 
     //Required components
     private Transform virtualCamera;   
+    private SecondaryAbility secondaryAbilityScript;
 
     void Start()
     {
+        currentAmmo = totalAmmo;        
         UpdateGunStats(this);
     }
 
@@ -83,12 +128,10 @@ public class Gun : MonoBehaviour
     {
         yield return new WaitForSeconds(shootCooldown);
         canFire = true;
-        Debug.Log("Can shoot");
     }
 
     private IEnumerator Reloading()
     {
-        Debug.Log("Reloading");
         canFire = false;
 
         yield return new WaitForSeconds(reloadSpeed);
@@ -102,7 +145,6 @@ public class Gun : MonoBehaviour
         //If not, magazine size will be the amount of remaining ammo, and your ammo reserve gets set to 0
         else
         {
-            Debug.Log(currentAmmo);
             currentMagazine = currentAmmo;
             ammoToDisplay = 0;
         }
@@ -118,6 +160,10 @@ public class Gun : MonoBehaviour
         canFire = true;
 
         //Apply serializable gun stats
+        gunIndex = gunScriptToPullFrom.gunIndex;
+        gunName = gunScriptToPullFrom.gunTypeArray[gunIndex];
+        secondaryIndex = gunScriptToPullFrom.secondaryIndex;
+        secondaryName = gunScriptToPullFrom.secondaryAbilityArray[secondaryIndex];
         bulletSpeed = gunScriptToPullFrom.bulletSpeed;
         damagePerBullet = gunScriptToPullFrom.damagePerBullet;
         criticalMultiplier = gunScriptToPullFrom.criticalMultiplier;
@@ -129,18 +175,35 @@ public class Gun : MonoBehaviour
         bulletSpread = gunScriptToPullFrom.bulletSpread;
 
         //Apply internally tracked stats
-        currentAmmo = totalAmmo;
-        currentMagazine = magazineSize;
-        ammoToDisplay = totalAmmo - magazineSize;
+        currentAmmo = gunScriptToPullFrom.currentAmmo;
+
+        if(currentAmmo <= gunScriptToPullFrom.magazineSize)
+        {
+            currentMagazine = currentAmmo;
+            ammoToDisplay = 0;            
+        }
+        else
+        {
+            currentMagazine = magazineSize;
+            ammoToDisplay = currentAmmo - magazineSize;
+        }
+
         shootCooldown = 1/fireRate;
 
         if(isEnemy) return;
 
-        //Update UI
-        ammoText.text = currentMagazine.ToString() + "/" + ammoToDisplay.ToString();
+        //Only run if script is on the player
 
         //Update camera
         virtualCamera = GetComponentInChildren<CameraMove>().gameObject.transform;
+
+        //Update secondary ability script
+        secondaryAbilityScript = GetComponent<SecondaryAbility>();
+        secondaryAbilityScript.UpdateSecondary(secondaryName, virtualCamera);
+
+        //Update UI
+        ammoText.text = currentMagazine.ToString() + "/" + ammoToDisplay.ToString();
+
     }
 
     //------------------------------------------------------Enemy functions------------------------------------------------------------------
@@ -152,7 +215,7 @@ public class Gun : MonoBehaviour
         //Fire a specified amount of bullets per burst
         for(int i = 0; i < bulletsPerBurst; i++)
         {
-            GameObject bullet = Instantiate(bulletPrefab, virtualCamera.position + virtualCamera.forward + (virtualCamera.right * bulletSpread[i].x) + (virtualCamera.up * bulletSpread[i].y) , virtualCamera.rotation);
+            GameObject bullet = Instantiate(bulletPrefab, virtualCamera.position + (virtualCamera.right * bulletSpread[i].x) + (virtualCamera.up * bulletSpread[i].y) , virtualCamera.rotation);
             bullet.GetComponent<Rigidbody>().AddForce(virtualCamera.forward* bulletSpeed, ForceMode.Impulse);
         }
 

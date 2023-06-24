@@ -277,6 +277,7 @@ public class PlayerHackingScript : MonoBehaviour
             //sets the enemy back to being it's own parent and turns it back on
             currentlyStoredEnemy.transform.parent = null;
             currentlyStoredEnemy.SetActive(true);
+            currentlyStoredEnemy.GetComponent<Gun>().UpdateGunStats(gunScript);
         }
 
         //stores the currently hacking enemy as a variable
@@ -298,6 +299,7 @@ public class PlayerHackingScript : MonoBehaviour
         
         //Update player stats
         //playerMovementScript.ChangeStats();
+        
         gunScript.UpdateGunStats(currentlyStoredEnemy.GetComponent<Gun>());
 
 

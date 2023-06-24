@@ -13,14 +13,16 @@ public class Bullets : MonoBehaviour
 
     private void OnCollisionEnter(Collision other) 
     {
-        if(other.gameObject.CompareTag("Hackable"))    
+        //Ignore player and other bullets
+        if(other.gameObject.CompareTag("Player") || other.gameObject.CompareTag("Bullet")) return;
+        else if(other.gameObject.CompareTag("Hackable"))    
         {   
             DealDamage();
         }
         else
         {
             Destroy(gameObject);
-        }
+        }   
     }
 
     private void DealDamage()
