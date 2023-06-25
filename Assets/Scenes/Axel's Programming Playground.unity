@@ -44022,6 +44022,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2780351778284197716, guid: a835464392bc19842a1ba087823b53f9,
+        type: 3}
+      propertyPath: damage
+      value: 120
+      objectReference: {fileID: 0}
     - target: {fileID: 2780351778284197719, guid: a835464392bc19842a1ba087823b53f9,
         type: 3}
       propertyPath: m_Name
@@ -44205,7 +44210,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 5ec68b658a31bd04da7d402b4a1ed87a,
+      objectReference: {fileID: 21300000, guid: 2f56c44ec82d44947ad9891c45244a85,
         type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c13b660346b44734c8dea007c304a8ba, type: 3}

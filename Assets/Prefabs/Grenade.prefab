@@ -57,7 +57,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a482fb8ef12d6a54ca0f24fbf0acf107, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 100
+  damage: 120
   explosionRange: 3.32
   explosionForce: 1000
   grenadeThrowForce: 35
