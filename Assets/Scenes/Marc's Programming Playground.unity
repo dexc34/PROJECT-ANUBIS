@@ -755,7 +755,7 @@ PrefabInstance:
     - target: {fileID: 2437060625171721727, guid: 42a47c7f977732e4b9dee82f41a2071c,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 12.1
+      value: 19.57
       objectReference: {fileID: 0}
     - target: {fileID: 2437060625171721727, guid: 42a47c7f977732e4b9dee82f41a2071c,
         type: 3}
@@ -765,7 +765,7 @@ PrefabInstance:
     - target: {fileID: 2437060625171721727, guid: 42a47c7f977732e4b9dee82f41a2071c,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.26
+      value: -19.14
       objectReference: {fileID: 0}
     - target: {fileID: 2437060625171721727, guid: 42a47c7f977732e4b9dee82f41a2071c,
         type: 3}
@@ -1520,6 +1520,7 @@ MonoBehaviour:
   spread: {x: 0.06, y: 0.06, z: 0.06}
   bulletTrail: {fileID: 4353425659832851703, guid: 925d198ef2bdcd54c9bf951c9c5bf20d,
     type: 3}
+  ammo: 30
 --- !u!114 &874919043
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1534,6 +1535,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   navMeshAgent: {fileID: 0}
   animator: {fileID: 0}
+  shooter: {fileID: 0}
   pathUpdateDelay: 0.2
 --- !u!1 &907106255
 GameObject:
@@ -1888,6 +1890,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   navMeshAgent: {fileID: 0}
   animator: {fileID: 0}
+  shooter: {fileID: 0}
   pathUpdateDelay: 0.2
 --- !u!114 &1189857823
 MonoBehaviour:
@@ -1909,6 +1912,7 @@ MonoBehaviour:
   spread: {x: 0.06, y: 0.06, z: 0.06}
   bulletTrail: {fileID: 4353425659832851703, guid: 925d198ef2bdcd54c9bf951c9c5bf20d,
     type: 3}
+  ammo: 6
 --- !u!195 &1189857824
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -2287,6 +2291,7 @@ MonoBehaviour:
   spread: {x: 0.06, y: 0.06, z: 0.06}
   bulletTrail: {fileID: 4353425659832851703, guid: 925d198ef2bdcd54c9bf951c9c5bf20d,
     type: 3}
+  ammo: 30
 --- !u!114 &1290610042
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2301,6 +2306,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   navMeshAgent: {fileID: 0}
   animator: {fileID: 0}
+  shooter: {fileID: 0}
   pathUpdateDelay: 0.2
 --- !u!114 &1290610043
 MonoBehaviour:
@@ -2309,7 +2315,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1290610040}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0f344560deea1114784a09d8f04b568c, type: 3}
   m_Name: 

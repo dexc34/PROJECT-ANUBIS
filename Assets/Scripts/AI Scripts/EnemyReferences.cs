@@ -8,6 +8,7 @@ public class EnemyReferences : MonoBehaviour
 {
     [HideInInspector] public NavMeshAgent navMeshAgent;
     [HideInInspector] public Animator animator;
+    [HideInInspector] public EnemyShooter shooter;
 
     [Header("Stats")]
     //Delays PathUpdate to calculate every 0.2 seconds
@@ -17,6 +18,7 @@ public class EnemyReferences : MonoBehaviour
     {
         navMeshAgent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
+        shooter = GetComponent<EnemyShooter>();
     }
 
   

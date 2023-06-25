@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,11 +6,30 @@ using UnityEngine;
 public class EnemyState_Cover : IState
 {
     private EnemyReferences enemyReferences;
-    private CoverArea coverArea;
+    private StateMachine stateMachine;
 
     public EnemyState_Cover(EnemyReferences enemyReferences)
     {
         this.enemyReferences = enemyReferences;
+
+        stateMachine = new StateMachine();
+
+        //STATES
+        var enemyShoot = new EnemyState_Shoot(enemyReferences);
+        var enemyDelay = new EnemyState_Delay(1f);
+        var enemyReload = new EnemyState_Reload(enemyReferences);
+
+        //TRANSISTIONS
+        At(enemyShoot, enemyReload, () => enemyReferences.shooter.ShouldReload());
+        At(enemyReload, enemyDelay, () => !enemyReferences.shooter.ShouldReload());
+        At(enemyDelay, enemyShoot, () => enemyDelay.IsDone());
+
+        //START STATE
+        stateMachine.SetState(enemyShoot);
+
+        //FUNCTIONS AND CONDITIONS
+        void At(IState from, IState to, Func<bool> condition) => stateMachine.AddTransition(from, to, condition);
+        void Any(IState to, Func<bool> condition) => stateMachine.AddAnyTransition(to, condition);
     }
 
     //Must implement or define all methods in IState
@@ -26,11 +46,11 @@ public class EnemyState_Cover : IState
 
     public void Tick()
     {
-        
+        stateMachine.Tick();
     }
 
     public Color GizmoColor()
     {
-        return Color.grey;
+        return stateMachine.GetGizmoColor();
     }
 }

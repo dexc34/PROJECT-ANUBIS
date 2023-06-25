@@ -19,7 +19,12 @@ public class EnemyShooter : MonoBehaviour
 
     public TrailRenderer bulletTrail;
 
+    public int ammo = 30;
+
     private EnemyReferences enemyReferences;
+
+    private int currentAmmo;
+
 
     void Awake()
     {
@@ -28,6 +33,8 @@ public class EnemyShooter : MonoBehaviour
 
     public void Shoot()
     {
+        if (ShouldReload()) return; //for Smart one
+
         Vector3 direction = GetDirection();
         if(Physics.Raycast(shootPoint.position, direction, out RaycastHit hit, float.MaxValue, layerMask))
         {
@@ -35,7 +42,20 @@ public class EnemyShooter : MonoBehaviour
             //TODO: bad perfomance, replace with object pooling (different video)
             TrailRenderer trail = Instantiate(bulletTrail, gunPoint.position, Quaternion.identity);
             StartCoroutine(SpawnTrail(trail, hit));
+
+            currentAmmo -= 1;
         }
+    }
+
+    public bool ShouldReload()
+    {
+        return currentAmmo <= 0;
+    }
+
+    public void Reload()
+    {
+        Debug.Log("Reloaded");
+        currentAmmo = ammo;
     }
 
     private Vector3 GetDirection()
