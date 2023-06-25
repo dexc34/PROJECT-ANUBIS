@@ -164,6 +164,8 @@ public class Gun : MonoBehaviour
         gunIndex = gunScriptToPullFrom.gunIndex;
         gunName = gunScriptToPullFrom.gunTypeArray[gunIndex];
         secondaryIndex = gunScriptToPullFrom.secondaryIndex;
+        Debug.Log(secondaryIndex);
+        Debug.Log(secondaryAbilityArray.Length + " " + gameObject.name);
         secondaryName = gunScriptToPullFrom.secondaryAbilityArray[secondaryIndex];
         bulletSpeed = gunScriptToPullFrom.bulletSpeed;
         damagePerBullet = gunScriptToPullFrom.damagePerBullet;

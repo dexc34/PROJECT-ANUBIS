@@ -33,7 +33,7 @@ public class PlayerHackingScript : MonoBehaviour
 
     [SerializeField]
     [Tooltip("The temporary value for how long it takes to hack an enemy (change later)")]
-    private float tempHackingDurration = 5f;
+  private float tempHackingDurration = 5f;
 
     [SerializeField]
     [Tooltip("How long a hack can be interrupted for before the hack is canceled")]
