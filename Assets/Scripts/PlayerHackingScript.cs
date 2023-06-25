@@ -299,11 +299,8 @@ public class PlayerHackingScript : MonoBehaviour
         
         //Update player stats
         //playerMovementScript.ChangeStats();
-        
         gunScript.UpdateGunStats(currentlyStoredEnemy.GetComponent<Gun>());
-
-
-
+    
         ExitHackMode();
     }
 

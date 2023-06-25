@@ -22,6 +22,9 @@ public class Gun : MonoBehaviour
     [SerializeField] 
     private bool isEnemy = true;
 
+    [SerializeField]
+    private GameObject weaponModelPrefab;
+
     [SerializeField] 
     private float bulletSpeed;
 
@@ -61,7 +64,16 @@ public class Gun : MonoBehaviour
     private GameObject bulletPrefab;
 
     [Header ("UI")]
-    [SerializeField] private Text ammoText;
+
+    [SerializeField] 
+    private Text ammoText;
+
+    [SerializeField] 
+    [Tooltip ("Must only be specified if this is the player")]
+    private Image crosshairUiElement;
+    [SerializeField] 
+    [Tooltip ("Sprite of the corresponding weapon")]
+    private Sprite crosshair;
 
     //Script variables
     private string gunName;
@@ -165,6 +177,7 @@ public class Gun : MonoBehaviour
         gunName = gunScriptToPullFrom.gunTypeArray[gunIndex];
         secondaryIndex = gunScriptToPullFrom.secondaryIndex;
         secondaryName = gunScriptToPullFrom.secondaryAbilityArray[secondaryIndex];
+        weaponModelPrefab = gunScriptToPullFrom.weaponModelPrefab;
         bulletSpeed = gunScriptToPullFrom.bulletSpeed;
         damagePerBullet = gunScriptToPullFrom.damagePerBullet;
         criticalMultiplier = gunScriptToPullFrom.criticalMultiplier;
@@ -204,7 +217,13 @@ public class Gun : MonoBehaviour
 
         //Update UI
         ammoText.text = currentMagazine.ToString() + "/" + ammoToDisplay.ToString();
+        crosshair = gunScriptToPullFrom.crosshair;
+        crosshairUiElement.sprite = crosshair;
 
+        //Update gun model
+        GameObject weaponHolder = transform.GetComponentInChildren<CameraMove>().gameObject.transform.Find("Weapon Holder").gameObject;
+        GameObject newGun = Instantiate(weaponModelPrefab, weaponHolder.transform.position, weaponHolder.transform.rotation);
+        newGun.transform.parent = weaponHolder.transform;
     }
 
     //------------------------------------------------------Enemy functions------------------------------------------------------------------

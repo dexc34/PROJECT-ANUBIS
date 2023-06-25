@@ -243,7 +243,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh51018
+  m_Name: pb_Mesh500116
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -751,7 +751,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh50950
+  m_Name: pb_Mesh500036
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -976,6 +976,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4450141453088194173, guid: 42a47c7f977732e4b9dee82f41a2071c,
+        type: 3}
+      propertyPath: crosshair
+      value: 
+      objectReference: {fileID: 21300000, guid: 2f56c44ec82d44947ad9891c45244a85,
+        type: 3}
+    - target: {fileID: 4450141453088194173, guid: 42a47c7f977732e4b9dee82f41a2071c,
+        type: 3}
+      propertyPath: weaponModelPrefab
+      value: 
+      objectReference: {fileID: 8917654906818533202, guid: 2f3f987a8e3466b40a163d59acd73771,
+        type: 3}
     - target: {fileID: 4450141453088194173, guid: 42a47c7f977732e4b9dee82f41a2071c,
         type: 3}
       propertyPath: secondaryAbilityArray.Array.size
@@ -3018,7 +3030,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh51302
+  m_Name: pb_Mesh500426
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -3526,7 +3538,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh50722
+  m_Name: pb_Mesh499798
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -3690,7 +3702,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh51406
+  m_Name: pb_Mesh500556
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -6792,7 +6804,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh51440
+  m_Name: pb_Mesh500594
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -8464,7 +8476,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh51034
+  m_Name: pb_Mesh500136
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -9792,7 +9804,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh50584
+  m_Name: pb_Mesh499656
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -10363,6 +10375,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4450141453088194173, guid: 42a47c7f977732e4b9dee82f41a2071c,
         type: 3}
+      propertyPath: crosshair
+      value: 
+      objectReference: {fileID: 21300000, guid: 2f56c44ec82d44947ad9891c45244a85,
+        type: 3}
+    - target: {fileID: 4450141453088194173, guid: 42a47c7f977732e4b9dee82f41a2071c,
+        type: 3}
+      propertyPath: weaponModelPrefab
+      value: 
+      objectReference: {fileID: 8917654906818533202, guid: 2f3f987a8e3466b40a163d59acd73771,
+        type: 3}
+    - target: {fileID: 4450141453088194173, guid: 42a47c7f977732e4b9dee82f41a2071c,
+        type: 3}
       propertyPath: secondaryAbilityArray.Array.size
       value: 4
       objectReference: {fileID: 0}
@@ -10394,7 +10418,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh51242
+  m_Name: pb_Mesh500362
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -10558,7 +10582,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh50706
+  m_Name: pb_Mesh499782
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -11066,7 +11090,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh51284
+  m_Name: pb_Mesh500406
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -11255,7 +11279,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh50824
+  m_Name: pb_Mesh499906
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -11533,7 +11557,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh50810
+  m_Name: pb_Mesh499892
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -11697,7 +11721,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh50676
+  m_Name: pb_Mesh499752
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -13514,6 +13538,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4450141453088194173, guid: 42a47c7f977732e4b9dee82f41a2071c,
         type: 3}
+      propertyPath: crosshair
+      value: 
+      objectReference: {fileID: 21300000, guid: 2f56c44ec82d44947ad9891c45244a85,
+        type: 3}
+    - target: {fileID: 4450141453088194173, guid: 42a47c7f977732e4b9dee82f41a2071c,
+        type: 3}
+      propertyPath: weaponModelPrefab
+      value: 
+      objectReference: {fileID: 8917654906818533202, guid: 2f3f987a8e3466b40a163d59acd73771,
+        type: 3}
+    - target: {fileID: 4450141453088194173, guid: 42a47c7f977732e4b9dee82f41a2071c,
+        type: 3}
       propertyPath: secondaryAbilityArray.Array.size
       value: 4
       objectReference: {fileID: 0}
@@ -13799,6 +13835,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4450141453088194173, guid: 42a47c7f977732e4b9dee82f41a2071c,
         type: 3}
+      propertyPath: crosshair
+      value: 
+      objectReference: {fileID: 21300000, guid: 2f56c44ec82d44947ad9891c45244a85,
+        type: 3}
+    - target: {fileID: 4450141453088194173, guid: 42a47c7f977732e4b9dee82f41a2071c,
+        type: 3}
+      propertyPath: weaponModelPrefab
+      value: 
+      objectReference: {fileID: 8917654906818533202, guid: 2f3f987a8e3466b40a163d59acd73771,
+        type: 3}
+    - target: {fileID: 4450141453088194173, guid: 42a47c7f977732e4b9dee82f41a2071c,
+        type: 3}
       propertyPath: secondaryAbilityArray.Array.size
       value: 4
       objectReference: {fileID: 0}
@@ -13830,7 +13878,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh51340
+  m_Name: pb_Mesh500482
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -14338,7 +14386,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh50630
+  m_Name: pb_Mesh499704
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -14502,7 +14550,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh51048
+  m_Name: pb_Mesh500150
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -14729,6 +14777,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4450141453088194173, guid: 42a47c7f977732e4b9dee82f41a2071c,
         type: 3}
+      propertyPath: crosshair
+      value: 
+      objectReference: {fileID: 21300000, guid: 2f56c44ec82d44947ad9891c45244a85,
+        type: 3}
+    - target: {fileID: 4450141453088194173, guid: 42a47c7f977732e4b9dee82f41a2071c,
+        type: 3}
+      propertyPath: weaponModelPrefab
+      value: 
+      objectReference: {fileID: 8917654906818533202, guid: 2f3f987a8e3466b40a163d59acd73771,
+        type: 3}
+    - target: {fileID: 4450141453088194173, guid: 42a47c7f977732e4b9dee82f41a2071c,
+        type: 3}
       propertyPath: secondaryAbilityArray.Array.size
       value: 4
       objectReference: {fileID: 0}
@@ -14907,6 +14967,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4450141453088194173, guid: 42a47c7f977732e4b9dee82f41a2071c,
         type: 3}
+      propertyPath: crosshair
+      value: 
+      objectReference: {fileID: 21300000, guid: 2f56c44ec82d44947ad9891c45244a85,
+        type: 3}
+    - target: {fileID: 4450141453088194173, guid: 42a47c7f977732e4b9dee82f41a2071c,
+        type: 3}
+      propertyPath: weaponModelPrefab
+      value: 
+      objectReference: {fileID: 8917654906818533202, guid: 2f3f987a8e3466b40a163d59acd73771,
+        type: 3}
+    - target: {fileID: 4450141453088194173, guid: 42a47c7f977732e4b9dee82f41a2071c,
+        type: 3}
       propertyPath: secondaryAbilityArray.Array.size
       value: 4
       objectReference: {fileID: 0}
@@ -14938,7 +15010,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh51422
+  m_Name: pb_Mesh500576
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -15163,6 +15235,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4450141453088194173, guid: 42a47c7f977732e4b9dee82f41a2071c,
+        type: 3}
+      propertyPath: crosshair
+      value: 
+      objectReference: {fileID: 21300000, guid: 2f56c44ec82d44947ad9891c45244a85,
+        type: 3}
+    - target: {fileID: 4450141453088194173, guid: 42a47c7f977732e4b9dee82f41a2071c,
+        type: 3}
+      propertyPath: weaponModelPrefab
+      value: 
+      objectReference: {fileID: 8917654906818533202, guid: 2f3f987a8e3466b40a163d59acd73771,
+        type: 3}
     - target: {fileID: 4450141453088194173, guid: 42a47c7f977732e4b9dee82f41a2071c,
         type: 3}
       propertyPath: secondaryAbilityArray.Array.size
@@ -16424,7 +16508,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh51176
+  m_Name: pb_Mesh500292
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -16588,7 +16672,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh50614
+  m_Name: pb_Mesh499688
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -16815,6 +16899,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4450141453088194173, guid: 42a47c7f977732e4b9dee82f41a2071c,
         type: 3}
+      propertyPath: crosshair
+      value: 
+      objectReference: {fileID: 21300000, guid: 2f56c44ec82d44947ad9891c45244a85,
+        type: 3}
+    - target: {fileID: 4450141453088194173, guid: 42a47c7f977732e4b9dee82f41a2071c,
+        type: 3}
+      propertyPath: weaponModelPrefab
+      value: 
+      objectReference: {fileID: 8917654906818533202, guid: 2f3f987a8e3466b40a163d59acd73771,
+        type: 3}
+    - target: {fileID: 4450141453088194173, guid: 42a47c7f977732e4b9dee82f41a2071c,
+        type: 3}
       propertyPath: secondaryAbilityArray.Array.size
       value: 4
       objectReference: {fileID: 0}
@@ -16897,7 +16993,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh50936
+  m_Name: pb_Mesh500022
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -17061,7 +17157,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh50692
+  m_Name: pb_Mesh499768
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -17219,13 +17315,82 @@ Mesh:
     offset: 0
     size: 0
     path: 
+--- !u!1001 &930244418
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1020332452}
+    m_Modifications:
+    - target: {fileID: 8109310912298503656, guid: 2f3f987a8e3466b40a163d59acd73771,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8109310912298503656, guid: 2f3f987a8e3466b40a163d59acd73771,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8109310912298503656, guid: 2f3f987a8e3466b40a163d59acd73771,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8109310912298503656, guid: 2f3f987a8e3466b40a163d59acd73771,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8109310912298503656, guid: 2f3f987a8e3466b40a163d59acd73771,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8109310912298503656, guid: 2f3f987a8e3466b40a163d59acd73771,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8109310912298503656, guid: 2f3f987a8e3466b40a163d59acd73771,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8109310912298503656, guid: 2f3f987a8e3466b40a163d59acd73771,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8109310912298503656, guid: 2f3f987a8e3466b40a163d59acd73771,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8109310912298503656, guid: 2f3f987a8e3466b40a163d59acd73771,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8109310912298503656, guid: 2f3f987a8e3466b40a163d59acd73771,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8917654906818533202, guid: 2f3f987a8e3466b40a163d59acd73771,
+        type: 3}
+      propertyPath: m_Name
+      value: Pistol
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 2f3f987a8e3466b40a163d59acd73771, type: 3}
 --- !u!43 &942388493
 Mesh:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh50900
+  m_Name: pb_Mesh499984
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -18705,6 +18870,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4450141453088194173, guid: 42a47c7f977732e4b9dee82f41a2071c,
         type: 3}
+      propertyPath: crosshair
+      value: 
+      objectReference: {fileID: 21300000, guid: 2f56c44ec82d44947ad9891c45244a85,
+        type: 3}
+    - target: {fileID: 4450141453088194173, guid: 42a47c7f977732e4b9dee82f41a2071c,
+        type: 3}
+      propertyPath: weaponModelPrefab
+      value: 
+      objectReference: {fileID: 8917654906818533202, guid: 2f3f987a8e3466b40a163d59acd73771,
+        type: 3}
+    - target: {fileID: 4450141453088194173, guid: 42a47c7f977732e4b9dee82f41a2071c,
+        type: 3}
       propertyPath: secondaryAbilityArray.Array.size
       value: 4
       objectReference: {fileID: 0}
@@ -19906,7 +20083,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh50662
+  m_Name: pb_Mesh499738
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -20070,7 +20247,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh51386
+  m_Name: pb_Mesh500532
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -20288,9 +20465,26 @@ PrefabInstance:
       objectReference: {fileID: 606518275}
     - target: {fileID: 5597575281648933855, guid: c998471f0194d20408535e85eebc45aa,
         type: 3}
+      propertyPath: crosshair
+      value: 
+      objectReference: {fileID: 21300000, guid: 2f56c44ec82d44947ad9891c45244a85,
+        type: 3}
+    - target: {fileID: 5597575281648933855, guid: c998471f0194d20408535e85eebc45aa,
+        type: 3}
       propertyPath: secondaryIndex
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5597575281648933855, guid: c998471f0194d20408535e85eebc45aa,
+        type: 3}
+      propertyPath: weaponModelPrefab
+      value: 
+      objectReference: {fileID: 8917654906818533202, guid: 2f3f987a8e3466b40a163d59acd73771,
+        type: 3}
+    - target: {fileID: 5597575281648933855, guid: c998471f0194d20408535e85eebc45aa,
+        type: 3}
+      propertyPath: crosshairUiElement
+      value: 
+      objectReference: {fileID: 1514511796}
     - target: {fileID: 5597575281648933855, guid: c998471f0194d20408535e85eebc45aa,
         type: 3}
       propertyPath: secondaryAbilityArray.Array.data[0]
@@ -20451,9 +20645,20 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6851192344285398118, guid: c998471f0194d20408535e85eebc45aa,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 724404433219266171, guid: c998471f0194d20408535e85eebc45aa, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: c998471f0194d20408535e85eebc45aa, type: 3}
+--- !u!4 &1020332452 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8338807483416736773, guid: c998471f0194d20408535e85eebc45aa,
+    type: 3}
+  m_PrefabInstance: {fileID: 1012584271}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1051285947
 GameObject:
   m_ObjectHideFlags: 0
@@ -22145,6 +22350,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4450141453088194173, guid: 42a47c7f977732e4b9dee82f41a2071c,
         type: 3}
+      propertyPath: crosshair
+      value: 
+      objectReference: {fileID: 21300000, guid: 2f56c44ec82d44947ad9891c45244a85,
+        type: 3}
+    - target: {fileID: 4450141453088194173, guid: 42a47c7f977732e4b9dee82f41a2071c,
+        type: 3}
+      propertyPath: weaponModelPrefab
+      value: 
+      objectReference: {fileID: 8917654906818533202, guid: 2f3f987a8e3466b40a163d59acd73771,
+        type: 3}
+    - target: {fileID: 4450141453088194173, guid: 42a47c7f977732e4b9dee82f41a2071c,
+        type: 3}
       propertyPath: secondaryAbilityArray.Array.size
       value: 4
       objectReference: {fileID: 0}
@@ -22520,7 +22737,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh50738
+  m_Name: pb_Mesh499814
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -26510,7 +26727,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh50648
+  m_Name: pb_Mesh499722
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -26813,7 +27030,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh50966
+  m_Name: pb_Mesh500052
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -26977,7 +27194,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh50860
+  m_Name: pb_Mesh499942
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -27141,7 +27358,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh51002
+  m_Name: pb_Mesh500100
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -27305,7 +27522,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh51088
+  m_Name: pb_Mesh500192
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -28507,7 +28724,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh51256
+  m_Name: pb_Mesh500378
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -28752,7 +28969,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh51368
+  m_Name: pb_Mesh500512
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -30143,6 +30360,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4450141453088194173, guid: 42a47c7f977732e4b9dee82f41a2071c,
         type: 3}
+      propertyPath: crosshair
+      value: 
+      objectReference: {fileID: 21300000, guid: 2f56c44ec82d44947ad9891c45244a85,
+        type: 3}
+    - target: {fileID: 4450141453088194173, guid: 42a47c7f977732e4b9dee82f41a2071c,
+        type: 3}
+      propertyPath: weaponModelPrefab
+      value: 
+      objectReference: {fileID: 8917654906818533202, guid: 2f3f987a8e3466b40a163d59acd73771,
+        type: 3}
+    - target: {fileID: 4450141453088194173, guid: 42a47c7f977732e4b9dee82f41a2071c,
+        type: 3}
       propertyPath: secondaryAbilityArray.Array.size
       value: 4
       objectReference: {fileID: 0}
@@ -30242,7 +30471,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh51156
+  m_Name: pb_Mesh500268
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -30467,6 +30696,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4450141453088194173, guid: 42a47c7f977732e4b9dee82f41a2071c,
+        type: 3}
+      propertyPath: crosshair
+      value: 
+      objectReference: {fileID: 21300000, guid: 2f56c44ec82d44947ad9891c45244a85,
+        type: 3}
+    - target: {fileID: 4450141453088194173, guid: 42a47c7f977732e4b9dee82f41a2071c,
+        type: 3}
+      propertyPath: weaponModelPrefab
+      value: 
+      objectReference: {fileID: 8917654906818533202, guid: 2f3f987a8e3466b40a163d59acd73771,
+        type: 3}
     - target: {fileID: 4450141453088194173, guid: 42a47c7f977732e4b9dee82f41a2071c,
         type: 3}
       propertyPath: secondaryAbilityArray.Array.size
@@ -30827,6 +31068,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4450141453088194173, guid: 42a47c7f977732e4b9dee82f41a2071c,
         type: 3}
+      propertyPath: crosshair
+      value: 
+      objectReference: {fileID: 21300000, guid: 3bef07b66e7a97c4580102cfea4ff112,
+        type: 3}
+    - target: {fileID: 4450141453088194173, guid: 42a47c7f977732e4b9dee82f41a2071c,
+        type: 3}
       propertyPath: totalAmmo
       value: 12
       objectReference: {fileID: 0}
@@ -30855,6 +31102,12 @@ PrefabInstance:
       propertyPath: damagePerBullet
       value: 12
       objectReference: {fileID: 0}
+    - target: {fileID: 4450141453088194173, guid: 42a47c7f977732e4b9dee82f41a2071c,
+        type: 3}
+      propertyPath: weaponModelPrefab
+      value: 
+      objectReference: {fileID: 1813343312999743701, guid: 5df9d016b99c66d488f2b99cae149943,
+        type: 3}
     - target: {fileID: 4450141453088194173, guid: 42a47c7f977732e4b9dee82f41a2071c,
         type: 3}
       propertyPath: criticalMultiplier
@@ -31032,6 +31285,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 42a47c7f977732e4b9dee82f41a2071c, type: 3}
+--- !u!114 &1514511796 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7735973137504335863, guid: c13b660346b44734c8dea007c304a8ba,
+    type: 3}
+  m_PrefabInstance: {fileID: 7735973137149333082}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1532201683
 GameObject:
   m_ObjectHideFlags: 0
@@ -34250,7 +34515,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh50796
+  m_Name: pb_Mesh499878
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -34414,7 +34679,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh51142
+  m_Name: pb_Mesh500252
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -35055,7 +35320,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh51076
+  m_Name: pb_Mesh500180
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -35299,6 +35564,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4450141453088194173, guid: 42a47c7f977732e4b9dee82f41a2071c,
+        type: 3}
+      propertyPath: crosshair
+      value: 
+      objectReference: {fileID: 21300000, guid: 2f56c44ec82d44947ad9891c45244a85,
+        type: 3}
+    - target: {fileID: 4450141453088194173, guid: 42a47c7f977732e4b9dee82f41a2071c,
+        type: 3}
+      propertyPath: weaponModelPrefab
+      value: 
+      objectReference: {fileID: 8917654906818533202, guid: 2f3f987a8e3466b40a163d59acd73771,
+        type: 3}
     - target: {fileID: 4450141453088194173, guid: 42a47c7f977732e4b9dee82f41a2071c,
         type: 3}
       propertyPath: secondaryAbilityArray.Array.size
@@ -40595,7 +40872,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh51324
+  m_Name: pb_Mesh500464
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -41668,7 +41945,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh50886
+  m_Name: pb_Mesh499970
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -41832,7 +42109,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh51228
+  m_Name: pb_Mesh500348
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -42460,7 +42737,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh51062
+  m_Name: pb_Mesh500164
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -43527,7 +43804,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh51128
+  m_Name: pb_Mesh500238
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -43691,7 +43968,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh50758
+  m_Name: pb_Mesh499834
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -44511,7 +44788,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh51270
+  m_Name: pb_Mesh500392
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -44675,7 +44952,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh50988
+  m_Name: pb_Mesh500074
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
