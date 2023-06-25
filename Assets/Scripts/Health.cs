@@ -45,12 +45,11 @@ public class Health : MonoBehaviour
 
     private void EnemyDie()
     {
-        Debug.Log("Killed enemy");
+        Destroy(gameObject);
     }
 
     private void DestroyDestructible()
     {
-        Debug.Log("Destructible has been destroyed");
         destructibleScript.Destroyed();
     }
 }
