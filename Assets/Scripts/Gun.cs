@@ -35,6 +35,10 @@ public class Gun : MonoBehaviour
     [Tooltip ("Damage multiplier when hitting a critical point (eg. headshots)")] 
     private float criticalMultiplier;
 
+    [SerializeField]
+    [Tooltip ("Can the player hold to shoot?")]
+    private bool isAutomatic = false;
+
     [SerializeField] 
     [Tooltip ("Meassured in bursts fired per second")] 
     private float fireRate;
@@ -83,6 +87,7 @@ public class Gun : MonoBehaviour
     private int ammoToDisplay;
     private bool canFire = true;
     private float shootCooldown;
+    private bool isShoothing = false;
 
     //Required components
     private Transform virtualCamera;   
@@ -95,11 +100,41 @@ public class Gun : MonoBehaviour
         UpdateGunStats(this);
     }
 
+    private void Update() 
+    {
+        if(!isShoothing) return;
+        FireBullet();
+    }
+
     //----------------------------------Player Functions-----------------------------------------------------------------------------------
 
     public void Shoot(InputAction.CallbackContext context)
     {
-        if(!canFire || !context.performed) return;
+        if(isAutomatic)
+        {
+            if(context.performed)
+            {
+                isShoothing = true;
+            }
+
+            if(context.canceled)
+            {
+                isShoothing = false;
+            }
+        }
+
+        //If weapon isn't automatic only register input when button is first pressed
+        if(!isAutomatic && context.performed)
+        {
+            FireBullet();
+        }
+
+    }
+
+    private void FireBullet()
+    {
+        if(!canFire) return;
+        
         canFire = false;
         currentAmmo --;
         currentMagazine --;
@@ -111,7 +146,11 @@ public class Gun : MonoBehaviour
         {
             GameObject bullet = Instantiate(bulletPrefab, virtualCamera.position + virtualCamera.forward + (virtualCamera.right * bulletSpread[i].x) + (virtualCamera.up * bulletSpread[i].y) , virtualCamera.rotation);
             bullet.GetComponent<Rigidbody>().AddForce(virtualCamera.forward* bulletSpeed, ForceMode.Impulse);
-            bullet.GetComponent<Bullets>().damage = damagePerBullet;
+            //Does not apply to weapons that don't shoot bullets (eg. rocket launcher)
+            if(bullet.GetComponent<Bullets>() != null)
+            {
+                bullet.GetComponent<Bullets>().damage = damagePerBullet;
+            }
         }
 
         //Render Muzzle Particle
@@ -185,10 +224,12 @@ public class Gun : MonoBehaviour
         bulletSpeed = gunScriptToPullFrom.bulletSpeed;
         damagePerBullet = gunScriptToPullFrom.damagePerBullet;
         criticalMultiplier = gunScriptToPullFrom.criticalMultiplier;
+        isAutomatic = gunScriptToPullFrom.isAutomatic;
         fireRate = gunScriptToPullFrom.fireRate;
         reloadSpeed = gunScriptToPullFrom.reloadSpeed;
         totalAmmo = gunScriptToPullFrom.totalAmmo;
         magazineSize = gunScriptToPullFrom.magazineSize;
+        bulletPrefab = gunScriptToPullFrom.bulletPrefab;
         bulletsPerBurst = gunScriptToPullFrom.bulletsPerBurst;
         bulletSpread = gunScriptToPullFrom.bulletSpread;
 
