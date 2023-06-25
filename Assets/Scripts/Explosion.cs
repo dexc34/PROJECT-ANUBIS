@@ -7,7 +7,7 @@ public class Explosion : MonoBehaviour
     //Editor tools
     [SerializeField]
     [Tooltip ("How much damage should it deal to targets hit")]
-    private float damage;
+    private int damage;
 
     [SerializeField]
     [Tooltip ("How big the explosion radius will be")]
@@ -69,7 +69,7 @@ public class Explosion : MonoBehaviour
         Explode();
     }
 
-    private void Explode()
+    public void Explode()
     {
         if(hasExploded) return;
         hasExploded = true;
@@ -82,7 +82,12 @@ public class Explosion : MonoBehaviour
             if(rb != null)
             {
                 rb.AddExplosionForce(explosionForce, transform.position, explosionRange);
-                //Also deal damage here
+            }
+
+            Health healthToDamage = nearbyObject.GetComponent<Health>();
+            if(healthToDamage != null)
+            {
+                healthToDamage.TakeDamage(damage);
             }
         }
 
