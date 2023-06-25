@@ -6,6 +6,12 @@ public class Bullets : MonoBehaviour
 {
     [SerializeField] private float destroyTime = 5;
 
+    //Script variables
+    [HideInInspector] public int damage;
+
+    //Required components
+    private Health healthToDamage;
+
     private void Start() 
     {
         StartCoroutine("DestroyTimer");
@@ -15,8 +21,9 @@ public class Bullets : MonoBehaviour
     {
         //Ignore player and other bullets
         if(other.gameObject.CompareTag("Player") || other.gameObject.CompareTag("Bullet")) return;
-        else if(other.gameObject.CompareTag("Hackable"))    
+        else if(other.gameObject.CompareTag("Hackable") || other.gameObject.CompareTag("Destructible"))    
         {   
+            healthToDamage = other.gameObject.GetComponent<Health>();
             DealDamage();
         }
         else
@@ -27,7 +34,7 @@ public class Bullets : MonoBehaviour
 
     private void DealDamage()
     {
-        Debug.Log("Hit enemy");
+        healthToDamage.TakeDamage(damage);
         Destroy(gameObject);
     }
 
