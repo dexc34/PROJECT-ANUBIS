@@ -11,10 +11,12 @@ public class Destructibles : MonoBehaviour
     
     //Required components
     private Explosion explosionScript;
+    private AudioSource audioSource;
 
     private void Start() 
     {
         if(GetComponent<Explosion>() != null) explosionScript = GetComponent<Explosion>();
+        audioSource = GetComponentInChildren<AudioSource>();
     }
 
     public void Destroyed()
@@ -25,5 +27,6 @@ public class Destructibles : MonoBehaviour
     private void BarrelExplode()
     {
         explosionScript.Explode();
+        audioSource.Play();
     }
 }
