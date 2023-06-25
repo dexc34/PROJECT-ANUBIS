@@ -69,7 +69,7 @@ public class Explosion : MonoBehaviour
         Explode();
     }
 
-    public void Explode()
+    private void Explode()
     {
         if(hasExploded) return;
         hasExploded = true;

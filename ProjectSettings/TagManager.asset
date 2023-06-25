@@ -6,7 +6,6 @@ TagManager:
   tags:
   - Hackable
   - Bullet
-  - Destructible
   layers:
   - Default
   - TransparentFX

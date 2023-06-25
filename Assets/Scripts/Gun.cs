@@ -26,7 +26,7 @@ public class Gun : MonoBehaviour
     private float bulletSpeed;
 
     [SerializeField] 
-    private int damagePerBullet;
+    private float damagePerBullet;
 
     [SerializeField] 
     [Tooltip ("Damage multiplier when hitting a critical point (eg. headshots)")] 
@@ -98,7 +98,6 @@ public class Gun : MonoBehaviour
         {
             GameObject bullet = Instantiate(bulletPrefab, virtualCamera.position + virtualCamera.forward + (virtualCamera.right * bulletSpread[i].x) + (virtualCamera.up * bulletSpread[i].y) , virtualCamera.rotation);
             bullet.GetComponent<Rigidbody>().AddForce(virtualCamera.forward* bulletSpeed, ForceMode.Impulse);
-            bullet.GetComponent<Bullets>().damage = damagePerBullet;
         }
 
         //Don't set canFire to true if out of ammo
