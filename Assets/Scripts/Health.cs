@@ -14,6 +14,8 @@ public class Health : MonoBehaviour
     private bool isPlayer = false;
     private bool isEnemy = false;
     private bool isDestructible = false;
+
+    //Required components
     private Destructibles destructibleScript;
 
     private void Start() 
