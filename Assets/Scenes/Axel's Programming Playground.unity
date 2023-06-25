@@ -20476,8 +20476,8 @@ GameObject:
   - component: {fileID: 1059811935}
   - component: {fileID: 1059811934}
   m_Layer: 0
-  m_Name: wwww
-  m_TagString: Untagged
+  m_Name: Explosive Barrel
+  m_TagString: Destructible
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
