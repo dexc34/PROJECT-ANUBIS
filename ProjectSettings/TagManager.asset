@@ -7,6 +7,7 @@ TagManager:
   - Hackable
   - Bullet
   - Destructible
+  - Muzzle
   layers:
   - Default
   - TransparentFX
