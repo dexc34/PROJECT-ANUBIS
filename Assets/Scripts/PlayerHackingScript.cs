@@ -1,3 +1,4 @@
+using Cinemachine;
 using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
@@ -10,23 +11,37 @@ public class PlayerHackingScript : MonoBehaviour
 {
     private float raycastDistance = Mathf.Infinity;
 
-    [Header(
-        "The colour enemies \n" +
-        "will be highlighted \n" +
-        "with when the player \n" +
-        "looks at them\n"
-        )]
-    [SerializeField]private Color highlightColour = Color.red;
-    [SerializeField]private Color hackingColour = Color.green;
+    [SerializeField]
+    [Tooltip("The colour enemies will be highlighted when looking at them")]
+    private Color highlightColour = Color.red;
 
-    [Header(
-        "How wide the outline \n" +
-        "will be when the \n" +
-        "player looks at them\n")]
-    [SerializeField]private float highlightWidth = 7;
+    [SerializeField]
+    [Tooltip("The colour enemies will be highlighted when hacking them")] 
+    private Color hackingColour = Color.green;
+
+    [SerializeField]
+    [Tooltip("Default Colour of the tether line that appears when you're hacking an enemy")]
+    private Color defaultTetherColour = Color.white;    
+
+    [SerializeField]
+    [Tooltip("Colour that things turn when the line of sight of a hack is interrupted")]
+    private Color hackInterruptionColour = Color.yellow;
+
+    [SerializeField]
+    [Tooltip("How wide the outline \n" + "will be when the \n" + "player looks at them\n")]
+    private float highlightWidth = 7;
+
+    [SerializeField]
+    [Tooltip("The temporary value for how long it takes to hack an enemy (change later)")]
+    private float tempHackingDurration = 5;
+
+    [SerializeField]
+    [Tooltip("How long a hack can be interrupted for before the hack is canceled")]
+    private float allowedHackingInterruption = 1;
 
     [SerializeField] private InputActionReference hackButton;
     [SerializeField] [Tooltip("Player Camera prefab goes here")] private GameObject cameraPrefab;
+    //private float cameraTransitionSpeed = 0.5f;
     private Cinemachine.CinemachineBrain mainCameraBrain;
     private GameObject newCamera;
 
@@ -39,13 +54,20 @@ public class PlayerHackingScript : MonoBehaviour
     private GameObject currentlyStoredEnemy = null;
 
     private CharacterController characterController;
+    private LineRenderer lineRenderer;
 
     [SerializeField] private LayerMask ignoredLayer;
 
     private float hackingTimer = -1000;
+    private float hackingInterruptionTimer = -1000;
+    
 
     private bool hacking = false;
+    private bool hackInterrupted = false;
 
+
+    private PlayerMovement playerMovementScript;
+    private Gun gunScript;
 
 
 
@@ -54,17 +76,34 @@ public class PlayerHackingScript : MonoBehaviour
     void Start()
     {
         characterController= GetComponent<CharacterController>();
+        lineRenderer= GetComponent<LineRenderer>();
         mainCameraBrain = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Cinemachine.CinemachineBrain>();
+        playerMovementScript = GetComponent<PlayerMovement>();
+        gunScript = GetComponent<Gun>();
     }
 
 
     void Update()
     {
+        //sets the first point of the hacking tether line to always be centered on the player
+        lineRenderer.SetPosition(0, transform.position);
+
         if (hacking && hackButton.ToInputAction().WasReleasedThisFrame())
             ExitHackMode();
 
-        if (!hacking)
-            Raycasting();
+        if (hacking)
+        {
+            //sets the second point of the hacking tether line to be at the location of the enemy
+            lineRenderer.SetPosition(1, currentlyHackingEnemy.transform.position + new Vector3(0, 1, 0));
+            HackingTetherCheckRaycast();
+        }
+
+        else if (!hacking)
+        {
+            //sets the second point of the hacking tether line back to the location of the player
+            lineRenderer.SetPosition(1, transform.position);
+            EnemyDetectionRaycast();
+        }
 
         RunTimer();
     }
@@ -76,7 +115,7 @@ public class PlayerHackingScript : MonoBehaviour
 
     //The Raycasting
     //##############################################################################################
-    public void Raycasting()
+    public void EnemyDetectionRaycast()
     {
         //stores the data of the object that has been hit by the raycast
         RaycastHit hit;
@@ -129,7 +168,7 @@ public class PlayerHackingScript : MonoBehaviour
                     hackingEnemiesOutline = currentlyHackingEnemy.GetComponent<Outline>();
                     hackingEnemiesOutline.OutlineColor = hackingColour;
 
-                    StartTimer(1);
+                    StartHackingTimer(tempHackingDurration);
                     hacking= true;
                 }
             }
@@ -153,24 +192,73 @@ public class PlayerHackingScript : MonoBehaviour
 
 
 
+    public void HackingTetherCheckRaycast()
+    {
+        //stores the data of the object that has been hit by the raycast
+        RaycastHit hit;
+
+        //the start and direction of the raycast (the location of the camera and the direction to the enemy)
+        Vector3 raycastStart = transform.position;
+        Vector3 raycastDirection = (currentlyHackingEnemy.transform.position + new Vector3(0, 1, 0) - transform.position);
+
+        if (Physics.Raycast(raycastStart, raycastDirection, out hit, raycastDistance))
+        {
+            if (hit.collider.gameObject == currentlyHackingEnemy)
+            {
+                lineRenderer.startColor = defaultTetherColour;
+                lineRenderer.endColor = lineRenderer.startColor;
+                hackingEnemiesOutline.OutlineColor = hackingColour;
+
+                StartHackInterruptionTimer(allowedHackingInterruption);
+
+                hackInterrupted = false;
+            }
+            else
+            {
+                lineRenderer.startColor = hackInterruptionColour;
+                lineRenderer.endColor = lineRenderer.startColor;
+                hackingEnemiesOutline.OutlineColor = hackInterruptionColour;
+
+                hackInterrupted = true;
+            }
+        }
+    }
+
+
+
+
 
     //Timer Stuff
     //##############################################################################################
-    public void StartTimer(float timerDurration)
+    public void StartHackingTimer(float timerDurration)
     {
         hackingTimer = timerDurration;
+    }
+
+    public void StartHackInterruptionTimer(float timerDurration)
+    {
+        hackingInterruptionTimer = timerDurration;
     }
 
 
     private void RunTimer()
     {
-        if (hackingTimer >0)
+        if (hackingTimer > 0 && !hackInterrupted)
         {
             hackingTimer -= Time.deltaTime;
         }
         else if (hackingTimer < 0.1f && hackingTimer > -0.1f)
         {
             HackEnemy();
+        }
+
+        if (hackingInterruptionTimer > 0)
+        {
+            hackingInterruptionTimer -= Time.deltaTime;
+        }
+        else if (hackingInterruptionTimer < 0.1f && hackingInterruptionTimer > -0.1f)
+        {
+            ExitHackMode();
         }
     }
 
@@ -199,6 +287,8 @@ public class PlayerHackingScript : MonoBehaviour
         //controller has to be turned off because it messes up
         //the teleport)
         characterController.enabled= false;
+
+
         StartCoroutine("CameraTransition");
         transform.position = currentlyStoredEnemy.transform.position;
         transform.rotation = currentlyStoredEnemy.transform.rotation;
@@ -206,10 +296,11 @@ public class PlayerHackingScript : MonoBehaviour
         //Parents new camera to the player
         newCamera.transform.parent = transform;
         
+        //Update player stats
+        //playerMovementScript.ChangeStats();
+        gunScript.UpdateGunStats(currentlyStoredEnemy.GetComponent<Gun>());
 
-        //turns off the currently stored enemy and makes it the child of the player to be released later
-        currentlyStoredEnemy.SetActive(false);
-        currentlyStoredEnemy.transform.parent = transform;
+
 
         ExitHackMode();
     }
@@ -220,7 +311,7 @@ public class PlayerHackingScript : MonoBehaviour
         hacking = false;
 
         //resets the timer to a very low number so that it doesn't do anything (see RunTimer())
-        hackingTimer = -1000;
+        hackingTimer = hackingInterruptionTimer = -1000;
 
         //gets rid of the outline of the enemy and then sets the
         //variables that store the game object and the outline to
@@ -236,9 +327,22 @@ public class PlayerHackingScript : MonoBehaviour
         GameObject currentCamera  = transform.GetComponentInChildren<Cinemachine.CinemachineVirtualCamera>().gameObject;
         newCamera = Instantiate(cameraPrefab, currentlyStoredEnemy.transform.Find("Camera Spawn Point").transform.position, currentlyStoredEnemy.transform.Find("Camera Spawn Point").transform.rotation);
 
+        //does a calculation based on the distance from the player to the enemy to dynamically change the blend time (if you want)
+        //CinemachineBrain mainCameraBrain = Camera.main.GetComponent<CinemachineBrain>();
+        //mainCameraBrain.m_DefaultBlend.m_Time = (Vector3.Distance(transform.position, currentlyStoredEnemy.transform.position) / cameraTransitionSpeed) * Time.deltaTime;
+
+        //gets the camera move script of the cameras and then turns them off (you can't rotate the camera if this is on)
+        CameraMove currentCameraMovementScript = currentCamera.GetComponent<CameraMove>();
+        CameraMove newCameraMovementScript = newCamera.GetComponent<CameraMove>();
+        currentCameraMovementScript.enabled = newCameraMovementScript.enabled = false;
+
         //Unparents both cameras to avoid affecting their positions accidentally
         currentCamera.transform.parent = null;
         newCamera.transform.parent = null;
+
+        //makes the current camera face towards the enemy and then makes the new camera face the same direction
+        currentCamera.transform.LookAt(newCamera.transform.position);
+        newCamera.transform.rotation = Quaternion.Euler(currentCamera.transform.eulerAngles);
 
         //Adds 1 to the priority parameter so that it will automatically target the new camera
         newCamera.GetComponent<Cinemachine.CinemachineVirtualCamera>().Priority = currentCamera.GetComponent<Cinemachine.CinemachineVirtualCamera>().Priority + 1;
@@ -246,8 +350,13 @@ public class PlayerHackingScript : MonoBehaviour
         //Waits until the the transition (or camera blend) is over to continue the code, this parameter should be dynamic in the future
         yield return new WaitForSeconds(mainCameraBrain.m_DefaultBlend.BlendTime);
 
-        //Returns control to the player, destroys old camera
+        //turns off the currently stored enemy and makes it the child of the player to be released later
+        currentlyStoredEnemy.SetActive(false);
+        currentlyStoredEnemy.transform.parent = transform;
+
+        //Returns control to the player, destroys old camera, and turns the camera move script back on
         characterController.enabled = true;
+        newCameraMovementScript.enabled = true;
         Destroy(currentCamera);
     }
 }

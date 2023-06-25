@@ -335,6 +335,7 @@ GameObject:
   - component: {fileID: 5717370821310611589}
   - component: {fileID: 678896483663062080}
   - component: {fileID: 5895470232516386280}
+  - component: {fileID: 4450141453088194173}
   m_Layer: 0
   m_Name: Robot Kyle
   m_TagString: Hackable
@@ -356,6 +357,7 @@ Transform:
   m_Children:
   - {fileID: 2264752303812250938}
   - {fileID: 585007122471594143}
+  - {fileID: 3764364751276419302}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -407,6 +409,32 @@ CapsuleCollider:
   m_Height: 2.14
   m_Direction: 1
   m_Center: {x: 0, y: 0.8816185, z: 0}
+--- !u!114 &4450141453088194173
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1696014694992928748}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 11c8381413c0c504f8dbe5bafa4437c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isEnemy: 1
+  bulletSpeed: 50
+  damagePerBullet: 33
+  criticalMultiplier: 2
+  fireRate: 6.75
+  reloadSpeed: 1.5
+  totalAmmo: 64
+  magazineSize: 16
+  bulletsPerBurst: 1
+  bulletSpread:
+  - {x: 0, y: 0}
+  bulletPrefab: {fileID: 3831864977455409483, guid: 6e034fb59448c7e49bbe67a93ada9bf0,
+    type: 3}
+  ammoText: {fileID: 0}
 --- !u!1 &1759838451836578093
 GameObject:
   m_ObjectHideFlags: 0
@@ -1236,6 +1264,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 822338351733445234}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &6024006536718915870
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3764364751276419302}
+  m_Layer: 0
+  m_Name: Camera Spawn Point
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3764364751276419302
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6024006536718915870}
+  m_LocalRotation: {x: -0, y: 0.79329646, z: -0, w: 0.6088357}
+  m_LocalPosition: {x: 0, y: 0.875, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2437060625171721727}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6251745116210726921
 GameObject:

@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class Gun : MonoBehaviour
 {
     //Editor tools
+    [SerializeField] private bool isEnemy = true;
     [SerializeField] private float bulletSpeed;
     [SerializeField] private float damagePerBullet;
     [SerializeField] [Tooltip ("Damage multiplier when hitting a critical point (eg. headshots)")] private float criticalMultiplier;
@@ -33,14 +34,10 @@ public class Gun : MonoBehaviour
 
     void Start()
     {
-        currentAmmo = totalAmmo;
-        currentMagazine = magazineSize;
-        ammoToDisplay = totalAmmo - magazineSize;
-        shootCooldown = 1/fireRate;
-        virtualCamera = GetComponentInChildren<CameraMove>().gameObject.transform;
-
-        ammoText.text = currentMagazine.ToString() + "/" + ammoToDisplay.ToString();
+        UpdateGunStats(this);
     }
+
+    //----------------------------------Player Functions-----------------------------------------------------------------------------------
 
     public void Shoot(InputAction.CallbackContext context)
     {
@@ -115,8 +112,75 @@ public class Gun : MonoBehaviour
 
 
     //Used when hacking a new body, update gun stats to match the enemy's gun
-    public void UpdateGunStats()
+    public void UpdateGunStats(Gun gunScriptToPullFrom)
     {
+        //Make sure player can fire again if last body they hacked ran out of bullets
+        canFire = true;
 
+        //Apply serializable gun stats
+        bulletSpeed = gunScriptToPullFrom.bulletSpeed;
+        damagePerBullet = gunScriptToPullFrom.damagePerBullet;
+        criticalMultiplier = gunScriptToPullFrom.criticalMultiplier;
+        fireRate = gunScriptToPullFrom.fireRate;
+        reloadSpeed = gunScriptToPullFrom.reloadSpeed;
+        totalAmmo = gunScriptToPullFrom.totalAmmo;
+        magazineSize = gunScriptToPullFrom.magazineSize;
+        bulletsPerBurst = gunScriptToPullFrom.bulletsPerBurst;
+        bulletSpread = gunScriptToPullFrom.bulletSpread;
+
+        //Apply internally tracked stats
+        currentAmmo = totalAmmo;
+        currentMagazine = magazineSize;
+        ammoToDisplay = totalAmmo - magazineSize;
+        shootCooldown = 1/fireRate;
+
+        if(isEnemy) return;
+
+        //Update UI
+        ammoText.text = currentMagazine.ToString() + "/" + ammoToDisplay.ToString();
+
+        //Update camera
+        virtualCamera = GetComponentInChildren<CameraMove>().gameObject.transform;
+    }
+
+    //------------------------------------------------------Enemy functions------------------------------------------------------------------
+    public void EnemyShoot()
+    {
+        canFire = false;
+        currentMagazine --;
+
+        //Fire a specified amount of bullets per burst
+        for(int i = 0; i < bulletsPerBurst; i++)
+        {
+            GameObject bullet = Instantiate(bulletPrefab, virtualCamera.position + virtualCamera.forward + (virtualCamera.right * bulletSpread[i].x) + (virtualCamera.up * bulletSpread[i].y) , virtualCamera.rotation);
+            bullet.GetComponent<Rigidbody>().AddForce(virtualCamera.forward* bulletSpeed, ForceMode.Impulse);
+        }
+
+        //Reload if necessary
+        if(currentMagazine <= 0)
+        {
+            StartCoroutine("EnemyReload");
+        }
+        //If not necessary wait for the shoot cooldown
+        else
+        {
+            StartCoroutine("EnemyShootCooldown");
+        }
+    }
+
+    public IEnumerator EnemyReload()
+    {
+        canFire = false;
+
+        yield return new WaitForSeconds(reloadSpeed);
+
+        currentMagazine = magazineSize;
+        canFire = true;
+    }
+
+    public IEnumerator EnemyShootCooldown()
+    {
+        yield return new WaitForSeconds(shootCooldown);
+        canFire = true;
     }
 }

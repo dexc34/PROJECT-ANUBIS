@@ -15,8 +15,8 @@ public class CameraMove : MonoBehaviour
         playerBody = GameObject.Find("Player");   
 
         //Hides and locks cursor to the centre of the screen
-        Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
         cameraMove.Enable();
     }
 
