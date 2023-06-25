@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1813343312999455989}
   - component: {fileID: 1813343313009275671}
   - component: {fileID: 7916405924435883143}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Shotgun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 1813343312999455991}
   - component: {fileID: 1813343312998685911}
   - component: {fileID: 1813343312997555735}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: default
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -178,7 +178,7 @@ GameObject:
   - component: {fileID: 2085419386251029409}
   - component: {fileID: 3417999775762605314}
   - component: {fileID: 6338199203088698980}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Muzzle
   m_TagString: Muzzle
   m_Icon: {fileID: 0}
@@ -192,15 +192,15 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8378060597034514865}
-  m_LocalRotation: {x: 0.027092757, y: 0.6407437, z: -0.1068838, w: -0.7597956}
-  m_LocalPosition: {x: -5.21, y: 0.66, z: -0.08}
-  m_LocalScale: {x: 4, y: 4, z: 4}
+  m_LocalRotation: {x: 0.016494714, y: 0.6877772, z: -0.11149481, w: -0.7171188}
+  m_LocalPosition: {x: -5.18178, y: 0.6619469, z: -0.088253975}
+  m_LocalScale: {x: 1.84332, y: 1.84332, z: 1.84332}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3717365169989874850}
   m_Father: {fileID: 1813343312999455991}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 5.497, y: 280.268, z: 11.423}
+  m_LocalEulerAnglesHint: {x: 7.453, y: 273.086, z: 10.612}
 --- !u!198 &3417999775762605314
 ParticleSystem:
   m_ObjectHideFlags: 0
@@ -453,7 +453,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.09
+      scalar: 0.08
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -4990,6 +4990,14 @@ PrefabInstance:
     - target: {fileID: 1743301284569550, guid: ad2ab49d0a2a17148bd51c93d977bdbc, type: 3}
       propertyPath: m_Name
       value: MuzzleFlash01
+      objectReference: {fileID: 0}
+    - target: {fileID: 1743301284569550, guid: ad2ab49d0a2a17148bd51c93d977bdbc, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1992675705445476, guid: ad2ab49d0a2a17148bd51c93d977bdbc, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 4300533007854612, guid: ad2ab49d0a2a17148bd51c93d977bdbc, type: 3}
       propertyPath: m_RootOrder
