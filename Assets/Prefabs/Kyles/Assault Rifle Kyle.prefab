@@ -69511,21 +69511,25 @@ MonoBehaviour:
   weaponModelPrefab: {fileID: 849714941369525241, guid: ec620fe8aff1dd247ac76d1785cc10d1,
     type: 3}
   bulletSpeed: 50
-  damagePerBullet: 22
+  damagePerBullet: 36
   criticalMultiplier: 1.5
   isAutomatic: 1
   fireRate: 7.5
-  reloadSpeed: 3
-  totalAmmo: 50
-  magazineSize: 25
+  reloadSpeed: 1.5
+  totalAmmo: 60
+  magazineSize: 30
   bulletsPerBurst: 1
   bulletSpread:
   - {x: 0, y: 0}
   bulletPrefab: {fileID: 3831864977455409483, guid: 6e034fb59448c7e49bbe67a93ada9bf0,
     type: 3}
-  ammoText: {fileID: 0}
+  currentAmmoText: {fileID: 0}
+  reserveAmmoText: {fileID: 0}
+  fireModeText: {fileID: 0}
+  fireModeString: AUTO
   crosshairUiElement: {fileID: 0}
   crosshair: {fileID: 21300000, guid: 2f56c44ec82d44947ad9891c45244a85, type: 3}
+  viewModelScript: {fileID: 0}
   muzzleParticle: {fileID: 0}
 --- !u!114 &8431300590533056453
 MonoBehaviour:
@@ -69539,7 +69543,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0060248ca0c11cc41ae2a41f0e505b29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 100
+  maxHealth: 150
 --- !u!1 &7395916715319614952
 GameObject:
   m_ObjectHideFlags: 0

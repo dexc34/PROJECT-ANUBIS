@@ -604,7 +604,7 @@ MonoBehaviour:
   isAutomatic: 0
   fireRate: 1.1
   reloadSpeed: 0.5
-  totalAmmo: 12
+  totalAmmo: 18
   magazineSize: 6
   bulletsPerBurst: 15
   bulletSpread:
