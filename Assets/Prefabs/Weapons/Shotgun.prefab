@@ -75,6 +75,7 @@ MonoBehaviour:
     m_Interactions: 
     m_SingletonActionBindings: []
     m_Flags: 0
+  recoilShake: {fileID: 0}
   gunPos: {x: 0, y: 0, z: 0}
   gunRot: {x: 0, y: 0, z: 0, w: 0}
   step: 0.01
@@ -96,6 +97,9 @@ MonoBehaviour:
   kickBackZ: 0.3
   snap: 30
   returnAmount: 25
+  shakeHeightScale: 0.65
+  shakeXScale: 1
+  shakeYScale: 1
 --- !u!1 &1813343312999743703
 GameObject:
   m_ObjectHideFlags: 0

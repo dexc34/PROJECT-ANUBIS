@@ -136,7 +136,9 @@ public class WeaponViewmodelAnimations : MonoBehaviour
     public float returnAmount;
 
     [Header("Shake Values")]
-    [SerializeField] float magnitude = 2f;
+    [SerializeField] float magnitude = 0.25f;
+    [SerializeField] float shakeXScale = 1f;
+    [SerializeField] float shakeYScale = 1f;
     float shakeNoiseX;
     float shakeNoiseY;
     float shakeNoiseZ;
@@ -160,14 +162,13 @@ public class WeaponViewmodelAnimations : MonoBehaviour
 
     void RecoilShake()
     {
-        //shakeNoiseX = ((Mathf.PerlinNoise(0, Time.time) * 2f - 1f) * magnitude);
-        shakeNoiseX = Random.Range(-0.2f, 0.2f);
-        shakeNoiseY = Random.Range(0.1f, 0.2f);
+        shakeNoiseX = magnitude * Mathf.PerlinNoise(Time.time * shakeXScale - 0.5f, 0.0f);
+        shakeNoiseY = magnitude * Mathf.PerlinNoise(0.0f, Time.time * shakeYScale - 0.5f);
+        //shakeNoiseX = Random.Range(-0.2f, 0.2f);
+        //shakeNoiseY = Random.Range(0.1f, 0.2f);
         //shakeNoiseZ = ((Mathf.PerlinNoise(Time.time * 1, 0.0f) - 0.5f) * 2f) * magnitude;
 
         shakeValue = new Vector3(shakeNoiseX, shakeNoiseY, shakeNoiseZ);
-        shakeValue *= magnitude;
-
         recoilShake.ScreenShake(shakeValue);
     }
 
