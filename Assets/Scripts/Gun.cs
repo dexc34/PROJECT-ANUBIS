@@ -92,6 +92,7 @@ public class Gun : MonoBehaviour
     //Required components
     private Transform virtualCamera;   
     private SecondaryAbility secondaryAbilityScript;
+    public ParticleSystem muzzleParticle;
 
     void Start()
     {
@@ -152,6 +153,9 @@ public class Gun : MonoBehaviour
             }
         }
 
+        //Render Muzzle Particle
+        muzzleParticle.Clear();
+        muzzleParticle.Play();
         //Don't set canFire to true if out of ammo
         if(currentAmmo == 0)
         {
@@ -265,6 +269,7 @@ public class Gun : MonoBehaviour
         GameObject weaponHolder = transform.GetComponentInChildren<CameraMove>().gameObject.transform.Find("Weapon Holder").gameObject;
         GameObject newGun = Instantiate(weaponModelPrefab, weaponHolder.transform.position, weaponHolder.transform.rotation);
         newGun.transform.parent = weaponHolder.transform;
+        muzzleParticle = newGun.GetComponentInChildren<ParticleSystem>();
     }
 
     //------------------------------------------------------Enemy functions------------------------------------------------------------------
