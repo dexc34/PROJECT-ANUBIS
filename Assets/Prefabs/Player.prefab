@@ -244,7 +244,10 @@ MonoBehaviour:
   - {x: 0, y: 0}
   bulletPrefab: {fileID: 3831864977455409483, guid: 6e034fb59448c7e49bbe67a93ada9bf0,
     type: 3}
-  ammoText: {fileID: 0}
+  currentAmmoText: {fileID: 0}
+  reserveAmmoText: {fileID: 0}
+  fireModeText: {fileID: 0}
+  fireModeString: SEMI
   crosshairUiElement: {fileID: 0}
   crosshair: {fileID: 0}
   viewModelScript: {fileID: 0}

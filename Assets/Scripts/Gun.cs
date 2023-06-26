@@ -70,7 +70,13 @@ public class Gun : MonoBehaviour
     [Header ("UI")]
 
     [SerializeField] 
-    private Text ammoText;
+    private Text currentAmmoText;
+    [SerializeField]
+    private Text reserveAmmoText;
+    [SerializeField]
+    private Text fireModeText;
+    [SerializeField]
+    private string fireModeString;
 
     [SerializeField] 
     [Tooltip ("Must only be specified if this is the player")]
@@ -140,7 +146,8 @@ public class Gun : MonoBehaviour
         currentAmmo --;
         currentMagazine --;
 
-        ammoText.text = currentMagazine.ToString() + "/" + ammoToDisplay.ToString();
+        currentAmmoText.text = currentMagazine.ToString();
+        reserveAmmoText.text = ammoToDisplay.ToString();
 
         //Puts recoil on viewmodel animation
         viewModelScript.Recoil();
@@ -208,7 +215,8 @@ public class Gun : MonoBehaviour
             currentMagazine = currentAmmo;
             ammoToDisplay = 0;
         }
-        ammoText.text = currentMagazine.ToString() + "/" + ammoToDisplay.ToString();
+        currentAmmoText.text = currentMagazine.ToString();
+        reserveAmmoText.text = ammoToDisplay.ToString();
         canFire = true;
     }
 
@@ -265,7 +273,10 @@ public class Gun : MonoBehaviour
         secondaryAbilityScript.UpdateSecondary(secondaryName, virtualCamera);
 
         //Update UI
-        ammoText.text = currentMagazine.ToString() + "/" + ammoToDisplay.ToString();
+        currentAmmoText.text = currentMagazine.ToString();
+        reserveAmmoText.text = ammoToDisplay.ToString();
+        //sets the string for fire mode 
+        fireModeText.text = gunScriptToPullFrom.fireModeString;
         crosshair = gunScriptToPullFrom.crosshair;
         crosshairUiElement.sprite = crosshair;
 
