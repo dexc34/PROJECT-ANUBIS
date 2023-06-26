@@ -92,6 +92,7 @@ public class Gun : MonoBehaviour
     //Required components
     private Transform virtualCamera;   
     private SecondaryAbility secondaryAbilityScript;
+    public WeaponViewmodelAnimations viewModelScript;
     public ParticleSystem muzzleParticle;
 
     void Start()
@@ -140,6 +141,9 @@ public class Gun : MonoBehaviour
         currentMagazine --;
 
         ammoText.text = currentMagazine.ToString() + "/" + ammoToDisplay.ToString();
+
+        //Puts recoil on viewmodel animation
+        viewModelScript.Recoil();
 
         //Fire a specified amount of bullets per burst
         for(int i = 0; i < bulletsPerBurst; i++)
@@ -269,6 +273,7 @@ public class Gun : MonoBehaviour
         GameObject weaponHolder = transform.GetComponentInChildren<CameraMove>().gameObject.transform.Find("Weapon Holder").gameObject;
         GameObject newGun = Instantiate(weaponModelPrefab, weaponHolder.transform.position, weaponHolder.transform.rotation);
         newGun.transform.parent = weaponHolder.transform;
+        viewModelScript = newGun.GetComponent<WeaponViewmodelAnimations>();
         muzzleParticle = newGun.GetComponentInChildren<ParticleSystem>();
     }
 

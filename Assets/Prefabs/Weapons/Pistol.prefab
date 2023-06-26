@@ -6169,7 +6169,6 @@ GameObject:
   m_Component:
   - component: {fileID: 8109310912298503656}
   - component: {fileID: 119948691790325366}
-  - component: {fileID: 6442067967333645773}
   m_Layer: 6
   m_Name: Pistol
   m_TagString: Untagged
@@ -6225,6 +6224,8 @@ MonoBehaviour:
     m_Interactions: 
     m_SingletonActionBindings: []
     m_Flags: 0
+  gunPos: {x: 0, y: 0, z: 0}
+  gunRot: {x: 0, y: 0, z: 0, w: 0}
   step: 0.1
   maxStepDistance: 0.2
   rotationStep: 4
@@ -6233,21 +6234,17 @@ MonoBehaviour:
   travelLimit: {x: 0.025, y: 0.025, z: 0.025}
   bobLimit: {x: 0.01, y: 0.01, z: 0.01}
   multiplier: {x: 0, y: 0, z: 0}
---- !u!114 &6442067967333645773
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8917654906818533202}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 61637de1ca479684ea3ba6af4e59b96b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  checkDistance: 1
-  newDirection: {x: -100, y: 0, z: 0}
-  time: 1
+  currentRotation: {x: 0, y: 0, z: 0}
+  targetRotation: {x: 0, y: 0, z: 0}
+  targetPosition: {x: 0, y: 0, z: 0}
+  currentPosition: {x: 0, y: 0, z: 0}
+  initialGunPosition: {x: 0, y: 0, z: 0}
+  recoilX: -4
+  recoilY: 2
+  recoilZ: 4
+  kickBackZ: 0.06
+  snap: 30
+  returnAmount: 25
 --- !u!1 &8974783170402523239
 GameObject:
   m_ObjectHideFlags: 0

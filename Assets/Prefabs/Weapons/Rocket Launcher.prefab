@@ -9814,11 +9814,13 @@ MonoBehaviour:
     m_Name: Move
     m_Type: 0
     m_ExpectedControlType: 
-    m_Id: 3318b8b9-954b-408e-a56c-efc7a0a8ab5e
+    m_Id: 2cbec0af-4878-478b-bfec-152fac1ae3a1
     m_Processors: 
     m_Interactions: 
     m_SingletonActionBindings: []
     m_Flags: 0
+  gunPos: {x: 0, y: 0, z: 0}
+  gunRot: {x: 0, y: 0, z: 0, w: 0}
   step: 0.01
   maxStepDistance: 0.06
   rotationStep: 4
@@ -9827,6 +9829,17 @@ MonoBehaviour:
   travelLimit: {x: 0.025, y: 0.025, z: 0.025}
   bobLimit: {x: 0.01, y: 0.01, z: 0.01}
   multiplier: {x: 0, y: 0, z: 0}
+  currentRotation: {x: 0, y: 0, z: 0}
+  targetRotation: {x: 0, y: 0, z: 0}
+  targetPosition: {x: 0, y: 0, z: 0}
+  currentPosition: {x: 0, y: 0, z: 0}
+  initialGunPosition: {x: 0, y: 0, z: 0}
+  recoilX: -6
+  recoilY: 3
+  recoilZ: 6
+  kickBackZ: 0.3
+  snap: 30
+  returnAmount: 25
 --- !u!1 &6204450147163364743
 GameObject:
   m_ObjectHideFlags: 0
