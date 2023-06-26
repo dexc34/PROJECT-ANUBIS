@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.InputSystem;
 using UnityEngine;
-using EZCameraShake;
 
 public class WeaponViewmodelAnimations : MonoBehaviour
 {
