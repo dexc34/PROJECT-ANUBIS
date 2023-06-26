@@ -2,11 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.InputSystem;
 using UnityEngine;
+using EZCameraShake;
 
 public class WeaponViewmodelAnimations : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] private InputAction move;
+    [SerializeField] CameraShake recoilShake;
     private GameObject player;
     private CharacterController characterContoller;
     
@@ -20,6 +22,7 @@ public class WeaponViewmodelAnimations : MonoBehaviour
     {
         player = GameObject.Find("Player");
         characterContoller = player.GetComponent<CharacterController>();
+        recoilShake = player.GetComponent<CameraShake>();
         initialGunPosition = transform.localPosition;
     }
 
@@ -133,8 +136,15 @@ public class WeaponViewmodelAnimations : MonoBehaviour
     //How fast should it return to its original value
     public float returnAmount;
 
+    [Header("Shake Values")]
+    [SerializeField] float magnitude = 2f;
+    float shakeNoiseX;
+    float shakeNoiseY;
+    float shakeNoiseZ;
+    Vector3 shakeValue;
+
     //sets values needed for recoil
-    public void ReturnToCenter()
+    void ReturnToCenter()
     {
         targetRotation = Vector3.Lerp(targetRotation, Vector3.zero, Time.deltaTime * returnAmount);
         currentRotation = Vector3.Slerp(currentRotation, targetRotation, Time.fixedDeltaTime * snap);
@@ -145,10 +155,25 @@ public class WeaponViewmodelAnimations : MonoBehaviour
     {
         targetPosition -= new Vector3(0, 0, kickBackZ);
         targetRotation += new Vector3(recoilX, Random.Range(-recoilY, recoilY), Random.Range(recoilZ, recoilZ));
+        RecoilShake();
+        //CameraShaker.Instance.ShakeOnce(4f, 4f, .1f, .1f);
+    }
+
+    void RecoilShake()
+    {
+        //shakeNoiseX = ((Mathf.PerlinNoise(0, Time.time) * 2f - 1f) * magnitude);
+        shakeNoiseX = Random.Range(-0.2f, 0.2f);
+        shakeNoiseY = Random.Range(0.1f, 0.2f);
+        //shakeNoiseZ = ((Mathf.PerlinNoise(Time.time * 1, 0.0f) - 0.5f) * 2f) * magnitude;
+
+        shakeValue = new Vector3(shakeNoiseX, shakeNoiseY, shakeNoiseZ);
+        shakeValue *= magnitude;
+
+        recoilShake.ScreenShake(shakeValue);
     }
 
     //puts the gun back to its original position
-    public void BackToOriginalPosition()
+    void BackToOriginalPosition()
     {
         targetPosition = Vector3.Lerp(targetPosition, initialGunPosition, Time.deltaTime * returnAmount);
         currentPosition = Vector3.Lerp(currentPosition, targetPosition, Time.fixedDeltaTime * snap);

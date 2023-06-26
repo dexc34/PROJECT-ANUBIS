@@ -69511,13 +69511,13 @@ MonoBehaviour:
   weaponModelPrefab: {fileID: 849714941369525241, guid: ec620fe8aff1dd247ac76d1785cc10d1,
     type: 3}
   bulletSpeed: 50
-  damagePerBullet: 22
+  damagePerBullet: 36
   criticalMultiplier: 1.5
   isAutomatic: 1
   fireRate: 7.5
   reloadSpeed: 3
-  totalAmmo: 50
-  magazineSize: 25
+  totalAmmo: 90
+  magazineSize: 30
   bulletsPerBurst: 1
   bulletSpread:
   - {x: 0, y: 0}
@@ -69526,6 +69526,7 @@ MonoBehaviour:
   ammoText: {fileID: 0}
   crosshairUiElement: {fileID: 0}
   crosshair: {fileID: 21300000, guid: 2f56c44ec82d44947ad9891c45244a85, type: 3}
+  viewModelScript: {fileID: 0}
   muzzleParticle: {fileID: 0}
 --- !u!114 &8431300590533056453
 MonoBehaviour:

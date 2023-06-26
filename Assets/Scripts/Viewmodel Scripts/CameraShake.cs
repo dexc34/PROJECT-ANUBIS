@@ -1,27 +1,33 @@
+using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class CameraShake : MonoBehaviour
 {
-    public IEnumerator Shake(float duration, float magnitude)
+    [Header("References")]
+    [SerializeField] CinemachineImpulseSource screenShake;
+    /*[SerializeField] Camera cam;
+    //[SerializeField] GameObject player;
+
+    [Header("Shake Range")]
+    [Tooltip("Is this shake affected by range? If not, the shake will happen gloablly")]
+    [SerializeField] bool affectedByRange;
+    [SerializeField] float range;
+
+    [Header("Shake Settings")]
+    [SerializeField] float duration = 0.2f;
+
+    //Easily visualize the explosion range in scene view
+    private void OnDrawGizmosSelected()
     {
-        Vector3 originalPos = transform.localPosition;
-
-        float elapsed = 0.0f;
-
-        while(elapsed < duration)
-        {
-            float x = Random.Range(-1f, 1f) * magnitude;
-            float y = Random.Range(-1f, 1f) * magnitude;
-
-            transform.localPosition = new Vector3(x, y, originalPos.z);
-
-            elapsed += Time.deltaTime;
-
-            yield return null;
-        }
-
-        transform.localPosition = originalPos;
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireSphere(transform.position, range);
+    }*/
+    public void ScreenShake(Vector3 mag)
+    {
+        screenShake.GenerateImpulse(mag);
     }
+
 }
+
