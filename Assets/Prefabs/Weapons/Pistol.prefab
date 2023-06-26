@@ -6246,7 +6246,9 @@ MonoBehaviour:
   kickBackZ: 0.06
   snap: 30
   returnAmount: 25
-  magnitude: 0.25
+  magnitude: 0.05
+  shakeXScale: 1
+  shakeYScale: 1
 --- !u!1 &8974783170402523239
 GameObject:
   m_ObjectHideFlags: 0

@@ -5340,6 +5340,7 @@ MonoBehaviour:
     m_Interactions: 
     m_SingletonActionBindings: []
     m_Flags: 0
+  recoilShake: {fileID: 0}
   gunPos: {x: 0, y: 0, z: 0}
   gunRot: {x: 0, y: 0, z: 0, w: 0}
   step: 0.1
@@ -5355,12 +5356,15 @@ MonoBehaviour:
   targetPosition: {x: 0, y: 0, z: 0}
   currentPosition: {x: 0, y: 0, z: 0}
   initialGunPosition: {x: 0, y: 0, z: 0}
-  recoilX: -2
+  recoilX: -4
   recoilY: 2
-  recoilZ: 2
+  recoilZ: 4
   kickBackZ: 0.04
   snap: 30
   returnAmount: 25
+  magnitude: 0.05
+  shakeXScale: 1
+  shakeYScale: 1
 --- !u!1001 &187937645373979549
 PrefabInstance:
   m_ObjectHideFlags: 0
