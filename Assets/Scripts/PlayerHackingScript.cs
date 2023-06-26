@@ -315,7 +315,7 @@ public class PlayerHackingScript : MonoBehaviour
         //gets rid of the outline of the enemy and then sets the
         //variables that store the game object and the outline to
         //nothing
-        Destroy(currentlyHackingEnemy.GetComponent<Outline>());
+        hackingEnemiesOutline.OutlineColor = highlightColour;
         currentlyHackingEnemy = null;
         hackingEnemiesOutline= null;
     }

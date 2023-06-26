@@ -628,6 +628,7 @@ MonoBehaviour:
   ammoText: {fileID: 0}
   crosshairUiElement: {fileID: 0}
   crosshair: {fileID: 21300000, guid: 3bef07b66e7a97c4580102cfea4ff112, type: 3}
+  viewModelScript: {fileID: 0}
   muzzleParticle: {fileID: 0}
 --- !u!114 &1049931721283403697
 MonoBehaviour:
