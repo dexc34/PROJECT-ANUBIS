@@ -69864,7 +69864,7 @@ MonoBehaviour:
   isEnemy: 1
   weaponModelPrefab: {fileID: 5140375815798691381, guid: 2333df652f6b05d43b7ab2074c07cbae,
     type: 3}
-  bulletSpeed: 40
+  bulletSpeed: 500
   damagePerBullet: 86
   criticalMultiplier: 1
   isAutomatic: 0
