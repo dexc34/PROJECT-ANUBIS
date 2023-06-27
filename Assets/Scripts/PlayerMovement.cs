@@ -31,8 +31,8 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 moveDirection; //Makes sure direction is always camera dependent 
     private int currentJumps; // Amount of jumps available to the player at any given time
     public int currentDashes; // Amount of dashes available to the player at any given time
-    private bool dashCooldownDone = true;
-    private bool isDashing = false;
+    public bool dashCooldownDone = true;
+    public bool isDashing = false;
 
     //Required components
     private CharacterController characterController; 
