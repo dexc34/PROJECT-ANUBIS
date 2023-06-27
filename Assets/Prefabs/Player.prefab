@@ -178,6 +178,7 @@ MonoBehaviour:
   dashCooldown: 1.5
   gravity: -1
   gravityScale: 3.5
+  currentDashes: 0
 --- !u!114 &5597575281648933856
 MonoBehaviour:
   m_ObjectHideFlags: 0

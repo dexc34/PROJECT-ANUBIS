@@ -17,10 +17,10 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private int amountOfJumps = 2;
 
     [Header ("Dash Settings")]
-    [SerializeField] private int amountOfDashes = 2;
+    [SerializeField] public int amountOfDashes = 2;
     [SerializeField] [Tooltip ("How fast does the player become while dashing")]private float dashSpeed;
-    [SerializeField] [Tooltip ("How long does the dash go for in seconds")] private float dashDuration;
-    [SerializeField] [Tooltip("How long does the player wait to use the dash again after it's done in seconds")] private float dashCooldown;
+    [SerializeField] [Tooltip ("How long does the dash go for in seconds")] public float dashDuration;
+    [SerializeField] [Tooltip("How long does the player wait to use the dash again after it's done in seconds")] public float dashCooldown;
 
     [Header ("Gravity Settings")]
     [SerializeField] [Tooltip ("-1 to go down, 0 for no gravity, 1 to go up")] [Range (-1, 1)] private int gravity;
@@ -30,7 +30,7 @@ public class PlayerMovement : MonoBehaviour
     private float yVelocity; //Tracks vertical speed
     private Vector3 moveDirection; //Makes sure direction is always camera dependent 
     private int currentJumps; // Amount of jumps available to the player at any given time
-    private int currentDashes; // Amount of dashes available to the player at any given time
+    public int currentDashes; // Amount of dashes available to the player at any given time
     private bool dashCooldownDone = true;
     private bool isDashing = false;
 
