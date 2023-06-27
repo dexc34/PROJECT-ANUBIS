@@ -7,11 +7,9 @@ public class StaminBarValues : MonoBehaviour
     [Header("Reference")]
     [SerializeField] GameObject player;
     [SerializeField] PlayerMovement movementScript;
-    [SerializeField] ProgressBar[] staminaBarsScript;
+    [SerializeField] List<ProgressBar> staminaBars;
     [SerializeField] RectTransform barBounds;
     [SerializeField] Canvas canvas;
-
-    GameObject[] staminaBars;
 
     [Header("Bar to Spawn")]
     [SerializeField] GameObject progressBarTemplate;
@@ -26,20 +24,19 @@ public class StaminBarValues : MonoBehaviour
 
     float totalStaminaBars;
     float currentStaminaBar;
-    float calculatedSizeOfStaminaBar;
+    Vector2 calculatedSizeOfStaminaBar = new Vector2(0, 15);
     Vector3 widthOfEachBar;
 
     private void Awake()
     {
-        //movementScript = player.GetComponent<PlayerMovement>();
-        //totalStaminaBars = movementScript.amountOfDashes;
-        //currentStaminaBar = movementScript.currentDashes;
+        movementScript = player.GetComponent<PlayerMovement>();
+        totalStaminaBars = movementScript.amountOfDashes;
+        currentStaminaBar = movementScript.currentDashes;
 
-        //TEMP
-        totalStaminaBars = 2;
-
+        //gets the starting position for where to spawn the bars
         startPosition = barBounds.transform.position;
 
+        //gets the bounds
         sizeOfBounds.x = barBounds.rect.width;
         sizeOfBounds.y = barBounds.rect.height;
 
@@ -49,24 +46,28 @@ public class StaminBarValues : MonoBehaviour
         CreateBars();
     }
 
+    //creates the bar within the bounds of the reference in the canvas. can be scaled to any amount  
     void CreateBars()
     {
-        //Debug.Log("Create bars");
-        //Instantiate(progressBarTemplate, startPosition + spaceInBetweenBars, transform.localRotation).transform.parent = transform;
-        //Instantiate(progressBarTemplate, startPosition + tempWidth + spaceInBetweenBars, transform.localRotation).transform.parent = transform;
-        calculatedSizeOfStaminaBar = sizeOfBounds.x / totalStaminaBars;
-        widthOfEachBar.x = calculatedSizeOfStaminaBar;
-        for (int i = 0; i <= totalStaminaBars; i++)
+        calculatedSizeOfStaminaBar.x = (sizeOfBounds.x / totalStaminaBars) - (spaceInBetweenBars.x * (totalStaminaBars - 1) / totalStaminaBars);
+        widthOfEachBar.x = calculatedSizeOfStaminaBar.x;
+        for (int i = 0; i < totalStaminaBars; i++)
         {
-            if (i != 0)
-            {
-                staminaBars[i] = Instantiate(progressBarTemplate, startPosition, transform.localRotation);
-            }
-            else
-                staminaBars[i] = Instantiate(progressBarTemplate, startPosition + widthOfEachBar, transform.localRotation);
+            staminaBars.Add (Instantiate(progressBarTemplate, startPosition + (widthOfEachBar * i) + (spaceInBetweenBars * i), transform.localRotation).GetComponent<ProgressBar>());
+            staminaBars[i].transform.SetParent(transform);
             RectTransform barWidth = staminaBars[i].GetComponent<RectTransform>();
-            staminaBars[i].transform.parent = transform;
+            barWidth.sizeDelta = calculatedSizeOfStaminaBar;
+
+            staminaBars[i].maximum = movementScript.dashCooldown;
         }
     }
 
+    void UpdateBars()
+    {
+        if (currentStaminaBar < totalStaminaBars)
+            currentStaminaBar = movementScript.currentDashes + 1;
+        else
+            currentStaminaBar = movementScript.currentDashes;
+
+    }
 }
