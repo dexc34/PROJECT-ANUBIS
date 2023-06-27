@@ -45,13 +45,16 @@ public class StaminBarValues : MonoBehaviour
         Debug.Log("Size of bounds: " + sizeOfBounds);
         Debug.Log("Starting Position for spawn: " + startPosition);
 
+        //TEMP
+        timeElapsed = 1.5f;
+
         CreateBars();
     }
 
     private void Update()
     {
-        //if(readyToUpdate)
-            //UpdateBars();
+        if(!movementScript.dashCooldownDone)
+            UpdateBars();
     }
     //creates the bar within the bounds of the reference in the canvas. can be scaled to any amount  
     void CreateBars()
@@ -65,27 +68,29 @@ public class StaminBarValues : MonoBehaviour
             RectTransform barWidth = staminaBars[i].GetComponent<RectTransform>();
             barWidth.sizeDelta = calculatedSizeOfStaminaBar;
 
+            staminaBars[i].current = movementScript.dashCooldown;
             staminaBars[i].maximum = movementScript.dashCooldown;
         }
-        readyToUpdate = true;
     }
 
     float timeElapsed;
-    /*void UpdateBars()
+    void UpdateBars()
     {
-        if (currentStaminaBar < totalStaminaBars)
+        if (movementScript.currentDashes > 0)
             currentStaminaBar = movementScript.currentDashes;
         else
-            currentStaminaBar = movementScript.currentDashes - 1;
-        if (!movementScript.dashCooldownDone)
+            currentStaminaBar = 0;
+
+        staminaBars[(int)currentStaminaBar].current = timeElapsed;
+
+        if (movementScript.isDashing)
         {
-            timeElapsed = Time.deltaTime;
+            timeElapsed = 0;
         }
-        if (movementScript.dashCooldownDone)
+        if (!movementScript.dashCooldownDone && !movementScript.isDashing)
         {
-            timeElapsed = 0f;
+            timeElapsed += Time.deltaTime;
         }
         Debug.Log(currentStaminaBar);
-        staminaBars[(int)currentStaminaBar].current = timeElapsed;
-    }*/
+    }
 }

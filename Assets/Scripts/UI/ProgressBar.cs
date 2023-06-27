@@ -13,7 +13,7 @@ public class ProgressBar : MonoBehaviour
 
     private void Update()
     {
-        //GetCurrentFill();
+        GetCurrentFill();
     }
 
     
