@@ -21,9 +21,9 @@ public class Bullets : MonoBehaviour
     {
         //Ignore player and other bullets
         if(other.gameObject.CompareTag("Player") || other.gameObject.CompareTag("Bullet")) return;
-        else if(other.gameObject.CompareTag("Hackable") || other.gameObject.CompareTag("Destructible"))    
+        else if(other.gameObject.CompareTag("Hurtbox"))    
         {   
-            healthToDamage = other.gameObject.GetComponent<Health>();
+            healthToDamage = other.gameObject.transform.parent.gameObject.GetComponent<Health>();
             DealDamage();
         }
         else

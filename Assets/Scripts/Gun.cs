@@ -63,6 +63,10 @@ public class Gun : MonoBehaviour
     [Tooltip ("Array size should match the amount of Bullets Per Burst (0, 0, 0 means it will have no spread)")] 
     private Vector2[] bulletSpread;
 
+    [SerializeField]
+    [Tooltip ("How many units the bullet will travel before reaching the specified spread (Higher means more concentrated fire)")]
+    private float zSpread = 5;
+
     [SerializeField] 
     [Tooltip ("Bullet prefab goes here")] 
     private GameObject bulletPrefab;
@@ -156,6 +160,9 @@ public class Gun : MonoBehaviour
         for(int i = 0; i < bulletsPerBurst; i++)
         {
             GameObject bullet = Instantiate(bulletPrefab, virtualCamera.position + virtualCamera.forward + (virtualCamera.right * bulletSpread[i].x) + (virtualCamera.up * bulletSpread[i].y) , virtualCamera.rotation);
+            //GameObject bullet = Instantiate(bulletPrefab, virtualCamera.position, virtualCamera.rotation);
+           // Vector3 bulletFinalDestination = new Vector3(bulletSpread[i].x * virtualCamera, bulletSpread[i].y, zSpread);
+            //float bulletAngle = Vector3.Angle(virtualCamera.forward, bulletFinalDestination);
             bullet.GetComponent<Rigidbody>().AddForce(virtualCamera.forward* bulletSpeed, ForceMode.Impulse);
             //Does not apply to weapons that don't shoot bullets (eg. rocket launcher)
             if(bullet.GetComponent<Bullets>() != null)
@@ -225,6 +232,7 @@ public class Gun : MonoBehaviour
     public void UpdateGunStats(Gun gunScriptToPullFrom)
     {
         //Make sure player can fire again if last body they hacked ran out of bullets
+        isShoothing = false;
         canFire = true;
 
         //Apply serializable gun stats

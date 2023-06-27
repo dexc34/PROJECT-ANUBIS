@@ -32,6 +32,7 @@ public class Health : MonoBehaviour
     public void TakeDamage(int damageTaken)
     {
         currentHealth -= damageTaken;
+        Debug.Log("Take damage");
         if(currentHealth <= 0)
         {
             if(isPlayer) PlayerDie();

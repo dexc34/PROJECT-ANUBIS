@@ -78,16 +78,19 @@ public class Explosion : MonoBehaviour
 
         foreach(Collider nearbyObject in colliders)
         {
-            Rigidbody rb = nearbyObject.GetComponent<Rigidbody>();
-            if(rb != null)
+            if(nearbyObject.gameObject.CompareTag("Hurtbox"))
             {
-                rb.AddExplosionForce(explosionForce, transform.position, explosionRange);
-            }
+                Rigidbody rb = nearbyObject.transform.parent.gameObject.GetComponent<Rigidbody>();
+                if(rb != null)
+                {
+                    rb.AddExplosionForce(explosionForce, transform.position, explosionRange);
+                }
 
-            Health healthToDamage = nearbyObject.GetComponent<Health>();
-            if(healthToDamage != null)
-            {
-                healthToDamage.TakeDamage(damage);
+                Health healthToDamage = nearbyObject.transform.parent.gameObject.GetComponent<Health>();
+                if(healthToDamage != null)
+                {
+                    healthToDamage.TakeDamage(damage);
+                }
             }
         }
 

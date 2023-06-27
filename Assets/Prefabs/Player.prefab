@@ -242,6 +242,7 @@ MonoBehaviour:
   bulletsPerBurst: 1
   bulletSpread:
   - {x: 0, y: 0}
+  zSpread: 5
   bulletPrefab: {fileID: 3831864977455409483, guid: 6e034fb59448c7e49bbe67a93ada9bf0,
     type: 3}
   currentAmmoText: {fileID: 0}
