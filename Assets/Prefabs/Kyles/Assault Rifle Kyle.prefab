@@ -69511,6 +69511,7 @@ MonoBehaviour:
   weaponModelPrefab: {fileID: 1063234480703678022, guid: 5dc97d5562f1c43479d41cf0d18435c9,
     type: 3}
   bulletSpeed: 50
+  bulletLifetime: 5
   damagePerBullet: 36
   criticalMultiplier: 1.5
   isAutomatic: 1
@@ -69522,7 +69523,7 @@ MonoBehaviour:
   bulletSpread:
   - {x: 0, y: 0}
   zSpread: 5
-  bulletPrefab: {fileID: 3831864977455409483, guid: 6e034fb59448c7e49bbe67a93ada9bf0,
+  bulletPrefab: {fileID: 6044169562527316349, guid: 4a1c4de0f1f1e384f957d625d1980b5c,
     type: 3}
   currentAmmoText: {fileID: 0}
   reserveAmmoText: {fileID: 0}

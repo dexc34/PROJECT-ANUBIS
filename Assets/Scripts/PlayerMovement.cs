@@ -36,10 +36,13 @@ public class PlayerMovement : MonoBehaviour
 
     //Required components
     private CharacterController characterController; 
+    private Transform ceilingCheck;
 
     private void Awake() 
     {
         characterController = GetComponent<CharacterController>();
+        ceilingCheck = transform.Find("Ceiling Check");
+        ChangeStats();
         currentDashes = amountOfDashes;
         move.Enable();
     }
@@ -50,6 +53,12 @@ public class PlayerMovement : MonoBehaviour
         if(transform.position.y < -7)
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
+
+        //Remove all upwards momentum when hiting head on ceiling
+        if(Physics.CheckBox(ceilingCheck.position, new Vector3(2,2,2), transform.rotation, 7))
+        {
+            yVelocity = 0;
         }
 
         ApplyGravity();
@@ -68,13 +77,19 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.green;
+        Gizmos.DrawCube(ceilingCheck.position, new Vector3(2, 2, 2));
+    }
+
     private void ApplyGravity()
     {
         if(isDashing) return;
         //No gravity gets applied if grounded
         if (characterController.isGrounded && yVelocity < 0)
         {
-            yVelocity = -1;
+            yVelocity = -0.1f;
         }
         //Apply gravity when not grounded
         else
@@ -136,6 +151,6 @@ public class PlayerMovement : MonoBehaviour
 
     public void ChangeStats()
     {
-        Debug.Log("Stats have been updated");
+        ceilingCheck.position = transform.Find("Player Camera").position;
     }
 }
