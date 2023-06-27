@@ -208,9 +208,15 @@ MonoBehaviour:
   dashSpeed: 50
   dashDuration: 0.1
   dashCooldown: 1.5
+  groundPoundStrength: -8
+  fractionOfMomentumPreserved: 4
+  groundPoundBounceLimit: {x: 2.5, y: 4.5}
   gravity: -1
   gravityScale: 3.5
   currentDashes: 0
+  dashCooldownDone: 1
+  isDashing: 0
+  isGroundPounding: 0
 --- !u!114 &5597575281648933856
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -431,6 +437,10 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 1258d91d-7c31-48d5-abff-4d24d054b4f2
     m_ActionName: Combat/Secondary Ability[/Keyboard/q]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 11cee493-fa93-4834-9a03-4b76837fa5e0
+    m_ActionName: Combat/Ground Pound[/Keyboard/ctrl]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Combat

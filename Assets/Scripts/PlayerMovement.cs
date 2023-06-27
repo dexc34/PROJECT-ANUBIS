@@ -22,6 +22,20 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] [Tooltip ("How long does the dash go for in seconds")] public float dashDuration;
     [SerializeField] [Tooltip("How long does the player wait to use the dash again after it's done in seconds")] public float dashCooldown;
 
+    [Header ("Ground Pound Settings")]
+
+    [SerializeField]
+    [Tooltip ("How strongly the player gets pulled down to the ground")]
+    private float groundPoundStrength;
+
+    [SerializeField]
+    [Tooltip ("How much of the vertical momentum is maintained when bouncing up (distance fell / fractionOfMomentumPreserved)")]
+    private float fractionOfMomentumPreserved;
+
+    [SerializeField]
+    [Tooltip ("Min and maximum height the ground pound bounce will have")]
+    private Vector2 groundPoundBounceLimit;
+
     [Header ("Gravity Settings")]
     [SerializeField] [Tooltip ("-1 to go down, 0 for no gravity, 1 to go up")] [Range (-1, 1)] private int gravity;
     [SerializeField] [Tooltip ("How strong is the gravity")] private float gravityScale;
@@ -33,6 +47,9 @@ public class PlayerMovement : MonoBehaviour
     public int currentDashes; // Amount of dashes available to the player at any given time
     public bool dashCooldownDone = true;
     public bool isDashing = false;
+    public bool isGroundPounding = false;
+    private Vector3 groundPoundStartPosition;
+    private Vector3 groundPoundEndPosition;
 
     //Required components
     private CharacterController characterController; 
@@ -63,11 +80,21 @@ public class PlayerMovement : MonoBehaviour
 
         ApplyGravity();
         ApplyMovement();
-
-        //Restores jumps on landing
-        if(characterController.isGrounded && currentJumps != amountOfJumps)
+        
+        if(characterController.isGrounded)
         {
-            currentJumps = amountOfJumps;
+            //Restores jumps on landing
+            if(currentJumps != amountOfJumps)
+            {
+                currentJumps = amountOfJumps;
+            }
+
+            if(isGroundPounding)
+            {
+                isGroundPounding = false;
+                groundPoundEndPosition = transform.position;
+                GroundPoundBounce();
+            }
         }
 
         //Removes one jump when leaving the ground
@@ -128,10 +155,36 @@ public class PlayerMovement : MonoBehaviour
         yVelocity = 0;
         moveDirection.y = yVelocity;
         isDashing = true;
+        isGroundPounding = false;
 
         yield return new WaitForSeconds(dashDuration);
         isDashing = false;
+        StartCoroutine("RecoverStamina");
+    }
 
+    public void GroundPound(InputAction.CallbackContext context)
+    {
+        if(currentDashes == 0 || !context.performed || isGroundPounding || characterController.isGrounded) return;
+
+        isGroundPounding = true;
+        isDashing = false;
+        currentDashes --;
+        groundPoundStartPosition = transform.position;
+        yVelocity = groundPoundStrength;
+
+        StartCoroutine("RecoverStamina");
+    }
+
+    private void GroundPoundBounce()
+    {
+        float distanceFell = groundPoundStartPosition.y - groundPoundEndPosition.y;
+        float groundPoundBounceStrength = distanceFell/fractionOfMomentumPreserved;
+        groundPoundBounceStrength = Mathf.Clamp(groundPoundBounceStrength, groundPoundBounceLimit.x, groundPoundBounceLimit.y);
+        yVelocity = groundPoundBounceStrength;
+    }
+
+    public IEnumerator RecoverStamina()
+    {
         //Dont start cooldown timer until the previous one is done
         while(!dashCooldownDone) yield return null;
     
