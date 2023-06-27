@@ -28,6 +28,10 @@ public class Gun : MonoBehaviour
     [SerializeField] 
     private float bulletSpeed;
 
+    [SerializeField]
+    [Tooltip ("How long bullets will exist before dissapearing in seconds")]
+    private float bulletLifetime = 5;
+
     [SerializeField] 
     private int damagePerBullet;
 
@@ -64,7 +68,7 @@ public class Gun : MonoBehaviour
     private Vector2[] bulletSpread;
 
     [SerializeField]
-    [Tooltip ("How many units the bullet will travel before reaching the specified spread (Higher means more concentrated fire)")]
+    [Tooltip ("Amount of units it takes for a bullet to reach its spread pattern")]
     private float zSpread = 5;
 
     [SerializeField] 
@@ -159,16 +163,14 @@ public class Gun : MonoBehaviour
         //Fire a specified amount of bullets per burst
         for(int i = 0; i < bulletsPerBurst; i++)
         {
-            //GameObject bullet = Instantiate(bulletPrefab, virtualCamera.position + virtualCamera.forward + (virtualCamera.right * bulletSpread[i].x) + (virtualCamera.up * bulletSpread[i].y) , virtualCamera.rotation);
             GameObject bullet = Instantiate(bulletPrefab, virtualCamera.position + virtualCamera.forward, virtualCamera.rotation);
             Vector3 bulletFinalDestination = (virtualCamera.right * bulletSpread[i].x) + (virtualCamera.up * bulletSpread[i].y) + (virtualCamera.forward * zSpread);
-//            Debug.Log(bulletFinalDestination);
-            float bulletAngle = Vector3.Angle(virtualCamera.forward, bulletFinalDestination);
             bullet.GetComponent<Rigidbody>().AddForce(bulletFinalDestination * bulletSpeed/zSpread, ForceMode.Impulse);
             //Does not apply to weapons that don't shoot bullets (eg. rocket launcher)
             if(bullet.GetComponent<Bullets>() != null)
             {
                 bullet.GetComponent<Bullets>().damage = damagePerBullet;
+                bullet.GetComponent<Bullets>().destroyTime = bulletLifetime;
             }
         }
 
@@ -243,6 +245,7 @@ public class Gun : MonoBehaviour
         secondaryName = gunScriptToPullFrom.secondaryAbilityArray[secondaryIndex];
         weaponModelPrefab = gunScriptToPullFrom.weaponModelPrefab;
         bulletSpeed = gunScriptToPullFrom.bulletSpeed;
+        bulletLifetime = gunScriptToPullFrom.bulletLifetime;
         damagePerBullet = gunScriptToPullFrom.damagePerBullet;
         criticalMultiplier = gunScriptToPullFrom.criticalMultiplier;
         isAutomatic = gunScriptToPullFrom.isAutomatic;
