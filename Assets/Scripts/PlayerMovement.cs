@@ -56,9 +56,9 @@ public class PlayerMovement : MonoBehaviour
         }
 
         //Remove all upwards momentum when hiting head on ceiling
-        if(Physics.CheckBox(ceilingCheck.position, new Vector3(2,2,2), transform.rotation, 7))
+        if(Physics.CheckBox(ceilingCheck.position, new Vector3(.1f, 1, .1f), transform.rotation, 7))
         {
-            yVelocity = 0;
+            yVelocity = -.2f;
         }
 
         ApplyGravity();
@@ -75,12 +75,6 @@ public class PlayerMovement : MonoBehaviour
         {
             currentJumps --;
         }
-    }
-
-    private void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.green;
-        Gizmos.DrawCube(ceilingCheck.position, new Vector3(2, 2, 2));
     }
 
     private void ApplyGravity()
