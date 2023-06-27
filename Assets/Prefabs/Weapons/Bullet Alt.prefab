@@ -17,9 +17,9 @@ GameObject:
   - component: {fileID: 5922434551649737818}
   - component: {fileID: 200718910543681268}
   - component: {fileID: 582878759261665168}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Bullet Alt
-  m_TagString: Untagged
+  m_TagString: Bullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1275,6 +1275,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   destroyTime: 5
+  damage: 0
 --- !u!136 &200718910543681268
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1316,7 +1317,7 @@ GameObject:
   - component: {fileID: 9157366659701375603}
   - component: {fileID: 5484929204738643187}
   - component: {fileID: 8203850970666002607}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Point Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}

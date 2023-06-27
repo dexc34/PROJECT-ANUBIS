@@ -8,19 +8,20 @@ TagManager:
   - Bullet
   - Destructible
   - Muzzle
+  - Hurtbox
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - FriendlyBullet
   - Water
   - UI
   - Viewmodel
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Player
+  - Explosive
+  - EnemyBullet
+  - Enemy
+  - ExplosiveShell
   - 
   - 
   - 
