@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4614028740337147532}
   - component: {fileID: 2752009881584455585}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Clip Projector
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -65,7 +65,7 @@ GameObject:
   - component: {fileID: 724404433219266171}
   - component: {fileID: 3977012010613878763}
   - component: {fileID: 7617674700474056787}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -674,7 +674,7 @@ GameObject:
   - component: {fileID: 5597575282290619444}
   - component: {fileID: 5597575282290619442}
   - component: {fileID: 5597575282290619443}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Capsule
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -765,6 +765,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2204471446375920961, guid: b3e138ead10845f489c0b036c6e863e9,
         type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 2204471446375920961, guid: b3e138ead10845f489c0b036c6e863e9,
+        type: 3}
       propertyPath: m_TagString
       value: Untagged
       objectReference: {fileID: 0}
@@ -822,6 +827,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2204471447130267914, guid: b3e138ead10845f489c0b036c6e863e9,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4901273882460915905, guid: b3e138ead10845f489c0b036c6e863e9,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 5361826615079152974, guid: b3e138ead10845f489c0b036c6e863e9,
         type: 3}

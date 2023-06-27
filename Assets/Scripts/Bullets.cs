@@ -15,19 +15,35 @@ public class Bullets : MonoBehaviour
     private void Start() 
     {
         StartCoroutine("DestroyTimer");
+        StartCoroutine("ActivateCollider");
     }
 
     private void OnCollisionEnter(Collision other) 
     {
         //Ignore player and other bullets
-        if(other.gameObject.CompareTag("Player") || other.gameObject.CompareTag("Bullet")) return;
-        else if(other.gameObject.CompareTag("Hurtbox"))    
+        if(other.gameObject.CompareTag("Hurtbox"))    
         {   
             healthToDamage = other.gameObject.transform.parent.gameObject.GetComponent<Health>();
             DealDamage();
         }
         else
         {
+            if(other.gameObject.CompareTag("Player") || other.gameObject.CompareTag("Bullet")) return;
+            Destroy(gameObject);
+        }   
+    }
+
+    private void OnTriggerEnter(Collider other) 
+    {
+        //Ignore player and other bullets
+        if(other.gameObject.CompareTag("Hurtbox"))    
+        {   
+            healthToDamage = other.gameObject.transform.parent.gameObject.GetComponent<Health>();
+            DealDamage();
+        }
+        else
+        {
+            if(other.gameObject.CompareTag("Player") || other.gameObject.CompareTag("Bullet")) return;
             Destroy(gameObject);
         }   
     }
@@ -43,5 +59,12 @@ public class Bullets : MonoBehaviour
         yield return new WaitForSeconds(destroyTime);
 
         Destroy(gameObject);
+    }
+
+    private IEnumerator ActivateCollider()
+    {
+        yield return new WaitForSeconds(0.1f);
+
+        GetComponent<Collider>().enabled = true;
     }
 }

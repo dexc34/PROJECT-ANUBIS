@@ -159,11 +159,12 @@ public class Gun : MonoBehaviour
         //Fire a specified amount of bullets per burst
         for(int i = 0; i < bulletsPerBurst; i++)
         {
-            GameObject bullet = Instantiate(bulletPrefab, virtualCamera.position + virtualCamera.forward + (virtualCamera.right * bulletSpread[i].x) + (virtualCamera.up * bulletSpread[i].y) , virtualCamera.rotation);
-            //GameObject bullet = Instantiate(bulletPrefab, virtualCamera.position, virtualCamera.rotation);
-           // Vector3 bulletFinalDestination = new Vector3(bulletSpread[i].x * virtualCamera, bulletSpread[i].y, zSpread);
-            //float bulletAngle = Vector3.Angle(virtualCamera.forward, bulletFinalDestination);
-            bullet.GetComponent<Rigidbody>().AddForce(virtualCamera.forward* bulletSpeed, ForceMode.Impulse);
+            //GameObject bullet = Instantiate(bulletPrefab, virtualCamera.position + virtualCamera.forward + (virtualCamera.right * bulletSpread[i].x) + (virtualCamera.up * bulletSpread[i].y) , virtualCamera.rotation);
+            GameObject bullet = Instantiate(bulletPrefab, virtualCamera.position + virtualCamera.forward, virtualCamera.rotation);
+            Vector3 bulletFinalDestination = (virtualCamera.right * bulletSpread[i].x) + (virtualCamera.up * bulletSpread[i].y) + (virtualCamera.forward * zSpread);
+//            Debug.Log(bulletFinalDestination);
+            float bulletAngle = Vector3.Angle(virtualCamera.forward, bulletFinalDestination);
+            bullet.GetComponent<Rigidbody>().AddForce(bulletFinalDestination * bulletSpeed/zSpread, ForceMode.Impulse);
             //Does not apply to weapons that don't shoot bullets (eg. rocket launcher)
             if(bullet.GetComponent<Bullets>() != null)
             {

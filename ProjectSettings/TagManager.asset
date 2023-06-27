@@ -13,15 +13,15 @@ TagManager:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - FriendlyBullet
   - Water
   - UI
   - Viewmodel
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Player
+  - Explosive
+  - EnemyBullet
+  - Enemy
+  - ExplosiveShell
   - 
   - 
   - 

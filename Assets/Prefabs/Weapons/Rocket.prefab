@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 6759843449824830433}
   - component: {fileID: 5897086558239798435}
   - component: {fileID: 1547493724197152224}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Rocket
   m_TagString: Bullet
   m_Icon: {fileID: 0}
@@ -148,7 +148,7 @@ GameObject:
   - component: {fileID: 8983463292937045084}
   - component: {fileID: 9114056256711801256}
   - component: {fileID: 9114768076830323466}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Embers
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4940,7 +4940,7 @@ GameObject:
   - component: {fileID: 8985999883785294994}
   - component: {fileID: 9113929279477391158}
   - component: {fileID: 9114764470495270362}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Shockwave
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9822,7 +9822,7 @@ GameObject:
   - component: {fileID: 8986283671573581350}
   - component: {fileID: 9113750180580233846}
   - component: {fileID: 9115147343519235664}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Lightning
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14704,7 +14704,7 @@ GameObject:
   - component: {fileID: 8983025967476188388}
   - component: {fileID: 9113364692840046410}
   - component: {fileID: 9114998931259462600}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: EnergyExplosion
   m_TagString: Untagged
   m_Icon: {fileID: 0}
