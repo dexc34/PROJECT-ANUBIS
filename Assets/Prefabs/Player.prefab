@@ -46,6 +46,37 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   checkDistance: 1
   newDirection: {x: 15, y: 90, z: 0}
+--- !u!1 &3955804981845631410
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7872510113409285703}
+  m_Layer: 7
+  m_Name: Ceiling Check
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7872510113409285703
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3955804981845631410}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5597575281648933859}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5597575281648933863
 GameObject:
   m_ObjectHideFlags: 0
@@ -87,6 +118,7 @@ Transform:
   - {fileID: 5597575282290619444}
   - {fileID: 5597575282111556190}
   - {fileID: 4614028740337147532}
+  - {fileID: 7872510113409285703}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -233,6 +265,7 @@ MonoBehaviour:
   isEnemy: 0
   weaponModelPrefab: {fileID: 0}
   bulletSpeed: 50
+  bulletLifetime: 5
   damagePerBullet: 33
   criticalMultiplier: 2
   isAutomatic: 0
@@ -244,7 +277,7 @@ MonoBehaviour:
   bulletSpread:
   - {x: 0, y: 0}
   zSpread: 5
-  bulletPrefab: {fileID: 3831864977455409483, guid: 6e034fb59448c7e49bbe67a93ada9bf0,
+  bulletPrefab: {fileID: 6044169562527316349, guid: 4a1c4de0f1f1e384f957d625d1980b5c,
     type: 3}
   currentAmmoText: {fileID: 0}
   reserveAmmoText: {fileID: 0}
