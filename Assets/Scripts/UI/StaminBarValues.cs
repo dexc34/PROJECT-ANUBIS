@@ -19,11 +19,11 @@ public class StaminBarValues : MonoBehaviour
     Vector3 sizeOfBounds;
     Vector3 startPosition;
 
-    Vector3 spaceInBetweenBars = new Vector3(15,0,0);
+    Vector3 spaceInBetweenBars = new Vector3(2,0,0);
     Vector3 tempWidth = new Vector3(200, 0, 0);
 
     float totalStaminaBars;
-    float currentStaminaBar;
+    int currentStaminaBar;
     Vector2 calculatedSizeOfStaminaBar = new Vector2(0, 15);
     Vector3 widthOfEachBar;
 
@@ -55,6 +55,8 @@ public class StaminBarValues : MonoBehaviour
     {
         if(!movementScript.dashCooldownDone)
             UpdateBars();
+        if (movementScript.dashCooldownDone)
+            ResetTimer();
     }
     //creates the bar within the bounds of the reference in the canvas. can be scaled to any amount  
     void CreateBars()
@@ -65,6 +67,7 @@ public class StaminBarValues : MonoBehaviour
         {
             staminaBars.Add (Instantiate(progressBarTemplate, startPosition + (widthOfEachBar * i) + (spaceInBetweenBars * i), transform.localRotation).GetComponent<ProgressBar>());
             staminaBars[i].transform.SetParent(transform);
+            staminaBars[i].color = Color.cyan;
             RectTransform barWidth = staminaBars[i].GetComponent<RectTransform>();
             barWidth.sizeDelta = calculatedSizeOfStaminaBar;
 
@@ -81,16 +84,30 @@ public class StaminBarValues : MonoBehaviour
         else
             currentStaminaBar = 0;
 
-        staminaBars[(int)currentStaminaBar].current = timeElapsed;
-
-        if (movementScript.isDashing)
+        if (currentStaminaBar + 1 < totalStaminaBars)
         {
-            timeElapsed = 0;
+            Debug.Log("Set bar in front to zero");
+            staminaBars[currentStaminaBar + 1].current = 0;
         }
-        if (!movementScript.dashCooldownDone && !movementScript.isDashing)
+
+        if (!movementScript.dashCooldownDone)
         {
+            Debug.Log("add to time");
             timeElapsed += Time.deltaTime;
         }
+        staminaBars[currentStaminaBar].current = timeElapsed;
+        if (timeElapsed >= 1.49f)
+        {
+            staminaBars[currentStaminaBar].color = Color.cyan;
+        }
+        else
+            staminaBars[currentStaminaBar].color = Color.white;
         Debug.Log(currentStaminaBar);
+    }
+
+    void ResetTimer()
+    {
+        Debug.Log("Used dash");
+        timeElapsed = 0;
     }
 }
