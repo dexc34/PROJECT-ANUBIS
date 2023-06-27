@@ -259,5 +259,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   minimum: 0
   maximum: 100
-  current: 35
+  current: 0
   mask: {fileID: 8662653965207373860}

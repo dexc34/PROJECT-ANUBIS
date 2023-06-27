@@ -27,11 +27,13 @@ public class StaminBarValues : MonoBehaviour
     Vector2 calculatedSizeOfStaminaBar = new Vector2(0, 15);
     Vector3 widthOfEachBar;
 
+    bool readyToUpdate = false;
+
     private void Awake()
     {
         movementScript = player.GetComponent<PlayerMovement>();
         totalStaminaBars = movementScript.amountOfDashes;
-        currentStaminaBar = movementScript.currentDashes;
+        currentStaminaBar = movementScript.amountOfDashes;
 
         //gets the starting position for where to spawn the bars
         startPosition = barBounds.transform.position;
@@ -46,6 +48,11 @@ public class StaminBarValues : MonoBehaviour
         CreateBars();
     }
 
+    private void Update()
+    {
+        //if(readyToUpdate)
+            //UpdateBars();
+    }
     //creates the bar within the bounds of the reference in the canvas. can be scaled to any amount  
     void CreateBars()
     {
@@ -60,14 +67,25 @@ public class StaminBarValues : MonoBehaviour
 
             staminaBars[i].maximum = movementScript.dashCooldown;
         }
+        readyToUpdate = true;
     }
 
-    void UpdateBars()
+    float timeElapsed;
+    /*void UpdateBars()
     {
         if (currentStaminaBar < totalStaminaBars)
-            currentStaminaBar = movementScript.currentDashes + 1;
-        else
             currentStaminaBar = movementScript.currentDashes;
-
-    }
+        else
+            currentStaminaBar = movementScript.currentDashes - 1;
+        if (!movementScript.dashCooldownDone)
+        {
+            timeElapsed = Time.deltaTime;
+        }
+        if (movementScript.dashCooldownDone)
+        {
+            timeElapsed = 0f;
+        }
+        Debug.Log(currentStaminaBar);
+        staminaBars[(int)currentStaminaBar].current = timeElapsed;
+    }*/
 }
