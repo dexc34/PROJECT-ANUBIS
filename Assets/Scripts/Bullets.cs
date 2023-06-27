@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Bullets : MonoBehaviour
 {
-    [SerializeField] private float destroyTime = 5;
+    public float destroyTime = 5;
 
     //Script variables
     [HideInInspector] public int damage;
