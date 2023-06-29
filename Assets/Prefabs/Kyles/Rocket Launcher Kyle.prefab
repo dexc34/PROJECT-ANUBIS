@@ -69886,7 +69886,8 @@ MonoBehaviour:
   fireModeString: AUTO
   crosshairUiElement: {fileID: 0}
   crosshair: {fileID: 21300000, guid: 2f56c44ec82d44947ad9891c45244a85, type: 3}
-  gunAudioScript: {fileID: 0}
+  gunAudioScript: {fileID: 11400000, guid: a2dabc96495cb404f9e32a7eec73812e, type: 2}
+  shootAudioSource: {fileID: 0}
   needsCock: 0
   viewModelScript: {fileID: 0}
   muzzleParticle: {fileID: 0}
