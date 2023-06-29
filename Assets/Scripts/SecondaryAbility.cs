@@ -11,7 +11,7 @@ public class SecondaryAbility : MonoBehaviour
 
     [SerializeField]
     [Tooltip ("Time in seconds until ability is available again after using it")]
-    private float abilityCooldown;
+    public float abilityCooldown;
 
 
     [Header ("Grenade settings found inside the prefab")]
@@ -22,7 +22,7 @@ public class SecondaryAbility : MonoBehaviour
 
     //Script variables
     private string secondaryFunctionToCall;
-    private bool canUseAbility = true;
+    public bool canUseAbility = true;
 
     //Required components
     private Transform virtualCamera;   

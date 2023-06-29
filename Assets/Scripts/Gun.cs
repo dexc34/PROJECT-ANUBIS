@@ -93,6 +93,14 @@ public class Gun : MonoBehaviour
     [Tooltip ("Sprite of the corresponding weapon")]
     private Sprite crosshair;
 
+    //Gets sound effects for the guns
+    [SerializeField]
+    [Tooltip("Must only be specified if this is the player")]
+    private GunAudio gunAudioScript;
+    [SerializeField]
+    [Tooltip("Must only be specified if this is the player")]
+    private AudioSource shootAudioSource;
+
     //Script variables
     private string gunName;
     private string secondaryName;
@@ -103,6 +111,10 @@ public class Gun : MonoBehaviour
     private float shootCooldown;
     private bool isShoothing = false;
 
+    [SerializeField]
+    [Tooltip("Does the gun need to be cocked?")]
+    bool needsCock;
+
     //Required components
     private Transform virtualCamera;   
     private SecondaryAbility secondaryAbilityScript;
@@ -111,7 +123,8 @@ public class Gun : MonoBehaviour
 
     void Start()
     {
-        currentAmmo = totalAmmo;        
+        currentAmmo = totalAmmo;
+        shootAudioSource = GetComponent<AudioSource>();
         UpdateGunStats(this);
     }
 
@@ -154,6 +167,7 @@ public class Gun : MonoBehaviour
         currentAmmo --;
         currentMagazine --;
 
+        gunAudioScript.PlayShootClip(shootAudioSource);
         currentAmmoText.text = currentMagazine.ToString();
         reserveAmmoText.text = ammoToDisplay.ToString();
 
@@ -203,6 +217,8 @@ public class Gun : MonoBehaviour
 
     private IEnumerator ShootCooldown()
     {
+        if (needsCock)
+            gunAudioScript.PlayCockClip(shootAudioSource);
         yield return new WaitForSeconds(shootCooldown);
         canFire = true;
     }
@@ -210,6 +226,8 @@ public class Gun : MonoBehaviour
     private IEnumerator Reloading()
     {
         canFire = false;
+
+        gunAudioScript.PlayReloadClip(shootAudioSource);
 
         yield return new WaitForSeconds(reloadSpeed);
 
@@ -289,6 +307,13 @@ public class Gun : MonoBehaviour
         reserveAmmoText.text = ammoToDisplay.ToString();
         //sets the string for fire mode 
         fireModeText.text = gunScriptToPullFrom.fireModeString;
+
+        //sets new sounds for new gun
+        gunAudioScript = gunScriptToPullFrom.gunAudioScript;
+
+        //checks to see if new gun needs to be cocked
+        needsCock = gunScriptToPullFrom.needsCock;
+
         crosshair = gunScriptToPullFrom.crosshair;
         crosshairUiElement.sprite = crosshair;
 

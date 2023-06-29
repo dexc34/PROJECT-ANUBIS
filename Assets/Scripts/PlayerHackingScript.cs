@@ -33,11 +33,11 @@ public class PlayerHackingScript : MonoBehaviour
 
     [SerializeField]
     [Tooltip("The temporary value for how long it takes to hack an enemy (change later)")]
-  private float tempHackingDurration = 5f;
+    public float tempHackingDurration = 5f;
 
     [SerializeField]
     [Tooltip("How long a hack can be interrupted for before the hack is canceled")]
-    private float allowedHackingInterruption = 1;
+    public float allowedHackingInterruption = 1;
 
     [SerializeField] private InputActionReference hackButton;
     [SerializeField] [Tooltip("Player Camera prefab goes here")] private GameObject cameraPrefab;
@@ -58,12 +58,12 @@ public class PlayerHackingScript : MonoBehaviour
 
     [SerializeField] private LayerMask ignoredLayer;
 
-    private float hackingTimer = -1000;
-    private float hackingInterruptionTimer = -1000;
+    public float hackingTimer = -1000;
+    public float hackingInterruptionTimer = -1000;
     
 
-    private bool hacking = false;
-    private bool hackInterrupted = false;
+    public bool hacking = false;
+    public bool hackInterrupted = false;
 
 
     private PlayerMovement playerMovementScript;

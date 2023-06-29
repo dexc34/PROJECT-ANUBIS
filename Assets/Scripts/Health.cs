@@ -7,10 +7,10 @@ public class Health : MonoBehaviour
     //Editor tools
     [SerializeField]
     [Tooltip ("Amount of health object starts with")]
-    private int maxHealth = 100;
+    public int maxHealth = 100;
 
     //Script variables
-    private int currentHealth;
+    public int currentHealth;
     private bool isPlayer = false;
     private bool isEnemy = false;
     private bool isDestructible = false;

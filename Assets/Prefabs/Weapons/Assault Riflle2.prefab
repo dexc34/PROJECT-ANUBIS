@@ -71,8 +71,8 @@ MonoBehaviour:
   currentPosition: {x: -0.0000015982738, y: 0.0000004042162, z: -0.0000018735093}
   initialGunPosition: {x: -0.0000015982738, y: 0.0000004042162, z: -0.0000018735093}
   recoilX: -2
-  recoilY: 5
-  recoilZ: 2
+  recoilY: 3
+  recoilZ: 1
   kickBackZ: 0.05
   snap: 30
   returnAmount: 25

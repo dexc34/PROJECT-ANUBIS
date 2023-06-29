@@ -92,12 +92,12 @@ MonoBehaviour:
   currentPosition: {x: 0, y: 0, z: 0}
   initialGunPosition: {x: 0, y: 0, z: 0}
   recoilX: -6
-  recoilY: 3
-  recoilZ: 6
-  kickBackZ: 0.3
+  recoilY: 1
+  recoilZ: 0
+  kickBackZ: 0.6
   snap: 30
-  returnAmount: 25
-  shakeHeightScale: 0.65
+  returnAmount: 60
+  magnitude: 0.25
   shakeXScale: 1
   shakeYScale: 1
 --- !u!1 &1813343312999743703

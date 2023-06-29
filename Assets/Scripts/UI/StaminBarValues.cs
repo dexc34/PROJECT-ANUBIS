@@ -1,18 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
 public class StaminBarValues : MonoBehaviour
 {
     [Header("Reference")]
     [SerializeField] GameObject player;
     [SerializeField] PlayerMovement movementScript;
-    [SerializeField] List<ProgressBar> staminaBars;
     [SerializeField] RectTransform barBounds;
     [SerializeField] Canvas canvas;
 
+    [SerializeField] List<ProgressBar> staminaBars;
+
     [Header("Bar to Spawn")]
     [SerializeField] GameObject progressBarTemplate;
+
+    [Header("Colors")]
+    [SerializeField] Color barFullColor;
+    [SerializeField] Color barRechargingColor;
 
     float staminaCooldownMax;
 
@@ -20,7 +26,6 @@ public class StaminBarValues : MonoBehaviour
     Vector3 startPosition;
 
     Vector3 spaceInBetweenBars = new Vector3(2,0,0);
-    Vector3 tempWidth = new Vector3(200, 0, 0);
 
     float totalStaminaBars;
     int currentStaminaBar;
@@ -67,7 +72,8 @@ public class StaminBarValues : MonoBehaviour
         {
             staminaBars.Add (Instantiate(progressBarTemplate, startPosition + (widthOfEachBar * i) + (spaceInBetweenBars * i), transform.localRotation).GetComponent<ProgressBar>());
             staminaBars[i].transform.SetParent(transform);
-            staminaBars[i].color = Color.cyan;
+            staminaBars[i].color = barFullColor;
+            //staminaBars[i].transform.localScale = new Vector3(1, 1, 1);
             RectTransform barWidth = staminaBars[i].GetComponent<RectTransform>();
             barWidth.sizeDelta = calculatedSizeOfStaminaBar;
 
@@ -98,10 +104,10 @@ public class StaminBarValues : MonoBehaviour
         staminaBars[currentStaminaBar].current = timeElapsed;
         if (timeElapsed >= 1.49f)
         {
-            staminaBars[currentStaminaBar].color = Color.cyan;
+            staminaBars[currentStaminaBar].color = barFullColor;
         }
         else
-            staminaBars[currentStaminaBar].color = Color.white;
+            staminaBars[currentStaminaBar].color = barRechargingColor;
         Debug.Log(currentStaminaBar);
     }
 
