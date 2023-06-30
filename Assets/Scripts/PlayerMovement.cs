@@ -114,7 +114,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void ApplyGravity()
     {
-        if(isDashing) return;
+        if(isDashing || forceReceiver.receivedExplosion) return;
         //No gravity gets applied if grounded
         if (characterController.isGrounded && yVelocity < 0)
         {
