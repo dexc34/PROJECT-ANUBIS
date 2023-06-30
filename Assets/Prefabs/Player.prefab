@@ -207,7 +207,7 @@ MonoBehaviour:
   jumpHeight: 1.75
   amountOfJumps: 2
   maxStamina: 2
-  staminaCooldown: 0
+  staminaCooldown: 1.5
   dashSpeed: 50
   dashDuration: 0.1
   groundPoundStrength: -8
@@ -300,6 +300,8 @@ MonoBehaviour:
   fireModeString: SEMI
   crosshairUiElement: {fileID: 0}
   crosshair: {fileID: 0}
+  viewmodelCam: {fileID: 0}
+  mainCam: {fileID: 0}
   gunAudioScript: {fileID: 0}
   shootAudioSource: {fileID: 1208286925109031014}
   needsCock: 0
@@ -1085,6 +1087,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_ReactionSettings.m_NoiseOffsets.z
       value: 515.8889
+      objectReference: {fileID: 0}
+    - target: {fileID: 6646001024878303844, guid: b3e138ead10845f489c0b036c6e863e9,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8522752668616157794, guid: b3e138ead10845f489c0b036c6e863e9,
         type: 3}
