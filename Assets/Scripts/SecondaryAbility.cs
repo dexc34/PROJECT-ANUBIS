@@ -22,7 +22,7 @@ public class SecondaryAbility : MonoBehaviour
 
     //Script variables
     private string secondaryFunctionToCall;
-    public bool canUseAbility = true;
+    [HideInInspector] public bool canUseAbility = true;
 
     //Required components
     private Transform virtualCamera;   
@@ -47,7 +47,6 @@ public class SecondaryAbility : MonoBehaviour
         yield return new WaitForSeconds(abilityCooldown);
 
         canUseAbility = true;
-        Debug.Log("Ability available");
     }
 
     //---------------------------Ability Specific Functions-------------------------------------------------------------------------------------------

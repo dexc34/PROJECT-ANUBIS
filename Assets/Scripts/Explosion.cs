@@ -78,18 +78,26 @@ public class Explosion : MonoBehaviour
 
         foreach(Collider nearbyObject in colliders)
         {
+            //Add force to character controllers
             if(nearbyObject.gameObject.CompareTag("Hurtbox"))
             {
-                Rigidbody rb = nearbyObject.transform.parent.gameObject.GetComponent<Rigidbody>();
+                ForceReceiver forceReceiver = nearbyObject.transform.parent.gameObject.GetComponent<ForceReceiver>();
+                if(forceReceiver != null)
+                {
+                    Vector3 explosionDir = nearbyObject.transform.position - transform.position;
+                    forceReceiver.ReceiveExplosion(explosionDir, explosionForce);
+                }
+                DealDamage(nearbyObject.transform.parent.gameObject);
+            }
+
+            if(nearbyObject.gameObject.CompareTag("Rigidbody"))
+            {
+                //Add force to rigid bodies
+                Rigidbody rb = nearbyObject.GetComponent<Rigidbody>();
                 if(rb != null)
                 {
                     rb.AddExplosionForce(explosionForce, transform.position, explosionRange);
-                }
-
-                Health healthToDamage = nearbyObject.transform.parent.gameObject.GetComponent<Health>();
-                if(healthToDamage != null)
-                {
-                    healthToDamage.TakeDamage(damage);
+                    DealDamage(nearbyObject.gameObject);
                 }
             }
         }
@@ -99,5 +107,15 @@ public class Explosion : MonoBehaviour
         particles.Play();
 
         Destroy(gameObject);
+    }
+
+    private void DealDamage(GameObject objectToDamage)
+    {
+        //Deal damage to everything caught in the explosion
+        Health healthToDamage = objectToDamage.GetComponent<Health>();
+        if(healthToDamage != null)
+        {
+            healthToDamage.TakeDamage(damage);
+        }
     }
 }
