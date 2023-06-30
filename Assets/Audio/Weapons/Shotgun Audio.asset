@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6c46fa5fac1c554ba8ea86ca8d44c48, type: 3}
   m_Name: Shotgun Audio
   m_EditorClassIdentifier: 
-  volume: 0.5
+  volume: 0.2
   fireClips:
   - {fileID: 8300000, guid: e446020b88c447449971c12eadc963c5, type: 3}
   cockClip: {fileID: 8300000, guid: 23168d309ac3a6b40a5fe92ba8ef5efe, type: 3}
