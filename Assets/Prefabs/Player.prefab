@@ -296,8 +296,6 @@ MonoBehaviour:
   fireModeString: SEMI
   crosshairUiElement: {fileID: 0}
   crosshair: {fileID: 0}
-  viewmodelCam: {fileID: 3039712264335152509}
-  mainCam: {fileID: 0}
   gunAudioScript: {fileID: 0}
   shootAudioSource: {fileID: 1208286925109031014}
   needsCock: 0
@@ -909,10 +907,70 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2204471447130267913, guid: b3e138ead10845f489c0b036c6e863e9,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2204471447130267914, guid: b3e138ead10845f489c0b036c6e863e9,
         type: 3}
       propertyPath: m_Layer
       value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 2341919290184313637, guid: b3e138ead10845f489c0b036c6e863e9,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2341919290184313637, guid: b3e138ead10845f489c0b036c6e863e9,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.5155668
+      objectReference: {fileID: 0}
+    - target: {fileID: 2341919290184313637, guid: b3e138ead10845f489c0b036c6e863e9,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.4002428
+      objectReference: {fileID: 0}
+    - target: {fileID: 2341919290184313637, guid: b3e138ead10845f489c0b036c6e863e9,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.6048894
+      objectReference: {fileID: 0}
+    - target: {fileID: 2341919290184313637, guid: b3e138ead10845f489c0b036c6e863e9,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.9965496
+      objectReference: {fileID: 0}
+    - target: {fileID: 2341919290184313637, guid: b3e138ead10845f489c0b036c6e863e9,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.051281445
+      objectReference: {fileID: 0}
+    - target: {fileID: 2341919290184313637, guid: b3e138ead10845f489c0b036c6e863e9,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.0040509277
+      objectReference: {fileID: 0}
+    - target: {fileID: 2341919290184313637, guid: b3e138ead10845f489c0b036c6e863e9,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.06513705
+      objectReference: {fileID: 0}
+    - target: {fileID: 2341919290184313637, guid: b3e138ead10845f489c0b036c6e863e9,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -5.836
+      objectReference: {fileID: 0}
+    - target: {fileID: 2341919290184313637, guid: b3e138ead10845f489c0b036c6e863e9,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -0.85
+      objectReference: {fileID: 0}
+    - target: {fileID: 2341919290184313637, guid: b3e138ead10845f489c0b036c6e863e9,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 7.523
       objectReference: {fileID: 0}
     - target: {fileID: 4901273882460915905, guid: b3e138ead10845f489c0b036c6e863e9,
         type: 3}
@@ -1043,12 +1101,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!20 &3039712264335152509 stripped
-Camera:
-  m_CorrespondingSourceObject: {fileID: 8725289030681758301, guid: b3e138ead10845f489c0b036c6e863e9,
-    type: 3}
-  m_PrefabInstance: {fileID: 5996910235543822112}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &5597575282111556190 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2204471446375921022, guid: b3e138ead10845f489c0b036c6e863e9,
