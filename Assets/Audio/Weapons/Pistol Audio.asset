@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6c46fa5fac1c554ba8ea86ca8d44c48, type: 3}
   m_Name: Pistol Audio
   m_EditorClassIdentifier: 
-  volume: 0.5
+  volume: 0.2
   fireClips:
   - {fileID: 8300000, guid: cc0027a99b4f55948b27d8202269f00c, type: 3}
   cockClip: {fileID: 0}

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6c46fa5fac1c554ba8ea86ca8d44c48, type: 3}
   m_Name: AR Audio
   m_EditorClassIdentifier: 
-  volume: 0.5
+  volume: 0.2
   fireClips:
   - {fileID: 8300000, guid: 06e3aab41c8472f43a0a40e4b69b8b5c, type: 3}
   cockClip: {fileID: 0}
