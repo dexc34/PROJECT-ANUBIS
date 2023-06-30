@@ -47,9 +47,6 @@ public class StaminBarValues : MonoBehaviour
         sizeOfBounds.x = barBounds.rect.width;
         sizeOfBounds.y = barBounds.rect.height;
 
-        Debug.Log("Size of bounds: " + sizeOfBounds);
-        Debug.Log("Starting Position for spawn: " + startPosition);
-
         //TEMP
         timeElapsed = 1.5f;
 
@@ -113,7 +110,6 @@ public class StaminBarValues : MonoBehaviour
 
     void ResetTimer()
     {
-        Debug.Log("Used dash");
         timeElapsed = 0;
     }
 }

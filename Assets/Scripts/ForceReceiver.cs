@@ -27,7 +27,6 @@ public class ForceReceiver : MonoBehaviour
         characterController = GetComponent<CharacterController>();
         playerMovement = GetComponent<PlayerMovement>();
         lerpMultiplier = 100/(explosionForceDuration * 100);
-        Debug.Log(lerpMultiplier);
     }
 
     // call this function to add an impact force:
