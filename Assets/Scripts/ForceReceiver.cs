@@ -10,13 +10,31 @@ public class ForceReceiver : MonoBehaviour
     private float mass = 3; 
 
     [SerializeField]
+    [Tooltip ("How much horizontal force may be applied from an explosion")]
+    private float horizontalForceCap;
+
+    [SerializeField]
+    [Tooltip ("How much vertical force may be applied from an explosion")]
+    private float verticalForceCap;
+
+    [SerializeField]
     [Tooltip ("How long it takes for the explosion force to go away")]
     private float explosionForceDuration = 5;
+
+    [SerializeField]
+    [Tooltip ("How horizontal explosion force will decrease over time")]
+    private AnimationCurve horizontalCurve;
+
+    [SerializeField]
+    [Tooltip ("How vertical explosion force will decrease over time")]
+    private AnimationCurve verticalCurve;
 
     //Script Variables
     [HideInInspector] public Vector3 impact = Vector3.zero;
     [HideInInspector] public bool receivedExplosion;
     private float lerpMultiplier;
+    private float horizontalTime;
+    private float verticalTime;
 
     //Required components
     private CharacterController characterController;
@@ -35,7 +53,14 @@ public class ForceReceiver : MonoBehaviour
         direction.Normalize();
         if (direction.y < 0) direction.y = -direction.y; // reflect down force on the ground
         playerMovement.yVelocity = 0;
+        verticalTime = 0;
+        horizontalTime = 0;
         impact += direction.normalized * force / mass;
+
+        //Limit how much force may be applied
+        impact.x = Mathf.Clamp(impact.x, -horizontalForceCap , horizontalForceCap);
+        impact.y = Mathf.Clamp(impact.y, -verticalForceCap, verticalForceCap);
+        impact.z = Mathf.Clamp(impact.z, -horizontalForceCap, horizontalForceCap);
     }
 
     private void Update()
@@ -44,7 +69,12 @@ public class ForceReceiver : MonoBehaviour
         if (impact.magnitude > 0.2f) receivedExplosion = true;
         else receivedExplosion = false;
 
-        // Adds drag to the explosion
-        impact = Vector3.Lerp(impact, Vector3.zero, lerpMultiplier*Time.deltaTime);
+        // Adds drag to the explosion by reading the animaton curve
+        impact.x = impact.x * horizontalCurve.Evaluate(horizontalTime) * explosionForceDuration;
+        impact.z = impact.z * horizontalCurve.Evaluate(horizontalTime) * explosionForceDuration;
+        horizontalTime += Time.deltaTime;
+
+        impact.y =  impact.y * verticalCurve.Evaluate(verticalTime) * explosionForceDuration;
+        verticalTime += Time.deltaTime;
     }
 }

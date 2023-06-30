@@ -99,7 +99,7 @@ public class PlayerMovement : MonoBehaviour
                 GroundPoundBounce();
             }
 
-            forceReceiver.impact.y = 0;
+            //forceReceiver.impact.y = 0;
         }
 
         //Removes one jump when leaving the ground
