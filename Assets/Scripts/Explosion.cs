@@ -80,12 +80,22 @@ public class Explosion : MonoBehaviour
         {
             if(nearbyObject.gameObject.CompareTag("Hurtbox"))
             {
+                //Add force to rigid bodies
                 Rigidbody rb = nearbyObject.transform.parent.gameObject.GetComponent<Rigidbody>();
                 if(rb != null)
                 {
                     rb.AddExplosionForce(explosionForce, transform.position, explosionRange);
                 }
 
+                //Add force to character controllers
+                ForceReceiver forceReceiver = nearbyObject.transform.parent.gameObject.GetComponent<ForceReceiver>();
+                if(forceReceiver != null)
+                {
+                    Vector3 explosionDir = nearbyObject.transform.position - transform.position;
+                    forceReceiver.ReceiveExplosion(explosionDir, explosionForce);
+                }
+
+                //Deal damage to everything caught in the explosion
                 Health healthToDamage = nearbyObject.transform.parent.gameObject.GetComponent<Health>();
                 if(healthToDamage != null)
                 {

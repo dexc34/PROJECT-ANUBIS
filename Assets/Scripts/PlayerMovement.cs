@@ -41,8 +41,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] [Tooltip ("How strong is the gravity")] private float gravityScale;
 
     //Private script variables
-    private float yVelocity; //Tracks vertical speed
-    private Vector3 moveDirection; //Makes sure direction is always camera dependent 
+    [HideInInspector] public float yVelocity; //Tracks vertical speed
+    [HideInInspector] public Vector3 moveDirection; //Makes sure direction is always camera dependent 
     private int currentJumps; // Amount of jumps available to the player at any given time
     public int currentDashes; // Amount of dashes available to the player at any given time
     public bool dashCooldownDone = true;
@@ -54,10 +54,12 @@ public class PlayerMovement : MonoBehaviour
     //Required components
     private CharacterController characterController; 
     private Transform ceilingCheck;
+    private ForceReceiver forceReceiver;
 
     private void Awake() 
     {
         characterController = GetComponent<CharacterController>();
+        forceReceiver = GetComponent<ForceReceiver>();
         ceilingCheck = transform.Find("Ceiling Check");
         ChangeStats();
         currentDashes = amountOfDashes;
@@ -76,6 +78,7 @@ public class PlayerMovement : MonoBehaviour
         if(Physics.CheckBox(ceilingCheck.position, new Vector3(.1f, 1, .1f), transform.rotation, 7))
         {
             yVelocity = -.2f;
+            forceReceiver.impact.y = 0;
         }
 
         ApplyGravity();
@@ -95,6 +98,8 @@ public class PlayerMovement : MonoBehaviour
                 groundPoundEndPosition = transform.position;
                 GroundPoundBounce();
             }
+
+            forceReceiver.impact.y = 0;
         }
 
         //Removes one jump when leaving the ground
@@ -130,6 +135,13 @@ public class PlayerMovement : MonoBehaviour
         Vector2 inputReadings = move.ReadValue<Vector2>();
         moveDirection = transform.right * inputReadings.x + transform.forward * inputReadings.y;
         moveDirection = new Vector3(moveDirection.x, yVelocity, moveDirection.z);   
+
+        //Adds explosion force if necessary
+        if(forceReceiver.receivedExplosion)
+        {
+            moveDirection += forceReceiver.impact;
+        }
+
         characterController.Move(moveDirection * speed * Time.deltaTime);
     }
 
@@ -140,6 +152,7 @@ public class PlayerMovement : MonoBehaviour
         {
             yVelocity = jumpHeight;
             currentJumps --;
+            isGroundPounding = false;
         }
     }
 
@@ -153,6 +166,7 @@ public class PlayerMovement : MonoBehaviour
     {
         currentDashes --;
         yVelocity = 0;
+        forceReceiver.impact.y = 0;
         moveDirection.y = yVelocity;
         isDashing = true;
         isGroundPounding = false;
@@ -171,6 +185,7 @@ public class PlayerMovement : MonoBehaviour
         currentDashes --;
         groundPoundStartPosition = transform.position;
         yVelocity = groundPoundStrength;
+        forceReceiver.impact.y = 0;
 
         StartCoroutine("RecoverStamina");
     }

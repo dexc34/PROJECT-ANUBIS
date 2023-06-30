@@ -220,7 +220,7 @@ public class Gun : MonoBehaviour
 
     public void Reload(InputAction.CallbackContext context)
     {
-        if(!context.performed || currentMagazine == magazineSize || ammoToDisplay <= 0) return;
+        if(!context.performed || currentMagazine == magazineSize || ammoToDisplay <= 0 ||!canFire) return;
         StartCoroutine("Reloading");
     }
 

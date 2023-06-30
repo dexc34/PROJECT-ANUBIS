@@ -97,6 +97,7 @@ GameObject:
   - component: {fileID: 3977012010613878763}
   - component: {fileID: 7617674700474056787}
   - component: {fileID: 8850740828167896121}
+  - component: {fileID: 3520088236766947616}
   m_Layer: 7
   m_Name: Player
   m_TagString: Player
@@ -214,6 +215,8 @@ MonoBehaviour:
   groundPoundBounceLimit: {x: 2.5, y: 4.5}
   gravity: -1
   gravityScale: 3.5
+  yVelocity: 0
+  moveDirection: {x: 0, y: 0, z: 0}
   currentDashes: 0
   dashCooldownDone: 1
   isDashing: 0
@@ -476,7 +479,7 @@ AudioSource:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5597575281648933863}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: c78b8d0f8265f5d4084ad8b382fcee10, type: 3}
@@ -744,6 +747,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 150
   currentHealth: 0
+--- !u!114 &3520088236766947616
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5597575281648933863}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1afe25c622eb41469ac628553f80f52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mass: 200
+  explosionForceDuration: 0.5
+  impact: {x: 0, y: 0, z: 0}
+  receivedExplosion: 0
 --- !u!1 &5597575282290619445
 GameObject:
   m_ObjectHideFlags: 0
@@ -755,9 +774,10 @@ GameObject:
   - component: {fileID: 5597575282290619444}
   - component: {fileID: 5597575282290619442}
   - component: {fileID: 5597575282290619443}
+  - component: {fileID: 8042535990657584320}
   m_Layer: 7
-  m_Name: Capsule
-  m_TagString: Untagged
+  m_Name: Hurtbox
+  m_TagString: Hurtbox
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -827,6 +847,20 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!136 &8042535990657584320
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5597575282290619445}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &5996910235543822112
 PrefabInstance:
   m_ObjectHideFlags: 0
