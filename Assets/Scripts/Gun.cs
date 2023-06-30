@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Rendering.Universal;
 using UnityEngine.UI;
 
 public class Gun : MonoBehaviour
@@ -92,6 +93,14 @@ public class Gun : MonoBehaviour
     [SerializeField] 
     [Tooltip ("Sprite of the corresponding weapon")]
     private Sprite crosshair;
+
+    //gets viewmodel camera for the gun
+    [SerializeField]
+    [Tooltip("Must only be specified if this is the player")]
+    private Camera viewmodelCam;
+    [SerializeField]
+    [Tooltip("Must only be specified if this is the player")]
+    private Camera mainCam;
 
     //Gets sound effects for the guns
     [SerializeField]
@@ -295,7 +304,13 @@ public class Gun : MonoBehaviour
 
         //Only run if script is on the player
 
-        //Update camera
+        //Update camera       
+        var cameraData = mainCam.GetUniversalAdditionalCameraData();
+        cameraData.cameraStack.Remove(viewmodelCam);
+
+        viewmodelCam = transform.GetComponentInChildren<CameraMove>().GetComponentInChildren<Camera>();
+        cameraData.cameraStack.Insert(0, viewmodelCam);
+
         virtualCamera = GetComponentInChildren<CameraMove>().gameObject.transform;
 
         //Update secondary ability script

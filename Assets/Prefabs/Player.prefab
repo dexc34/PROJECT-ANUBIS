@@ -296,6 +296,8 @@ MonoBehaviour:
   fireModeString: SEMI
   crosshairUiElement: {fileID: 0}
   crosshair: {fileID: 0}
+  viewmodelCam: {fileID: 3039712264335152509}
+  mainCam: {fileID: 0}
   gunAudioScript: {fileID: 0}
   shootAudioSource: {fileID: 1208286925109031014}
   needsCock: 0
@@ -315,6 +317,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   abilityCooldown: 0
   grenadePrefab: {fileID: 0}
+  canUseAbility: 1
 --- !u!114 &5597575281648933860
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1040,6 +1043,12 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!20 &3039712264335152509 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 8725289030681758301, guid: b3e138ead10845f489c0b036c6e863e9,
+    type: 3}
+  m_PrefabInstance: {fileID: 5996910235543822112}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &5597575282111556190 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2204471446375921022, guid: b3e138ead10845f489c0b036c6e863e9,

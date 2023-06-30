@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4860922791643807658}
   - component: {fileID: 4736301193066748398}
   - component: {fileID: 4737731150299674946}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: FlashHeadon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4893,7 +4893,7 @@ GameObject:
   - component: {fileID: 4860715888536102918}
   - component: {fileID: 4736582849744214344}
   - component: {fileID: 4737661035624365018}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: MuzzleFlash01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9775,7 +9775,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5140375815798691382}
   - component: {fileID: 1089059021582382996}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Rocket Launcher
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9841,7 +9841,7 @@ MonoBehaviour:
   kickBackZ: 0.3
   snap: 30
   returnAmount: 25
-  shakeHeightScale: 0.65
+  magnitude: 0.25
   shakeXScale: 1
   shakeYScale: 1
 --- !u!1 &6204450147163364743
@@ -9855,7 +9855,7 @@ GameObject:
   - component: {fileID: 6724281225419851581}
   - component: {fileID: 7709786187983325336}
   - component: {fileID: 5555857515983764562}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Rocket Launcher Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9939,7 +9939,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6547050064307330924}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: MuzzleTail
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9970,7 +9970,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6547050064388713069}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Muzzle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10004,7 +10004,7 @@ GameObject:
   - component: {fileID: 2482395300703740308}
   - component: {fileID: 5071558798013155553}
   - component: {fileID: 195555395673823712}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Rocket_Launcher_Missile
   m_TagString: Untagged
   m_Icon: {fileID: 0}

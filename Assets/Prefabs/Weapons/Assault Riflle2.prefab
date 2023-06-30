@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1063234480703678016}
   - component: {fileID: 1063234480703678023}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Assault Riflle2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -70,10 +70,10 @@ MonoBehaviour:
   targetPosition: {x: -0.0000015982738, y: 0.0000004042162, z: -0.0000018735093}
   currentPosition: {x: -0.0000015982738, y: 0.0000004042162, z: -0.0000018735093}
   initialGunPosition: {x: -0.0000015982738, y: 0.0000004042162, z: -0.0000018735093}
-  recoilX: -2
-  recoilY: 3
+  recoilX: -3
+  recoilY: 2
   recoilZ: 1
-  kickBackZ: 0.05
+  kickBackZ: 0.125
   snap: 30
   returnAmount: 25
   magnitude: 0.05
@@ -90,7 +90,7 @@ GameObject:
   - component: {fileID: 6900628211271824461}
   - component: {fileID: 6900628211270421681}
   - component: {fileID: 6900628211269476307}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: SciFiGunLightWhite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
