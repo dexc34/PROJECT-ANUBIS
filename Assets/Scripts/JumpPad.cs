@@ -9,12 +9,29 @@ public class JumpPad : MonoBehaviour
     [Tooltip ("How much force will be applied to character controllers on contact with the jump pad")]
     private float padStrength;
 
-    private void OnTriggerEnter(Collider other) 
+    //Script variables
+    private Vector3 triggerSize;
+
+    private void Start() 
     {
-        PlayerMovement playerMovement = other.GetComponent<PlayerMovement>();
-        if(playerMovement)    
+        triggerSize = transform.localScale;
+    }
+
+    private void Update() 
+    {
+        Collider[] objectsInTrigger = Physics.OverlapBox(transform.position, triggerSize, Quaternion.identity);
+        foreach(Collider nearbyObjects in objectsInTrigger)
         {
-            playerMovement.yVelocity = padStrength;
+            if(nearbyObjects.gameObject.CompareTag("Hurtbox"))
+            {
+                PlayerMovement playerMovement = nearbyObjects.transform.parent.gameObject.GetComponent<PlayerMovement>();
+                if(playerMovement)
+                {
+                    playerMovement.isGroundPounding = false;
+                    if(playerMovement.currentJumps <= 0) playerMovement.currentJumps ++;
+                    playerMovement.yVelocity = padStrength;
+                }
+            }
         }
     }
 }
