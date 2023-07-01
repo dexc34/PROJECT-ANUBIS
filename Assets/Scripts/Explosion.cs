@@ -88,7 +88,6 @@ public class Explosion : MonoBehaviour
                     forceReceiver.ReceiveExplosion(explosionDir, explosionForce);
                 }
                 DealDamage(nearbyObject.transform.parent.gameObject);
-                Debug.Log(nearbyObject.transform.parent.gameObject.name);
             }
 
             if(nearbyObject.gameObject.CompareTag("Rigidbody"))

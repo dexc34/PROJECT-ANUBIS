@@ -261,9 +261,7 @@ public class Gun : MonoBehaviour
     //Used when hacking a new body, update gun stats to match the enemy's gun
     public void UpdateGunStats(Gun gunScriptToPullFrom)
     {
-        //Make sure player can fire again if last body they hacked ran out of bullets
         isShoothing = false;
-        canFire = true;
 
         //Apply serializable gun stats
         gunIndex = gunScriptToPullFrom.gunIndex;
@@ -286,6 +284,10 @@ public class Gun : MonoBehaviour
 
         //Apply internally tracked stats
         currentAmmo = gunScriptToPullFrom.currentAmmo;
+
+        //Make sure player can fire again if last body they hacked ran out of bullets
+        if(currentAmmo <= 0) canFire = false;
+        else canFire = true;
 
         if(currentAmmo <= gunScriptToPullFrom.magazineSize)
         {
