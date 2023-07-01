@@ -98,6 +98,7 @@ GameObject:
   - component: {fileID: 7617674700474056787}
   - component: {fileID: 8850740828167896121}
   - component: {fileID: 3520088236766947616}
+  - component: {fileID: 108184812028790357}
   m_Layer: 7
   m_Name: Player
   m_TagString: Player
@@ -370,8 +371,8 @@ MonoBehaviour:
     m_ActionName: Combat/Movement[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d,/DualSenseGamepadHID/leftStick,/XInputControllerWindows/leftStick]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5597575281648933858}
-        m_TargetAssemblyTypeName: PlayerMovement, Assembly-CSharp
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: InputHandler, Assembly-CSharp
         m_MethodName: Jump
         m_Mode: 0
         m_Arguments:
@@ -390,8 +391,8 @@ MonoBehaviour:
     m_ActionName: Combat/Hack[/Mouse/rightButton]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5597575281648933858}
-        m_TargetAssemblyTypeName: PlayerMovement, Assembly-CSharp
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: InputHandler, Assembly-CSharp
         m_MethodName: Dash
         m_Mode: 0
         m_Arguments:
@@ -454,8 +455,8 @@ MonoBehaviour:
     m_ActionName: Combat/Secondary Ability[/Keyboard/q]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5597575281648933858}
-        m_TargetAssemblyTypeName: PlayerMovement, Assembly-CSharp
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: InputHandler, Assembly-CSharp
         m_MethodName: GroundPound
         m_Mode: 0
         m_Arguments:
@@ -823,6 +824,18 @@ MonoBehaviour:
     m_RotationOrder: 4
   impact: {x: 0, y: 0, z: 0}
   receivedExplosion: 0
+--- !u!114 &108184812028790357
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5597575281648933863}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb5e3459a186de94798caad53e0c832f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5597575282290619445
 GameObject:
   m_ObjectHideFlags: 0
