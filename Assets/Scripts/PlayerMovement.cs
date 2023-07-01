@@ -51,6 +51,7 @@ public class PlayerMovement : MonoBehaviour
     [HideInInspector] public bool staminaCooldownDone = true;
     [HideInInspector] public bool isDashing = false;
     [HideInInspector] public bool isGroundPounding = false;
+    private bool holdingGroundPound = false;
     private Vector3 groundPoundStartPosition;
     private Vector3 groundPoundEndPosition;
 
@@ -97,9 +98,16 @@ public class PlayerMovement : MonoBehaviour
 
             if(isGroundPounding)
             {
-                isGroundPounding = false;
-                groundPoundEndPosition = transform.position;
-                GroundPoundBounce();
+                if(!holdingGroundPound)
+                {
+                    isGroundPounding = false;
+                    groundPoundEndPosition = transform.position;
+                    GroundPoundBounce();
+                }
+                else
+                {
+                    isGroundPounding  = false;
+                }
             }
 
             //forceReceiver.impact.y = 0;
@@ -181,6 +189,17 @@ public class PlayerMovement : MonoBehaviour
 
     public void GroundPound(InputAction.CallbackContext context)
     {
+        if(context.canceled)
+        {
+            holdingGroundPound = false;
+            return;
+        }
+
+        if(context.performed)
+        {
+            holdingGroundPound = true;
+        }
+
         if(currentStamina == 0 || !context.performed || isGroundPounding || characterController.isGrounded) return;
 
         isGroundPounding = true;
