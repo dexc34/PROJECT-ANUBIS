@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Bullets : MonoBehaviour
 {
-    public float destroyTime = 5;
+    [HideInInspector] public float destroyTime = 5;
 
     //Script variables
     [HideInInspector] public int damage;

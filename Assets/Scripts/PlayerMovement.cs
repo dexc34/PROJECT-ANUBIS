@@ -16,11 +16,14 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float jumpHeight;
     [SerializeField] private int amountOfJumps = 2;
 
+    [Header ("Stamina Settings")]
+    [SerializeField] [Tooltip ("How much max stamina the player has")] public int maxStamina = 2;
+    [SerializeField] [Tooltip("How a stamina bar takes to refill in seconds")] public float staminaCooldown;
+
+
     [Header ("Dash Settings")]
-    [SerializeField] public int amountOfDashes = 2;
     [SerializeField] [Tooltip ("How fast does the player become while dashing")]private float dashSpeed;
     [SerializeField] [Tooltip ("How long does the dash go for in seconds")] public float dashDuration;
-    [SerializeField] [Tooltip("How long does the player wait to use the dash again after it's done in seconds")] public float dashCooldown;
 
     [Header ("Ground Pound Settings")]
 
@@ -44,10 +47,10 @@ public class PlayerMovement : MonoBehaviour
     [HideInInspector] public float yVelocity; //Tracks vertical speed
     [HideInInspector] public Vector3 moveDirection; //Makes sure direction is always camera dependent 
     private int currentJumps; // Amount of jumps available to the player at any given time
-    public int currentDashes; // Amount of dashes available to the player at any given time
-    public bool dashCooldownDone = true;
-    public bool isDashing = false;
-    public bool isGroundPounding = false;
+    [HideInInspector] public int currentStamina; // Amount of dashes available to the player at any given time
+    [HideInInspector] public bool staminaCooldownDone = true;
+    [HideInInspector] public bool isDashing = false;
+    [HideInInspector] public bool isGroundPounding = false;
     private Vector3 groundPoundStartPosition;
     private Vector3 groundPoundEndPosition;
 
@@ -62,7 +65,7 @@ public class PlayerMovement : MonoBehaviour
         forceReceiver = GetComponent<ForceReceiver>();
         ceilingCheck = transform.Find("Ceiling Check");
         ChangeStats();
-        currentDashes = amountOfDashes;
+        currentStamina = maxStamina;
         move.Enable();
     }
 
@@ -158,13 +161,13 @@ public class PlayerMovement : MonoBehaviour
 
     public void Dash(InputAction.CallbackContext context)
     {
-        if(currentDashes == 0 || !context.performed || isDashing) return;
+        if(currentStamina == 0 || !context.performed || isDashing) return;
         StartCoroutine("Dashing");
     }
 
     public IEnumerator Dashing()
     {
-        currentDashes --;
+        currentStamina --;
         yVelocity = 0;
         forceReceiver.impact.y = 0;
         moveDirection.y = yVelocity;
@@ -178,11 +181,11 @@ public class PlayerMovement : MonoBehaviour
 
     public void GroundPound(InputAction.CallbackContext context)
     {
-        if(currentDashes == 0 || !context.performed || isGroundPounding || characterController.isGrounded) return;
+        if(currentStamina == 0 || !context.performed || isGroundPounding || characterController.isGrounded) return;
 
         isGroundPounding = true;
         isDashing = false;
-        currentDashes --;
+        currentStamina --;
         groundPoundStartPosition = transform.position;
         yVelocity = groundPoundStrength;
         forceReceiver.impact.y = 0;
@@ -201,14 +204,14 @@ public class PlayerMovement : MonoBehaviour
     public IEnumerator RecoverStamina()
     {
         //Dont start cooldown timer until the previous one is done
-        while(!dashCooldownDone) yield return null;
+        while(!staminaCooldownDone) yield return null;
     
         //Return ability to dash after cooldown
-        dashCooldownDone = false;
+        staminaCooldownDone = false;
 
-        yield return new WaitForSeconds(dashCooldown);
-        dashCooldownDone = true;
-        currentDashes ++;
+        yield return new WaitForSeconds(staminaCooldown);
+        staminaCooldownDone = true;
+        currentStamina ++;
     }
 
     public void ChangeStats()

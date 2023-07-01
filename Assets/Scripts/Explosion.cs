@@ -78,28 +78,27 @@ public class Explosion : MonoBehaviour
 
         foreach(Collider nearbyObject in colliders)
         {
+            //Add force to character controllers
             if(nearbyObject.gameObject.CompareTag("Hurtbox"))
             {
-                //Add force to rigid bodies
-                Rigidbody rb = nearbyObject.transform.parent.gameObject.GetComponent<Rigidbody>();
-                if(rb != null)
-                {
-                    rb.AddExplosionForce(explosionForce, transform.position, explosionRange);
-                }
-
-                //Add force to character controllers
                 ForceReceiver forceReceiver = nearbyObject.transform.parent.gameObject.GetComponent<ForceReceiver>();
                 if(forceReceiver != null)
                 {
                     Vector3 explosionDir = nearbyObject.transform.position - transform.position;
                     forceReceiver.ReceiveExplosion(explosionDir, explosionForce);
                 }
+                DealDamage(nearbyObject.transform.parent.gameObject);
+                Debug.Log(nearbyObject.transform.parent.gameObject.name);
+            }
 
-                //Deal damage to everything caught in the explosion
-                Health healthToDamage = nearbyObject.transform.parent.gameObject.GetComponent<Health>();
-                if(healthToDamage != null)
+            if(nearbyObject.gameObject.CompareTag("Rigidbody"))
+            {
+                //Add force to rigid bodies
+                Rigidbody rb = nearbyObject.GetComponent<Rigidbody>();
+                if(rb != null)
                 {
-                    healthToDamage.TakeDamage(damage);
+                    rb.AddExplosionForce(explosionForce, transform.position, explosionRange);
+                    DealDamage(nearbyObject.gameObject);
                 }
             }
         }
@@ -109,5 +108,15 @@ public class Explosion : MonoBehaviour
         particles.Play();
 
         Destroy(gameObject);
+    }
+
+    private void DealDamage(GameObject objectToDamage)
+    {
+        //Deal damage to everything caught in the explosion
+        Health healthToDamage = objectToDamage.GetComponent<Health>();
+        if(healthToDamage != null)
+        {
+            healthToDamage.TakeDamage(damage);
+        }
     }
 }

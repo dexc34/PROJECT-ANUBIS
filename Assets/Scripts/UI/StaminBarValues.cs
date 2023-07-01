@@ -37,8 +37,8 @@ public class StaminBarValues : MonoBehaviour
     private void Awake()
     {
         movementScript = player.GetComponent<PlayerMovement>();
-        totalStaminaBars = movementScript.amountOfDashes;
-        currentStaminaBar = movementScript.amountOfDashes;
+        totalStaminaBars = movementScript.maxStamina;
+        currentStaminaBar = movementScript.maxStamina;
 
         //gets the starting position for where to spawn the bars
         startPosition = barBounds.transform.position;
@@ -55,9 +55,9 @@ public class StaminBarValues : MonoBehaviour
 
     private void Update()
     {
-        if(!movementScript.dashCooldownDone)
+        if(!movementScript.staminaCooldownDone)
             UpdateBars();
-        if (movementScript.dashCooldownDone)
+        if (movementScript.staminaCooldownDone)
             ResetTimer();
     }
     //creates the bar within the bounds of the reference in the canvas. can be scaled to any amount  
@@ -74,28 +74,26 @@ public class StaminBarValues : MonoBehaviour
             RectTransform barWidth = staminaBars[i].GetComponent<RectTransform>();
             barWidth.sizeDelta = calculatedSizeOfStaminaBar;
 
-            staminaBars[i].current = movementScript.dashCooldown;
-            staminaBars[i].maximum = movementScript.dashCooldown;
+            staminaBars[i].current = movementScript.staminaCooldown;
+            staminaBars[i].maximum = movementScript.staminaCooldown;
         }
     }
 
     float timeElapsed;
     void UpdateBars()
     {
-        if (movementScript.currentDashes > 0)
-            currentStaminaBar = movementScript.currentDashes;
+        if (movementScript.currentStamina > 0)
+            currentStaminaBar = movementScript.currentStamina;
         else
             currentStaminaBar = 0;
 
         if (currentStaminaBar + 1 < totalStaminaBars)
         {
-            Debug.Log("Set bar in front to zero");
             staminaBars[currentStaminaBar + 1].current = 0;
         }
 
-        if (!movementScript.dashCooldownDone)
+        if (!movementScript.staminaCooldownDone)
         {
-            Debug.Log("add to time");
             timeElapsed += Time.deltaTime;
         }
         staminaBars[currentStaminaBar].current = timeElapsed;
@@ -105,7 +103,6 @@ public class StaminBarValues : MonoBehaviour
         }
         else
             staminaBars[currentStaminaBar].color = barRechargingColor;
-        Debug.Log(currentStaminaBar);
     }
 
     void ResetTimer()

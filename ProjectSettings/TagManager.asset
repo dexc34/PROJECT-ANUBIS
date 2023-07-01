@@ -9,6 +9,7 @@ TagManager:
   - Destructible
   - Muzzle
   - Hurtbox
+  - Rigidbody
   layers:
   - Default
   - TransparentFX

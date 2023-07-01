@@ -10,7 +10,7 @@ public class Health : MonoBehaviour
     public int maxHealth = 100;
 
     //Script variables
-    public int currentHealth;
+    [HideInInspector] public int currentHealth;
     private bool isPlayer = false;
     private bool isEnemy = false;
     private bool isDestructible = false;
