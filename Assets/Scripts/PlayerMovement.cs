@@ -46,7 +46,7 @@ public class PlayerMovement : MonoBehaviour
     //Private script variables
     [HideInInspector] public float yVelocity; //Tracks vertical speed
     [HideInInspector] public Vector3 moveDirection; //Makes sure direction is always camera dependent 
-    private int currentJumps; // Amount of jumps available to the player at any given time
+    [HideInInspector] public int currentJumps; // Amount of jumps available to the player at any given time
     [HideInInspector] public int currentStamina; // Amount of dashes available to the player at any given time
     [HideInInspector] public bool staminaCooldownDone = true;
     [HideInInspector] public bool isDashing = false;
