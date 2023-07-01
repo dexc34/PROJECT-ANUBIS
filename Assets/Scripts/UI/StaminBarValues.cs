@@ -20,8 +20,6 @@ public class StaminBarValues : MonoBehaviour
     [SerializeField] Color barFullColor;
     [SerializeField] Color barRechargingColor;
 
-    float staminaCooldownMax;
-
     Vector3 sizeOfBounds;
     Vector3 startPosition;
 
