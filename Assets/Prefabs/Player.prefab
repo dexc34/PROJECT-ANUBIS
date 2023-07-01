@@ -206,10 +206,10 @@ MonoBehaviour:
   speed: 9
   jumpHeight: 1.75
   amountOfJumps: 2
-  amountOfDashes: 2
+  maxStamina: 2
+  staminaCooldown: 0
   dashSpeed: 50
   dashDuration: 0.1
-  dashCooldown: 1.5
   groundPoundStrength: -8
   fractionOfMomentumPreserved: 4
   groundPoundBounceLimit: {x: 2.5, y: 4.5}
@@ -217,8 +217,9 @@ MonoBehaviour:
   gravityScale: 3.5
   yVelocity: 0
   moveDirection: {x: 0, y: 0, z: 0}
-  currentDashes: 0
-  dashCooldownDone: 1
+  currentJumps: 0
+  currentStamina: 0
+  staminaCooldownDone: 1
   isDashing: 0
   isGroundPounding: 0
 --- !u!114 &5597575281648933856
@@ -759,7 +760,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1afe25c622eb41469ac628553f80f52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mass: 200
+  mass: 300
   horizontalForceCap: 6
   verticalForceCap: 5
   explosionForceDuration: 1
@@ -769,20 +770,20 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 0
       value: 0.99905396
-      inSlope: -1.316658
-      outSlope: -1.316658
+      inSlope: -0.099700615
+      outSlope: -0.099700615
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
-      outWeight: 0.16071245
+      outWeight: 0.425
     - serializedVersion: 3
       time: 1
       value: 0
-      inSlope: 0
-      outSlope: 0
+      inSlope: -1.5105493
+      outSlope: -1.5105493
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0
+      inWeight: 0.23750001
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
@@ -793,20 +794,29 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 0
       value: 1
-      inSlope: -0.9967012
-      outSlope: -0.9967012
-      tangentMode: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 1
       weightedMode: 0
       inWeight: 0
-      outWeight: 1
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.80833435
+      value: 0.5
+      inSlope: -0.18994682
+      outSlope: -2.1731517
+      tangentMode: 1
+      weightedMode: 0
+      inWeight: 0.5548783
+      outWeight: 0.23333335
     - serializedVersion: 3
       time: 1
       value: 0
-      inSlope: -1.0089163
-      outSlope: -1.0089163
+      inSlope: -2.1489167
+      outSlope: -2.1489167
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.99583334
+      inWeight: 0.2166667
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
