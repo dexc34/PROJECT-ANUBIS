@@ -7,7 +7,7 @@ public class StaminBarValues : MonoBehaviour
 {
     [Header("Reference")]
     [SerializeField] GameObject player;
-    [SerializeField] PlayerMovement movementScript;
+    [SerializeField] Movement movementScript;
     [SerializeField] RectTransform barBounds;
     [SerializeField] Canvas canvas;
 
@@ -34,7 +34,7 @@ public class StaminBarValues : MonoBehaviour
 
     private void Awake()
     {
-        movementScript = player.GetComponent<PlayerMovement>();
+        movementScript = player.GetComponent<Movement>();
         totalStaminaBars = movementScript.maxStamina;
         currentStaminaBar = movementScript.maxStamina;
 

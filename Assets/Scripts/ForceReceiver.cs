@@ -38,12 +38,12 @@ public class ForceReceiver : MonoBehaviour
 
     //Required components
     private CharacterController characterController;
-    private PlayerMovement playerMovement;
+    private Movement movementScript;
 
     private void Start()
     {
         characterController = GetComponent<CharacterController>();
-        playerMovement = GetComponent<PlayerMovement>();
+        movementScript = GetComponent<Movement>();
         lerpMultiplier = 100/(explosionForceDuration * 100);
     }
 
@@ -52,7 +52,7 @@ public class ForceReceiver : MonoBehaviour
     {
         direction.Normalize();
         if (direction.y < 0) direction.y = -direction.y; // reflect down force on the ground
-        playerMovement.yVelocity = 0;
+        movementScript.yVelocity = 0;
         verticalTime = 0;
         horizontalTime = 0;
         impact += direction.normalized * force / mass;

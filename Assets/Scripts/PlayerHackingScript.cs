@@ -66,7 +66,7 @@ public class PlayerHackingScript : MonoBehaviour
     public bool hackInterrupted = false;
 
 
-    private PlayerMovement playerMovementScript;
+    private Movement playerMovementScript;
     private Gun gunScript;
 
 
@@ -78,7 +78,7 @@ public class PlayerHackingScript : MonoBehaviour
         characterController= GetComponent<CharacterController>();
         lineRenderer= GetComponent<LineRenderer>();
         mainCameraBrain = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Cinemachine.CinemachineBrain>();
-        playerMovementScript = GetComponent<PlayerMovement>();
+        playerMovementScript = GetComponent<Movement>();
         gunScript = GetComponent<Gun>();
     }
 

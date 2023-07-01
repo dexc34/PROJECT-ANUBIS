@@ -24,12 +24,12 @@ public class JumpPad : MonoBehaviour
         {
             if(nearbyObjects.gameObject.CompareTag("Hurtbox"))
             {
-                PlayerMovement playerMovement = nearbyObjects.transform.parent.gameObject.GetComponent<PlayerMovement>();
-                if(playerMovement)
+                Movement movementScript = nearbyObjects.transform.parent.gameObject.GetComponent<Movement>();
+                if(movementScript)
                 {
-                    playerMovement.isGroundPounding = false;
-                    if(playerMovement.currentJumps <= 0) playerMovement.currentJumps ++;
-                    playerMovement.yVelocity = padStrength;
+                    movementScript.isGroundPounding = false;
+                    if(movementScript.currentJumps <= 0) movementScript.currentJumps ++;
+                    movementScript.yVelocity = padStrength;
                 }
             }
         }
