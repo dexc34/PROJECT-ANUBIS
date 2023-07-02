@@ -10,6 +10,7 @@ TagManager:
   - Muzzle
   - Hurtbox
   - Rigidbody
+  - Geometry
   layers:
   - Default
   - TransparentFX
@@ -23,7 +24,7 @@ TagManager:
   - EnemyBullet
   - Enemy
   - ExplosiveShell
-  - 
+  - NavBlocker
   - 
   - 
   - 

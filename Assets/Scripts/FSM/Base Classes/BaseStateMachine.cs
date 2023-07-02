@@ -29,6 +29,7 @@ public class BaseStateMachine : MonoBehaviour
         }
     }
 
+    //caches componets so we dont need to instantiate them 
     public new T GetComponent<T>() where T : Component
     {
         if (_cachedComponents.ContainsKey(typeof(T)))
