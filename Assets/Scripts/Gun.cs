@@ -42,7 +42,7 @@ public class Gun : MonoBehaviour
 
     [SerializeField]
     [Tooltip ("Can the player hold to shoot?")]
-    private bool isAutomatic = false;
+    public bool isAutomatic = false;
 
     [SerializeField] 
     [Tooltip ("Meassured in bursts fired per second")] 
@@ -118,7 +118,6 @@ public class Gun : MonoBehaviour
     private int ammoToDisplay;
     private bool canFire = true;
     private float shootCooldown;
-    private bool isShoothing = false;
 
     [SerializeField]
     [Tooltip("Does the gun need to be cocked?")]
@@ -137,38 +136,8 @@ public class Gun : MonoBehaviour
         UpdateGunStats(this);
     }
 
-    private void Update() 
-    {
-        if(!isShoothing) return;
-        FireBullet();
-    }
-
     //----------------------------------Player Functions-----------------------------------------------------------------------------------
-
-    public void Shoot(InputAction.CallbackContext context)
-    {
-        if(isAutomatic)
-        {
-            if(context.performed)
-            {
-                isShoothing = true;
-            }
-
-            if(context.canceled)
-            {
-                isShoothing = false;
-            }
-        }
-
-        //If weapon isn't automatic only register input when button is first pressed
-        if(!isAutomatic && context.performed)
-        {
-            FireBullet();
-        }
-
-    }
-
-    private void FireBullet()
+    public void FireBullet()
     {
         if(!canFire) return;
         
@@ -200,6 +169,7 @@ public class Gun : MonoBehaviour
         //Render Muzzle Particle
         muzzleParticle.Clear();
         muzzleParticle.Play();
+
         //Don't set canFire to true if out of ammo
         if(currentAmmo == 0)
         {
@@ -209,19 +179,14 @@ public class Gun : MonoBehaviour
         //Reload if necessary
         if(currentMagazine <= 0)
         {
-            StartCoroutine("Reloading");
+            canFire = true;
+            StartCoroutine("Reload");
         }
         //If not necessary wait for the shoot cooldown
         else
         {
             StartCoroutine("ShootCooldown");
         }
-    }
-
-    public void Reload(InputAction.CallbackContext context)
-    {
-        if(!context.performed || currentMagazine == magazineSize || ammoToDisplay <= 0 ||!canFire) return;
-        StartCoroutine("Reloading");
     }
 
     private IEnumerator ShootCooldown()
@@ -232,8 +197,9 @@ public class Gun : MonoBehaviour
         canFire = true;
     }
 
-    private IEnumerator Reloading()
+    public IEnumerator Reload()
     {
+        if(currentMagazine == magazineSize || ammoToDisplay <= 0 ||!canFire) yield break;
         canFire = false;
 
         gunAudioScript.PlayReloadClip(shootAudioSource);
@@ -261,7 +227,7 @@ public class Gun : MonoBehaviour
     //Used when hacking a new body, update gun stats to match the enemy's gun
     public void UpdateGunStats(Gun gunScriptToPullFrom)
     {
-        isShoothing = false;
+//        isShoothing = false;
 
         //Apply serializable gun stats
         gunIndex = gunScriptToPullFrom.gunIndex;

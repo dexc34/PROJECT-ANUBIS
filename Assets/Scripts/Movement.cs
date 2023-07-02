@@ -9,7 +9,7 @@ using UnityEngine.SceneManagement;
 public class Movement : MonoBehaviour
 {
     //In-editor tools 
-    [SerializeField] private InputAction move;
+    
     [SerializeField] private float speed;
 
     [Header ("Jump Settings")]
@@ -44,6 +44,7 @@ public class Movement : MonoBehaviour
     [SerializeField] [Tooltip ("How strong is the gravity")] private float gravityScale;
 
     //Private script variables
+    [HideInInspector] public Vector2 horizontalVelocity; //Gets fed into ApplyMovement() to determine horizontal direction
     [HideInInspector] public float yVelocity; //Tracks vertical speed
     [HideInInspector] public Vector3 moveDirection; //Makes sure direction is always camera dependent 
     [HideInInspector] public int currentJumps; // Amount of jumps available to the player at any given time
@@ -66,7 +67,6 @@ public class Movement : MonoBehaviour
         ceilingCheck = transform.Find("Ceiling Check");
         ChangeStats();
         currentStamina = maxStamina;
-        move.Enable();
     }
 
     private void Update() 
@@ -135,8 +135,7 @@ public class Movement : MonoBehaviour
             characterController.Move(moveDirection * dashSpeed * Time.deltaTime);
             return;
         }
-        Vector2 inputReadings = move.ReadValue<Vector2>();
-        moveDirection = transform.right * inputReadings.x + transform.forward * inputReadings.y;
+        moveDirection = transform.right * horizontalVelocity.x + transform.forward * horizontalVelocity.y;
         moveDirection = new Vector3(moveDirection.x, yVelocity, moveDirection.z);   
 
         //Adds explosion force if necessary
@@ -157,14 +156,9 @@ public class Movement : MonoBehaviour
         isGroundPounding = false;
     }
 
-    public void Dash()
+    public IEnumerator Dash()
     {
-        if(currentStamina == 0 || isDashing) return;
-        StartCoroutine("Dashing");
-    }
-
-    private IEnumerator Dashing()
-    {
+        if(currentStamina == 0 || isDashing) yield break;
         currentStamina --;
         yVelocity = 0;
         forceReceiver.impact.y = 0;
