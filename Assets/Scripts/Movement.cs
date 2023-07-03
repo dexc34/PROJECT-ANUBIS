@@ -39,6 +39,18 @@ public class Movement : MonoBehaviour
     [Tooltip ("Min and maximum height the ground pound bounce will have")]
     private Vector2 groundPoundBounceLimit;
 
+    [SerializeField]
+    [Tooltip ("How much damage the ground pound launch deals")]
+    private int groundPoundLaunchDamage;
+
+    [SerializeField]
+    [Tooltip ("The radius of the ground pound launch area of effect")]
+    private float groundPoundLaunchRange;
+
+    [SerializeField]
+    [Tooltip ("How high up enemies will be sent up while in range")]
+    private Vector2 groundPoundLaunchStrengthRange;
+
     [Header ("Slide setting")]
 
     [SerializeField]
@@ -215,6 +227,41 @@ public class Movement : MonoBehaviour
         StartCoroutine("RecoverStamina");
     }
 
+    public void GroundPoundBounce()
+    {
+        groundPoundEndPosition = transform.position;
+        float distanceFell = groundPoundStartPosition.y - groundPoundEndPosition.y;
+        float groundPoundBounceStrength = distanceFell/fractionOfMomentumPreserved;
+        GroundPoundLaunch();
+        groundPoundBounceStrength = Mathf.Clamp(groundPoundBounceStrength, groundPoundBounceLimit.x, groundPoundBounceLimit.y);
+        yVelocity = groundPoundBounceStrength;
+    }
+
+    private void GroundPoundLaunch()
+    {
+        Collider[] nearbyEnemies = Physics.OverlapCapsule(transform.position, transform.position, groundPoundLaunchRange);
+        foreach(Collider enemy in nearbyEnemies)
+        {
+            if(enemy.CompareTag("Hurtbox"))
+            {
+                CharacterController enemyController = enemy.transform.parent.GetComponent<CharacterController>();
+                if(enemyController)
+                {
+                    float launchStrength = Random.Range(groundPoundLaunchStrengthRange.x, groundPoundLaunchStrengthRange.y);
+                    enemyController.Move(new Vector3(0, launchStrength, 0));
+                }
+                Health targetHealth = enemy.transform.parent.GetComponent<Health>();
+                targetHealth.TakeDamage(groundPoundLaunchDamage);
+            }
+
+            if(enemy.GetComponent<Rigidbody>() != null)
+            {
+                float launchStrength = Random.Range(groundPoundLaunchStrengthRange.x, groundPoundLaunchStrengthRange.y);
+                enemy.GetComponent<Rigidbody>().AddForce(new Vector3(0, launchStrength, 0), ForceMode.Impulse);
+            }
+        }
+    }
+
     public void Slide()
     {
         if(horizontalVelocity.magnitude < 0.1f || isDashing || isSliding) return;
@@ -248,14 +295,6 @@ public class Movement : MonoBehaviour
         isLongJumping = false;
     }
 
-    public void GroundPoundBounce()
-    {
-        groundPoundEndPosition = transform.position;
-        float distanceFell = groundPoundStartPosition.y - groundPoundEndPosition.y;
-        float groundPoundBounceStrength = distanceFell/fractionOfMomentumPreserved;
-        groundPoundBounceStrength = Mathf.Clamp(groundPoundBounceStrength, groundPoundBounceLimit.x, groundPoundBounceLimit.y);
-        yVelocity = groundPoundBounceStrength;
-    }
 
     public IEnumerator RecoverStamina()
     {
