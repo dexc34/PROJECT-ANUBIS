@@ -201,7 +201,7 @@ public class PlayerHackingScript : MonoBehaviour
         Vector3 raycastStart = transform.position;
         Vector3 raycastDirection = (currentlyHackingEnemy.transform.position + new Vector3(0, 1, 0) - transform.position);
 
-        if (Physics.Raycast(raycastStart, raycastDirection, out hit, raycastDistance))
+        if (Physics.Raycast(raycastStart, raycastDirection, out hit, raycastDistance, ignoredLayer))
         {
             if (hit.collider.gameObject == currentlyHackingEnemy)
             {

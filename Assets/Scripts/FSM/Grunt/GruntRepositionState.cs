@@ -5,12 +5,11 @@ using UnityEngine;
 public class GruntRepositionState : GruntBaseState
 {
     List<Node> validNodes = new List<Node>();
-    Node nodeCheck;
     Node nodeToGoTo;
     bool reachedNode;
     public override void EnterState(GruntStateMachine grunt)
     {
-        reachedNode = false;
+        reachedNode = true;
         int random = Random.Range(0, grunt.totalNodes.Count);
         nodeToGoTo = grunt.totalNodes[random];
         grunt.agent.SetDestination(nodeToGoTo.transform.position);
@@ -21,20 +20,13 @@ public class GruntRepositionState : GruntBaseState
         reachedNode = nodeToGoTo.hasReached;
         if (reachedNode)
         {
-            GetValidNodes(grunt);
-            if(validNodes.Count > 0)
-            {
-                int random = Random.Range(0, validNodes.Count);
-                nodeToGoTo = validNodes[random];
-                grunt.agent.SetDestination(nodeToGoTo.transform.position);
-            }
-            reachedNode = false;
+            FindNewNode(grunt);
         }
     }
 
     public override void OnCollisionEnter(GruntStateMachine grunt, Collision collision)
     {
-
+        //do nothing 
     }
 
     void GetValidNodes(GruntStateMachine grunt)
@@ -48,6 +40,18 @@ public class GruntRepositionState : GruntBaseState
                 validNodes.Add(nodesInList);
             }
         }
+    }
+
+    void FindNewNode(GruntStateMachine grunt)
+    {
+        GetValidNodes(grunt);
+        if (validNodes.Count > 0)
+        {
+            int random = Random.Range(0, validNodes.Count);
+            nodeToGoTo = validNodes[random];
+            grunt.agent.SetDestination(nodeToGoTo.transform.position);
+        }
+        reachedNode = false;
     }
 
 }
