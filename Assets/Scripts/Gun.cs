@@ -311,41 +311,40 @@ public class Gun : MonoBehaviour
     //------------------------------------------------------Enemy functions------------------------------------------------------------------
     public void EnemyShoot()
     {
+        if(!canFire) return;
+        
         canFire = false;
-        currentMagazine --;
+
+        gunAudioScript.PlayShootClip(shootAudioSource);
 
         //Fire a specified amount of bullets per burst
         for(int i = 0; i < bulletsPerBurst; i++)
         {
-            GameObject bullet = Instantiate(bulletPrefab, virtualCamera.position + (virtualCamera.right * bulletSpread[i].x) + (virtualCamera.up * bulletSpread[i].y) , virtualCamera.rotation);
-            bullet.GetComponent<Rigidbody>().AddForce(virtualCamera.forward* bulletSpeed, ForceMode.Impulse);
+            GameObject bullet = Instantiate(bulletPrefab, virtualCamera.position + virtualCamera.forward, virtualCamera.rotation);
+            Vector3 bulletFinalDestination = (virtualCamera.right * bulletSpread[i].x) + (virtualCamera.up * bulletSpread[i].y) + (virtualCamera.forward * zSpread);
+            bullet.GetComponent<Rigidbody>().AddForce(bulletFinalDestination * bulletSpeed/zSpread, ForceMode.Impulse);
+            //Does not apply to weapons that don't shoot bullets (eg. rocket launcher)
+            if(bullet.GetComponent<Bullets>() != null)
+            {
+                bullet.GetComponent<Bullets>().damage = damagePerBullet;
+                bullet.GetComponent<Bullets>().destroyTime = bulletLifetime;
+            }
         }
 
-        //Reload if necessary
-        if(currentMagazine <= 0)
+        //Render Muzzle Particle
+        muzzleParticle.Clear();
+        muzzleParticle.Play();
+
+        //Don't set canFire to true if out of ammo
+        if(currentAmmo == 0)
         {
-            StartCoroutine("EnemyReload");
+            return;
         }
+
         //If not necessary wait for the shoot cooldown
         else
         {
-            StartCoroutine("EnemyShootCooldown");
+            StartCoroutine("ShootCooldown");
         }
-    }
-
-    public IEnumerator EnemyReload()
-    {
-        canFire = false;
-
-        yield return new WaitForSeconds(reloadSpeed);
-
-        currentMagazine = magazineSize;
-        canFire = true;
-    }
-
-    public IEnumerator EnemyShootCooldown()
-    {
-        yield return new WaitForSeconds(shootCooldown);
-        canFire = true;
     }
 }
