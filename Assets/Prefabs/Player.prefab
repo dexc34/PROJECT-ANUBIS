@@ -946,8 +946,8 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2204471446375920960, guid: b3e138ead10845f489c0b036c6e863e9,
         type: 3}
-      propertyPath: m_Enabled
-      value: 1
+      propertyPath: cameraSensitivity
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 2204471446375920961, guid: b3e138ead10845f489c0b036c6e863e9,
         type: 3}
