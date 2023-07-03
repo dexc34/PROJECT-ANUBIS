@@ -5,12 +5,21 @@ using UnityEngine.InputSystem;
 
 public class InputHandler : MonoBehaviour
 {
+    //Editor tools
+    [SerializeField] private InputAction move;
+
     //Required components
     private Movement movementScript;
 
-    private void Start() 
+    private void Awake() 
     {
         movementScript = GetComponent<Movement>();
+        move.Enable();
+    }
+
+    private void Update() 
+    {
+        movementScript.horizontalVelocity = move.ReadValue<Vector2>();
     }
 
     public void Jump(InputAction.CallbackContext context)

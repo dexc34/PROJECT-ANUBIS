@@ -87,18 +87,18 @@ GameObject:
   m_Component:
   - component: {fileID: 5597575281648933859}
   - component: {fileID: 5597575281648933861}
+  - component: {fileID: 8850740828167896121}
   - component: {fileID: 5597575281648933858}
   - component: {fileID: 5597575281648933856}
   - component: {fileID: 5597575281648933855}
   - component: {fileID: 2655479027469224854}
+  - component: {fileID: 108184812028790357}
   - component: {fileID: 5597575281648933860}
+  - component: {fileID: 3520088236766947616}
   - component: {fileID: 5597575281648933857}
   - component: {fileID: 724404433219266171}
   - component: {fileID: 3977012010613878763}
   - component: {fileID: 7617674700474056787}
-  - component: {fileID: 8850740828167896121}
-  - component: {fileID: 3520088236766947616}
-  - component: {fileID: 108184812028790357}
   m_Layer: 7
   m_Name: Player
   m_TagString: Player
@@ -143,6 +143,20 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &8850740828167896121
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5597575281648933863}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0060248ca0c11cc41ae2a41f0e505b29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 150
+  currentHealth: 0
 --- !u!114 &5597575281648933858
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -155,55 +169,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5b4e3635a87a51449c267bc6d5e0a23, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  move:
-    m_Name: Move
-    m_Type: 0
-    m_ExpectedControlType: 
-    m_Id: e296b43e-c5c7-4856-b6d3-825662a9d4b9
-    m_Processors: 
-    m_Interactions: 
-    m_SingletonActionBindings:
-    - m_Name: Keyboard
-      m_Id: 135fd13f-f788-4d7b-80d5-2143ee66eb5f
-      m_Path: 2DVector
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Move
-      m_Flags: 4
-    - m_Name: up
-      m_Id: bea979c2-ff71-4983-8f25-200063d54616
-      m_Path: <Keyboard>/w
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Move
-      m_Flags: 8
-    - m_Name: down
-      m_Id: 3ff8baf2-e05b-4bec-9cd7-e7db017602bb
-      m_Path: <Keyboard>/s
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Move
-      m_Flags: 8
-    - m_Name: left
-      m_Id: 093a4b38-7a2c-4e81-be54-28613fe0a226
-      m_Path: <Keyboard>/a
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Move
-      m_Flags: 8
-    - m_Name: right
-      m_Id: a6f482e7-29b6-46c2-a4c1-98a797da993c
-      m_Path: <Keyboard>/d
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Move
-      m_Flags: 8
-    m_Flags: 0
   speed: 9
   jumpHeight: 1.75
   amountOfJumps: 2
@@ -216,6 +181,7 @@ MonoBehaviour:
   groundPoundBounceLimit: {x: 2.5, y: 4.5}
   gravity: -1
   gravityScale: 3.5
+  horizontalVelocity: {x: 0, y: 0}
   yVelocity: 0
   moveDirection: {x: 0, y: 0, z: 0}
   currentJumps: 0
@@ -323,6 +289,67 @@ MonoBehaviour:
   abilityCooldown: 0
   grenadePrefab: {fileID: 0}
   canUseAbility: 1
+--- !u!114 &108184812028790357
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5597575281648933863}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb5e3459a186de94798caad53e0c832f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  move:
+    m_Name: Move
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 2f235423-ee68-4d0d-8665-3e84163b2c17
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: Keyboard
+      m_Id: 24fc5e98-fdbf-412a-aea6-3cf57bc296a0
+      m_Path: 2DVector
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Move
+      m_Flags: 4
+    - m_Name: up
+      m_Id: 21332e58-0657-4607-aacc-1c69696950f9
+      m_Path: <Keyboard>/w
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Move
+      m_Flags: 8
+    - m_Name: down
+      m_Id: 996aa93c-eccd-4067-97ee-628e51ddf487
+      m_Path: <Keyboard>/s
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Move
+      m_Flags: 8
+    - m_Name: left
+      m_Id: c4c390a0-1e6b-45ec-881c-6a8544c87aaa
+      m_Path: <Keyboard>/a
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Move
+      m_Flags: 8
+    - m_Name: right
+      m_Id: 85305771-38c2-47f6-89b7-ee856d16468a
+      m_Path: <Keyboard>/d
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Move
+      m_Flags: 8
+    m_Flags: 0
 --- !u!114 &5597575281648933860
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -474,6 +501,81 @@ MonoBehaviour:
   m_DefaultActionMap: Combat
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &3520088236766947616
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5597575281648933863}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1afe25c622eb41469ac628553f80f52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mass: 300
+  horizontalForceCap: 6
+  verticalForceCap: 5
+  explosionForceDuration: 1
+  horizontalCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0.99905396
+      inSlope: -0.099700615
+      outSlope: -0.099700615
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.425
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: -1.5105493
+      outSlope: -1.5105493
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.23750001
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  verticalCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 1
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.80833435
+      value: 0.5
+      inSlope: -0.18994682
+      outSlope: -2.1731517
+      tangentMode: 1
+      weightedMode: 0
+      inWeight: 0.5548783
+      outWeight: 0.23333335
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: -2.1489167
+      outSlope: -2.1489167
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.2166667
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  impact: {x: 0, y: 0, z: 0}
+  receivedExplosion: 0
 --- !u!82 &5597575281648933857
 AudioSource:
   m_ObjectHideFlags: 0
@@ -735,107 +837,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   screenShake: {fileID: 3977012010613878763}
---- !u!114 &8850740828167896121
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5597575281648933863}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0060248ca0c11cc41ae2a41f0e505b29, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxHealth: 150
-  currentHealth: 0
---- !u!114 &3520088236766947616
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5597575281648933863}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b1afe25c622eb41469ac628553f80f52, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mass: 300
-  horizontalForceCap: 6
-  verticalForceCap: 5
-  explosionForceDuration: 1
-  horizontalCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0.99905396
-      inSlope: -0.099700615
-      outSlope: -0.099700615
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0.425
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: -1.5105493
-      outSlope: -1.5105493
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.23750001
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  verticalCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 1
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 0.80833435
-      value: 0.5
-      inSlope: -0.18994682
-      outSlope: -2.1731517
-      tangentMode: 1
-      weightedMode: 0
-      inWeight: 0.5548783
-      outWeight: 0.23333335
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: -2.1489167
-      outSlope: -2.1489167
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.2166667
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  impact: {x: 0, y: 0, z: 0}
-  receivedExplosion: 0
---- !u!114 &108184812028790357
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5597575281648933863}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bb5e3459a186de94798caad53e0c832f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &5597575282290619445
 GameObject:
   m_ObjectHideFlags: 0
