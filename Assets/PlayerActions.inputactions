@@ -15,15 +15,6 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Movement",
-                    "type": "Value",
-                    "id": "8de204bc-7458-4a77-a30b-15c877844e7b",
-                    "expectedControlType": "Vector2",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": true
-                },
-                {
                     "name": "Jump",
                     "type": "Button",
                     "id": "637d1fc4-918b-4033-9eda-46bbfc72ff53",
@@ -33,18 +24,18 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Hack",
+                    "name": "Dash",
                     "type": "Button",
-                    "id": "e1d5344e-5f8f-4b77-8d25-ec16a130aa93",
+                    "id": "b80f08ae-b5da-4d01-a536-82819bc7a367",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Dash",
+                    "name": "Crouch",
                     "type": "Button",
-                    "id": "b80f08ae-b5da-4d01-a536-82819bc7a367",
+                    "id": "11cee493-fa93-4834-9a03-4b76837fa5e0",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -78,9 +69,9 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Ground Pound",
+                    "name": "Hack",
                     "type": "Button",
-                    "id": "11cee493-fa93-4834-9a03-4b76837fa5e0",
+                    "id": "e1d5344e-5f8f-4b77-8d25-ec16a130aa93",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -96,105 +87,6 @@
                     "processors": "",
                     "groups": "",
                     "action": "Camera",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "Keyboard",
-                    "id": "84001806-dcd7-4597-8b3d-50445510155e",
-                    "path": "2DVector",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Movement",
-                    "isComposite": true,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "up",
-                    "id": "65be1577-e262-44e5-ace8-7cdd2a6334f6",
-                    "path": "<Keyboard>/w",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Movement",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "down",
-                    "id": "aafc30de-e604-400c-b48d-6c82e71a40cd",
-                    "path": "<Keyboard>/s",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Movement",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "left",
-                    "id": "d2fac828-52c4-44d7-ba04-f3994b6951dd",
-                    "path": "<Keyboard>/a",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Movement",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "right",
-                    "id": "98f12aac-0fdc-4131-b794-198fc50e3f21",
-                    "path": "<Keyboard>/d",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Movement",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "",
-                    "id": "fce396d3-cfb0-49ab-9b80-4bef126201e1",
-                    "path": "<Gamepad>/leftStick",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Movement",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "24af4bc5-c22a-4ee4-a39d-1a7584bd435c",
-                    "path": "<Keyboard>/space",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Jump",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "d2674a6c-731f-4243-9e81-15e234de974e",
-                    "path": "<Mouse>/rightButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Hack",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "8b3db5ea-4896-404e-98b2-4fd4f3f51c44",
-                    "path": "<Keyboard>/leftShift",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Dash",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -238,7 +130,40 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Ground Pound",
+                    "action": "Crouch",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "8b3db5ea-4896-404e-98b2-4fd4f3f51c44",
+                    "path": "<Keyboard>/leftShift",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Dash",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "24af4bc5-c22a-4ee4-a39d-1a7584bd435c",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Jump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d2674a6c-731f-4243-9e81-15e234de974e",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Hack",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

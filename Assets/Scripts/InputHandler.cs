@@ -7,14 +7,19 @@ public class InputHandler : MonoBehaviour
 {
     //Editor tools
     [SerializeField] private InputAction move;
+    [SerializeField] 
+    [Tooltip ("How long crouch button stays registered after letting go")]
+    private float crouchCancelDelay;
 
     //Script variables
     private bool isShoothing = false;
+    private bool isCrouching = false;
 
     //Required components
     private Movement movementScript;
     private Gun gunScript;
     private SecondaryAbility secondaryAbilityScript;
+    private CharacterController characterController;
 
     private void Awake() 
     {
@@ -24,14 +29,37 @@ public class InputHandler : MonoBehaviour
         gunScript = GetComponent<Gun>();
 
         secondaryAbilityScript = GetComponent<SecondaryAbility>();
+
+        characterController = GetComponent<CharacterController>();
     }
 
     private void Update() 
     {
+        //Update movement direction
         movementScript.horizontalVelocity = move.ReadValue<Vector2>();
 
-        if(!isShoothing) return;
-        gunScript.FireBullet();
+        //Used for automatic weapons
+        if(isShoothing) gunScript.FireBullet();
+
+        //Sliding vs bouncing on touching ground while ground pounding
+        
+        if(characterController.isGrounded)
+        {
+            if(movementScript.isGroundPounding)
+            {
+                if(isCrouching)
+                {
+                    movementScript.isGroundPounding = false;
+                    movementScript.Slide();
+                }
+                else
+                {
+                    movementScript.isGroundPounding = false;
+                    movementScript.GroundPoundBounce();
+                }
+            }
+            
+        }
     }
 
     //Movement functions
@@ -47,10 +75,36 @@ public class InputHandler : MonoBehaviour
         StartCoroutine(movementScript.Dash());
     }
 
-    public void GroundPound(InputAction.CallbackContext context)
+    public void Crouch(InputAction.CallbackContext context)
     {
-        if(!context.performed) return;
-        movementScript.GroundPound();
+        if(context.canceled)
+        {
+            isCrouching = false; 
+            movementScript.CancelSlide();
+            return;
+        }
+
+        if(context.performed)
+        {
+            isCrouching = true;
+            //StartCoroutine(CrouchCancel(context));
+        }
+
+        if(characterController.isGrounded)
+        {
+            movementScript.Slide();
+        }
+        else
+        {
+            movementScript.GroundPound();   
+        }
+    }
+
+    private IEnumerator CrouchCancel(InputAction.CallbackContext context)
+    {
+        yield return new WaitForSeconds(crouchCancelDelay);
+        if(context.performed) isCrouching = true;
+        else if(context.canceled) isCrouching = false;
     }
 
     //Gun actions
