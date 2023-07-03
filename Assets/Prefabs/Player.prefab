@@ -179,6 +179,9 @@ MonoBehaviour:
   groundPoundStrength: -8
   fractionOfMomentumPreserved: 4
   groundPoundBounceLimit: {x: 2.5, y: 4.5}
+  groundPoundLaunchDamage: 0
+  groundPoundLaunchRange: 0
+  groundPoundLaunchStrengthRange: {x: 0, y: 0}
   slideSpeed: 15
   slidingCameraHeight: 0.5
   longJumpStrength: {x: 6, y: 1}
@@ -944,11 +947,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5597575281648933859}
     m_Modifications:
-    - target: {fileID: 2204471446375920960, guid: b3e138ead10845f489c0b036c6e863e9,
-        type: 3}
-      propertyPath: cameraSensitivity
-      value: 5
-      objectReference: {fileID: 0}
     - target: {fileID: 2204471446375920961, guid: b3e138ead10845f489c0b036c6e863e9,
         type: 3}
       propertyPath: m_Name
