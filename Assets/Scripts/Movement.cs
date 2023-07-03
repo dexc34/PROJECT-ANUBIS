@@ -156,14 +156,9 @@ public class Movement : MonoBehaviour
         isGroundPounding = false;
     }
 
-    public void Dash()
+    public IEnumerator Dash()
     {
-        if(currentStamina == 0 || isDashing) return;
-        StartCoroutine("Dashing");
-    }
-
-    private IEnumerator Dashing()
-    {
+        if(currentStamina == 0 || isDashing) yield break;
         currentStamina --;
         yVelocity = 0;
         forceReceiver.impact.y = 0;

@@ -34,9 +34,9 @@ public class SecondaryAbility : MonoBehaviour
         virtualCamera = newCamera;
     }
 
-    public void ActivateAbility(InputAction.CallbackContext context)
+    public void UseAbility()
     {
-        if(!context.performed || !canUseAbility) return;
+        if(!canUseAbility) return;
         canUseAbility = false;
         Invoke(secondaryFunctionToCall, 0);
         StartCoroutine("AbilityCooldown");
