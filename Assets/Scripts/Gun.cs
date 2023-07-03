@@ -318,7 +318,7 @@ public class Gun : MonoBehaviour
         gunAudioScript.PlayShootClip(shootAudioSource);
 
         //Fire a specified amount of bullets per burst
-        for(int i = 0; i < bulletsPerBurst; i++)
+        for (int i = 0; i < bulletsPerBurst; i++)
         {
             GameObject bullet = Instantiate(bulletPrefab, virtualCamera.position + virtualCamera.forward, virtualCamera.rotation);
             Vector3 bulletFinalDestination = (virtualCamera.right * bulletSpread[i].x) + (virtualCamera.up * bulletSpread[i].y) + (virtualCamera.forward * zSpread);
