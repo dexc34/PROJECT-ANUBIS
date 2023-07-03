@@ -14,7 +14,12 @@ public class Node : MonoBehaviour
     [SerializeField] LayerMask enemy;
 
     [HideInInspector] public bool isValid;
-    [HideInInspector] public bool isUsed;
+    [HideInInspector] public bool inRange;
+    [HideInInspector] public bool inLOS;
+
+    [HideInInspector] public float rangeToPlayer;
+
+    public bool hasReached;
     //draw
     void OnDrawGizmosSelected()
     {
@@ -33,7 +38,8 @@ public class Node : MonoBehaviour
     private void Update()
     {
         CalculateLOS();
-        CheckIfUsed();
+        CalculateRange();
+        CheckIfValid();
     }
 
     //Calculate LOS to player
@@ -44,39 +50,66 @@ public class Node : MonoBehaviour
         {
             if (hit.collider.gameObject != player)
             {
-                Debug.DrawRay(LOSPosition, targetDirection * hit.distance, Color.red);
-                Gizmos.color = Color.red;
-                isValid = false;
+                inLOS = false;
             }
             else if (hit.collider.gameObject.CompareTag("Player"))
             {
-                Debug.DrawRay(LOSPosition, targetDirection * hit.distance, Color.green);
-                Gizmos.color = Color.green;
-                isValid = true;
+                inLOS = true;
             }
             else
             {
-                Gizmos.color = Color.red;
-                isValid = false;
+                inLOS = false;
             }
         }
     }
 
-    public void CheckIfUsed()
+    void CalculateRange()
     {
-        if (Physics.CheckSphere(transform.position, 1f, enemy))
+        rangeToPlayer = hit.distance;
+    }
+
+    public void CheckRange(float minRange, float maxRange)
+    {
+        if(rangeToPlayer > minRange && rangeToPlayer < maxRange)
         {
-            Gizmos.color = Color.yellow;
-            isUsed = true;
+            inRange = true;
         }
         else
         {
-            isUsed = false;
+            inRange = false;
         }
     }
 
-    public bool IsUsed(NavMeshAgent agent)
+    void CheckIfValid()
     {
-        return isUsed;
+        if (inLOS && inRange)
+        {
+            isValid = true;
+        }
+        else
+        {
+            isValid = false;
+        }
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Hackable"))
+        {
+            hasReached = true;
+        }
+        else
+        {
+            hasReached = false;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.CompareTag("Hurtbox"))
+        {
+            hasReached = false;
+        }
+    }
+
 }

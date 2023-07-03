@@ -6,8 +6,8 @@ using UnityEngine.Rendering.Universal;
 public class StaminBarValues : MonoBehaviour
 {
     [Header("Reference")]
-    [SerializeField] GameObject player;
-    [SerializeField] Movement movementScript;
+    GameObject player;
+    Movement movementScript;
     [SerializeField] RectTransform barBounds;
     [SerializeField] Canvas canvas;
 
@@ -30,11 +30,10 @@ public class StaminBarValues : MonoBehaviour
     Vector2 calculatedSizeOfStaminaBar = new Vector2(0, 15);
     Vector3 widthOfEachBar;
 
-    bool readyToUpdate = false;
 
     private void Awake()
     {
-        movementScript = player.GetComponent<Movement>();
+        movementScript = GameObject.Find("Player").GetComponent<Movement>();
         totalStaminaBars = movementScript.maxStamina;
         currentStaminaBar = movementScript.maxStamina;
 

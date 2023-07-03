@@ -13,4 +13,9 @@ public class GruntShootScript : GruntBaseState
     {
 
     }
+
+    public override void OnCollisionEnter(GruntStateMachine grunt, Collision collision)
+    {
+
+    }
 }
