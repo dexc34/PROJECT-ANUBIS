@@ -39,6 +39,22 @@ public class Movement : MonoBehaviour
     [Tooltip ("Min and maximum height the ground pound bounce will have")]
     private Vector2 groundPoundBounceLimit;
 
+    [Header ("Slide setting")]
+
+    [SerializeField]
+    [Tooltip ("How fast player goes during a slide")]
+    private float slideSpeed;
+    [SerializeField]
+    [Tooltip ("Vertical position the camera will take during a slide")]
+    private float slidingCameraHeight;
+    [SerializeField]
+    [Tooltip ("Jump out of slide properties (x: horizontal force, y: vertical force)")]
+    private Vector2 longJumpStrength;
+
+    [SerializeField]
+    [Tooltip ("How long the long jump force horizontal force will be applied for")]
+    private float longJumpLength;
+
     [Header ("Gravity Settings")]
     [SerializeField] [Tooltip ("-1 to go down, 0 for no gravity, 1 to go up")] [Range (-1, 1)] private int gravity;
     [SerializeField] [Tooltip ("How strong is the gravity")] private float gravityScale;
@@ -52,6 +68,10 @@ public class Movement : MonoBehaviour
     [HideInInspector] public bool staminaCooldownDone = true;
     [HideInInspector] public bool isDashing = false;
     [HideInInspector] public bool isGroundPounding = false;
+    [HideInInspector] public bool isSliding = false;
+    private bool isLongJumping = false;
+
+    //Used to calculate force applied on ground pound bounce
     private Vector3 groundPoundStartPosition;
     private Vector3 groundPoundEndPosition;
 
@@ -59,14 +79,15 @@ public class Movement : MonoBehaviour
     private CharacterController characterController; 
     private Transform ceilingCheck;
     private ForceReceiver forceReceiver;
+    private Transform playerCamera;
 
     private void Awake() 
     {
         characterController = GetComponent<CharacterController>();
         forceReceiver = GetComponent<ForceReceiver>();
+        currentStamina = maxStamina;
         ceilingCheck = transform.Find("Ceiling Check");
         ChangeStats();
-        currentStamina = maxStamina;
     }
 
     private void Update() 
@@ -95,13 +116,6 @@ public class Movement : MonoBehaviour
                 currentJumps = amountOfJumps;
             }
 
-            if(isGroundPounding)
-            {
-                isGroundPounding = false;
-                groundPoundEndPosition = transform.position;
-                GroundPoundBounce();
-            }
-
             //forceReceiver.impact.y = 0;
         }
 
@@ -110,6 +124,8 @@ public class Movement : MonoBehaviour
         {
             currentJumps --;
         }
+
+//        Debug.Log(isSliding);
     }
 
     private void ApplyGravity()
@@ -135,6 +151,15 @@ public class Movement : MonoBehaviour
             characterController.Move(moveDirection * dashSpeed * Time.deltaTime);
             return;
         }
+        else if(isSliding)
+        {
+            characterController.Move(new Vector3(moveDirection.x * slideSpeed, yVelocity * speed, moveDirection.z * slideSpeed) * Time.deltaTime);
+            return;
+        }
+        else if(isLongJumping)
+        {
+            characterController.Move(new Vector3(moveDirection.x * longJumpStrength.x, yVelocity * speed, moveDirection.z * longJumpStrength.x) * Time.deltaTime);
+        }
         moveDirection = transform.right * horizontalVelocity.x + transform.forward * horizontalVelocity.y;
         moveDirection = new Vector3(moveDirection.x, yVelocity, moveDirection.z);   
 
@@ -150,15 +175,20 @@ public class Movement : MonoBehaviour
     public void Jump()
     {
         if(!characterController.isGrounded && currentJumps == 0) return;
-
-        yVelocity = jumpHeight;
         currentJumps --;
         isGroundPounding = false;
+
+        if(isSliding)
+        {
+            StartCoroutine("LongJump");
+            return;
+        }
+        yVelocity = jumpHeight;
     }
 
     public IEnumerator Dash()
     {
-        if(currentStamina == 0 || isDashing) yield break;
+        if(currentStamina == 0 || isDashing || horizontalVelocity.magnitude < 0.1f) yield break;
         currentStamina --;
         yVelocity = 0;
         forceReceiver.impact.y = 0;
@@ -185,13 +215,43 @@ public class Movement : MonoBehaviour
         StartCoroutine("RecoverStamina");
     }
 
-    private IEnumerator CheckGroundPoundCancel()
+    public void Slide()
     {
-        yield return new WaitForSeconds(1);
+        if(horizontalVelocity.magnitude < 0.1f || isDashing || isSliding) return;
+        playerCamera.position = new Vector3 (playerCamera.position.x, playerCamera.position.y - slidingCameraHeight, playerCamera.position.z);
+        isSliding = true;
+        Debug.Log("Slid");
     }
 
-    private void GroundPoundBounce()
+    public void CancelSlide()
     {
+        if(!isSliding) return;
+        isSliding = false;
+        playerCamera.position = new Vector3 (playerCamera.position.x, playerCamera.position.y + slidingCameraHeight, playerCamera.position.z);
+    }
+
+    private IEnumerator LongJump()
+    {
+        if(!characterController.isGrounded)
+        {
+            CancelSlide();
+            currentJumps ++;
+            Jump();
+            yield break;
+        }
+
+        CancelSlide();
+        isLongJumping = true;
+        yVelocity = longJumpStrength.y;
+        horizontalVelocity += new Vector2(horizontalVelocity.x * longJumpStrength.x, horizontalVelocity.y * longJumpStrength.x);
+
+        yield return new WaitForSeconds(longJumpLength);
+        isLongJumping = false;
+    }
+
+    public void GroundPoundBounce()
+    {
+        groundPoundEndPosition = transform.position;
         float distanceFell = groundPoundStartPosition.y - groundPoundEndPosition.y;
         float groundPoundBounceStrength = distanceFell/fractionOfMomentumPreserved;
         groundPoundBounceStrength = Mathf.Clamp(groundPoundBounceStrength, groundPoundBounceLimit.x, groundPoundBounceLimit.y);
@@ -213,6 +273,8 @@ public class Movement : MonoBehaviour
 
     public void ChangeStats()
     {
-        ceilingCheck.position = transform.Find("Player Camera").position;
+        playerCamera = GetComponentInChildren<CameraMove>().gameObject.transform;
+        Debug.Log(playerCamera.name);
+        ceilingCheck.position = playerCamera.position;
     }
 }
