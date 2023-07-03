@@ -173,12 +173,16 @@ MonoBehaviour:
   jumpHeight: 1.75
   amountOfJumps: 2
   maxStamina: 2
-  staminaCooldown: 0
+  staminaCooldown: 1.5
   dashSpeed: 50
   dashDuration: 0.1
   groundPoundStrength: -8
   fractionOfMomentumPreserved: 4
   groundPoundBounceLimit: {x: 2.5, y: 4.5}
+  slideSpeed: 15
+  slidingCameraHeight: 0.5
+  longJumpStrength: {x: 6, y: 1}
+  longJumpLength: 0.3
   gravity: -1
   gravityScale: 3.5
   horizontalVelocity: {x: 0, y: 0}
@@ -189,6 +193,7 @@ MonoBehaviour:
   staminaCooldownDone: 1
   isDashing: 0
   isGroundPounding: 0
+  isSliding: 0
 --- !u!114 &5597575281648933856
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -350,6 +355,7 @@ MonoBehaviour:
       m_Action: Move
       m_Flags: 8
     m_Flags: 0
+  crouchCancelDelay: 0.2
 --- !u!114 &5597575281648933860
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -392,10 +398,6 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: bebc33b4-968b-4d68-a6df-0fa1be625307
     m_ActionName: Combat/Camera[/Mouse/delta]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 8de204bc-7458-4a77-a30b-15c877844e7b
-    m_ActionName: Combat/Movement[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d,/DualSenseGamepadHID/leftStick,/XInputControllerWindows/leftStick]
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 108184812028790357}
@@ -484,7 +486,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 108184812028790357}
         m_TargetAssemblyTypeName: InputHandler, Assembly-CSharp
-        m_MethodName: GroundPound
+        m_MethodName: Crouch
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -975,7 +977,7 @@ PrefabInstance:
     - target: {fileID: 2204471446375921022, guid: b3e138ead10845f489c0b036c6e863e9,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.46
+      value: 0.875
       objectReference: {fileID: 0}
     - target: {fileID: 2204471446375921022, guid: b3e138ead10845f489c0b036c6e863e9,
         type: 3}

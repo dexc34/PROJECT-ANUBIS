@@ -298,7 +298,7 @@ public class PlayerHackingScript : MonoBehaviour
         newCamera.transform.parent = transform;
         
         //Update player stats
-        //playerMovementScript.ChangeStats();
+        playerMovementScript.ChangeStats();
         gunScript.UpdateGunStats(currentlyStoredEnemy.GetComponent<Gun>());
     
         ExitHackMode();
