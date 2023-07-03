@@ -220,7 +220,6 @@ public class Movement : MonoBehaviour
         if(horizontalVelocity.magnitude < 0.1f || isDashing || isSliding) return;
         playerCamera.position = new Vector3 (playerCamera.position.x, playerCamera.position.y - slidingCameraHeight, playerCamera.position.z);
         isSliding = true;
-        Debug.Log("Slid");
     }
 
     public void CancelSlide()
@@ -274,7 +273,6 @@ public class Movement : MonoBehaviour
     public void ChangeStats()
     {
         playerCamera = GetComponentInChildren<CameraMove>().gameObject.transform;
-        Debug.Log(playerCamera.name);
         ceilingCheck.position = playerCamera.position;
     }
 }

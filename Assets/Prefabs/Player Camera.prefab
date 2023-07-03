@@ -103,6 +103,46 @@ MonoBehaviour:
       m_Groups: 
       m_Action: Camera Move
       m_Flags: 0
+    - m_Name: Joystick
+      m_Id: c747d703-0296-463d-a625-97bda7f162d7
+      m_Path: 2DVector(mode=2)
+      m_Interactions: 
+      m_Processors: StickDeadzone
+      m_Groups: 
+      m_Action: Camera Move
+      m_Flags: 4
+    - m_Name: up
+      m_Id: adfb2a38-5b48-4bb4-a090-632738df43f0
+      m_Path: <Gamepad>/rightStick/up
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Camera Move
+      m_Flags: 8
+    - m_Name: down
+      m_Id: 06c1acac-1e9c-42a6-92ac-57e479e1e8ae
+      m_Path: <Gamepad>/rightStick/down
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Camera Move
+      m_Flags: 8
+    - m_Name: left
+      m_Id: 0c681171-bc0a-491b-8a0f-bdd784d0adc8
+      m_Path: <Gamepad>/rightStick/left
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Camera Move
+      m_Flags: 8
+    - m_Name: right
+      m_Id: ea77167e-59a2-416e-9189-6e3dee7d2c8c
+      m_Path: <Gamepad>/rightStick/right
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Camera Move
+      m_Flags: 8
     m_Flags: 0
   cameraSensitivity: 5
 --- !u!114 &5361826615079152974

@@ -50,6 +50,13 @@ public class ForceReceiver : MonoBehaviour
     // call this function to add an impact force:
     public void ReceiveExplosion(Vector3 direction, float force)
     {
+        movementScript.isGroundPounding = false;    
+        movementScript.isDashing = false;
+        movementScript.CancelSlide();
+
+        if(movementScript.currentJumps <= 0) movementScript.currentJumps ++;
+
+
         direction.Normalize();
         if (direction.y < 0) direction.y = -direction.y; // reflect down force on the ground
         movementScript.yVelocity = 0;
