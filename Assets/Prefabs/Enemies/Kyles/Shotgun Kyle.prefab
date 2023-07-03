@@ -495,6 +495,7 @@ GameObject:
   - component: {fileID: 3697472081520548110}
   - component: {fileID: 1049931721283403697}
   - component: {fileID: 6297272461405881626}
+  - component: {fileID: 2258269392407410682}
   m_Layer: 0
   m_Name: Shotgun Kyle
   m_TagString: Hackable
@@ -620,7 +621,10 @@ MonoBehaviour:
   fireModeString: PUMP
   crosshairUiElement: {fileID: 0}
   crosshair: {fileID: 21300000, guid: 3bef07b66e7a97c4580102cfea4ff112, type: 3}
+  viewmodelCam: {fileID: 0}
+  mainCam: {fileID: 0}
   gunAudioScript: {fileID: 11400000, guid: a2dabc96495cb404f9e32a7eec73812e, type: 2}
+  shootAudioSource: {fileID: 0}
   needsCock: 1
   viewModelScript: {fileID: 0}
   muzzleParticle: {fileID: 0}
@@ -734,6 +738,24 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!143 &2258269392407410682
+CharacterController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1809161959122040991}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Height: 2
+  m_Radius: 0.5
+  m_SlopeLimit: 45
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0.001
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!1 &2103312349301009752
 GameObject:
   m_ObjectHideFlags: 0

@@ -69421,6 +69421,7 @@ GameObject:
   - component: {fileID: 5243292937664358846}
   - component: {fileID: 8431300590533056453}
   - component: {fileID: 2331247127399338110}
+  - component: {fileID: 7621613369408221707}
   m_Layer: 0
   m_Name: Assault Rifle Kyle
   m_TagString: Hackable
@@ -69649,6 +69650,24 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!143 &7621613369408221707
+CharacterController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7100078015134484527}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Height: 1.75
+  m_Radius: 0.5
+  m_SlopeLimit: 45
+  m_StepOffset: 0.5
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0.001
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!1 &7395916715319614952
 GameObject:
   m_ObjectHideFlags: 0
