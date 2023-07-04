@@ -6,7 +6,7 @@ public class GruntShootScript : GruntBaseState
 {
     public override void EnterState(GruntStateMachine grunt)
     {
-
+        grunt.gun.EnemyShoot();
     }
 
     public override void UpdateState(GruntStateMachine grunt)

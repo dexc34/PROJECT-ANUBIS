@@ -49,6 +49,7 @@ MonoBehaviour:
   gridX: 10
   gridZ: 10
   gridSpacingOffset: 1
-  collisionIgnore:
+  blocker:
     serializedVersion: 2
     m_Bits: 4096
+  nodeScript: []
