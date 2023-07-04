@@ -5,6 +5,20 @@ using UnityEngine;
 public class Health : MonoBehaviour
 {
     //Editor tools
+    [Header ("Antivirus shield settings")]
+    [SerializeField]
+    [Tooltip ("If ticked as true will activate antivirus shield")]
+    public bool hasAntivirusShield;
+
+    [SerializeField]
+    [Tooltip ("How much damage the antivirus shield can take")]
+    private float antivirusShieldEnergy;
+
+    [SerializeField]
+    [Tooltip ("How many seconds of invulnerability the enemy has on shield break")]
+    private float shieldBreakIframes;
+
+    [Header ("Health settings")]
     [SerializeField]
     [Tooltip ("Amount of health object starts with")]
     public int maxHealth = 100;
@@ -31,6 +45,16 @@ public class Health : MonoBehaviour
     }
     public void TakeDamage(int damageTaken)
     {
+        if(hasAntivirusShield)
+        {
+            antivirusShieldEnergy -= damageTaken;
+            if(antivirusShieldEnergy <= 0)
+            {
+                StartCoroutine("DeactivateShield");
+            }
+            return;
+        }
+
         currentHealth -= damageTaken;
         Debug.Log("Take damage");
         if(currentHealth <= 0)
@@ -39,6 +63,12 @@ public class Health : MonoBehaviour
             else if (isEnemy) EnemyDie();
             else if (isDestructible) DestroyDestructible();
         }
+    }
+
+    private IEnumerator DeactivateShield()
+    {
+        yield return new WaitForSeconds(shieldBreakIframes);
+        hasAntivirusShield = false;
     }
 
     private void PlayerDie()

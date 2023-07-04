@@ -9,8 +9,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerHackingScript : MonoBehaviour
 {
-    private float raycastDistance = Mathf.Infinity;
-
+    //Editor tools
     [SerializeField]
     [Tooltip("The colour enemies will be highlighted when looking at them")]
     private Color highlightColour = Color.red;
@@ -39,9 +38,13 @@ public class PlayerHackingScript : MonoBehaviour
     [Tooltip("How long a hack can be interrupted for before the hack is canceled")]
     public float allowedHackingInterruption = 1;
 
-    [SerializeField] private InputActionReference hackButton;
-    [SerializeField] [Tooltip("Player Camera prefab goes here")] private GameObject cameraPrefab;
-    //private float cameraTransitionSpeed = 0.5f;
+    [SerializeField] 
+    [Tooltip("Player Camera prefab goes here")] 
+    private GameObject cameraPrefab;
+
+    [SerializeField] private LayerMask ignoredLayer;
+
+    //Required components
     private Cinemachine.CinemachineBrain mainCameraBrain;
     private GameObject newCamera;
 
@@ -55,19 +58,18 @@ public class PlayerHackingScript : MonoBehaviour
 
     private CharacterController characterController;
     private LineRenderer lineRenderer;
+    private Movement playerMovementScript;
+    private Gun gunScript;
 
-    [SerializeField] private LayerMask ignoredLayer;
-
+    //Script variables
+    private float raycastDistance = Mathf.Infinity;
+    [HideInInspector] public bool isHacking = false;
     public float hackingTimer = -1000;
     public float hackingInterruptionTimer = -1000;
     
 
     public bool hacking = false;
     public bool hackInterrupted = false;
-
-
-    private Movement playerMovementScript;
-    private Gun gunScript;
 
 
 
@@ -88,7 +90,7 @@ public class PlayerHackingScript : MonoBehaviour
         //sets the first point of the hacking tether line to always be centered on the player
         lineRenderer.SetPosition(0, transform.position);
 
-        if (hacking && hackButton.ToInputAction().WasReleasedThisFrame())
+        if (hacking && !isHacking)
             ExitHackMode();
 
         if (hacking)
@@ -107,11 +109,6 @@ public class PlayerHackingScript : MonoBehaviour
 
         RunTimer();
     }
-
-
-
-
-
 
     //The Raycasting
     //##############################################################################################
@@ -162,14 +159,21 @@ public class PlayerHackingScript : MonoBehaviour
                 //some debug stuff we can get rid of later
                 Debug.DrawRay(raycastStart, raycastDirection * hit.distance, Color.yellow);
 
-                if (!hacking && hackButton.ToInputAction().WasPressedThisFrame())
+                if (!hacking && isHacking)
                 {
                     currentlyHackingEnemy = currentlySelectedEnemy;
                     hackingEnemiesOutline = currentlyHackingEnemy.GetComponent<Outline>();
                     hackingEnemiesOutline.OutlineColor = hackingColour;
-
+                    hackInterrupted = false;
                     StartHackingTimer(tempHackingDurration);
                     hacking= true;
+
+                    //Can't hack enemy if they've got an antivirus shield
+                    if(currentlyHackingEnemy.GetComponent<Health>().hasAntivirusShield)
+                    {
+                        Debug.Log("hi");
+                        InterruptHack();
+                    }
                 }
             }
         }
@@ -189,11 +193,9 @@ public class PlayerHackingScript : MonoBehaviour
         }
     }
 
-
-
-
     public void HackingTetherCheckRaycast()
     {
+        if(hackInterrupted) return;
         //stores the data of the object that has been hit by the raycast
         RaycastHit hit;
 
@@ -215,18 +217,22 @@ public class PlayerHackingScript : MonoBehaviour
             }
             else
             {
-                lineRenderer.startColor = hackInterruptionColour;
-                lineRenderer.endColor = lineRenderer.startColor;
-                hackingEnemiesOutline.OutlineColor = hackInterruptionColour;
-
-                hackInterrupted = true;
+                InterruptHack();
             }
         }
     }
 
-
-
-
+    private void InterruptHack()
+    {
+        if(!hackInterrupted)
+        {
+            StartHackInterruptionTimer(allowedHackingInterruption);
+            lineRenderer.startColor = hackInterruptionColour;
+            lineRenderer.endColor = lineRenderer.startColor;
+            hackingEnemiesOutline.OutlineColor = hackInterruptionColour;
+            hackInterrupted = true;
+        }
+    }
 
     //Timer Stuff
     //##############################################################################################
@@ -325,10 +331,6 @@ public class PlayerHackingScript : MonoBehaviour
         //Creates a new camera inside a set point of the hacked enemy
         GameObject currentCamera  = transform.GetComponentInChildren<Cinemachine.CinemachineVirtualCamera>().gameObject;
         newCamera = Instantiate(cameraPrefab, currentlyStoredEnemy.transform.Find("Camera Spawn Point").transform.position, currentlyStoredEnemy.transform.Find("Camera Spawn Point").transform.rotation);
-
-        //does a calculation based on the distance from the player to the enemy to dynamically change the blend time (if you want)
-        //CinemachineBrain mainCameraBrain = Camera.main.GetComponent<CinemachineBrain>();
-        //mainCameraBrain.m_DefaultBlend.m_Time = (Vector3.Distance(transform.position, currentlyStoredEnemy.transform.position) / cameraTransitionSpeed) * Time.deltaTime;
 
         //gets the camera move script of the cameras and then turns them off (you can't rotate the camera if this is on)
         CameraMove currentCameraMovementScript = currentCamera.GetComponent<CameraMove>();
