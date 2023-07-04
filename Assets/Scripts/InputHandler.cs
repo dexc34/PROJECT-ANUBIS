@@ -19,6 +19,7 @@ public class InputHandler : MonoBehaviour
     private Movement movementScript;
     private Gun gunScript;
     private SecondaryAbility secondaryAbilityScript;
+    private PlayerHackingScript hackingScript;
     private CharacterController characterController;
 
     private void Awake() 
@@ -29,6 +30,8 @@ public class InputHandler : MonoBehaviour
         gunScript = GetComponent<Gun>();
 
         secondaryAbilityScript = GetComponent<SecondaryAbility>();
+
+        hackingScript = GetComponent<PlayerHackingScript>();
 
         characterController = GetComponent<CharacterController>();
     }
@@ -141,5 +144,18 @@ public class InputHandler : MonoBehaviour
     {
         if(!context.performed) return;
         secondaryAbilityScript.UseAbility();
+    }
+
+    //Hacking
+    public void Hack(InputAction.CallbackContext context)
+    {
+        if(context.performed)
+        {
+            hackingScript.isHacking = true;
+        }
+        else if(context.canceled)
+        {
+            hackingScript.isHacking = false;
+        }
     }
 }
