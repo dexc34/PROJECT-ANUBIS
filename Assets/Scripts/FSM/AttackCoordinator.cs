@@ -71,7 +71,7 @@ public class AttackCoordinator : MonoBehaviour
 
     public void RemoveToken()
     {
-        float maxValue = 100000000000000;
+        float maxValue = 0;
         float currentValue;
         int max = 0;
         for (int i = 0; i < listOfAttackers.Count; i++)
@@ -83,8 +83,8 @@ public class AttackCoordinator : MonoBehaviour
                 max = i;
             }
         }
-        int temp = attackerNumber.IndexOf(max);
-        backlog[temp].hasToken = false;
+        float temp = attackerNumber[max];
+        backlog[(int)temp].hasToken = false;
         listOfAttackers.RemoveAt(max);
         attackerNumber.RemoveAt(max);
 

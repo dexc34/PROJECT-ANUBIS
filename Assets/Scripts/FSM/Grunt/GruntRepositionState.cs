@@ -38,9 +38,11 @@ public class GruntRepositionState : GruntBaseState
             randomShots = Random.Range(grunt.shotsMin, grunt.shotsMax);
             for(int i = 0; i < randomShots; i++)
             {
-                if (!grunt.localInLOS || !grunt.localInRange || !grunt.ap.hasToken) return;
+                if (!grunt.localInLOS || !grunt.localInRange || !grunt.ap.hasToken) break;
                 TimeInBetweenShotsTimer(grunt);
             }
+            grunt.attackCooldownOver = false;
+            //AttackCooldownTimer(grunt);
         }
     }
 
@@ -108,6 +110,17 @@ public class GruntRepositionState : GruntBaseState
             betweenShotsTimer = 0;
         }
     }
+
+    /*public float timeSinceLastAttack = 0;
+    void AttackCooldownTimer(GruntStateMachine grunt)
+    {
+        timeSinceLastAttack += Time.deltaTime;
+        if (timeSinceLastAttack > grunt.delayBetweenAttacks)
+        {
+            grunt.attackCooldownOver = true;
+            timeSinceLastAttack = 0;
+        }
+    }*/
     void ClearTimers()
     {
         reachNodeTimer = 0;

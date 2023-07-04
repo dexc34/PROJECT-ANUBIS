@@ -34020,7 +34020,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 385
+  m_VersionIndex: 388
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -34175,7 +34175,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 218554910398458223}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.5, z: 0}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -68684,7 +68684,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 382
+  m_VersionIndex: 385
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -69592,7 +69592,7 @@ MonoBehaviour:
   needsCock: 1
   viewModelScript: {fileID: 0}
   muzzleParticle: {fileID: 0}
-  enemyBulletSpawn: {fileID: 0}
+  enemyBulletSpawn: {fileID: 905626884001005400}
 --- !u!114 &2816016113924825451
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -69617,7 +69617,7 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  m_Radius: 0.35
+  m_Radius: 1
   m_Height: 1.75
   m_Direction: 1
   m_Center: {x: 0, y: 1, z: 0}
@@ -69776,9 +69776,9 @@ MonoBehaviour:
   group: {fileID: 0}
   totalNodes: []
   agent: {fileID: 0}
-  debugText: {fileID: 0}
+  health: {fileID: 0}
   perferedRangeMin: 0
-  perferedRangeMax: 20
+  perferedRangeMax: 10
   moveDelay: 2
   switchNodeDelay: 1.5
   whatLayersBlock:
@@ -69790,6 +69790,7 @@ MonoBehaviour:
   delayBetweenAttacks: 2
   heightLOS: 1.75
   lookSpeed: 5
+  attackCooldownOver: 0
   timeSinceLastAttack: 0
   lastAttackMultiplier: 1
   attackCooldownTimer: 0
@@ -70337,7 +70338,7 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.23141143
+  m_Radius: 0.45
   m_Height: 1.8418944
   m_Direction: 1
   m_Center: {x: 0, y: 0.8816185, z: 0}

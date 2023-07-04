@@ -259,7 +259,7 @@ MonoBehaviour:
   damagePerBullet: 33
   criticalMultiplier: 2
   isAutomatic: 0
-  fireRate: 6.75
+  fireRate: 7.45
   reloadSpeed: 1.5
   totalAmmo: 64
   magazineSize: 16
@@ -282,6 +282,7 @@ MonoBehaviour:
   needsCock: 0
   viewModelScript: {fileID: 0}
   muzzleParticle: {fileID: 0}
+  enemyBulletSpawn: {fileID: 0}
 --- !u!114 &2655479027469224854
 MonoBehaviour:
   m_ObjectHideFlags: 0

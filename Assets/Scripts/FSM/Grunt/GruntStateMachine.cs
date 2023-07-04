@@ -14,12 +14,16 @@ public class GruntStateMachine : MonoBehaviour
     //REFERENCES//
     [HideInInspector]public GameObject player;
     [HideInInspector] public Gun gun;
+
     [HideInInspector] public AttackCoordinator ac;
     [HideInInspector] public AttackPriority ap;
+
     [SerializeField] NodeGroup group;
     [HideInInspector] public List<Node> totalNodes;
-    [SerializeField] public NavMeshAgent agent;
-    [SerializeField] public TextMeshPro debugText;
+
+    [HideInInspector] public NavMeshAgent agent;
+
+    [HideInInspector] public Health health;
 
     //RANGE//
     [Header("Range")]
@@ -50,6 +54,7 @@ public class GruntStateMachine : MonoBehaviour
     [SerializeField] float heightLOS = 1.75f;
     [Tooltip("How fast the enemy looks at the player")]
     [SerializeField] int lookSpeed = 5;
+    [HideInInspector] public bool attackCooldownOver = true;
 
     //LOCAL POSITIONS AND ROTATIONS// 
     Vector3 localTargetDirection;
@@ -73,6 +78,7 @@ public class GruntStateMachine : MonoBehaviour
     void Start()
     {
         player = GameObject.Find("Player");
+        agent = GetComponent<NavMeshAgent>();
         gun = GetComponent<Gun>();
         ac = GameObject.Find("Attack Coordinator").GetComponent<AttackCoordinator>();
         ap = GetComponent<AttackPriority>();
@@ -96,7 +102,6 @@ public class GruntStateMachine : MonoBehaviour
         CheckLocalRange();
 
         CalculateAttackPriority();
-        debugText.text = ap.attackPriority.ToString();
 
         //Checks ATTACK COORDINATOR
         if (ap.hasToken)
