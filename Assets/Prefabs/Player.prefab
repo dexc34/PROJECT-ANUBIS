@@ -160,6 +160,7 @@ MonoBehaviour:
   shieldBreakIframes: 0
   maxHealth: 150
   currentHealth: 0
+  enemyIsDead: 0
 --- !u!114 &5597575281648933858
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -200,6 +201,7 @@ MonoBehaviour:
   isDashing: 0
   isGroundPounding: 0
   isSliding: 0
+  slideParticle: {fileID: 8251567605995995238}
 --- !u!114 &5597575281648933856
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -251,7 +253,7 @@ MonoBehaviour:
   damagePerBullet: 33
   criticalMultiplier: 2
   isAutomatic: 0
-  fireRate: 6.75
+  fireRate: 7.45
   reloadSpeed: 1.5
   totalAmmo: 64
   magazineSize: 16
@@ -274,6 +276,7 @@ MonoBehaviour:
   needsCock: 0
   viewModelScript: {fileID: 0}
   muzzleParticle: {fileID: 0}
+  enemyBulletSpawn: {fileID: 0}
 --- !u!114 &2655479027469224854
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1241,3 +1244,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 588a6f79731add041baf2f7578812bad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!198 &8251567605995995238 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 2430319900787302214, guid: b3e138ead10845f489c0b036c6e863e9,
+    type: 3}
+  m_PrefabInstance: {fileID: 5996910235543822112}
+  m_PrefabAsset: {fileID: 0}

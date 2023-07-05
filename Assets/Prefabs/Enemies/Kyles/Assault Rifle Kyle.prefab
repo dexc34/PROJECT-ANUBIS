@@ -69529,6 +69529,7 @@ MonoBehaviour:
   needsCock: 0
   viewModelScript: {fileID: 0}
   muzzleParticle: {fileID: 0}
+  enemyBulletSpawn: {fileID: 0}
 --- !u!114 &8431300590533056453
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//places nodes within the bounds of the grid
 public class NodeGrid : MonoBehaviour
 {
     public List<GameObject> nodesToSpawn;
@@ -12,7 +13,7 @@ public class NodeGrid : MonoBehaviour
     [SerializeField] LayerMask blocker;
 
     GameObject clone;
-    public List<Node> nodeScript;
+    [HideInInspector] public List<Node> nodeScript;
 
     void OnDrawGizmosSelected()
     {
@@ -28,6 +29,7 @@ public class NodeGrid : MonoBehaviour
         SpawnGrid();
     }
 
+    //spawns the grid + the nodes
     void SpawnGrid()
     {
         for (int x = 0; x < gridX; x++)
@@ -41,6 +43,7 @@ public class NodeGrid : MonoBehaviour
         }
     }
 
+    //spawns nodes. if node is in wall or no ground near the node, it WONT spawn.
     void PickAndSpawn (Vector3 positionToSpawn, Quaternion rotationToSpawn)
     {
         bool isNotDestroyed;

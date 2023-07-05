@@ -119,6 +119,7 @@ public class Gun : MonoBehaviour
     bool needsCock;
 
     //Required components
+    private GameObject playerPos;
     private Transform virtualCamera;   
     private SecondaryAbility secondaryAbilityScript;
     public WeaponViewmodelAnimations viewModelScript;
@@ -126,6 +127,7 @@ public class Gun : MonoBehaviour
 
     void Start()
     {
+        playerPos = GameObject.Find("Player");
         currentAmmo = totalAmmo;
         shootAudioSource = GetComponent<AudioSource>();
         UpdateGunStats(this);
@@ -302,6 +304,12 @@ public class Gun : MonoBehaviour
     }
 
     //------------------------------------------------------Enemy functions------------------------------------------------------------------
+
+    [Header("AI Settings")]
+    [Tooltip("Where does the enemy shoot from?")]
+    [SerializeField]GameObject enemyBulletSpawn;
+
+    RaycastHit hit;
     public void EnemyShoot()
     {
         if(!canFire) return;
@@ -313,8 +321,10 @@ public class Gun : MonoBehaviour
         //Fire a specified amount of bullets per burst
         for (int i = 0; i < bulletsPerBurst; i++)
         {
-            GameObject bullet = Instantiate(bulletPrefab, virtualCamera.position + virtualCamera.forward, virtualCamera.rotation);
-            Vector3 bulletFinalDestination = (virtualCamera.right * bulletSpread[i].x) + (virtualCamera.up * bulletSpread[i].y) + (virtualCamera.forward * zSpread);
+            enemyBulletSpawn.transform.LookAt(playerPos.transform);
+            GameObject bullet = Instantiate(bulletPrefab, enemyBulletSpawn.transform.position + enemyBulletSpawn.transform.forward, enemyBulletSpawn.transform.rotation);
+            Vector3 bulletFinalDestination = (enemyBulletSpawn.transform.right * bulletSpread[i].x) + 
+                (enemyBulletSpawn.transform.up * bulletSpread[i].y) + (enemyBulletSpawn.transform.forward * zSpread);
             bullet.GetComponent<Rigidbody>().AddForce(bulletFinalDestination * bulletSpeed/zSpread, ForceMode.Impulse);
             //Does not apply to weapons that don't shoot bullets (eg. rocket launcher)
             if(bullet.GetComponent<Bullets>() != null)
@@ -324,9 +334,10 @@ public class Gun : MonoBehaviour
             }
         }
 
+        //AI CURRENTLY DOES NOT HAVE MUZZLE PARTICLES, CONSIDER ADDING THIS LATER
         //Render Muzzle Particle
-        muzzleParticle.Clear();
-        muzzleParticle.Play();
+        //muzzleParticle.Clear();
+        //muzzleParticle.Play();
 
         //Don't set canFire to true if out of ammo
         if(currentAmmo == 0)

@@ -6,7 +6,8 @@ public class GruntShootScript : GruntBaseState
 {
     public override void EnterState(GruntStateMachine grunt)
     {
-
+        grunt.timeSinceLastAttack = 0;
+        grunt.gun.EnemyShoot();
     }
 
     public override void UpdateState(GruntStateMachine grunt)

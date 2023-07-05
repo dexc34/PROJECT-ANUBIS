@@ -33,7 +33,7 @@ public class Bullets : MonoBehaviour
         }   
     }
 
-    private void OnTriggerEnter(Collider other) 
+    /*private void OnTriggerEnter(Collider other) 
     {
         //Ignore player and other bullets
         if(other.gameObject.CompareTag("Hurtbox"))    
@@ -46,7 +46,7 @@ public class Bullets : MonoBehaviour
             if(other.gameObject.CompareTag("Player") || other.gameObject.CompareTag("Bullet")) return;
             Destroy(gameObject);
         }   
-    }
+    }*/
 
     private void DealDamage()
     {

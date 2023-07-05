@@ -100,7 +100,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0060248ca0c11cc41ae2a41f0e505b29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hasAntivirusShield: 0
+  antivirusShieldEnergy: 0
+  shieldBreakIframes: 0
   maxHealth: 100
+  currentHealth: 0
 --- !u!114 &2780351778284197717
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -128,7 +132,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 100
   explosionRange: 5
-  explosionForce: 1000
+  explosionForce: 100000
   grenadeThrowForce: 0
   explodeOnImpact: 0
   overrideTimer: 1

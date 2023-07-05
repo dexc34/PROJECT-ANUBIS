@@ -63,11 +63,13 @@ public class Node : MonoBehaviour
         }
     }
 
+    //calculates the range
     void CalculateRange()
     {
         rangeToPlayer = hit.distance;
     }
 
+    //checks to see if the node is in range based off the enemy stats
     public void CheckRange(float minRange, float maxRange)
     {
         if(rangeToPlayer > minRange && rangeToPlayer < maxRange)
@@ -80,6 +82,7 @@ public class Node : MonoBehaviour
         }
     }
 
+    //checks if this node is valid
     void CheckIfValid()
     {
         if (inLOS && inRange)
@@ -106,7 +109,7 @@ public class Node : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.CompareTag("Hurtbox"))
+        if (other.gameObject.CompareTag("Hackable"))
         {
             hasReached = false;
         }
