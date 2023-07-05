@@ -155,6 +155,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0060248ca0c11cc41ae2a41f0e505b29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hasAntivirusShield: 0
+  antivirusShieldEnergy: 0
+  shieldBreakIframes: 0
   maxHealth: 150
   currentHealth: 0
 --- !u!114 &5597575281648933858
@@ -216,17 +219,17 @@ MonoBehaviour:
   highlightWidth: 7
   tempHackingDurration: 5
   allowedHackingInterruption: 0.8
-  hackButton: {fileID: -2689963866202231070, guid: 5c9ee7bb7d5992a4ca90d1c80b2b9d40,
-    type: 3}
   cameraPrefab: {fileID: 2204471446375920961, guid: b3e138ead10845f489c0b036c6e863e9,
     type: 3}
   ignoredLayer:
     serializedVersion: 2
     m_Bits: 24575
+  hackInputDetected: 0
   hackingTimer: -1000
   hackingInterruptionTimer: -1000
   hacking: 0
   hackInterrupted: 0
+  needSecondInput: 0
 --- !u!114 &5597575281648933855
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -239,19 +242,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11c8381413c0c504f8dbe5bafa4437c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gunIndex: 0
-  gunTypeArray:
-  - Pistol
-  - Shotgun
-  - Assault Rifle
-  - Rocket Launcher
-  - Staff
-  secondaryIndex: 0
-  secondaryAbilityArray:
-  - ImpactGrenade
-  - Barrage
-  - WrathOfRa
-  - CloserToThePrey
+  gunType: 0
+  secondaryType: 0
   isEnemy: 0
   weaponModelPrefab: {fileID: 0}
   bulletSpeed: 50
@@ -296,6 +288,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   abilityCooldown: 0
   grenadePrefab: {fileID: 0}
+  secondaryFunction:
+    m_PersistentCalls:
+      m_Calls: []
   canUseAbility: 1
 --- !u!114 &108184812028790357
 MonoBehaviour:
@@ -418,7 +413,19 @@ MonoBehaviour:
     m_ActionId: 637d1fc4-918b-4033-9eda-46bbfc72ff53
     m_ActionName: Combat/Jump[/Keyboard/space]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 108184812028790357}
+        m_TargetAssemblyTypeName: InputHandler, Assembly-CSharp
+        m_MethodName: Hack
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: e1d5344e-5f8f-4b77-8d25-ec16a130aa93
     m_ActionName: Combat/Hack[/Mouse/rightButton]
   - m_PersistentCalls:
