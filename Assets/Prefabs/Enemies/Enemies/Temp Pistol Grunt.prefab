@@ -34020,7 +34020,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 385
+  m_VersionIndex: 388
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -68684,7 +68684,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 382
+  m_VersionIndex: 385
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -69473,6 +69473,7 @@ GameObject:
   - component: {fileID: 6716767578422612799}
   - component: {fileID: 9118407018564208128}
   - component: {fileID: 6208212081661044891}
+  - component: {fileID: 8798491895539362749}
   m_Layer: 10
   m_Name: Temp Pistol Grunt
   m_TagString: Hackable
@@ -69515,7 +69516,7 @@ Animator:
   m_Controller: {fileID: 0}
   m_CullingMode: 1
   m_UpdateMode: 0
-  m_ApplyRootMotion: 1
+  m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
   m_WarningMessage: 
@@ -69591,8 +69592,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0060248ca0c11cc41ae2a41f0e505b29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hasAntivirusShield: 0
+  antivirusShieldEnergy: 0
+  shieldBreakIframes: 0
   maxHealth: 150
   currentHealth: 0
+  enemyIsDead: 0
 --- !u!136 &7892036360502720671
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -69757,14 +69762,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 0}
   gun: {fileID: 0}
+  health: {fileID: 0}
   ac: {fileID: 0}
   ap: {fileID: 0}
   group: {fileID: 0}
   totalNodes: []
   agent: {fileID: 0}
-  perferedRangeMin: 5
-  perferedRangeMax: 30
-  moveDelay: 2
+  perferedRangeMin: 15
+  perferedRangeMax: 40
+  moveDelay: 5
   switchNodeDelay: 1.5
   whatLayersBlock:
     serializedVersion: 2
@@ -69800,6 +69806,52 @@ MonoBehaviour:
   hasBeenUsed: 0
   attackPriority: 0
   ac: {fileID: 0}
+--- !u!114 &8798491895539362749
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7468765351178259462}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03bc8063c9e95401f9a8a38bc716750d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Method: 3
+  m_Curve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.5
+      value: 0.5
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &7512889673481878215
 GameObject:
   m_ObjectHideFlags: 0

@@ -60,7 +60,7 @@ public class Health : MonoBehaviour
         if(currentHealth <= 0)
         {
             if(isPlayer) PlayerDie();
-            else if (isEnemy) EnemyDie();
+            //else if (isEnemy) EnemyDie(); //note: handeled in the enemies respective state machine instead -lucas
             else if (isDestructible) DestroyDestructible();
         }
     }
@@ -76,8 +76,10 @@ public class Health : MonoBehaviour
         Debug.Log("You died");
     }
 
-    private void EnemyDie()
+    [HideInInspector] public bool enemyIsDead = false;
+    public void EnemyDie()
     {
+        enemyIsDead = true;
         Destroy(gameObject);
     }
 

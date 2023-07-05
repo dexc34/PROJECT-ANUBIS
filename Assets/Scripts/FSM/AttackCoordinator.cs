@@ -11,6 +11,7 @@ public class AttackCoordinator : MonoBehaviour
 
     //a list of all attack priority scripts current in play
     [HideInInspector] List<AttackPriority> backlog = new List<AttackPriority>();
+    [HideInInspector] List<int> backlogNumber = new List<int>();
     //a list of what enemies have a token
     [HideInInspector] List<AttackPriority> listOfAttackers = new List<AttackPriority>();
     [HideInInspector] List<float> attackerNumber = new List<float>();
@@ -20,10 +21,19 @@ public class AttackCoordinator : MonoBehaviour
         CheckToken();
     }
 
+    [HideInInspector] public int idNumber;
     public void AddToBackLog(AttackPriority ap)
     {
         backlog.Add(ap);
+        backlogNumber.Add(backlogNumber.Count);
+        idNumber = backlogNumber.Count;
     }
+
+    /*public void RemoveFromBackLog(AttackPriority ap, int id)
+    {
+        backlog.RemoveAt(id);
+        backlogNumber.RemoveAt(id);
+    }*/
 
     //what currently owns the token while checking
     int whatHasToken = 0;
@@ -49,7 +59,8 @@ public class AttackCoordinator : MonoBehaviour
                     //sets the previous AP to false 
                     //listOfAttackers[i]
                     //backlog[whatHasToken].hasToken = false;
-                    backlog[whatHasToken].hasBeenUsed = false;
+                    if (backlog[whatHasToken] != null)
+                        backlog[whatHasToken].hasBeenUsed = false;
 
                     whatHasToken = x;
                     listOfAttackers.Insert(i, backlog[x]);
@@ -84,7 +95,8 @@ public class AttackCoordinator : MonoBehaviour
             }
         }
         float temp = attackerNumber[max];
-        backlog[(int)temp].hasToken = false;
+        if(backlog[(int)temp] != null)
+            backlog[(int)temp].hasToken = false;
         listOfAttackers.RemoveAt(max);
         attackerNumber.RemoveAt(max);
 

@@ -887,6 +887,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0060248ca0c11cc41ae2a41f0e505b29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hasAntivirusShield: 0
+  antivirusShieldEnergy: 0
+  shieldBreakIframes: 0
   maxHealth: 150
   currentHealth: 0
 --- !u!82 &4468737676751315806
@@ -1044,7 +1047,7 @@ MonoBehaviour:
   group: {fileID: 0}
   totalNodes: []
   agent: {fileID: 8960878388074075787}
-  debugText: {fileID: 6985256967540940179}
+  health: {fileID: 0}
   perferedRangeMin: 0
   perferedRangeMax: 20
   moveDelay: 2
@@ -1058,6 +1061,7 @@ MonoBehaviour:
   delayBetweenAttacks: 2
   heightLOS: 1.75
   lookSpeed: 5
+  attackCooldownOver: 1
   timeSinceLastAttack: 0
   lastAttackMultiplier: 1
   attackCooldownTimer: 0

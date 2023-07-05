@@ -76,27 +76,27 @@ MonoBehaviour:
     m_SingletonActionBindings: []
     m_Flags: 0
   recoilShake: {fileID: 0}
-  gunPos: {x: 0, y: 0, z: 0}
-  gunRot: {x: 0, y: 0, z: 0, w: 0}
+  gunPos: {x: -0.0006323094, y: -0.0102218725, z: 0.0000024360913}
+  gunRot: {x: -0.00095707196, y: 0.002215165, z: 0.002215165, w: 0.99999464}
   step: 0.01
   maxStepDistance: 0.06
   rotationStep: 4
   maxRotationStep: 5
-  speedCurve: 0
+  speedCurve: 212.0138
   travelLimit: {x: 0.025, y: 0.025, z: 0.025}
   bobLimit: {x: 0.01, y: 0.01, z: 0.01}
-  multiplier: {x: 0, y: 0, z: 0}
-  currentRotation: {x: 0, y: 0, z: 0}
-  targetRotation: {x: 0, y: 0, z: 0}
-  targetPosition: {x: 0, y: 0, z: 0}
-  currentPosition: {x: 0, y: 0, z: 0}
-  initialGunPosition: {x: 0, y: 0, z: 0}
+  multiplier: {x: 2, y: 1, z: 1}
+  currentRotation: {x: -1.101e-42, y: 3.45e-43, z: 0}
+  targetRotation: {x: -5.5e-44, y: 1.7e-44, z: 0}
+  targetPosition: {x: -0.00000019436752, y: 0.00000016391277, z: 0.00000030750584}
+  currentPosition: {x: -0.0000001943675, y: 0.00000016391276, z: 0.00000030750581}
+  initialGunPosition: {x: -0.00000019436752, y: 0.00000016391277, z: 0.00000030750584}
   recoilX: -6
-  recoilY: 1
+  recoilY: 4
   recoilZ: 0
   kickBackZ: 0.6
   snap: 30
-  returnAmount: 60
+  returnAmount: 25
   magnitude: 0.25
   shakeXScale: 1
   shakeYScale: 1

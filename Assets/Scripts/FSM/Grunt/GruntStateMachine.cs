@@ -14,6 +14,7 @@ public class GruntStateMachine : MonoBehaviour
     //REFERENCES//
     [HideInInspector]public GameObject player;
     [HideInInspector] public Gun gun;
+    [HideInInspector] public Health health;
 
     [HideInInspector] public AttackCoordinator ac;
     [HideInInspector] public AttackPriority ap;
@@ -22,8 +23,6 @@ public class GruntStateMachine : MonoBehaviour
     [HideInInspector] public List<Node> totalNodes;
 
     [HideInInspector] public NavMeshAgent agent;
-
-    [HideInInspector] public Health health;
 
     //RANGE//
     [Header("Range")]
@@ -80,6 +79,7 @@ public class GruntStateMachine : MonoBehaviour
         player = GameObject.Find("Player");
         agent = GetComponent<NavMeshAgent>();
         gun = GetComponent<Gun>();
+        health = GetComponent<Health>();
         ac = GameObject.Find("Attack Coordinator").GetComponent<AttackCoordinator>();
         ap = GetComponent<AttackPriority>();
 
@@ -103,17 +103,14 @@ public class GruntStateMachine : MonoBehaviour
 
         CalculateAttackPriority();
 
-        //Checks ATTACK COORDINATOR
-        if (ap.hasToken)
-        {
-            Debug.DrawLine(transform.position, transform.position + new Vector3(0, 100, 0), Color.green);
-        }
-        else
-        {
-            Debug.DrawLine(transform.position, transform.position + new Vector3(0, 100, 0), Color.red);
-        }
-
         currentState.UpdateState(this);
+
+        if (health.currentHealth <= 0)
+        {
+            //a ludicrously high number so it doesnt pick this enemy to shoot ever again (TODO: bit of a bandaid fix, make a better solution later (maybe)
+            ap.attackPriority = 50000000000000;
+            health.EnemyDie();
+        }
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -186,7 +183,7 @@ public class GruntStateMachine : MonoBehaviour
         }
         else
         {
-            ap.attackPriority = 100000;
+            ap.attackPriority = 10000;
         }
     }
 

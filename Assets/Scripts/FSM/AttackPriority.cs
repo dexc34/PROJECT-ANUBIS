@@ -15,6 +15,8 @@ public class AttackPriority : MonoBehaviour
     [HideInInspector] public float attackPriority;
 
     [HideInInspector] public AttackCoordinator ac;
+
+    //int idNumber;
     void Start()
     {
         ac = GameObject.Find("Attack Coordinator").GetComponent<AttackCoordinator>();
@@ -24,6 +26,7 @@ public class AttackPriority : MonoBehaviour
     public void AddThisToBackLog()
     {
         ac.AddToBackLog(this);
+        //idNumber = ac.idNumber;
     }
 
     // Update is called once per frame

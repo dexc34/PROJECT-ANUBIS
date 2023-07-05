@@ -6363,7 +6363,7 @@ MonoBehaviour:
   speedCurve: 0
   travelLimit: {x: 0.025, y: 0.025, z: 0.025}
   bobLimit: {x: 0.01, y: 0.01, z: 0.01}
-  multiplier: {x: 0, y: 0, z: 0}
+  multiplier: {x: 2, y: 1, z: 1}
   currentRotation: {x: 0, y: 0, z: 0}
   targetRotation: {x: 0, y: 0, z: 0}
   targetPosition: {x: 0, y: 0, z: 0}
