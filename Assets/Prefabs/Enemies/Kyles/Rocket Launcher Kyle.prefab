@@ -69850,19 +69850,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11c8381413c0c504f8dbe5bafa4437c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gunIndex: 3
-  gunTypeArray:
-  - Pistol
-  - Shotgun
-  - Assault Rifle
-  - Rocket Launcher
-  - Staff
-  secondaryIndex: 0
-  secondaryAbilityArray:
-  - ImpactGrenade
-  - Barrage
-  - WrathOfRa
-  - CloserToThePrey
+  gunType: 3
+  secondaryType: 1
   isEnemy: 1
   weaponModelPrefab: {fileID: 5140375815798691381, guid: 2333df652f6b05d43b7ab2074c07cbae,
     type: 3}
@@ -69906,6 +69895,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0060248ca0c11cc41ae2a41f0e505b29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hasAntivirusShield: 0
+  antivirusShieldEnergy: 0
+  shieldBreakIframes: 0
   maxHealth: 300
   currentHealth: 0
 --- !u!82 &9055692021369694668

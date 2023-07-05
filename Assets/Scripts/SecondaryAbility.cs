@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
+using UnityEngine.Events;
 
 public class SecondaryAbility : MonoBehaviour
 {
@@ -19,6 +20,9 @@ public class SecondaryAbility : MonoBehaviour
     [SerializeField]
     [Tooltip ("Grenade prefab goes here (damage, timing, and force applied to targets are changed inside the prefab)")]
     private GameObject grenadePrefab;
+
+    [SerializeField]
+    private UnityEvent secondaryFunction;
 
     //Script variables
     private string secondaryFunctionToCall;
@@ -39,6 +43,7 @@ public class SecondaryAbility : MonoBehaviour
         if(!canUseAbility) return;
         canUseAbility = false;
         Invoke(secondaryFunctionToCall, 0);
+//        secondaryFunction.Invoke();
         StartCoroutine("AbilityCooldown");
     }
 
@@ -50,7 +55,7 @@ public class SecondaryAbility : MonoBehaviour
     }
 
     //---------------------------Ability Specific Functions-------------------------------------------------------------------------------------------
-    private void ImpactGrenade()
+    public void ImpactGrenade()
     {
         GameObject grenade = Instantiate(grenadePrefab, virtualCamera.position + virtualCamera.forward, virtualCamera.rotation);
         Explosion explosionScript = grenade.GetComponent<Explosion>();

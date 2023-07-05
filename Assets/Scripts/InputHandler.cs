@@ -149,13 +149,17 @@ public class InputHandler : MonoBehaviour
     //Hacking
     public void Hack(InputAction.CallbackContext context)
     {
+        if(context.canceled)
+        {
+            hackingScript.hackInputDetected = false;
+            hackingScript.needSecondInput = false;
+        }
+
+        if(hackingScript.needSecondInput) return;
+        
         if(context.performed)
         {
-            hackingScript.isHacking = true;
-        }
-        else if(context.canceled)
-        {
-            hackingScript.isHacking = false;
+            hackingScript.hackInputDetected = true;
         }
     }
 }

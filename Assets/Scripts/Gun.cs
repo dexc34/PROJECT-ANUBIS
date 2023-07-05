@@ -8,17 +8,14 @@ using UnityEngine.UI;
 public class Gun : MonoBehaviour
 {
     //Editor tools
-    [HideInInspector] 
-    public int gunIndex = 0;
+    public enum GunTypeDropdownOptions{Pistol, Shotgun, AssaultRifle, RocketLauncher, Staff};
+    [SerializeField]
+    GunTypeDropdownOptions gunType = new GunTypeDropdownOptions();
 
-    [HideInInspector] 
-    public string[] gunTypeArray = new string[] {"Pistol", "Shotgun", "Assault Rifle", "Rocket Launcher", "Staff"};
 
-    [HideInInspector] 
-    public int secondaryIndex = 0;
-
-    [HideInInspector] 
-    public string[] secondaryAbilityArray;
+    public enum SecondaryDropdownOptions{ImpactGrenade, Barrage, WrathOfRa, CloserToThePrey};
+    [SerializeField]
+    SecondaryDropdownOptions secondaryType = new SecondaryDropdownOptions();
 
     [SerializeField] 
     private bool isEnemy = true;
@@ -111,8 +108,6 @@ public class Gun : MonoBehaviour
     private AudioSource shootAudioSource;
 
     //Script variables
-    private string gunName;
-    private string secondaryName;
     private int currentAmmo;
     private int currentMagazine;
     private int ammoToDisplay;
@@ -232,10 +227,10 @@ public class Gun : MonoBehaviour
 //        isShoothing = false;
 
         //Apply serializable gun stats
-        gunIndex = gunScriptToPullFrom.gunIndex;
-        gunName = gunScriptToPullFrom.gunTypeArray[gunIndex];
-        secondaryIndex = gunScriptToPullFrom.secondaryIndex;
-        secondaryName = gunScriptToPullFrom.secondaryAbilityArray[secondaryIndex];
+        gunType = gunScriptToPullFrom.gunType;
+        Debug.Log(gunType.ToString());
+        secondaryType = gunScriptToPullFrom.secondaryType;
+        Debug.Log(secondaryType.ToString());
         weaponModelPrefab = gunScriptToPullFrom.weaponModelPrefab;
         bulletSpeed = gunScriptToPullFrom.bulletSpeed;
         bulletLifetime = gunScriptToPullFrom.bulletLifetime;
@@ -285,7 +280,7 @@ public class Gun : MonoBehaviour
 
         //Update secondary ability script
         secondaryAbilityScript = GetComponent<SecondaryAbility>();
-        secondaryAbilityScript.UpdateSecondary(secondaryName, virtualCamera);
+        secondaryAbilityScript.UpdateSecondary(secondaryType.ToString(), virtualCamera);
 
         //Update UI
         currentAmmoText.text = currentMagazine.ToString();

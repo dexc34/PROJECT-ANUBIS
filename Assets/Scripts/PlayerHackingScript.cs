@@ -63,13 +63,14 @@ public class PlayerHackingScript : MonoBehaviour
 
     //Script variables
     private float raycastDistance = Mathf.Infinity;
-    [HideInInspector] public bool isHacking = false;
+    [HideInInspector] public bool hackInputDetected = false;
     public float hackingTimer = -1000;
     public float hackingInterruptionTimer = -1000;
-    
 
-    public bool hacking = false;
-    public bool hackInterrupted = false;
+    [HideInInspector] public bool hacking = false;
+    [HideInInspector] public bool hackInterrupted = false;
+    private bool enemyHasShield = false;
+    [HideInInspector] public bool needSecondInput = false;
 
 
 
@@ -90,7 +91,7 @@ public class PlayerHackingScript : MonoBehaviour
         //sets the first point of the hacking tether line to always be centered on the player
         lineRenderer.SetPosition(0, transform.position);
 
-        if (hacking && !isHacking)
+        if (hacking && !hackInputDetected)
             ExitHackMode();
 
         if (hacking)
@@ -159,19 +160,20 @@ public class PlayerHackingScript : MonoBehaviour
                 //some debug stuff we can get rid of later
                 Debug.DrawRay(raycastStart, raycastDirection * hit.distance, Color.yellow);
 
-                if (!hacking && isHacking)
+                if (!hacking && hackInputDetected)
                 {
                     currentlyHackingEnemy = currentlySelectedEnemy;
                     hackingEnemiesOutline = currentlyHackingEnemy.GetComponent<Outline>();
                     hackingEnemiesOutline.OutlineColor = hackingColour;
                     hackInterrupted = false;
                     StartHackingTimer(tempHackingDurration);
+                    enemyHasShield = false;
                     hacking= true;
 
                     //Can't hack enemy if they've got an antivirus shield
                     if(currentlyHackingEnemy.GetComponent<Health>().hasAntivirusShield)
                     {
-                        Debug.Log("hi");
+                        enemyHasShield = true;
                         InterruptHack();
                     }
                 }
@@ -195,7 +197,7 @@ public class PlayerHackingScript : MonoBehaviour
 
     public void HackingTetherCheckRaycast()
     {
-        if(hackInterrupted) return;
+        if(enemyHasShield) return;
         //stores the data of the object that has been hit by the raycast
         RaycastHit hit;
 
@@ -314,6 +316,8 @@ public class PlayerHackingScript : MonoBehaviour
     public void ExitHackMode()
     {
         hacking = false;
+        hackInputDetected = false;
+        needSecondInput = true;
 
         //resets the timer to a very low number so that it doesn't do anything (see RunTimer())
         hackingTimer = hackingInterruptionTimer = -1000;

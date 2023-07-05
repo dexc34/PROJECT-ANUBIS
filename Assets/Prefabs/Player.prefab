@@ -226,11 +226,12 @@ MonoBehaviour:
   ignoredLayer:
     serializedVersion: 2
     m_Bits: 24575
-  isHacking: 0
+  hackInputDetected: 0
   hackingTimer: -1000
   hackingInterruptionTimer: -1000
   hacking: 0
   hackInterrupted: 0
+  needSecondInput: 0
 --- !u!114 &5597575281648933855
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -243,19 +244,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11c8381413c0c504f8dbe5bafa4437c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gunIndex: 0
-  gunTypeArray:
-  - Pistol
-  - Shotgun
-  - Assault Rifle
-  - Rocket Launcher
-  - Staff
-  secondaryIndex: 0
-  secondaryAbilityArray:
-  - ImpactGrenade
-  - Barrage
-  - WrathOfRa
-  - CloserToThePrey
+  gunType: 0
+  secondaryType: 0
   isEnemy: 0
   weaponModelPrefab: {fileID: 0}
   bulletSpeed: 50
@@ -301,6 +291,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   abilityCooldown: 0
   grenadePrefab: {fileID: 0}
+  secondaryFunction:
+    m_PersistentCalls:
+      m_Calls: []
   canUseAbility: 1
 --- !u!114 &108184812028790357
 MonoBehaviour:

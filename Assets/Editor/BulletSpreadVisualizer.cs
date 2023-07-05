@@ -5,23 +5,7 @@ using UnityEditor;
 public class BulletSpreadVisualizer : Editor
 {
 	private SerializedProperty _vectors;
-
-	public override void OnInspectorGUI()
-    {
-		Gun gunScript = (Gun) target;
-
-        GUIContent gunDropdownName = new GUIContent("Gun Type");
-        gunScript.gunIndex = EditorGUILayout.Popup(gunDropdownName, gunScript.gunIndex, gunScript.gunTypeArray);
-
-		gunScript.secondaryAbilityArray = new string[] {"ImpactGrenade", "Barrage", "WrathOfRa", "CloserToThePrey"};
-		GUIContent secondaryDropdownName = new GUIContent("Secondary Ability");
-        gunScript.secondaryIndex = EditorGUILayout.Popup(secondaryDropdownName, gunScript.secondaryIndex, gunScript.secondaryAbilityArray);
-
-		EditorUtility.SetDirty(target);
-
-        base.OnInspectorGUI();
-    }
-
+	
 	private void OnEnable()
 	{
 		_vectors = serializedObject.FindProperty("bulletSpread");
