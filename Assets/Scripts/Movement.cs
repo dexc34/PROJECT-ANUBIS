@@ -93,12 +93,18 @@ public class Movement : MonoBehaviour
     private ForceReceiver forceReceiver;
     private Transform playerCamera;
 
+    //TODO: Implement these. currently after hacking these get destroyed, so we have to instantiate new particles for these
+    //PARTICLES 
+    //[Header("Particles")]
+    //public ParticleSystem slideParticle;
+
     private void Awake() 
     {
         characterController = GetComponent<CharacterController>();
         forceReceiver = GetComponent<ForceReceiver>();
         currentStamina = maxStamina;
         ceilingCheck = transform.Find("Ceiling Check");
+
         ChangeStats();
     }
 
@@ -266,12 +272,18 @@ public class Movement : MonoBehaviour
     {
         if(horizontalVelocity.magnitude < 0.1f || isDashing || isSliding) return;
         playerCamera.position = new Vector3 (playerCamera.position.x, playerCamera.position.y - slidingCameraHeight, playerCamera.position.z);
+
+        //slideParticle.Play();
+
         isSliding = true;
     }
 
     public void CancelSlide()
     {
         if(!isSliding) return;
+
+        //slideParticle.Stop();
+
         isSliding = false;
         playerCamera.position = new Vector3 (playerCamera.position.x, playerCamera.position.y + slidingCameraHeight, playerCamera.position.z);
     }
