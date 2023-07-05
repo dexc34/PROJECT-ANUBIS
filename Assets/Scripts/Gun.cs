@@ -5,15 +5,15 @@ using UnityEngine.InputSystem;
 using UnityEngine.Rendering.Universal;
 using UnityEngine.UI;
 
+    public enum SecondaryDropdownOptions{ImpactGrenade, Barrage, WrathOfRa, CloserToThePrey};
 public class Gun : MonoBehaviour
 {
     //Editor tools
-    public enum GunTypeDropdownOptions{Pistol, Shotgun, AssaultRifle, RocketLauncher, Staff};
+    private enum GunTypeDropdownOptions{Pistol, Shotgun, AssaultRifle, RocketLauncher, Staff};
     [SerializeField]
     GunTypeDropdownOptions gunType = new GunTypeDropdownOptions();
 
 
-    public enum SecondaryDropdownOptions{ImpactGrenade, Barrage, WrathOfRa, CloserToThePrey};
     [SerializeField]
     SecondaryDropdownOptions secondaryType = new SecondaryDropdownOptions();
 
@@ -226,9 +226,7 @@ public class Gun : MonoBehaviour
 
         //Apply serializable gun stats
         gunType = gunScriptToPullFrom.gunType;
-        Debug.Log(gunType.ToString());
         secondaryType = gunScriptToPullFrom.secondaryType;
-        Debug.Log(secondaryType.ToString());
         weaponModelPrefab = gunScriptToPullFrom.weaponModelPrefab;
         bulletSpeed = gunScriptToPullFrom.bulletSpeed;
         bulletLifetime = gunScriptToPullFrom.bulletLifetime;
@@ -278,7 +276,7 @@ public class Gun : MonoBehaviour
 
         //Update secondary ability script
         secondaryAbilityScript = GetComponent<SecondaryAbility>();
-        secondaryAbilityScript.UpdateSecondary(secondaryType.ToString(), virtualCamera);
+        secondaryAbilityScript.UpdateSecondary(secondaryType);
 
         //Update UI
         currentAmmoText.text = currentMagazine.ToString();
