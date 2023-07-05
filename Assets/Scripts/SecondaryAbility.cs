@@ -31,7 +31,6 @@ public class SecondaryAbility : MonoBehaviour
                 case SecondaryDropdownOptions.ImpactGrenade:
                     ImpactGrenade tempGrenade = gameObject.AddComponent(typeof(ImpactGrenade)) as ImpactGrenade;
                     secondaryFunction.AddListener(tempGrenade.UseImpactGrenade);
-                    Debug.Log("can use grenade now");
                     break;
 
                 case SecondaryDropdownOptions.Barrage:
