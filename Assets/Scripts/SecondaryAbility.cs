@@ -8,42 +8,63 @@ using UnityEngine.Events;
 public class SecondaryAbility : MonoBehaviour
 {
     //Editor tools
-    [Header ("General ability settings")]
-
     [SerializeField]
     [Tooltip ("Time in seconds until ability is available again after using it")]
     public float abilityCooldown;
 
-
-    [Header ("Grenade settings found inside the prefab")]
-
-    [SerializeField]
-    [Tooltip ("Grenade prefab goes here (damage, timing, and force applied to targets are changed inside the prefab)")]
-    private GameObject grenadePrefab;
-
-    [SerializeField]
-    private UnityEvent secondaryFunction;
-
     //Script variables
-    private string secondaryFunctionToCall;
     [HideInInspector] public bool canUseAbility = true;
+    private UnityEvent secondaryFunction = new UnityEvent();
 
-    //Required components
-    private Transform virtualCamera;   
+    //Removes any extra secondary ability scripts
 
-    //Changes what the secondary ability based on what gun you're using (called from the gun script when updating stats)
-    public void UpdateSecondary(string secondaryAbilityName, Transform newCamera)
+    public void UpdateSecondary(SecondaryDropdownOptions secondaryEnum)
     {
-        secondaryFunctionToCall = secondaryAbilityName;
-        virtualCamera = newCamera;
+        RemoveUnnecessaryComponents();
+        secondaryFunction.RemoveAllListeners();
+
+        //Adds necessary scripts for the required secondary ability, and adds event listener
+        try
+        {
+            switch(secondaryEnum)
+            {
+                case SecondaryDropdownOptions.ImpactGrenade:
+                    ImpactGrenade tempGrenade = gameObject.AddComponent(typeof(ImpactGrenade)) as ImpactGrenade;
+                    secondaryFunction.AddListener(tempGrenade.UseImpactGrenade);
+                    break;
+
+                case SecondaryDropdownOptions.Barrage:
+                    Debug.Log("No barrage script has been made yet");
+                    break;
+
+                case SecondaryDropdownOptions.WrathOfRa:
+                    Debug.Log("No wrath of Ra script has been made yet");
+                    break;
+
+                case SecondaryDropdownOptions.CloserToThePrey:
+                    Debug.Log("No closer to the prey script has been made yet");
+                    break;    
+            }
+        }
+        catch
+        {
+            Debug.Log("No secondary detected");
+        }
+    }
+    private void RemoveUnnecessaryComponents()
+    {
+        //Destroy impact grenade
+        ImpactGrenade tempImpactGrenade = GetComponent<ImpactGrenade>();
+        if(tempImpactGrenade) Destroy(tempImpactGrenade);
+
+        //Add new scripts to destroy here
     }
 
     public void UseAbility()
     {
         if(!canUseAbility) return;
         canUseAbility = false;
-        Invoke(secondaryFunctionToCall, 0);
-//        secondaryFunction.Invoke();
+        secondaryFunction.Invoke();
         StartCoroutine("AbilityCooldown");
     }
 
@@ -52,28 +73,5 @@ public class SecondaryAbility : MonoBehaviour
         yield return new WaitForSeconds(abilityCooldown);
 
         canUseAbility = true;
-    }
-
-    //---------------------------Ability Specific Functions-------------------------------------------------------------------------------------------
-    public void ImpactGrenade()
-    {
-        GameObject grenade = Instantiate(grenadePrefab, virtualCamera.position + virtualCamera.forward, virtualCamera.rotation);
-        Explosion explosionScript = grenade.GetComponent<Explosion>();
-        grenade.GetComponent<Rigidbody>().AddForce(virtualCamera.forward * explosionScript.grenadeThrowForce, ForceMode.Impulse);
-    }
-
-    private void Barrage()
-    {
-        Debug.Log("Do barrage");
-    }
-
-    private void WrathOfRa()
-    {
-        Debug.Log("Wrath the rath");
-    }
-
-    private void CloserToThePrey()
-    {
-        Debug.Log("Pray for the prey");
     }
 }

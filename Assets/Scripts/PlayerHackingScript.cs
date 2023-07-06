@@ -277,8 +277,6 @@ public class PlayerHackingScript : MonoBehaviour
     //##############################################################################################
     private void HackEnemy()
     {
-        Debug.Log("hacked");
-
         //releases the currently stored enemy if there is one
         if (currentlyStoredEnemy != null)
         {
