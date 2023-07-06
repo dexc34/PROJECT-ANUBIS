@@ -111,6 +111,7 @@ public class Movement : MonoBehaviour
         currentStamina = maxStamina;
         ceilingCheck = transform.Find("Ceiling Check");
         playerAudio = GetComponentInChildren<PlayerAudio>();
+        currentJumps = amountOfJumps;
 
         ChangeStats();
     }
@@ -137,6 +138,11 @@ public class Movement : MonoBehaviour
         if(!characterController.isGrounded && currentJumps == amountOfJumps)
         {
             currentJumps --;
+        }
+
+        if(characterController.isGrounded && currentJumps != amountOfJumps)
+        {
+            currentJumps = amountOfJumps;
         }
     }
 
@@ -190,7 +196,8 @@ public class Movement : MonoBehaviour
 
     public void Jump()
     {
-        if(!characterController.isGrounded && currentJumps == 0) return;
+        Debug.Log(currentJumps);
+        if(currentJumps <= 0) return;
         currentJumps --;
         isGroundPounding = false;
 
