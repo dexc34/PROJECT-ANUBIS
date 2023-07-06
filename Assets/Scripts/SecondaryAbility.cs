@@ -34,7 +34,8 @@ public class SecondaryAbility : MonoBehaviour
                     break;
 
                 case SecondaryDropdownOptions.Barrage:
-                    Debug.Log("No barrage script has been made yet");
+                    Barrage tempBarrage = gameObject.AddComponent(typeof (Barrage)) as Barrage;
+                    secondaryFunction.AddListener(tempBarrage.UseBarrage);
                     break;
 
                 case SecondaryDropdownOptions.WrathOfRa:
@@ -57,6 +58,8 @@ public class SecondaryAbility : MonoBehaviour
         ImpactGrenade tempImpactGrenade = GetComponent<ImpactGrenade>();
         if(tempImpactGrenade) Destroy(tempImpactGrenade);
 
+        Barrage tempBarrage = GetComponent<Barrage>();
+        if(tempBarrage) Destroy(tempBarrage);
         //Add new scripts to destroy here
     }
 

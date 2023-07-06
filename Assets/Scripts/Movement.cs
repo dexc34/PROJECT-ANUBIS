@@ -111,6 +111,7 @@ public class Movement : MonoBehaviour
         currentStamina = maxStamina;
         ceilingCheck = transform.Find("Ceiling Check");
         playerAudio = GetComponentInChildren<PlayerAudio>();
+        currentJumps = amountOfJumps;
 
         ChangeStats();
     }
@@ -137,6 +138,11 @@ public class Movement : MonoBehaviour
         if(!characterController.isGrounded && currentJumps == amountOfJumps)
         {
             currentJumps --;
+        }
+
+        if(characterController.isGrounded && currentJumps != amountOfJumps)
+        {
+            currentJumps = amountOfJumps;
         }
     }
 
@@ -168,7 +174,6 @@ public class Movement : MonoBehaviour
         {
             characterController.Move(new Vector3(moveDirection.x * slideSpeed, yVelocity * speed, moveDirection.z * slideSpeed) * Time.deltaTime);
             Vector2 slideXZSpeed =  new Vector2(characterController.velocity.x, characterController.velocity.z);
-            Debug.Log(slideXZSpeed.magnitude);
             if(slideXZSpeed.magnitude < slideLeeway) CancelSlide();
             return;
         }
@@ -190,7 +195,7 @@ public class Movement : MonoBehaviour
 
     public void Jump()
     {
-        if(!characterController.isGrounded && currentJumps == 0) return;
+        if(currentJumps <= 0) return;
         currentJumps --;
         isGroundPounding = false;
 
