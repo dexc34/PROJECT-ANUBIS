@@ -56,6 +56,11 @@ public class Movement : MonoBehaviour
     [SerializeField]
     [Tooltip ("How fast player goes during a slide")]
     private float slideSpeed;
+
+    [SerializeField]
+    [Tooltip ("How slow a player's slide must be for it to be canceled (used when hitting walls)")]
+    private float slideLeeway = 5;
+
     [SerializeField]
     [Tooltip ("Vertical position the camera will take during a slide")]
     private float slidingCameraHeight;
@@ -92,6 +97,7 @@ public class Movement : MonoBehaviour
     private Transform ceilingCheck;
     private ForceReceiver forceReceiver;
     private Transform playerCamera;
+    private PlayerAudio playerAudio;
 
     //TODO: Implement these. currently after hacking these get destroyed, so we have to instantiate new particles for these
     //PARTICLES 
@@ -104,6 +110,7 @@ public class Movement : MonoBehaviour
         forceReceiver = GetComponent<ForceReceiver>();
         currentStamina = maxStamina;
         ceilingCheck = transform.Find("Ceiling Check");
+        playerAudio = GetComponentInChildren<PlayerAudio>();
 
         ChangeStats();
     }
@@ -126,24 +133,11 @@ public class Movement : MonoBehaviour
         ApplyGravity();
         ApplyMovement();
         
-        if(characterController.isGrounded)
-        {
-            //Restores jumps on landing
-            if(currentJumps != amountOfJumps)
-            {
-                currentJumps = amountOfJumps;
-            }
-
-            //forceReceiver.impact.y = 0;
-        }
-
         //Removes one jump when leaving the ground
         if(!characterController.isGrounded && currentJumps == amountOfJumps)
         {
             currentJumps --;
         }
-
-//        Debug.Log(isSliding);
     }
 
     private void ApplyGravity()
@@ -153,6 +147,7 @@ public class Movement : MonoBehaviour
         if (characterController.isGrounded && yVelocity < 0)
         {
             yVelocity = -0.5f;
+            if(isSliding) yVelocity = -1;
         }
         //Apply gravity when not grounded
         else
@@ -172,6 +167,9 @@ public class Movement : MonoBehaviour
         else if(isSliding)
         {
             characterController.Move(new Vector3(moveDirection.x * slideSpeed, yVelocity * speed, moveDirection.z * slideSpeed) * Time.deltaTime);
+            Vector2 slideXZSpeed =  new Vector2(characterController.velocity.x, characterController.velocity.z);
+            Debug.Log(slideXZSpeed.magnitude);
+            if(slideXZSpeed.magnitude < slideLeeway) CancelSlide();
             return;
         }
         else if(isLongJumping)
@@ -201,6 +199,7 @@ public class Movement : MonoBehaviour
             StartCoroutine("LongJump");
             return;
         }
+        playerAudio.PlayJumpSFX();
         yVelocity = jumpHeight;
     }
 
@@ -211,6 +210,7 @@ public class Movement : MonoBehaviour
         yVelocity = 0;
         forceReceiver.impact.y = 0;
         moveDirection.y = yVelocity;
+        playerAudio.PlayDashSFX();
         isDashing = true;
         isGroundPounding = false;
 
@@ -241,6 +241,7 @@ public class Movement : MonoBehaviour
         GroundPoundLaunch();
         groundPoundBounceStrength = Mathf.Clamp(groundPoundBounceStrength, groundPoundBounceLimit.x, groundPoundBounceLimit.y);
         yVelocity = groundPoundBounceStrength;
+        playerAudio.PlayGroundPoundImpact();
     }
 
     private void GroundPoundLaunch()
@@ -302,6 +303,7 @@ public class Movement : MonoBehaviour
         isLongJumping = true;
         yVelocity = longJumpStrength.y;
         horizontalVelocity += new Vector2(horizontalVelocity.x * longJumpStrength.x, horizontalVelocity.y * longJumpStrength.x);
+        playerAudio.PlayJumpSFX();
 
         yield return new WaitForSeconds(longJumpLength);
         isLongJumping = false;
