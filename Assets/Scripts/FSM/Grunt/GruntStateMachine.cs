@@ -24,6 +24,14 @@ public class GruntStateMachine : MonoBehaviour
 
     [HideInInspector] public NavMeshAgent agent;
 
+
+    //ANIMATION RELATED VARS
+    [HideInInspector] public Animator animator;
+    [HideInInspector] public int isMovingHash;
+
+    [HideInInspector] public float velocityX;
+    [HideInInspector] public float velocityZ;
+
     //RANGE//
     [Header("Range")]
     [Tooltip("The minimum range the enemy wants to be in")]
@@ -82,6 +90,9 @@ public class GruntStateMachine : MonoBehaviour
         health = GetComponent<Health>();
         ac = GameObject.Find("Attack Coordinator").GetComponent<AttackCoordinator>();
         ap = GetComponent<AttackPriority>();
+
+        animator = GetComponent<Animator>();
+        isMovingHash = Animator.StringToHash("isMoving");
 
         totalNodes = group.nodesInGroup;
         currentState = RepositionState;

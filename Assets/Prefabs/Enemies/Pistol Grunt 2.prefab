@@ -422,19 +422,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11c8381413c0c504f8dbe5bafa4437c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gunIndex: 0
-  gunTypeArray:
-  - Pistol
-  - Shotgun
-  - Assault Rifle
-  - Rocket Launcher
-  - Staff
-  secondaryIndex: 0
-  secondaryAbilityArray:
-  - ImpactGrenade
-  - Barrage
-  - WrathOfRa
-  - CloserToThePrey
+  gunType: 0
+  secondaryType: 0
   isEnemy: 1
   weaponModelPrefab: {fileID: 8917654906818533202, guid: 2f3f987a8e3466b40a163d59acd73771,
     type: 3}
@@ -479,8 +468,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0060248ca0c11cc41ae2a41f0e505b29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hasAntivirusShield: 0
+  antivirusShieldEnergy: 0
+  shieldBreakIframes: 0
   maxHealth: 150
   currentHealth: 0
+  enemyIsDead: 0
 --- !u!82 &3773629812425974344
 AudioSource:
   m_ObjectHideFlags: 0
@@ -631,12 +624,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 0}
   gun: {fileID: 0}
+  health: {fileID: 0}
   ac: {fileID: 0}
   ap: {fileID: 0}
   group: {fileID: 0}
   totalNodes: []
   agent: {fileID: 8503334880643553181}
-  debugText: {fileID: 7685985797845703813}
   perferedRangeMin: 0
   perferedRangeMax: 20
   moveDelay: 2
@@ -650,6 +643,7 @@ MonoBehaviour:
   delayBetweenAttacks: 2
   heightLOS: 1.75
   lookSpeed: 5
+  attackCooldownOver: 1
   timeSinceLastAttack: 0
   lastAttackMultiplier: 1
   attackCooldownTimer: 0

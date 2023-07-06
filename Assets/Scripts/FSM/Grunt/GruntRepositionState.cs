@@ -13,6 +13,9 @@ public class GruntRepositionState : GruntBaseState
         reachedNode = true;
         int random = Random.Range(0, grunt.totalNodes.Count);
         nodeToGoTo = grunt.totalNodes[random];
+
+        grunt.animator.SetBool(grunt.isMovingHash, true);
+
         grunt.agent.SetDestination(nodeToGoTo.transform.position);
     }
 
@@ -23,6 +26,36 @@ public class GruntRepositionState : GruntBaseState
     float betweenShotsTimer = 0;
     public override void UpdateState(GruntStateMachine grunt)
     {
+        bool isMoving = grunt.animator.GetBool(grunt.isMovingHash);
+
+        if (grunt.velocityX > -2 && grunt.velocityX < 2)
+        {
+            grunt.velocityX += Time.deltaTime * grunt.agent.desiredVelocity.x;
+            if (grunt.velocityX < -1)
+            {
+                grunt.velocityX += 0.1f;
+            }
+            else if (grunt.velocityX > 1)
+            {
+                grunt.velocityX -= 0.1f;
+            }
+        }
+        if (grunt.velocityZ > -2 && grunt.velocityZ < 2)
+        {
+            grunt.velocityZ += Time.deltaTime * grunt.agent.desiredVelocity.z;
+            if (grunt.velocityZ < -1)
+            {
+                grunt.velocityZ += 0.1f;
+            }
+            else if (grunt.velocityZ > 1)
+            {
+                grunt.velocityZ -= 0.1f;
+            }
+        }
+
+        grunt.animator.SetFloat("Velocity X", grunt.velocityX);
+        grunt.animator.SetFloat("Velocity Z", grunt.velocityZ);
+
         reachedNode = nodeToGoTo.hasReached;
         if (reachedNode)
         {
@@ -66,6 +99,10 @@ public class GruntRepositionState : GruntBaseState
 
     void ReachedTimer(GruntStateMachine grunt)
     {
+        grunt.animator.SetBool(grunt.isMovingHash, false);
+
+        grunt.velocityX = 0;
+        grunt.velocityZ = 0;
         reachNodeTimer += Time.deltaTime;
         if (reachNodeTimer > grunt.moveDelay)
         {
@@ -92,6 +129,8 @@ public class GruntRepositionState : GruntBaseState
             int random = Random.Range(0, validNodes.Count);
             nodeToGoTo = validNodes[random];
             grunt.agent.SetDestination(nodeToGoTo.transform.position);
+
+            grunt.animator.SetBool(grunt.isMovingHash, true);
         }
         reachedNode = false;
     }
