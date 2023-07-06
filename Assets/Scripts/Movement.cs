@@ -174,7 +174,6 @@ public class Movement : MonoBehaviour
         {
             characterController.Move(new Vector3(moveDirection.x * slideSpeed, yVelocity * speed, moveDirection.z * slideSpeed) * Time.deltaTime);
             Vector2 slideXZSpeed =  new Vector2(characterController.velocity.x, characterController.velocity.z);
-            Debug.Log(slideXZSpeed.magnitude);
             if(slideXZSpeed.magnitude < slideLeeway) CancelSlide();
             return;
         }
@@ -196,7 +195,6 @@ public class Movement : MonoBehaviour
 
     public void Jump()
     {
-        Debug.Log(currentJumps);
         if(currentJumps <= 0) return;
         currentJumps --;
         isGroundPounding = false;
