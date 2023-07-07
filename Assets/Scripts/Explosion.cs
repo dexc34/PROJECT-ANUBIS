@@ -41,10 +41,12 @@ public class Explosion : MonoBehaviour
 
     //Required components
     private ParticleSystem particles;
+    private AudioSource explosionSFX;
 
     private void Start() 
     {
         particles = GetComponentInChildren<ParticleSystem>();
+        explosionSFX = GetComponentInChildren<AudioSource>();
         if(overrideTimer) return;
         StartCoroutine("StartExplosionTimer");
     }
@@ -105,6 +107,7 @@ public class Explosion : MonoBehaviour
         //Unparents particle system to safely be able to destroy the gameoject without affecting visuals
         particles.gameObject.transform.parent = null;
         particles.Play();
+        explosionSFX.Play();
 
         Destroy(gameObject);
     }

@@ -573,7 +573,7 @@ MonoBehaviour:
   gunType: 4
   secondaryType: 2
   isEnemy: 1
-  weaponModelPrefab: {fileID: 1813343312999743701, guid: 5df9d016b99c66d488f2b99cae149943,
+  weaponModelPrefab: {fileID: 6967275028543347153, guid: c5d698707de8f764496cca3bec984c90,
     type: 3}
   bulletSpeed: 30
   bulletLifetime: 100
@@ -595,14 +595,15 @@ MonoBehaviour:
   currentAmmoText: {fileID: 0}
   reserveAmmoText: {fileID: 0}
   fireModeText: {fileID: 0}
-  fireModeString: PUMP
+  fireModeString: AUTO
   crosshairUiElement: {fileID: 0}
   crosshair: {fileID: 21300000, guid: 3bef07b66e7a97c4580102cfea4ff112, type: 3}
   viewmodelCam: {fileID: 0}
   mainCam: {fileID: 0}
-  gunAudioScript: {fileID: 11400000, guid: a2dabc96495cb404f9e32a7eec73812e, type: 2}
+  gunAudioScript: {fileID: 11400000, guid: 729d171cb3a7245429c9c9c43462c7b4, type: 2}
   shootAudioSource: {fileID: 0}
-  needsCock: 1
+  canFire: 1
+  needsCock: 0
   viewModelScript: {fileID: 0}
   muzzleParticle: {fileID: 0}
   enemyBulletSpawn: {fileID: 0}

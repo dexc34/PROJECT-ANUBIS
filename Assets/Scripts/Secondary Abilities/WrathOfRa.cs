@@ -28,7 +28,7 @@ public class WrathOfRa : MonoBehaviour
     private void Start() 
     {    
         virtualCamera = GetComponentInChildren<CameraMove>().gameObject.transform;    
-        beamPrefab = (GameObject)AssetDatabase.LoadAssetAtPath("Assets/Prefabs/Weapons/Beam.prefab", typeof(GameObject));    
+        beamPrefab = (GameObject)AssetDatabase.LoadAssetAtPath("Assets/Prefabs/Weapons/Projectiles/Beam.prefab", typeof(GameObject));    
         beamContainer = Instantiate(beamPrefab, virtualCamera.position, virtualCamera.rotation);
         beamContainer.transform.parent = transform;
         beamVisuals = beamContainer.GetComponent<LineRenderer>();

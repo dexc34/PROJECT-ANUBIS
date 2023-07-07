@@ -12,7 +12,7 @@ public class ImpactGrenade : MonoBehaviour
     private void Start() 
     {
         virtualCamera = GetComponentInChildren<CameraMove>().gameObject.transform;
-        grenadePrefab = (GameObject)AssetDatabase.LoadAssetAtPath("Assets/Prefabs/Weapons/Grenade.prefab", typeof(GameObject));    
+        grenadePrefab = (GameObject)AssetDatabase.LoadAssetAtPath("Assets/Prefabs/Weapons/Projectiles/Grenade.prefab", typeof(GameObject));    
     }
     public void UseImpactGrenade()
     {

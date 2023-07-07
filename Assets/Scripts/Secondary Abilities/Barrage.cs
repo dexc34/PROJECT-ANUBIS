@@ -22,14 +22,13 @@ public class Barrage : MonoBehaviour
     void Start()
     {
         virtualCamera = GetComponentInChildren<CameraMove>().gameObject.transform;
-        barrageExplosivePrefab = (GameObject)AssetDatabase.LoadAssetAtPath("Assets/Prefabs/Weapons/Barrage Explosive.prefab", typeof(GameObject));
+        barrageExplosivePrefab = (GameObject)AssetDatabase.LoadAssetAtPath("Assets/Prefabs/Weapons/Projectiles/Barrage Explosive.prefab", typeof(GameObject));
         totalGridSize = gridSize * gridSize; 
         SetVectorPositions();
     }
 
     public void UseBarrage()
     {
-        Debug.Log("Do barrage");
         for(int i = 0; i < (totalGridSize); i++)
         {
             GameObject explosive = Instantiate(barrageExplosivePrefab, virtualCamera.position + virtualCamera.forward, virtualCamera.rotation);
@@ -52,14 +51,12 @@ public class Barrage : MonoBehaviour
         {
             gridPosition = 0;
             firstPosition = new Vector2(0 - (explosiveSpacing/2) - (explosiveSpacing * (explosiveSpacing * (gridSize/2)) ), 0 + (explosiveSpacing/2) + (explosiveSpacing * (gridSize/2)));
-            Debug.Log(firstPosition);
             currentPosition = firstPosition;
         }
         else
         {
             gridPosition = 0;
             firstPosition = new Vector2(0 - explosiveSpacing - (explosiveSpacing * ((gridSize - 1) / 2)), 0 + explosiveSpacing + (explosiveSpacing * ((gridSize - 1) / 2) ));
-            Debug.Log(firstPosition);
             currentPosition = firstPosition;
         }
         
@@ -76,7 +73,6 @@ public class Barrage : MonoBehaviour
             {
                 currentPosition = explosivePostion[i];
             }
-            Debug.Log(explosivePostion[i]);
         }            
     }
 }
