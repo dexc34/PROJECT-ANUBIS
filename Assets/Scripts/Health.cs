@@ -23,6 +23,11 @@ public class Health : MonoBehaviour
     [Tooltip ("Amount of health object starts with")]
     public int maxHealth = 100;
 
+    [Header("Enemy Particles")]
+    [Tooltip("DOES NOT need to be set if player")]
+    [SerializeField] ParticleSystem damageParticle;
+    [SerializeField] ParticleSystem deathParticle;
+
     //Script variables
     [HideInInspector] public int currentHealth;
     private bool isPlayer = false;
@@ -61,6 +66,8 @@ public class Health : MonoBehaviour
         if (isEnemy)
         {
             anim.SetTrigger(isHitHash);
+
+            damageParticle.Play();
         }
         if(hasAntivirusShield)
         {
@@ -104,6 +111,7 @@ public class Health : MonoBehaviour
     public void EnemyDie()
     {
         enemyIsDead = true;
+        deathParticle.Play();
     }
 
     private void DestroyDestructible()
