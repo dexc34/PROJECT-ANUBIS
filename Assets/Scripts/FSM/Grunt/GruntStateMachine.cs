@@ -10,9 +10,12 @@ public class GruntStateMachine : MonoBehaviour
     [HideInInspector] public GruntBaseState currentState;
     [HideInInspector] public GruntRepositionState RepositionState = new GruntRepositionState();
     [HideInInspector] public GruntShootScript ShootState = new GruntShootScript();
+    [HideInInspector] public GruntDeadState DeadState = new GruntDeadState();
+    [HideInInspector] public GruntBaseState StaggerState = new GruntStaggerState();
 
     //REFERENCES//
-    [HideInInspector]public GameObject player;
+    [Header("Refernces")]
+    [HideInInspector] public GameObject player;
     [HideInInspector] public Gun gun;
     [HideInInspector] public Health health;
 
@@ -23,6 +26,12 @@ public class GruntStateMachine : MonoBehaviour
     [HideInInspector] public List<Node> totalNodes;
 
     [HideInInspector] public NavMeshAgent agent;
+    [HideInInspector] public RagdollToggle ragdoll;
+    [HideInInspector] LocomotionSimpleAgent mover;
+    [HideInInspector] AgentLinkMover connector;
+    [HideInInspector] CharacterController controller;
+    [HideInInspector] Collider localCollider;
+    [SerializeField] Collider hurtbox;
 
 
     //ANIMATION RELATED VARS
@@ -50,9 +59,9 @@ public class GruntStateMachine : MonoBehaviour
     [Header("Enemy Behaviour")]
     [SerializeField] LayerMask whatLayersBlock;
     [Tooltip("How many times the enemy should shoot in a single attack (minimum value)?")]
-    [SerializeField] public float shotsMin = 1;
+    [SerializeField] public int shotsMin = 1;
     [Tooltip("How many times the enemy should shoot in a single attack (maximum value)?")]
-    [SerializeField] public float shotsMax = 1;
+    [SerializeField] public int shotsMax = 1;
     [Tooltip("How long should the enemy wait before shooting again in a single attack?")]
     [SerializeField] public float timeInBetweenShots = 1;
     [Tooltip("How long should the enemy wait before initiating another attack?")]
@@ -61,7 +70,13 @@ public class GruntStateMachine : MonoBehaviour
     [SerializeField] float heightLOS = 1.75f;
     [Tooltip("How fast the enemy looks at the player")]
     [SerializeField] int lookSpeed = 5;
-    [HideInInspector] public bool attackCooldownOver = true;
+    [Tooltip("At what percentage of HP should the enemy stagger at?")]
+    [Range(0, 1)]
+    [SerializeField] public float whenToStagger = 0.2f;
+    [Tooltip("What are the chances of this enemy staggering while under the percentage to stagger?")]
+    [Range(0, 1)]
+    [SerializeField] public float chanceToStagger = 0.7f;
+
 
     //LOCAL POSITIONS AND ROTATIONS// 
     Vector3 localTargetDirection;
@@ -74,13 +89,10 @@ public class GruntStateMachine : MonoBehaviour
     [Tooltip("How much should time since last shot should effect how often this enemy attacks (multiplied)")]
     public float lastAttackMultiplier = 1;
 
-    [Tooltip("How long should this enemy wait before trying to attack again")]
-    public float attackCooldownTimer;
-
     //has this enemy requested?
     [HideInInspector] public bool hasRequested;
     //is this enemy allowed to attack?
-    [HideInInspector] public bool canAttack;
+    [HideInInspector] public bool attackCooldownOver = true;
 
     void Start()
     {
@@ -91,8 +103,15 @@ public class GruntStateMachine : MonoBehaviour
         ac = GameObject.Find("Attack Coordinator").GetComponent<AttackCoordinator>();
         ap = GetComponent<AttackPriority>();
 
+        mover = GetComponent<LocomotionSimpleAgent>();
+        controller = GetComponent<CharacterController>();
+        localCollider = GetComponent<Collider>();
+        connector = GetComponent<AgentLinkMover>();
+
         animator = GetComponent<Animator>();
         isMovingHash = Animator.StringToHash("isMoving");
+
+        ragdoll = GetComponent<RagdollToggle>();
 
         totalNodes = group.nodesInGroup;
         currentState = RepositionState;
@@ -116,11 +135,26 @@ public class GruntStateMachine : MonoBehaviour
 
         currentState.UpdateState(this);
 
+        if (health.gotHit)
+        {
+            EnterStagger();
+        }
+
         if (health.currentHealth <= 0)
         {
             //a ludicrously high number so it doesnt pick this enemy to shoot ever again (TODO: bit of a bandaid fix, make a better solution later (maybe)
-            ap.attackPriority = 50000000000000;
-            health.EnemyDie();
+            currentState = DeadState;
+            Destroy(localCollider);
+            Destroy(mover);
+            Destroy(ap);
+            Destroy(gun);
+            Destroy(controller);
+            Destroy(connector);
+            Destroy(agent);
+            Destroy(hurtbox);
+
+            currentState.EnterState(this);
+            Destroy(this);
         }
     }
 
@@ -173,11 +207,18 @@ public class GruntStateMachine : MonoBehaviour
 
     [HideInInspector] public float localRangeToPlayer;
     [HideInInspector] public bool localInRange;
+    [HideInInspector] public bool localCloseRange;
     public void CheckLocalRange()
     {
+        //if range to player is greater than min & less than max
         if (localRangeToPlayer > perferedRangeMin && localRangeToPlayer < perferedRangeMax)
         {
             localInRange = true;
+        }
+        //if range to player is less than min
+        else if(localRangeToPlayer < perferedRangeMin)
+        {
+            localCloseRange = true;
         }
         else
         {
@@ -196,6 +237,52 @@ public class GruntStateMachine : MonoBehaviour
         {
             ap.attackPriority = 10000;
         }
+    }
+
+
+    //SHOTS WHILE MOVING 
+
+    //NOTE: as inherrited classes are missing the monobehaviour class, they cant fire Invoke nor Coroutines. so this function is called first from those scripts 
+    public void TriggerShotsWhileMoving()
+    {
+        StartCoroutine(FireShotsWhileMoving());
+    }
+
+    IEnumerator FireShotsWhileMoving()
+    {
+        int randomShots;
+        randomShots = Random.Range(shotsMin, shotsMax);
+        //TODO: Should set this to false AFTER it fires all of its shots
+        attackCooldownOver = false;
+        for (int i = 0; i < randomShots; i++)
+        {
+            ShootState.EnterState(this);
+            yield return new WaitForSeconds(timeInBetweenShots);
+        }
+    }
+
+    //STAGGER
+    [HideInInspector] public bool isStaggered;
+    public void EnterStagger()
+    {
+        if (health.currentHealth < health.maxHealth * whenToStagger)
+        {
+            float random = Random.Range(0f, 1f);
+            if (random <= chanceToStagger && !isStaggered)
+            {
+                StopAllCoroutines();
+                isStaggered = true;
+                StaggerState.EnterState(this);
+                currentState = StaggerState;
+            }
+        }
+    }
+
+    public void ExitStagger()
+    {
+        currentState = RepositionState;
+        isStaggered = false;
+        agent.isStopped = false;
     }
 
 }

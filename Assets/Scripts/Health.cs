@@ -32,19 +32,36 @@ public class Health : MonoBehaviour
     //Required components
     private Destructibles destructibleScript;
 
+    //ANIMATION
+    private Animator anim;
+    [HideInInspector] public int isHitHash;
+
     private void Start() 
     {
         currentHealth = maxHealth;   
         if(gameObject.CompareTag("Player")) isPlayer = true;
-        else if(gameObject.CompareTag("Hackable")) isEnemy = true;
+        else if(gameObject.CompareTag("Hackable"))
+        {
+            isEnemy = true;
+            isHitHash = Animator.StringToHash("isHit");
+            anim = GetComponent<Animator>();
+        }
         else if(gameObject.CompareTag("Destructible")) 
         {
             isDestructible = true;
             destructibleScript = GetComponent<Destructibles>();
         }
     }
+
+    //quickly flashes gotHit for a frame then turns it off, for other scripts
+    [HideInInspector] public bool gotHit;
     public void TakeDamage(int damageTaken)
     {
+        StartCoroutine(CheckHit());
+        if (isEnemy)
+        {
+            anim.SetTrigger(isHitHash);
+        }
         if(hasAntivirusShield)
         {
             antivirusShieldEnergy -= damageTaken;
@@ -65,6 +82,13 @@ public class Health : MonoBehaviour
         }
     }
 
+    IEnumerator CheckHit()
+    {
+        gotHit = true;
+        yield return null;
+        gotHit = false;
+    }
+
     private IEnumerator DeactivateShield()
     {
         yield return new WaitForSeconds(shieldBreakIframes);
@@ -80,7 +104,6 @@ public class Health : MonoBehaviour
     public void EnemyDie()
     {
         enemyIsDead = true;
-        Destroy(gameObject);
     }
 
     private void DestroyDestructible()

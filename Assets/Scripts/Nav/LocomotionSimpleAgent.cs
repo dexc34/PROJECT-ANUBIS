@@ -15,6 +15,7 @@ public class LocomotionSimpleAgent : MonoBehaviour
     {
         anim = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
+        agent.updatePosition = false;
     }
 
     void Update()
@@ -40,12 +41,11 @@ public class LocomotionSimpleAgent : MonoBehaviour
         anim.SetBool("isMoving", shouldMove);
         anim.SetFloat("Velocity X", velocity.x);
         anim.SetFloat("Velocity Z", velocity.y);
-
     }
 
-    /*void OnAnimatorMove()
+    void OnAnimatorMove()
     {
         // Update position to agent position
         transform.position = agent.nextPosition;
-    }*/
+    }
 }

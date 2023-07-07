@@ -444,7 +444,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 7d35fc5aeb6f7ab4e82e0bd6a274cc6d, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -691,6 +691,7 @@ MonoBehaviour:
   shieldBreakIframes: 0
   maxHealth: 150
   currentHealth: 0
+  isHitHash: 0
   enemyIsDead: 0
 --- !u!114 &5597575281648933858
 MonoBehaviour:
@@ -718,6 +719,7 @@ MonoBehaviour:
   groundPoundLaunchRange: 0
   groundPoundLaunchStrengthRange: {x: 0, y: 0}
   slideSpeed: 15
+  slideLeeway: 5
   slidingCameraHeight: 0.5
   longJumpStrength: {x: 6, y: 1}
   longJumpLength: 0.3
@@ -803,6 +805,7 @@ MonoBehaviour:
   mainCam: {fileID: 0}
   gunAudioScript: {fileID: 0}
   shootAudioSource: {fileID: 1208286925109031014}
+  canFire: 1
   needsCock: 0
   viewModelScript: {fileID: 0}
   muzzleParticle: {fileID: 0}
@@ -819,6 +822,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 139e61aeadb740f49a3937e7fe997eb4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  overrideCooldown: 0
   abilityCooldown: 0
   canUseAbility: 1
 --- !u!114 &108184812028790357

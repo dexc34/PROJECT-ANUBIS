@@ -14,7 +14,7 @@ public class GruntRepositionState : GruntBaseState
         int random = Random.Range(0, grunt.totalNodes.Count);
         nodeToGoTo = grunt.totalNodes[random];
 
-        grunt.animator.SetBool(grunt.isMovingHash, true);
+        //grunt.animator.SetBool(grunt.isMovingHash, true);
 
         grunt.agent.SetDestination(nodeToGoTo.transform.position);
     }
@@ -26,36 +26,7 @@ public class GruntRepositionState : GruntBaseState
     float betweenShotsTimer = 0;
     public override void UpdateState(GruntStateMachine grunt)
     {
-        bool isMoving = grunt.animator.GetBool(grunt.isMovingHash);
-
-        if (grunt.velocityX > -2 && grunt.velocityX < 2)
-        {
-            grunt.velocityX += Time.deltaTime * grunt.agent.desiredVelocity.x;
-            if (grunt.velocityX < -1)
-            {
-                grunt.velocityX += 0.1f;
-            }
-            else if (grunt.velocityX > 1)
-            {
-                grunt.velocityX -= 0.1f;
-            }
-        }
-        if (grunt.velocityZ > -2 && grunt.velocityZ < 2)
-        {
-            grunt.velocityZ += Time.deltaTime * grunt.agent.desiredVelocity.z;
-            if (grunt.velocityZ < -1)
-            {
-                grunt.velocityZ += 0.1f;
-            }
-            else if (grunt.velocityZ > 1)
-            {
-                grunt.velocityZ -= 0.1f;
-            }
-        }
-
-        grunt.animator.SetFloat("Velocity X", grunt.velocityX);
-        grunt.animator.SetFloat("Velocity Z", grunt.velocityZ);
-
+        //HANDLES REPOSITIONING
         reachedNode = nodeToGoTo.hasReached;
         if (reachedNode)
         {
@@ -65,18 +36,28 @@ public class GruntRepositionState : GruntBaseState
         {
             OutOfLOSTimer(grunt);
         }
-        if (grunt.localInLOS && grunt.localInRange && grunt.ap.hasToken)
+
+
+        //HANDLES SHOOTING
+        if (grunt.localInLOS && grunt.localInRange && grunt.attackCooldownOver && grunt.ap.hasToken)
         {
-            float randomShots;
-            randomShots = Random.Range(grunt.shotsMin, grunt.shotsMax);
-            for(int i = 0; i < randomShots; i++)
-            {
-                if (!grunt.localInLOS || !grunt.localInRange || !grunt.ap.hasToken) break;
-                TimeInBetweenShotsTimer(grunt);
-            }
-            grunt.attackCooldownOver = false;
-            //AttackCooldownTimer(grunt);
+            ShootWhileMoving(grunt);
         }
+        else if (grunt.localCloseRange && grunt.localInLOS && grunt.attackCooldownOver && grunt.ap.hasToken)
+        {
+            ShootWhileMoving(grunt);
+        }
+
+        if (!grunt.attackCooldownOver)
+        {
+            AttackCooldownTimer(grunt);
+        }
+    }
+
+    void ShootWhileMoving(GruntStateMachine grunt)
+    {
+        grunt.TriggerShotsWhileMoving();
+        //AttackCooldownTimer(grunt);
     }
 
     public override void OnCollisionEnter(GruntStateMachine grunt, Collision collision)
@@ -99,10 +80,8 @@ public class GruntRepositionState : GruntBaseState
 
     void ReachedTimer(GruntStateMachine grunt)
     {
-        grunt.animator.SetBool(grunt.isMovingHash, false);
+        //grunt.animator.SetBool(grunt.isMovingHash, false);
 
-        grunt.velocityX = 0;
-        grunt.velocityZ = 0;
         reachNodeTimer += Time.deltaTime;
         if (reachNodeTimer > grunt.moveDelay)
         {
@@ -130,7 +109,7 @@ public class GruntRepositionState : GruntBaseState
             nodeToGoTo = validNodes[random];
             grunt.agent.SetDestination(nodeToGoTo.transform.position);
 
-            grunt.animator.SetBool(grunt.isMovingHash, true);
+            //grunt.animator.SetBool(grunt.isMovingHash, true);
         }
         reachedNode = false;
     }
@@ -150,7 +129,7 @@ public class GruntRepositionState : GruntBaseState
         }
     }
 
-    /*public float timeSinceLastAttack = 0;
+    public float timeSinceLastAttack = 0;
     void AttackCooldownTimer(GruntStateMachine grunt)
     {
         timeSinceLastAttack += Time.deltaTime;
@@ -159,7 +138,7 @@ public class GruntRepositionState : GruntBaseState
             grunt.attackCooldownOver = true;
             timeSinceLastAttack = 0;
         }
-    }*/
+    }
     void ClearTimers()
     {
         reachNodeTimer = 0;
