@@ -5,9 +5,9 @@ using UnityEditor;
 
 public class ImpactGrenade : MonoBehaviour
 {
+    [HideInInspector] public float cooldown = 8;
     private GameObject grenadePrefab;
-
-    [HideInInspector] public Transform virtualCamera;
+    private Transform virtualCamera;
 
     private void Start() 
     {

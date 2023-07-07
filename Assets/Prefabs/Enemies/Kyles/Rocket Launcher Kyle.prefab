@@ -69776,7 +69776,7 @@ GameObject:
   - component: {fileID: 6989004730120847198}
   - component: {fileID: 9055692021369694668}
   - component: {fileID: 4741248421536203269}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Rocket Launcher Kyle
   m_TagString: Hackable
   m_Icon: {fileID: 0}
@@ -69883,6 +69883,7 @@ MonoBehaviour:
   needsCock: 0
   viewModelScript: {fileID: 0}
   muzzleParticle: {fileID: 0}
+  enemyBulletSpawn: {fileID: 0}
 --- !u!114 &6989004730120847198
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -69900,6 +69901,7 @@ MonoBehaviour:
   shieldBreakIframes: 0
   maxHealth: 300
   currentHealth: 0
+  enemyIsDead: 0
 --- !u!82 &9055692021369694668
 AudioSource:
   m_ObjectHideFlags: 0

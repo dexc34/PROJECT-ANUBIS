@@ -7,10 +7,8 @@ using UnityEngine.Events;
 
 public class SecondaryAbility : MonoBehaviour
 {
-    //Editor tools
-    [SerializeField]
-    [Tooltip ("Time in seconds until ability is available again after using it")]
-    public float abilityCooldown;
+    [SerializeField] private bool overrideCooldown = false;
+    [HideInInspector] public float abilityCooldown;
 
     //Script variables
     [HideInInspector] public bool canUseAbility = true;
@@ -30,16 +28,20 @@ public class SecondaryAbility : MonoBehaviour
             {
                 case SecondaryDropdownOptions.ImpactGrenade:
                     ImpactGrenade tempGrenade = gameObject.AddComponent(typeof(ImpactGrenade)) as ImpactGrenade;
+                    abilityCooldown = tempGrenade.cooldown;
                     secondaryFunction.AddListener(tempGrenade.UseImpactGrenade);
                     break;
 
                 case SecondaryDropdownOptions.Barrage:
                     Barrage tempBarrage = gameObject.AddComponent(typeof (Barrage)) as Barrage;
+                    abilityCooldown = tempBarrage.cooldown;
                     secondaryFunction.AddListener(tempBarrage.UseBarrage);
                     break;
 
                 case SecondaryDropdownOptions.WrathOfRa:
-                    Debug.Log("No wrath of Ra script has been made yet");
+                    WrathOfRa tempWrathOfRa = gameObject.AddComponent(typeof (WrathOfRa)) as WrathOfRa;
+                    abilityCooldown = tempWrathOfRa.cooldown;
+                    secondaryFunction.AddListener(tempWrathOfRa.UseWrathOfRa);
                     break;
 
                 case SecondaryDropdownOptions.CloserToThePrey:
@@ -51,6 +53,8 @@ public class SecondaryAbility : MonoBehaviour
         {
             Debug.Log("No secondary detected");
         }
+
+        if(overrideCooldown) abilityCooldown = 0;
     }
     private void RemoveUnnecessaryComponents()
     {
@@ -60,6 +64,9 @@ public class SecondaryAbility : MonoBehaviour
 
         Barrage tempBarrage = GetComponent<Barrage>();
         if(tempBarrage) Destroy(tempBarrage);
+
+        WrathOfRa tempWrathOfRa = GetComponent<WrathOfRa>();
+        if(tempWrathOfRa) Destroy(tempWrathOfRa);
         //Add new scripts to destroy here
     }
 

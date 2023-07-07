@@ -69408,7 +69408,7 @@ GameObject:
   - component: {fileID: 8169337285561336492}
   - component: {fileID: 4782623068248602058}
   - component: {fileID: 6062646128548477663}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Pistol Kyle
   m_TagString: Hackable
   m_Icon: {fileID: 0}
@@ -69482,19 +69482,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11c8381413c0c504f8dbe5bafa4437c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gunIndex: 0
-  gunTypeArray:
-  - Pistol
-  - Shotgun
-  - Assault Rifle
-  - Rocket Launcher
-  - Staff
-  secondaryIndex: 0
-  secondaryAbilityArray:
-  - ImpactGrenade
-  - Barrage
-  - WrathOfRa
-  - CloserToThePrey
+  gunType: 0
+  secondaryType: 0
   isEnemy: 1
   weaponModelPrefab: {fileID: 8917654906818533202, guid: 2f3f987a8e3466b40a163d59acd73771,
     type: 3}
@@ -69544,6 +69533,7 @@ MonoBehaviour:
   shieldBreakIframes: 0
   maxHealth: 150
   currentHealth: 0
+  enemyIsDead: 0
 --- !u!82 &4782623068248602058
 AudioSource:
   m_ObjectHideFlags: 0

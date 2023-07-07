@@ -69422,7 +69422,7 @@ GameObject:
   - component: {fileID: 8431300590533056453}
   - component: {fileID: 2331247127399338110}
   - component: {fileID: 7621613369408221707}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Assault Rifle Kyle
   m_TagString: Hackable
   m_Icon: {fileID: 0}
@@ -69547,6 +69547,7 @@ MonoBehaviour:
   shieldBreakIframes: 0
   maxHealth: 150
   currentHealth: 0
+  enemyIsDead: 0
 --- !u!82 &2331247127399338110
 AudioSource:
   m_ObjectHideFlags: 0

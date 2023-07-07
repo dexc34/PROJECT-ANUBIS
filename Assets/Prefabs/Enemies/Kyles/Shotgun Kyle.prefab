@@ -496,7 +496,7 @@ GameObject:
   - component: {fileID: 1049931721283403697}
   - component: {fileID: 6297272461405881626}
   - component: {fileID: 2258269392407410682}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Shotgun Kyle
   m_TagString: Hackable
   m_Icon: {fileID: 0}
@@ -635,6 +635,7 @@ MonoBehaviour:
   shieldBreakIframes: 0
   maxHealth: 150
   currentHealth: 0
+  enemyIsDead: 0
 --- !u!82 &6297272461405881626
 AudioSource:
   m_ObjectHideFlags: 0

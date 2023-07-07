@@ -111,7 +111,7 @@ public class Gun : MonoBehaviour
     private int currentAmmo;
     private int currentMagazine;
     private int ammoToDisplay;
-    private bool canFire = true;
+    [HideInInspector] public bool canFire = true;
     private float shootCooldown;
 
     [SerializeField]
@@ -136,7 +136,7 @@ public class Gun : MonoBehaviour
     //----------------------------------Player Functions-----------------------------------------------------------------------------------
     public void FireBullet()
     {
-        if(!canFire) return;
+        if(!canFire || currentAmmo <= 0) return;
         
         canFire = false;
         currentAmmo --;
