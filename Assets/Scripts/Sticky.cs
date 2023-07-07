@@ -13,8 +13,7 @@ public class Sticky : MonoBehaviour
     private void OnCollisionEnter(Collision other) 
     {
         if(hasStuck) return;
-        rb.velocity = new Vector3(0,0,0);
-        rb.isKinematic = true;
+        Destroy(rb);
         transform.parent = other.transform;
         hasStuck = true;
     }
