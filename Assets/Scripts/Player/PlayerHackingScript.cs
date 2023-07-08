@@ -60,6 +60,7 @@ public class PlayerHackingScript : MonoBehaviour
     private LineRenderer lineRenderer;
     private Movement playerMovementScript;
     private Gun gunScript;
+    private Melee meleeScript;
 
     //Script variables
     private float raycastDistance = Mathf.Infinity;
@@ -83,6 +84,7 @@ public class PlayerHackingScript : MonoBehaviour
         mainCameraBrain = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Cinemachine.CinemachineBrain>();
         playerMovementScript = GetComponent<Movement>();
         gunScript = GetComponent<Gun>();
+        meleeScript = GetComponent<Melee>();
     }
 
 
@@ -306,6 +308,7 @@ public class PlayerHackingScript : MonoBehaviour
         //Update player stats
         playerMovementScript.ChangeStats();
         gunScript.UpdateGunStats(currentlyStoredEnemy.GetComponent<Gun>());
+        meleeScript.UpdateMelee(currentlyStoredEnemy.GetComponent<Melee>());
     
         ExitHackMode();
     }

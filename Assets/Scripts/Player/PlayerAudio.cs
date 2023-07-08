@@ -130,7 +130,7 @@ public class PlayerAudio : MonoBehaviour
         slideStartVolume = slideSFX.volume;
         dashSFX = CheckAudioSourceArray("Dash");
         jumpSFX = CheckAudioSourceArray("Jump");
-        groundPoundImpactSFX = CheckAudioSourceArray("Ground Pound Impact 2");
+        groundPoundImpactSFX = CheckAudioSourceArray("Ground Pound Impact");
     }
 
     //Look for specific audio sources and assign them to the approriate variable

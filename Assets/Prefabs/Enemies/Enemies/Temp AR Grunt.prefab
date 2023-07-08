@@ -620,6 +620,7 @@ GameObject:
   - component: {fileID: 9035828357554313486}
   - component: {fileID: 8983893404187472307}
   - component: {fileID: 7279770990871407370}
+  - component: {fileID: 6604859245989945048}
   - component: {fileID: 3428554163278951166}
   - component: {fileID: 4961499851330923083}
   - component: {fileID: 6131584547755765154}
@@ -743,6 +744,20 @@ MonoBehaviour:
   isHitHash: 0
   gotHit: 0
   enemyIsDead: 0
+--- !u!114 &6604859245989945048
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2717056085296891495}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f04b2505fa7ff342b59b15581806d9f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  meleeType: 0
+  isPlayer: 0
 --- !u!136 &3428554163278951166
 CapsuleCollider:
   m_ObjectHideFlags: 0

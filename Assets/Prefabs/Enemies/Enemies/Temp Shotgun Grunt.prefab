@@ -936,6 +936,7 @@ GameObject:
   - component: {fileID: 2278879610033283837}
   - component: {fileID: 8154390753666043783}
   - component: {fileID: 8134259970024810298}
+  - component: {fileID: 5193542559064896798}
   - component: {fileID: 7586718256430775683}
   - component: {fileID: 2583706034593735799}
   - component: {fileID: 5230166774248914114}
@@ -1054,6 +1055,20 @@ MonoBehaviour:
   viewModelScript: {fileID: 0}
   muzzleParticle: {fileID: 0}
   enemyBulletSpawn: {fileID: 4813329204448420784}
+--- !u!114 &5193542559064896798
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3025131655661408494}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f04b2505fa7ff342b59b15581806d9f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  meleeType: 0
+  isPlayer: 0
 --- !u!114 &7586718256430775683
 MonoBehaviour:
   m_ObjectHideFlags: 0

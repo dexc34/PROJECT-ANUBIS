@@ -69773,6 +69773,7 @@ GameObject:
   - component: {fileID: 3433362211153100765}
   - component: {fileID: 3543493108319118000}
   - component: {fileID: 6719364970652320037}
+  - component: {fileID: 4225794007978298750}
   - component: {fileID: 6989004730120847198}
   - component: {fileID: 9055692021369694668}
   - component: {fileID: 4741248421536203269}
@@ -69880,10 +69881,24 @@ MonoBehaviour:
   mainCam: {fileID: 0}
   gunAudioScript: {fileID: 11400000, guid: a2dabc96495cb404f9e32a7eec73812e, type: 2}
   shootAudioSource: {fileID: 0}
+  canFire: 1
   needsCock: 0
   viewModelScript: {fileID: 0}
   muzzleParticle: {fileID: 0}
   enemyBulletSpawn: {fileID: 0}
+--- !u!114 &4225794007978298750
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8607674820274282676}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f04b2505fa7ff342b59b15581806d9f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  meleeType: 0
 --- !u!114 &6989004730120847198
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -69901,6 +69916,8 @@ MonoBehaviour:
   shieldBreakIframes: 0
   maxHealth: 300
   currentHealth: 0
+  isHitHash: 0
+  gotHit: 0
   enemyIsDead: 0
 --- !u!82 &9055692021369694668
 AudioSource:

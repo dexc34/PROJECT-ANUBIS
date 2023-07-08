@@ -20,6 +20,7 @@ public class InputHandler : MonoBehaviour
     private Gun gunScript;
     private SecondaryAbility secondaryAbilityScript;
     private PlayerHackingScript hackingScript;
+    private Melee meleeScript;
     private CharacterController characterController;
 
     private void Awake() 
@@ -32,6 +33,8 @@ public class InputHandler : MonoBehaviour
         secondaryAbilityScript = GetComponent<SecondaryAbility>();
 
         hackingScript = GetComponent<PlayerHackingScript>();
+
+        meleeScript = GetComponent<Melee>();
 
         characterController = GetComponent<CharacterController>();
     }
@@ -161,5 +164,12 @@ public class InputHandler : MonoBehaviour
         {
             hackingScript.hackInputDetected = true;
         }
+    }
+
+    public void Melee(InputAction.CallbackContext context)
+    {
+        if(!context.performed) return;
+
+        meleeScript.UseMelee();
     }
 }

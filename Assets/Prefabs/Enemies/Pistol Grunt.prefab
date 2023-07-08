@@ -69963,6 +69963,7 @@ GameObject:
   - component: {fileID: 2868963289948274990}
   - component: {fileID: 4132156432564919363}
   - component: {fileID: 6145901129791717334}
+  - component: {fileID: 6852771151919091483}
   - component: {fileID: 7532468912687399341}
   - component: {fileID: 6595713227136497355}
   - component: {fileID: 1862208120535319314}
@@ -70042,19 +70043,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11c8381413c0c504f8dbe5bafa4437c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gunIndex: 0
-  gunTypeArray:
-  - Pistol
-  - Shotgun
-  - Assault Rifle
-  - Rocket Launcher
-  - Staff
-  secondaryIndex: 0
-  secondaryAbilityArray:
-  - ImpactGrenade
-  - Barrage
-  - WrathOfRa
-  - CloserToThePrey
+  gunType: 0
+  secondaryType: 0
   isEnemy: 1
   weaponModelPrefab: {fileID: 8917654906818533202, guid: 2f3f987a8e3466b40a163d59acd73771,
     type: 3}
@@ -70083,10 +70073,25 @@ MonoBehaviour:
   mainCam: {fileID: 0}
   gunAudioScript: {fileID: 11400000, guid: ddc30c055f8b70d4ab14a522dc5a20a0, type: 2}
   shootAudioSource: {fileID: 0}
+  canFire: 1
   needsCock: 0
   viewModelScript: {fileID: 0}
   muzzleParticle: {fileID: 0}
   enemyBulletSpawn: {fileID: 0}
+--- !u!114 &6852771151919091483
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9151808055531445831}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f04b2505fa7ff342b59b15581806d9f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  meleeType: 0
+  isPlayer: 0
 --- !u!114 &7532468912687399341
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -70099,8 +70104,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0060248ca0c11cc41ae2a41f0e505b29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hasAntivirusShield: 0
+  antivirusShieldEnergy: 0
+  shieldBreakIframes: 0
   maxHealth: 150
   currentHealth: 0
+  isHitHash: 0
+  gotHit: 0
+  enemyIsDead: 0
 --- !u!82 &6595713227136497355
 AudioSource:
   m_ObjectHideFlags: 0
@@ -70251,12 +70262,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 0}
   gun: {fileID: 0}
+  health: {fileID: 0}
   ac: {fileID: 0}
   ap: {fileID: 0}
   group: {fileID: 0}
   totalNodes: []
   agent: {fileID: 1862208120535319326}
-  debugText: {fileID: 0}
+  ragdoll: {fileID: 0}
+  hurtbox: {fileID: 0}
+  animator: {fileID: 0}
+  isMovingHash: 0
+  velocityX: 0
+  velocityZ: 0
   perferedRangeMin: 0
   perferedRangeMax: 20
   moveDelay: 2
@@ -70270,11 +70287,14 @@ MonoBehaviour:
   delayBetweenAttacks: 2
   heightLOS: 1.75
   lookSpeed: 5
+  whenToStagger: 0.2
+  chanceToStagger: 0.7
   timeSinceLastAttack: 0
   lastAttackMultiplier: 1
-  attackCooldownTimer: 0
   hasRequested: 0
-  canAttack: 0
+  attackCooldownOver: 1
   localInLOS: 0
   localRangeToPlayer: 0
   localInRange: 0
+  localCloseRange: 0
+  isStaggered: 0
