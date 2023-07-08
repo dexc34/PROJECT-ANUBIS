@@ -17,7 +17,7 @@ MonoBehaviour:
   criticalMultiplier: 1.5
   attackDelay: 0
   range: 5
-  knockback: 600
+  knockback: 20
   weaponModel: {fileID: 0}
   weaponSwingSFX: {fileID: 0}
   hitSFX: {fileID: 0}
