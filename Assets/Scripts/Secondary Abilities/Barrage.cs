@@ -1,9 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-#if UNITY_EDITOR
-using UnityEditor;
-#endif
 
 public class Barrage : MonoBehaviour
 {
@@ -24,9 +21,7 @@ public class Barrage : MonoBehaviour
     void Start()
     {
         virtualCamera = GetComponentInChildren<CameraMove>().gameObject.transform;
-#if UNITY_EDITOR
-        barrageExplosivePrefab = (GameObject)AssetDatabase.LoadAssetAtPath("Assets/Prefabs/Weapons/Projectiles/Barrage Explosive.prefab", typeof(GameObject));
-#endif
+        barrageExplosivePrefab = (GameObject) Resources.Load("Barrage Explosive");
         totalGridSize = gridSize * gridSize; 
         SetVectorPositions();
     }

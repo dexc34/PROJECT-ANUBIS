@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8d3e4dd255e6d345aef78e02288ab53, type: 3}
+  m_Name: SingleSword
+  m_EditorClassIdentifier: 
+  damage: 22
+  attacksPerSecond: 1.5
+  criticalMultiplier: 1.5
+  attackDelay: 0.08
+  range: 3
+  knockback: 15
+  weaponModel: {fileID: 0}
+  weaponSwingSFX: {fileID: 8300000, guid: 544089e605f9a4a40a381cfd6c260deb, type: 3}
+  hitSFX: {fileID: 8300000, guid: 8b999278a639adf40a82e2712e3c36eb, type: 3}

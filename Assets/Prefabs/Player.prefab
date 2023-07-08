@@ -620,6 +620,7 @@ GameObject:
   - component: {fileID: 5597575281648933858}
   - component: {fileID: 5597575281648933856}
   - component: {fileID: 5597575281648933855}
+  - component: {fileID: 939384009908922275}
   - component: {fileID: 2655479027469224854}
   - component: {fileID: 108184812028790357}
   - component: {fileID: 5597575281648933860}
@@ -692,6 +693,7 @@ MonoBehaviour:
   maxHealth: 150
   currentHealth: 0
   isHitHash: 0
+  gotHit: 0
   enemyIsDead: 0
 --- !u!114 &5597575281648933858
 MonoBehaviour:
@@ -805,11 +807,29 @@ MonoBehaviour:
   mainCam: {fileID: 0}
   gunAudioScript: {fileID: 0}
   shootAudioSource: {fileID: 1208286925109031014}
+  primaryIsMelee: 0
   canFire: 1
   needsCock: 0
   viewModelScript: {fileID: 0}
   muzzleParticle: {fileID: 0}
   enemyBulletSpawn: {fileID: 0}
+--- !u!114 &939384009908922275
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5597575281648933863}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f04b2505fa7ff342b59b15581806d9f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  meleeType: 0
+  layersToIgnore:
+    serializedVersion: 2
+    m_Bits: 24575
+  isPlayer: 1
 --- !u!114 &2655479027469224854
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1041,6 +1061,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 11cee493-fa93-4834-9a03-4b76837fa5e0
     m_ActionName: Combat/Ground Pound[/Keyboard/ctrl]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 108184812028790357}
+        m_TargetAssemblyTypeName: InputHandler, Assembly-CSharp
+        m_MethodName: Melee
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: de7a66b1-962a-4035-8d3b-1aa397fca34b
+    m_ActionName: Combat/Melee[/Mouse/middleButton]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Combat
