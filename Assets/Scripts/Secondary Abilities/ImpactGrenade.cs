@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
 
 public class ImpactGrenade : MonoBehaviour
 {
@@ -12,7 +14,9 @@ public class ImpactGrenade : MonoBehaviour
     private void Start() 
     {
         virtualCamera = GetComponentInChildren<CameraMove>().gameObject.transform;
-        grenadePrefab = (GameObject)AssetDatabase.LoadAssetAtPath("Assets/Prefabs/Weapons/Projectiles/Grenade.prefab", typeof(GameObject));    
+#if UNITY_EDITOR
+        grenadePrefab = (GameObject)AssetDatabase.LoadAssetAtPath("Assets/Prefabs/Weapons/Projectiles/Grenade.prefab", typeof(GameObject));
+#endif
     }
     public void UseImpactGrenade()
     {

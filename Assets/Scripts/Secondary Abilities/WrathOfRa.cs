@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
 
 public class WrathOfRa : MonoBehaviour
 {
@@ -27,8 +29,10 @@ public class WrathOfRa : MonoBehaviour
 
     private void Start() 
     {    
-        virtualCamera = GetComponentInChildren<CameraMove>().gameObject.transform;    
-        beamPrefab = (GameObject)AssetDatabase.LoadAssetAtPath("Assets/Prefabs/Weapons/Projectiles/Beam.prefab", typeof(GameObject));    
+        virtualCamera = GetComponentInChildren<CameraMove>().gameObject.transform;
+#if UNITY_EDITOR
+        beamPrefab = (GameObject)AssetDatabase.LoadAssetAtPath("Assets/Prefabs/Weapons/Projectiles/Beam.prefab", typeof(GameObject));
+#endif
         beamContainer = Instantiate(beamPrefab, virtualCamera.position, virtualCamera.rotation);
         beamContainer.transform.parent = transform;
         beamVisuals = beamContainer.GetComponent<LineRenderer>();
