@@ -21,7 +21,13 @@ public class MeleeAttacks : ScriptableObject
     public float range;
 
     [Tooltip ("How much knockback the attack deals")]
-    public float knockback;
+    public float enemyKnockback;
+
+    [Tooltip ("Does the player receive backwards knockback when melee connects")]
+    public bool hasBackwardsKnockback = false;
+
+    [Tooltip ("How much backwards force the player receives (may ignore if previous bool was left as false)")]
+    public float backwardsKnockback;
 
     [Tooltip ("Model that will be used for the attack (eg. knife)")]
     public GameObject weaponModel;

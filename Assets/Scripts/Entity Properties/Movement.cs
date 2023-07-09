@@ -76,8 +76,8 @@ public class Movement : MonoBehaviour
     private float longJumpLength;
 
     [Header ("Gravity Settings")]
-    [SerializeField] [Tooltip ("-1 to go down, 0 for no gravity, 1 to go up")] [Range (-1, 1)] private int gravity;
-    [SerializeField] [Tooltip ("How strong is the gravity")] private float gravityScale;
+    [SerializeField] [Tooltip ("-1 to go down, 0 for no gravity, 1 to go up")] [Range (-1, 1)] public int gravity;
+    [SerializeField] [Tooltip ("How strong is the gravity")] public float gravityScale;
 
     //Private script variables
     [HideInInspector] public Vector2 horizontalVelocity; //Gets fed into ApplyMovement() to determine horizontal direction

@@ -5,7 +5,7 @@ using UnityEngine;
 public class Melee : MonoBehaviour
 {
     //Editor tools
-    private enum MeleeTypeDropdown {SingleSword, DualWieldedChainSwords};
+    private enum MeleeTypeDropdown {SingleSword, DualWieldedChainSwords, Kick};
     [SerializeField]
     [Tooltip ("What kind of melee to perform")]
     MeleeTypeDropdown meleeType = new MeleeTypeDropdown();
@@ -25,7 +25,9 @@ public class Melee : MonoBehaviour
     private float criticalMultiplier;
     private float attackDelay;
     private float range;
-    private float knockback;
+    private float enemyKnockback;
+    private bool hasBackwardsKnockback;
+    private float backwardsKnockback;
     private AudioClip swingSFX;
     private AudioClip hitSFX;
 
@@ -33,10 +35,13 @@ public class Melee : MonoBehaviour
     private MeleeAttacks meleeScriptable;
     private Transform virtualCamera;
     private AudioSource meleeAudioSource;
+    private ForceReceiver forceReceiverScript;
+    private Ray meleeRaycast;
 
     private void Start() 
     {
         UpdateMelee(this);
+        forceReceiverScript = GetComponent<ForceReceiver>();
     }
 
     public void UseMelee()
@@ -53,11 +58,10 @@ public class Melee : MonoBehaviour
     {
         yield return new WaitForSeconds(attackDelay);
 
-
-        Debug.DrawRay(virtualCamera.position, virtualCamera.forward, Color.cyan, 1);
-        if(Physics.Raycast(virtualCamera.position, virtualCamera.forward, out RaycastHit hitInfo, range, layersToIgnore))
+        meleeRaycast = new Ray(virtualCamera.position, virtualCamera.forward);
+        Debug.DrawRay(virtualCamera.position, virtualCamera.forward, Color.green, 10);
+        if(Physics.Raycast(meleeRaycast, out RaycastHit hitInfo, range, layersToIgnore))
         {
-            Debug.Log("Hit " + hitInfo.transform.gameObject.name);
             meleeAudioSource.PlayOneShot(hitSFX);
 
             //Deal damage to hurtboxes
@@ -71,7 +75,12 @@ public class Melee : MonoBehaviour
             if(rb)
             {
                 Vector3 forceDirection = (rb.transform.position - transform.position).normalized;
-                rb.AddForce(forceDirection * knockback, ForceMode.Impulse);
+                rb.AddForce(forceDirection * enemyKnockback, ForceMode.Impulse);
+            }
+
+            if(hasBackwardsKnockback)
+            {
+                forceReceiverScript.ReceiveExplosion((transform.position - meleeRaycast.GetPoint(hitInfo.distance)), backwardsKnockback, false);
             }
         }
     }
@@ -93,7 +102,9 @@ public class Melee : MonoBehaviour
         criticalMultiplier = meleeScriptable.criticalMultiplier;
         attackDelay = meleeScriptable.attackDelay;
         range = meleeScriptable.range;
-        knockback = meleeScriptable.knockback;
+        enemyKnockback = meleeScriptable.enemyKnockback;
+        hasBackwardsKnockback = meleeScriptable.hasBackwardsKnockback;
+        backwardsKnockback = meleeScriptable.backwardsKnockback;
         swingSFX = meleeScriptable.weaponSwingSFX;
         hitSFX = meleeScriptable.hitSFX;
 

@@ -92,7 +92,7 @@ public class Explosion : MonoBehaviour
                 if(forceReceiver != null)
                 {
                     Vector3 explosionDir = nearbyObject.transform.position - transform.position;
-                    forceReceiver.ReceiveExplosion(explosionDir, explosionForce);
+                    forceReceiver.ReceiveExplosion(explosionDir, explosionForce, true);
                 }
                 DealDamage(nearbyObject.transform.parent.gameObject);
             }
@@ -102,7 +102,6 @@ public class Explosion : MonoBehaviour
                 Rigidbody rb = nearbyObject.GetComponent<Rigidbody>();
                 if(rb != null)
                 {
-                    Debug.Log(rb.transform.name);
                     rb.AddExplosionForce(explosionForce * rigidBodyMultiplier, transform.position, explosionRange);
                     DealDamage(nearbyObject.gameObject);
                 }
