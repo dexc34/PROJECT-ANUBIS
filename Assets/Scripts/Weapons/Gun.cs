@@ -5,14 +5,12 @@ using UnityEngine.InputSystem;
 using UnityEngine.Rendering.Universal;
 using UnityEngine.UI;
 
+public enum GunTypeDropdownOptions{Pistol, Shotgun, AssaultRifle, RocketLauncher, Staff, Melee};
 public enum SecondaryDropdownOptions{ImpactGrenade, Barrage, WrathOfRa, CloserToThePrey};
 public class Gun : MonoBehaviour
 {
     //Editor tools
-    private enum GunTypeDropdownOptions{Pistol, Shotgun, AssaultRifle, RocketLauncher, Staff};
-    [SerializeField]
-    GunTypeDropdownOptions gunType = new GunTypeDropdownOptions();
-
+    public GunTypeDropdownOptions gunType = new GunTypeDropdownOptions();  
 
     [SerializeField]
     SecondaryDropdownOptions secondaryType = new SecondaryDropdownOptions();
@@ -108,6 +106,7 @@ public class Gun : MonoBehaviour
     private AudioSource shootAudioSource;
 
     //Script variables
+    [HideInInspector] public bool primaryIsMelee = false;
     private int currentAmmo;
     private int currentMagazine;
     private int ammoToDisplay;
@@ -228,6 +227,8 @@ public class Gun : MonoBehaviour
 
         //Apply serializable gun stats
         gunType = gunScriptToPullFrom.gunType;
+        if(gunType.ToString() == "Melee") primaryIsMelee = true;
+        else primaryIsMelee = false;
         secondaryType = gunScriptToPullFrom.secondaryType;
         weaponModelPrefab = gunScriptToPullFrom.weaponModelPrefab;
         bulletSpeed = gunScriptToPullFrom.bulletSpeed;

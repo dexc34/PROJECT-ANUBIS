@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEditor;
 
 public class ImpactGrenade : MonoBehaviour
 {
@@ -12,7 +11,9 @@ public class ImpactGrenade : MonoBehaviour
     private void Start() 
     {
         virtualCamera = GetComponentInChildren<CameraMove>().gameObject.transform;
-        grenadePrefab = (GameObject)AssetDatabase.LoadAssetAtPath("Assets/Prefabs/Weapons/Projectiles/Grenade.prefab", typeof(GameObject));    
+        grenadePrefab = (GameObject) Resources.Load("Grenade Alt");
+        //= GameObject.Find("Secondary Container").GetComponent<PrefabContainer>().impactGrenadePrefab;
+
     }
     public void UseImpactGrenade()
     {

@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEditor;
 
 public class Melee : MonoBehaviour
 {
@@ -24,10 +23,13 @@ public class Melee : MonoBehaviour
     private float attackDelay;
     private float range;
     private float knockback;
+    private AudioClip swingSFX;
+    private AudioClip hitSFX;
 
     //Required components
     private MeleeAttacks meleeScriptable;
     private Transform virtualCamera;
+    private AudioSource meleeAudioSource;
 
     private void Start() 
     {
@@ -38,8 +40,8 @@ public class Melee : MonoBehaviour
     {
         if(!canAttack) return;
 
-        Debug.Log("Used melee");
         canAttack = false;
+        meleeAudioSource.PlayOneShot(swingSFX);
         StartCoroutine("Attack");
         StartCoroutine("MeleeCooldown");
     }
@@ -47,9 +49,14 @@ public class Melee : MonoBehaviour
     private IEnumerator Attack()
     {
         yield return new WaitForSeconds(attackDelay);
+
+
         Debug.DrawRay(virtualCamera.position, virtualCamera.forward, Color.cyan, 1);
         if(Physics.Raycast(virtualCamera.position, virtualCamera.forward, out RaycastHit hitInfo, range, 15))
         {
+            Debug.Log("Hit something");
+            meleeAudioSource.PlayOneShot(hitSFX);
+
             //Deal damage to hurtboxes
             if(hitInfo.transform.CompareTag("Hurtbox"))
             {
@@ -71,13 +78,12 @@ public class Melee : MonoBehaviour
         yield return new WaitForSeconds(meleeCooldown);
 
         canAttack = true;
-        Debug.Log("Melee cooldown over");
     }
 
     public void UpdateMelee(Melee meleeScriptToPullFrom)
     {
         meleeType = meleeScriptToPullFrom.meleeType;
-        meleeScriptable = (MeleeAttacks) AssetDatabase.LoadAssetAtPath("Assets/Scripts/Weapons/Melee/" + meleeType.ToString() + ".asset", typeof (MeleeAttacks));
+        meleeScriptable = (MeleeAttacks) Resources.Load(meleeType.ToString());
         damage = meleeScriptable.damage;
         attacksPerSecond = meleeScriptable.attacksPerSecond;
         meleeCooldown = 1/attacksPerSecond;
@@ -85,10 +91,13 @@ public class Melee : MonoBehaviour
         attackDelay = meleeScriptable.attackDelay;
         range = meleeScriptable.range;
         knockback = meleeScriptable.knockback;
+        swingSFX = meleeScriptable.weaponSwingSFX;
+        hitSFX = meleeScriptable.hitSFX;
 
         if(!isPlayer) return;
 
         virtualCamera = GetComponentInChildren<CameraMove>().transform;
-        Debug.Log("Updated melee");
+        AudioSource[] audioSources = GetComponents<AudioSource>();
+        meleeAudioSource = audioSources[1];
     }   
 }

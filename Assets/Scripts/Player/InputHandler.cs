@@ -116,6 +116,13 @@ public class InputHandler : MonoBehaviour
     //Gun actions
     public void Shoot(InputAction.CallbackContext context)
     {
+        //If primary is melee ignore gun script and instead perform a melee attack
+        if(gunScript.primaryIsMelee)
+        {
+            meleeScript.UseMelee();
+            return;
+        }
+
         if(gunScript.isAutomatic)
         {
             if(context.performed)

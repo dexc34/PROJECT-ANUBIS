@@ -10,11 +10,22 @@ public class Sticky : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
     }
+
     private void OnCollisionEnter(Collision other) 
     {
         if(hasStuck) return;
         Destroy(rb);
-        transform.parent = other.transform;
+
+        Transform hurtbox = other.transform.Find("Hurtbox");
+        if(hurtbox != null)
+        {
+            transform.parent = hurtbox;
+        }
+        else
+        {
+            transform.parent = other.transform;
+        }
+        
         hasStuck = true;
     }
 }
