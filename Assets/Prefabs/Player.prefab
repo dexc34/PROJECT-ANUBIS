@@ -807,6 +807,7 @@ MonoBehaviour:
   mainCam: {fileID: 0}
   gunAudioScript: {fileID: 0}
   shootAudioSource: {fileID: 1208286925109031014}
+  primaryIsMelee: 0
   canFire: 1
   needsCock: 0
   viewModelScript: {fileID: 0}
@@ -825,6 +826,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   meleeType: 0
+  layersToIgnore:
+    serializedVersion: 2
+    m_Bits: 24575
   isPlayer: 1
 --- !u!114 &2655479027469224854
 MonoBehaviour:

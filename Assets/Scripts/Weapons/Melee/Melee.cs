@@ -10,6 +10,9 @@ public class Melee : MonoBehaviour
     [Tooltip ("What kind of melee to perform")]
     MeleeTypeDropdown meleeType = new MeleeTypeDropdown();
 
+    [SerializeField]
+    private LayerMask layersToIgnore;
+
     [SerializeField] private bool isPlayer = false;
 
     //Script variables
@@ -52,9 +55,9 @@ public class Melee : MonoBehaviour
 
 
         Debug.DrawRay(virtualCamera.position, virtualCamera.forward, Color.cyan, 1);
-        if(Physics.Raycast(virtualCamera.position, virtualCamera.forward, out RaycastHit hitInfo, range, 15))
+        if(Physics.Raycast(virtualCamera.position, virtualCamera.forward, out RaycastHit hitInfo, range, layersToIgnore))
         {
-            Debug.Log("Hit something");
+            Debug.Log("Hit " + hitInfo.transform.gameObject.name);
             meleeAudioSource.PlayOneShot(hitSFX);
 
             //Deal damage to hurtboxes
