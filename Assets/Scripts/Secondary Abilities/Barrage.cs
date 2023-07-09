@@ -7,7 +7,7 @@ public class Barrage : MonoBehaviour
     //Script variables
     [HideInInspector] public float cooldown = 12;
     private float explosiveSpacing = 1;
-    private int gridSize = 3;
+    private int gridSize = 15;
     private int totalGridSize;
     private Vector2[] explosivePostion;
     private bool isEven;

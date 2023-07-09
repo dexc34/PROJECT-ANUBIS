@@ -17,6 +17,10 @@ public class Explosion : MonoBehaviour
     [Tooltip ("How strong the expliosion force applied to objects within range will be")]
     private float explosionForce;
 
+    [SerializeField]
+    [Tooltip ("How much of a force multiplier rigid bodies will recieve")]
+    private float rigidBodyMultiplier;
+
     [Tooltip ("How much force should be applied to the object when spawning (only for grenade, keep as 0 for other uses)")]
     public float grenadeThrowForce;
 
@@ -35,6 +39,7 @@ public class Explosion : MonoBehaviour
     [SerializeField]
     [Tooltip ("Particle effect to play when explosion happens")]
     private GameObject explosionVisuals;
+    
 
     //Script variables
     private bool hasExploded = false;
@@ -92,16 +97,16 @@ public class Explosion : MonoBehaviour
                 DealDamage(nearbyObject.transform.parent.gameObject);
             }
 
-            if(nearbyObject.gameObject.CompareTag("Rigidbody"))
-            {
+
                 //Add force to rigid bodies
                 Rigidbody rb = nearbyObject.GetComponent<Rigidbody>();
                 if(rb != null)
                 {
-                    rb.AddExplosionForce(explosionForce, transform.position, explosionRange);
+                    Debug.Log(rb.transform.name);
+                    rb.AddExplosionForce(explosionForce * rigidBodyMultiplier, transform.position, explosionRange);
                     DealDamage(nearbyObject.gameObject);
                 }
-            }
+
         }
 
         //Unparents particle system to safely be able to destroy the gameoject without affecting visuals

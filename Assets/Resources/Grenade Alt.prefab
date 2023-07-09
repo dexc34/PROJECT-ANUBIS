@@ -61,6 +61,7 @@ MonoBehaviour:
   damage: 100
   explosionRange: 3.32
   explosionForce: 1000
+  rigidBodyMultiplier: 15
   grenadeThrowForce: 35
   explodeOnImpact: 1
   overrideTimer: 1

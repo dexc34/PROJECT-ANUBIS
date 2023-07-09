@@ -51,6 +51,9 @@ public class Movement : MonoBehaviour
     [Tooltip ("How high up enemies will be sent up while in range")]
     private Vector2 groundPoundLaunchStrengthRange;
 
+    [SerializeField]
+    private float rigirbodyMultipier;
+
     [Header ("Slide setting")]
 
     [SerializeField]
@@ -269,7 +272,7 @@ public class Movement : MonoBehaviour
             if(enemy.GetComponent<Rigidbody>() != null)
             {
                 float launchStrength = Random.Range(groundPoundLaunchStrengthRange.x, groundPoundLaunchStrengthRange.y);
-                enemy.GetComponent<Rigidbody>().AddForce(new Vector3(0, launchStrength, 0), ForceMode.Impulse);
+                enemy.GetComponent<Rigidbody>().AddForce(new Vector3(0, launchStrength * rigirbodyMultipier, 0), ForceMode.Impulse);
             }
         }
     }

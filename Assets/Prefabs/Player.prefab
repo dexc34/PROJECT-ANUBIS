@@ -691,6 +691,8 @@ MonoBehaviour:
   antivirusShieldEnergy: 0
   shieldBreakIframes: 0
   maxHealth: 150
+  damageParticle: {fileID: 0}
+  deathParticle: {fileID: 0}
   currentHealth: 0
   isHitHash: 0
   gotHit: 0
@@ -720,6 +722,7 @@ MonoBehaviour:
   groundPoundLaunchDamage: 0
   groundPoundLaunchRange: 0
   groundPoundLaunchStrengthRange: {x: 0, y: 0}
+  rigirbodyMultipier: 10
   slideSpeed: 15
   slideLeeway: 5
   slidingCameraHeight: 0.5
