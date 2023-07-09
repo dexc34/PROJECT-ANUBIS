@@ -16,8 +16,8 @@ MonoBehaviour:
   attacksPerSecond: 2
   criticalMultiplier: 2
   attackDelay: 0.05
-  range: 2
-  enemyKnockback: 0
+  range: 4
+  enemyKnockback: 100
   hasBackwardsKnockback: 1
   backwardsKnockback: 300
   weaponModel: {fileID: 0}
