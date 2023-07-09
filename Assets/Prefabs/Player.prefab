@@ -828,10 +828,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f04b2505fa7ff342b59b15581806d9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  meleeType: 0
+  meleeType: 2
   layersToIgnore:
     serializedVersion: 2
-    m_Bits: 24575
+    m_Bits: 24447
   isPlayer: 1
 --- !u!114 &2655479027469224854
 MonoBehaviour:
