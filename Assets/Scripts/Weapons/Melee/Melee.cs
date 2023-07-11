@@ -19,6 +19,9 @@ public class Melee : MonoBehaviour
     private bool isParrying = false;
     private bool isPlayer = false;
     private bool hasParried = false;
+    private bool hasModel = false;
+    private int animatorIndex = 0;
+    private List<Animator> animators = new List<Animator>();
 
     //Variables inherited from scriptable object
     private int damage;
@@ -36,6 +39,8 @@ public class Melee : MonoBehaviour
     private float parryWindow;
     private float parryActiveTime;
     private float parryMultiplier;
+
+    [HideInInspector] public GameObject meleeModel;
 
     private AudioClip swingSFX;
     private AudioClip hitSFX;
@@ -73,6 +78,7 @@ public class Melee : MonoBehaviour
         if (canParry) StartCoroutine(ParryTimer(parryWindow));
         StartCoroutine("Attack");
         StartCoroutine("MeleeCooldown");
+        if(hasModel) PlayAnimation("sword_swing");
     }
 
     private IEnumerator Attack()
@@ -177,6 +183,20 @@ public class Melee : MonoBehaviour
         canAttack = true;
     }
 
+    private void PlayAnimation(string animationClipName)
+    {
+        if(animators.Count == 1)
+        {
+            animators[0].Play(animationClipName);
+        }
+        else
+        {
+            animators[animatorIndex].Play(animationClipName);
+            if(animatorIndex == 0) animatorIndex = 1;
+            else animatorIndex = 0;
+        }
+    }
+
     public void UpdateMelee(Melee meleeScriptToPullFrom)
     {
         meleeType = meleeScriptToPullFrom.meleeType;
@@ -200,6 +220,14 @@ public class Melee : MonoBehaviour
         parryActiveTime = meleeScriptable.parryActiveTime;
         parryMultiplier = meleeScriptable.parryMultiplier;
 
+        //Visuals
+        if(meleeScriptable.weaponModel) 
+        {
+            meleeModel = meleeScriptable.weaponModel;
+            hasModel = true;
+        }
+        else hasModel = false;
+
         //Audio clips
         swingSFX = meleeScriptable.weaponSwingSFX;
         hitSFX = meleeScriptable.hitSFX;
@@ -210,5 +238,13 @@ public class Melee : MonoBehaviour
         virtualCamera = GetComponentInChildren<CameraMove>().transform;
         AudioSource[] audioSources = GetComponents<AudioSource>();
         meleeAudioSource = audioSources[1];
+
+        //Create new weapon
+        GameObject weaponHolder = transform.GetComponentInChildren<CameraMove>().gameObject.transform.Find("Weapon Holder").gameObject;
+        GameObject newWeapon = Instantiate(meleeModel, weaponHolder.transform.position, weaponHolder.transform.rotation);
+        newWeapon.transform.parent = weaponHolder.transform;
+        animators.Clear();
+        animators.AddRange(newWeapon.GetComponentsInChildren<Animator>());
+        foreach(Animator animator in animators) Debug.Log(animator.gameObject.name);
     }
 }

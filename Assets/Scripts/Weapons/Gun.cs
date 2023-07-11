@@ -240,7 +240,10 @@ public class Gun : MonoBehaviour
         if(gunType.ToString() == "Melee") primaryIsMelee = true;
         else primaryIsMelee = false;
         secondaryType = gunScriptToPullFrom.secondaryType;
+
         weaponModelPrefab = gunScriptToPullFrom.weaponModelPrefab;
+        if(weaponModelPrefab == null) weaponModelPrefab = GetComponent<Melee>().meleeModel;
+
         bulletSpeed = gunScriptToPullFrom.bulletSpeed;
         bulletLifetime = gunScriptToPullFrom.bulletLifetime;
         damagePerBullet = gunScriptToPullFrom.damagePerBullet;
@@ -307,6 +310,7 @@ public class Gun : MonoBehaviour
         crosshairUiElement.sprite = crosshair;
 
         //Update gun model
+        if(gunType.ToString() == "Melee") return;
         GameObject weaponHolder = transform.GetComponentInChildren<CameraMove>().gameObject.transform.Find("Weapon Holder").gameObject;
         GameObject newGun = Instantiate(weaponModelPrefab, weaponHolder.transform.position, weaponHolder.transform.rotation);
         newGun.transform.parent = weaponHolder.transform;
