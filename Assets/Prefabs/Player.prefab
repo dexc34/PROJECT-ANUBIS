@@ -691,6 +691,7 @@ MonoBehaviour:
   antivirusShieldEnergy: 0
   shieldBreakIframes: 0
   maxHealth: 150
+  shieldBreakSFX: {fileID: 8300000, guid: 971a7af71e5fed34b88a57400b394b79, type: 3}
   damageParticle: {fileID: 0}
   deathParticle: {fileID: 0}
   currentHealth: 0
@@ -783,7 +784,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gunType: 0
   secondaryType: 0
-  isEnemy: 0
   weaponModelPrefab: {fileID: 0}
   bulletSpeed: 50
   bulletLifetime: 5
@@ -832,7 +832,6 @@ MonoBehaviour:
   layersToIgnore:
     serializedVersion: 2
     m_Bits: 24447
-  isPlayer: 1
 --- !u!114 &2655479027469224854
 MonoBehaviour:
   m_ObjectHideFlags: 0

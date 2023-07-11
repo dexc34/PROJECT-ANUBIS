@@ -575,7 +575,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gunType: 5
   secondaryType: 3
-  isEnemy: 1
   weaponModelPrefab: {fileID: 6967275028543347153, guid: c5d698707de8f764496cca3bec984c90,
     type: 3}
   bulletSpeed: 0
@@ -623,7 +622,6 @@ MonoBehaviour:
   layersToIgnore:
     serializedVersion: 2
     m_Bits: 0
-  isPlayer: 0
 --- !u!114 &1049931721283403697
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -640,6 +638,7 @@ MonoBehaviour:
   antivirusShieldEnergy: 200
   shieldBreakIframes: 0.1
   maxHealth: 450
+  shieldBreakSFX: {fileID: 8300000, guid: 971a7af71e5fed34b88a57400b394b79, type: 3}
   damageParticle: {fileID: 978924636433671467}
   deathParticle: {fileID: 2535939313825307081}
   currentHealth: 0

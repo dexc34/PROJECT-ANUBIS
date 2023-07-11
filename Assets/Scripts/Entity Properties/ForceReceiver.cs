@@ -65,7 +65,6 @@ public class ForceReceiver : MonoBehaviour
             yNegative = false;
         }
 
-        Debug.Log(direction.y);
         //Only restore jump if explosion force received is positive on the y axis
         if(direction.y > 0)
         {

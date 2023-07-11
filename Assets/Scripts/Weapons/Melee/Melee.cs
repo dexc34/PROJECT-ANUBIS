@@ -18,6 +18,7 @@ public class Melee : MonoBehaviour
     private float meleeCooldown;
     private bool isParrying = false;
     private bool isPlayer = false;
+    private bool hasParried = false;
 
     //Variables inherited from scriptable object
     private int damage;
@@ -33,6 +34,7 @@ public class Melee : MonoBehaviour
     private bool canParry;
     private float parryRange;
     private float parryWindow;
+    private float parryActiveTime;
     private float parryMultiplier;
 
     private AudioClip swingSFX;
@@ -49,10 +51,11 @@ public class Melee : MonoBehaviour
 
     private void Start()
     {
-        UpdateMelee(this);
         forceReceiverScript = GetComponent<ForceReceiver>();
         if (transform.CompareTag("Player")) isPlayer = true;
         else isPlayer = false;
+
+        UpdateMelee(this);
     }
 
     private void Update()
@@ -67,7 +70,7 @@ public class Melee : MonoBehaviour
 
         canAttack = false;
         meleeAudioSource.PlayOneShot(swingSFX);
-        if (canParry) StartCoroutine("ParryTimer");
+        if (canParry) StartCoroutine(ParryTimer(parryWindow));
         StartCoroutine("Attack");
         StartCoroutine("MeleeCooldown");
     }
@@ -155,13 +158,14 @@ public class Melee : MonoBehaviour
         Vector3 forceDirection = (virtualCamera.forward);
         rb.AddForce(forceDirection * enemyKnockback, ForceMode.Impulse);
         meleeAudioSource.PlayOneShot(parrySFX);
+        StartCoroutine(ParryTimer(parryActiveTime));
     }
 
-    private IEnumerator ParryTimer()
+    private IEnumerator ParryTimer(float parryTimer)
     {
         isParrying = true;
 
-        yield return new WaitForSeconds(parryWindow);
+        yield return new WaitForSeconds(parryTimer);
 
         isParrying = false;
     }
@@ -193,6 +197,7 @@ public class Melee : MonoBehaviour
         canParry = meleeScriptable.canParry;
         parryRange = meleeScriptable.parryRange;
         parryWindow = meleeScriptable.parryWindow;
+        parryActiveTime = meleeScriptable.parryActiveTime;
         parryMultiplier = meleeScriptable.parryMultiplier;
 
         //Audio clips

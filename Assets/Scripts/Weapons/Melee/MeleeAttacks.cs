@@ -37,6 +37,8 @@ public class MeleeAttacks : ScriptableObject
     public float parryRange;
     [Tooltip ("How long of a window the player has to parry in seconds")]
     public float parryWindow;
+    [Tooltip ("How long does the parry stay active for after reflecting its first projectile")]
+    public float parryActiveTime;
     [Tooltip ("How much a bullet's damage will be multiplied by after getting reflected")]
     public int parryMultiplier;
 

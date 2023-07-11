@@ -23,6 +23,8 @@ MonoBehaviour:
   canParry: 1
   parryRange: 6
   parryWindow: 0.4
+  parryActiveTime: 0.05
+  parryMultiplier: 2
   weaponModel: {fileID: 0}
   weaponSwingSFX: {fileID: 8300000, guid: 544089e605f9a4a40a381cfd6c260deb, type: 3}
   hitSFX: {fileID: 8300000, guid: 8b999278a639adf40a82e2712e3c36eb, type: 3}
