@@ -7,7 +7,7 @@ public class Explosion : MonoBehaviour
     //Editor tools
     [SerializeField]
     [Tooltip ("How much damage should it deal to targets hit")]
-    private int damage;
+    public float damage;
 
     [SerializeField]
     [Tooltip ("How big the explosion radius will be")]
@@ -43,6 +43,7 @@ public class Explosion : MonoBehaviour
 
     //Script variables
     private bool hasExploded = false;
+    [HideInInspector] public bool damageMultiplied = false;
 
     //Required components
     private ParticleSystem particles;

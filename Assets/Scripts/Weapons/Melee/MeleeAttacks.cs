@@ -20,6 +20,9 @@ public class MeleeAttacks : ScriptableObject
     [Tooltip ("How far an attack reaches")]
     public float range;
 
+
+    [Header ("Knockback")]
+
     [Tooltip ("How much knockback the attack deals")]
     public float enemyKnockback;
 
@@ -29,12 +32,28 @@ public class MeleeAttacks : ScriptableObject
     [Tooltip ("How much backwards force the player receives (may ignore if previous bool was left as false)")]
     public float backwardsKnockback;
 
+    [Header ("Parry")]
+    public bool canParry;
+    public float parryRange;
+    [Tooltip ("How long of a window the player has to parry in seconds")]
+    public float parryWindow;
+    [Tooltip ("How much a bullet's damage will be multiplied by after getting reflected")]
+    public int parryMultiplier;
+
+
+    [Header ("Visuals")]
+
     [Tooltip ("Model that will be used for the attack (eg. knife)")]
     public GameObject weaponModel;
+
+    [Header ("Audio")]
 
     [Tooltip ("Sound that will play when weapon is used")]
     public AudioClip weaponSwingSFX;
 
     [Tooltip ("Sound that will play when attack connects")]
     public AudioClip hitSFX;
+
+    [Tooltip ("Sound that will play when reflecting bullets")]
+    public AudioClip parrySFX;
 }

@@ -29,7 +29,7 @@ public class Health : MonoBehaviour
     [SerializeField] ParticleSystem deathParticle;
 
     //Script variables
-    [HideInInspector] public int currentHealth;
+    [HideInInspector] public float currentHealth;
     private bool isPlayer = false;
     private bool isEnemy = false;
     private bool isDestructible = false;
@@ -60,7 +60,7 @@ public class Health : MonoBehaviour
 
     //quickly flashes gotHit for a frame then turns it off, for other scripts
     [HideInInspector] public bool gotHit;
-    public void TakeDamage(int damageTaken)
+    public void TakeDamage(float damageTaken)
     {
         StartCoroutine(CheckHit());
         if (isEnemy)

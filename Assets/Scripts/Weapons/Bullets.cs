@@ -7,7 +7,8 @@ public class Bullets : MonoBehaviour
     [HideInInspector] public float destroyTime = 5;
 
     //Script variables
-    [HideInInspector] public int damage;
+    [HideInInspector] public float damage;
+    [HideInInspector] public bool damageMultiplied = false;
 
     //Required components
     private Health healthToDamage;

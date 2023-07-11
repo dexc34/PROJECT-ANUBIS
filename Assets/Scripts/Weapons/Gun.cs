@@ -15,9 +15,6 @@ public class Gun : MonoBehaviour
     [SerializeField]
     SecondaryDropdownOptions secondaryType = new SecondaryDropdownOptions();
 
-    [SerializeField] 
-    private bool isEnemy = true;
-
     [SerializeField]
     private GameObject weaponModelPrefab;
 
@@ -112,6 +109,8 @@ public class Gun : MonoBehaviour
     private int ammoToDisplay;
     [HideInInspector] public bool canFire = true;
     private float shootCooldown;
+    private bool isEnemy = true;
+    private int layerToApplyToBullet;
 
     [SerializeField]
     [Tooltip("Does the gun need to be cocked?")]
@@ -129,6 +128,16 @@ public class Gun : MonoBehaviour
         playerPos = GameObject.Find("Player");
         currentAmmo = totalAmmo;
         shootAudioSource = GetComponent<AudioSource>();
+        if(gameObject.CompareTag("Player")) 
+        {
+            isEnemy = false;
+            layerToApplyToBullet = 3;
+        }
+        else
+        {
+            isEnemy = true;
+            layerToApplyToBullet = 9;
+        }
         UpdateGunStats(this);
     }
 
@@ -152,6 +161,7 @@ public class Gun : MonoBehaviour
         for(int i = 0; i < bulletsPerBurst; i++)
         {
             GameObject bullet = Instantiate(bulletPrefab, virtualCamera.position + virtualCamera.forward, virtualCamera.rotation);
+            bullet.layer = layerToApplyToBullet;
             Vector3 bulletFinalDestination = (virtualCamera.right * bulletSpread[i].x) + (virtualCamera.up * bulletSpread[i].y) + (virtualCamera.forward * zSpread);
             bullet.GetComponent<Rigidbody>().AddForce(bulletFinalDestination * bulletSpeed/zSpread, ForceMode.Impulse);
             //Does not apply to weapons that don't shoot bullets (eg. rocket launcher)
