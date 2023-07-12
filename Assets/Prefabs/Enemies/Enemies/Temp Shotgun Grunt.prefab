@@ -1071,6 +1071,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   meleeType: 0
+  layersToIgnore:
+    serializedVersion: 2
+    m_Bits: 0
   isPlayer: 0
 --- !u!114 &7586718256430775683
 MonoBehaviour:
@@ -1999,7 +2002,7 @@ GameObject:
   - component: {fileID: 9156712923193886680}
   - component: {fileID: 606873040716316108}
   - component: {fileID: 2606701415745533919}
-  m_Layer: 16
+  m_Layer: 0
   m_Name: Left_Eye
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -36760,7 +36763,7 @@ GameObject:
   - component: {fileID: 3208250622447771103}
   - component: {fileID: 2329742473451919207}
   - component: {fileID: 5391507666059964717}
-  m_Layer: 16
+  m_Layer: 0
   m_Name: Right_Eye
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -21316,7 +21316,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0060248ca0c11cc41ae2a41f0e505b29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hasAntivirusShield: 0
+  antivirusShieldEnergy: 0
+  shieldBreakIframes: 0
   maxHealth: 10
+  damageParticle: {fileID: 0}
+  deathParticle: {fileID: 0}
+  currentHealth: 0
+  isHitHash: 0
+  gotHit: 0
+  enemyIsDead: 0
 --- !u!114 &4431521649470524034
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21344,7 +21353,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 100
   explosionRange: 5
-  explosionForce: 100
+  explosionForce: 1000
   grenadeThrowForce: 0
   explodeOnImpact: 0
   overrideTimer: 1

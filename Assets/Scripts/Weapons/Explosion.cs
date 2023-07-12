@@ -92,16 +92,16 @@ public class Explosion : MonoBehaviour
                 DealDamage(nearbyObject.transform.parent.gameObject);
             }
 
-            if(nearbyObject.gameObject.CompareTag("Rigidbody"))
-            {
+
                 //Add force to rigid bodies
                 Rigidbody rb = nearbyObject.GetComponent<Rigidbody>();
                 if(rb != null)
                 {
+                Debug.Log(rb.transform.name);
                     rb.AddExplosionForce(explosionForce, transform.position, explosionRange);
                     DealDamage(nearbyObject.gameObject);
                 }
-            }
+
         }
 
         //Unparents particle system to safely be able to destroy the gameoject without affecting visuals

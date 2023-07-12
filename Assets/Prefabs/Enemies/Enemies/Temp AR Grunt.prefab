@@ -762,6 +762,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   meleeType: 0
+  layersToIgnore:
+    serializedVersion: 2
+    m_Bits: 0
   isPlayer: 0
 --- !u!136 &3428554163278951166
 CapsuleCollider:
@@ -1829,7 +1832,7 @@ GameObject:
   - component: {fileID: 8312708987239846225}
   - component: {fileID: 298234811099360069}
   - component: {fileID: 2910270990176395606}
-  m_Layer: 16
+  m_Layer: 0
   m_Name: Left_Eye
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -36857,7 +36860,7 @@ GameObject:
   - component: {fileID: 2362841532110687062}
   - component: {fileID: 3178249703031456238}
   - component: {fileID: 5088498596959954852}
-  m_Layer: 16
+  m_Layer: 0
   m_Name: Right_Eye
   m_TagString: Untagged
   m_Icon: {fileID: 0}
