@@ -15,23 +15,23 @@ public class Barrage : MonoBehaviour
 
     //Required componets
     private GameObject barrageExplosivePrefab;
-    private Transform virtualCamera;
+    private Transform originPoint;
 
     // Start is called before the first frame update
     void Start()
     {
-        virtualCamera = GetComponentInChildren<CameraMove>().gameObject.transform;
         barrageExplosivePrefab = (GameObject) Resources.Load("Barrage Explosive");
         totalGridSize = gridSize * gridSize; 
         SetVectorPositions();
     }
 
-    public void UseBarrage()
+    public void UseBarrage(Transform origin)
     {
+        originPoint = origin;
         for(int i = 0; i < (totalGridSize); i++)
         {
-            GameObject explosive = Instantiate(barrageExplosivePrefab, virtualCamera.position + virtualCamera.forward, virtualCamera.rotation);
-            Vector3 bulletFinalDestination = (virtualCamera.right * explosivePostion[i].x) + (virtualCamera.up * explosivePostion[i].y) + (virtualCamera.forward * zSpread);
+            GameObject explosive = Instantiate(barrageExplosivePrefab, originPoint.position + originPoint.forward, originPoint.rotation);
+            Vector3 bulletFinalDestination = (originPoint.right * explosivePostion[i].x) + (originPoint.up * explosivePostion[i].y) + (originPoint.forward * zSpread);
             explosive.GetComponent<Rigidbody>().AddForce(bulletFinalDestination * explosive.GetComponent<Explosion>().grenadeThrowForce/zSpread, ForceMode.Impulse);
         }
     }

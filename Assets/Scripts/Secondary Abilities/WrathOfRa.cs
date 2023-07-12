@@ -16,7 +16,7 @@ public class WrathOfRa : MonoBehaviour
     private float raycastVisualRange;
 
     //Required components
-    private Transform virtualCamera;
+    private Transform originPoint;
     private Transform particleTransform;
     private LineRenderer beamVisuals;
     private GameObject beamPrefab;
@@ -26,10 +26,8 @@ public class WrathOfRa : MonoBehaviour
 
     private void Start() 
     {    
-        virtualCamera = GetComponentInChildren<CameraMove>().gameObject.transform;    
         beamPrefab = (GameObject) Resources.Load("Beam");
-        //= GameObject.Find("Secondary Container").GetComponent<PrefabContainer>().wrathOfRaPrefab;
-        beamContainer = Instantiate(beamPrefab, virtualCamera.position, virtualCamera.rotation);
+        beamContainer = Instantiate(beamPrefab, originPoint.position, originPoint.rotation);
         beamContainer.transform.parent = transform;
         beamVisuals = beamContainer.GetComponent<LineRenderer>();
         particleTransform = beamContainer.GetComponentInChildren<ParticleSystem>().transform;
@@ -45,7 +43,7 @@ public class WrathOfRa : MonoBehaviour
 
 
         beamVisuals.SetPosition(0, transform.position);
-        beamRay = new Ray(virtualCamera.position,virtualCamera.forward);
+        beamRay = new Ray(originPoint.position, originPoint.forward);
 
         if(Physics.Raycast(beamRay, out RaycastHit hitInfo, range, 15))
         {
@@ -74,8 +72,9 @@ public class WrathOfRa : MonoBehaviour
         }
     }
 
-    public void UseWrathOfRa()
+    public void UseWrathOfRa(Transform origin)
     {
+        originPoint = origin;
         beamContainer.SetActive(true);
         isFiring = true;
         StartCoroutine("StopBeam");

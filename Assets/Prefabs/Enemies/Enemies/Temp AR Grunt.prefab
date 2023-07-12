@@ -693,7 +693,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gunType: 0
   secondaryType: 0
-  isEnemy: 1
   weaponModelPrefab: {fileID: 1063234480703678022, guid: 5dc97d5562f1c43479d41cf0d18435c9,
     type: 3}
   bulletSpeed: 50
@@ -743,6 +742,7 @@ MonoBehaviour:
   antivirusShieldEnergy: 0
   shieldBreakIframes: 0
   maxHealth: 150
+  shieldBreakSFX: {fileID: 8300000, guid: 971a7af71e5fed34b88a57400b394b79, type: 3}
   damageParticle: {fileID: 7125288714949468103}
   deathParticle: {fileID: 7790671792995254258}
   currentHealth: 0
@@ -765,7 +765,6 @@ MonoBehaviour:
   layersToIgnore:
     serializedVersion: 2
     m_Bits: 0
-  isPlayer: 0
 --- !u!136 &3428554163278951166
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1832,7 +1831,7 @@ GameObject:
   - component: {fileID: 8312708987239846225}
   - component: {fileID: 298234811099360069}
   - component: {fileID: 2910270990176395606}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: Left_Eye
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -36860,7 +36859,7 @@ GameObject:
   - component: {fileID: 2362841532110687062}
   - component: {fileID: 3178249703031456238}
   - component: {fileID: 5088498596959954852}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: Right_Eye
   m_TagString: Untagged
   m_Icon: {fileID: 0}

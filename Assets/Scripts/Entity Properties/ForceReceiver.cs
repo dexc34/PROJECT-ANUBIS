@@ -32,9 +32,10 @@ public class ForceReceiver : MonoBehaviour
     //Script Variables
     [HideInInspector] public Vector3 impact = Vector3.zero;
     [HideInInspector] public bool receivedExplosion;
-    private float lerpMultiplier;
     private float horizontalTime;
     private float verticalTime;
+    private bool degradeYMomentum = false;
+    private bool yNegative = false;
 
     //Required components
     private CharacterController characterController;
@@ -44,21 +45,34 @@ public class ForceReceiver : MonoBehaviour
     {
         characterController = GetComponent<CharacterController>();
         movementScript = GetComponent<Movement>();
-        lerpMultiplier = 100/(explosionForceDuration * 100);
     }
 
     // call this function to add an impact force:
-    public void ReceiveExplosion(Vector3 direction, float force)
+    public void ReceiveExplosion(Vector3 direction, float force, bool reflectYForce)
     {
+        degradeYMomentum = reflectYForce;
+
+
         movementScript.isGroundPounding = false;    
         movementScript.isDashing = false;
         movementScript.CancelSlide();
 
-        if(movementScript.currentJumps <= 0) movementScript.currentJumps ++;
-
-
         direction.Normalize();
-        if (direction.y < 0) direction.y = -direction.y; // reflect down force on the ground
+
+        if(reflectYForce)
+        {
+            if (direction.y < 0) direction.y = -direction.y; // reflect down force on the ground
+            yNegative = false;
+        }
+
+        //Only restore jump if explosion force received is positive on the y axis
+        if(direction.y > 0)
+        {
+            if(movementScript.currentJumps <= 0) movementScript.currentJumps ++;
+            yNegative = false;
+        }
+        else yNegative = true;
+        
         movementScript.yVelocity = 0;
         verticalTime = 0;
         horizontalTime = 0;
@@ -76,12 +90,26 @@ public class ForceReceiver : MonoBehaviour
         if (impact.magnitude > 0.2f) receivedExplosion = true;
         else receivedExplosion = false;
 
+        if(!receivedExplosion) return;
+
         // Adds drag to the explosion by reading the animaton curve
         impact.x = impact.x * horizontalCurve.Evaluate(horizontalTime) * explosionForceDuration;
         impact.z = impact.z * horizontalCurve.Evaluate(horizontalTime) * explosionForceDuration;
         horizontalTime += Time.deltaTime;
 
-        impact.y =  impact.y * verticalCurve.Evaluate(verticalTime) * explosionForceDuration;
-        verticalTime += Time.deltaTime;
+        if(!yNegative)
+        {
+            impact.y =  impact.y * verticalCurve.Evaluate(verticalTime) * explosionForceDuration;
+            verticalTime += Time.deltaTime;
+        }
+        else
+        {
+            impact.y += movementScript.gravity * movementScript.gravityScale * Time.deltaTime;
+            if(characterController.isGrounded)
+            {
+                impact = Vector3.zero;
+            }
+        }
+
     }
 }

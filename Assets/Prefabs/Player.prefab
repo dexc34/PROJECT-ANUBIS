@@ -691,6 +691,9 @@ MonoBehaviour:
   antivirusShieldEnergy: 0
   shieldBreakIframes: 0
   maxHealth: 150
+  shieldBreakSFX: {fileID: 8300000, guid: 971a7af71e5fed34b88a57400b394b79, type: 3}
+  damageParticle: {fileID: 0}
+  deathParticle: {fileID: 0}
   currentHealth: 0
   isHitHash: 0
   gotHit: 0
@@ -720,6 +723,7 @@ MonoBehaviour:
   groundPoundLaunchDamage: 0
   groundPoundLaunchRange: 0
   groundPoundLaunchStrengthRange: {x: 0, y: 0}
+  rigirbodyMultipier: 10
   slideSpeed: 15
   slideLeeway: 5
   slidingCameraHeight: 0.5
@@ -780,7 +784,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gunType: 0
   secondaryType: 0
-  isEnemy: 0
   weaponModelPrefab: {fileID: 0}
   bulletSpeed: 50
   bulletLifetime: 5
@@ -825,11 +828,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f04b2505fa7ff342b59b15581806d9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  meleeType: 0
+  meleeType: 2
   layersToIgnore:
     serializedVersion: 2
-    m_Bits: 24575
-  isPlayer: 1
+    m_Bits: 24447
 --- !u!114 &2655479027469224854
 MonoBehaviour:
   m_ObjectHideFlags: 0

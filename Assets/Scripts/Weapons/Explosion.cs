@@ -7,7 +7,7 @@ public class Explosion : MonoBehaviour
     //Editor tools
     [SerializeField]
     [Tooltip ("How much damage should it deal to targets hit")]
-    private int damage;
+    public float damage;
 
     [SerializeField]
     [Tooltip ("How big the explosion radius will be")]
@@ -16,6 +16,10 @@ public class Explosion : MonoBehaviour
     [SerializeField]
     [Tooltip ("How strong the expliosion force applied to objects within range will be")]
     private float explosionForce;
+
+    [SerializeField]
+    [Tooltip ("How much of a force multiplier rigid bodies will recieve")]
+    private float rigidBodyMultiplier;
 
     [Tooltip ("How much force should be applied to the object when spawning (only for grenade, keep as 0 for other uses)")]
     public float grenadeThrowForce;
@@ -35,9 +39,11 @@ public class Explosion : MonoBehaviour
     [SerializeField]
     [Tooltip ("Particle effect to play when explosion happens")]
     private GameObject explosionVisuals;
+    
 
     //Script variables
     private bool hasExploded = false;
+    [HideInInspector] public bool damageMultiplied = false;
 
     //Required components
     private ParticleSystem particles;
@@ -87,7 +93,7 @@ public class Explosion : MonoBehaviour
                 if(forceReceiver != null)
                 {
                     Vector3 explosionDir = nearbyObject.transform.position - transform.position;
-                    forceReceiver.ReceiveExplosion(explosionDir, explosionForce);
+                    forceReceiver.ReceiveExplosion(explosionDir, explosionForce, true);
                 }
                 DealDamage(nearbyObject.transform.parent.gameObject);
             }
@@ -97,8 +103,7 @@ public class Explosion : MonoBehaviour
                 Rigidbody rb = nearbyObject.GetComponent<Rigidbody>();
                 if(rb != null)
                 {
-                Debug.Log(rb.transform.name);
-                    rb.AddExplosionForce(explosionForce, transform.position, explosionRange);
+                    rb.AddExplosionForce(explosionForce * rigidBodyMultiplier, transform.position, explosionRange);
                     DealDamage(nearbyObject.gameObject);
                 }
 

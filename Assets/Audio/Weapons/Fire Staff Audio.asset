@@ -16,4 +16,4 @@ MonoBehaviour:
   fireClips:
   - {fileID: 8300000, guid: 7a3ca1e5cbf4b034696857083cbe290e, type: 3}
   cockClip: {fileID: 0}
-  reloadClip: {fileID: 8300000, guid: c2df10c13355ea140980e0b727ff9441, type: 3}
+  reloadClip: {fileID: 8300000, guid: 47e4cb933034df84d81aa63388b07617, type: 3}

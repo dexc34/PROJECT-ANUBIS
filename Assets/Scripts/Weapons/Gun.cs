@@ -15,9 +15,6 @@ public class Gun : MonoBehaviour
     [SerializeField]
     SecondaryDropdownOptions secondaryType = new SecondaryDropdownOptions();
 
-    [SerializeField] 
-    private bool isEnemy = true;
-
     [SerializeField]
     private GameObject weaponModelPrefab;
 
@@ -112,6 +109,8 @@ public class Gun : MonoBehaviour
     private int ammoToDisplay;
     [HideInInspector] public bool canFire = true;
     private float shootCooldown;
+    private bool isEnemy = true;
+    private int layerToApplyToBullet;
 
     [SerializeField]
     [Tooltip("Does the gun need to be cocked?")]
@@ -129,6 +128,16 @@ public class Gun : MonoBehaviour
         playerPos = GameObject.Find("Player");
         currentAmmo = totalAmmo;
         shootAudioSource = GetComponent<AudioSource>();
+        if(gameObject.CompareTag("Player")) 
+        {
+            isEnemy = false;
+            layerToApplyToBullet = 3;
+        }
+        else
+        {
+            isEnemy = true;
+            layerToApplyToBullet = 9;
+        }
         UpdateGunStats(this);
     }
 
@@ -152,6 +161,7 @@ public class Gun : MonoBehaviour
         for(int i = 0; i < bulletsPerBurst; i++)
         {
             GameObject bullet = Instantiate(bulletPrefab, virtualCamera.position + virtualCamera.forward, virtualCamera.rotation);
+            bullet.layer = layerToApplyToBullet;
             Vector3 bulletFinalDestination = (virtualCamera.right * bulletSpread[i].x) + (virtualCamera.up * bulletSpread[i].y) + (virtualCamera.forward * zSpread);
             bullet.GetComponent<Rigidbody>().AddForce(bulletFinalDestination * bulletSpeed/zSpread, ForceMode.Impulse);
             //Does not apply to weapons that don't shoot bullets (eg. rocket launcher)
@@ -230,7 +240,10 @@ public class Gun : MonoBehaviour
         if(gunType.ToString() == "Melee") primaryIsMelee = true;
         else primaryIsMelee = false;
         secondaryType = gunScriptToPullFrom.secondaryType;
+
         weaponModelPrefab = gunScriptToPullFrom.weaponModelPrefab;
+        if(weaponModelPrefab == null) weaponModelPrefab = GetComponent<Melee>().meleeModel;
+
         bulletSpeed = gunScriptToPullFrom.bulletSpeed;
         bulletLifetime = gunScriptToPullFrom.bulletLifetime;
         damagePerBullet = gunScriptToPullFrom.damagePerBullet;
@@ -297,6 +310,7 @@ public class Gun : MonoBehaviour
         crosshairUiElement.sprite = crosshair;
 
         //Update gun model
+        if(gunType.ToString() == "Melee") return;
         GameObject weaponHolder = transform.GetComponentInChildren<CameraMove>().gameObject.transform.Find("Weapon Holder").gameObject;
         GameObject newGun = Instantiate(weaponModelPrefab, weaponHolder.transform.position, weaponHolder.transform.rotation);
         newGun.transform.parent = weaponHolder.transform;

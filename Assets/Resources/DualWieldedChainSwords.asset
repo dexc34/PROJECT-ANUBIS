@@ -17,7 +17,16 @@ MonoBehaviour:
   criticalMultiplier: 1.5
   attackDelay: 0.08
   range: 5
-  knockback: 20
-  weaponModel: {fileID: 0}
+  enemyKnockback: 120
+  hasBackwardsKnockback: 0
+  backwardsKnockback: 0
+  canParry: 1
+  parryRange: 6
+  parryWindow: 0.4
+  parryActiveTime: 0.05
+  parryMultiplier: 2
+  weaponModel: {fileID: 3363426211194617828, guid: 7404ccf46989bdd47901243d06937a33,
+    type: 3}
   weaponSwingSFX: {fileID: 8300000, guid: 544089e605f9a4a40a381cfd6c260deb, type: 3}
   hitSFX: {fileID: 8300000, guid: 8b999278a639adf40a82e2712e3c36eb, type: 3}
+  parrySFX: {fileID: 8300000, guid: 0797613578020534896989b7b48e9324, type: 3}

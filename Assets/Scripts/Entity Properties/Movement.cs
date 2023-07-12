@@ -51,6 +51,9 @@ public class Movement : MonoBehaviour
     [Tooltip ("How high up enemies will be sent up while in range")]
     private Vector2 groundPoundLaunchStrengthRange;
 
+    [SerializeField]
+    private float rigirbodyMultipier;
+
     [Header ("Slide setting")]
 
     [SerializeField]
@@ -73,8 +76,8 @@ public class Movement : MonoBehaviour
     private float longJumpLength;
 
     [Header ("Gravity Settings")]
-    [SerializeField] [Tooltip ("-1 to go down, 0 for no gravity, 1 to go up")] [Range (-1, 1)] private int gravity;
-    [SerializeField] [Tooltip ("How strong is the gravity")] private float gravityScale;
+    [SerializeField] [Tooltip ("-1 to go down, 0 for no gravity, 1 to go up")] [Range (-1, 1)] public int gravity;
+    [SerializeField] [Tooltip ("How strong is the gravity")] public float gravityScale;
 
     //Private script variables
     [HideInInspector] public Vector2 horizontalVelocity; //Gets fed into ApplyMovement() to determine horizontal direction
@@ -87,6 +90,7 @@ public class Movement : MonoBehaviour
     [HideInInspector] public bool isGroundPounding = false;
     [HideInInspector] public bool isSliding = false;
     private bool isLongJumping = false;
+    [HideInInspector] public bool canMove = true;
 
     //Used to calculate force applied on ground pound bounce
     private Vector3 groundPoundStartPosition;
@@ -165,6 +169,7 @@ public class Movement : MonoBehaviour
 
     private void ApplyMovement()
     {
+        if(!canMove) return;
         if(isDashing)
         {
             characterController.Move(moveDirection * dashSpeed * Time.deltaTime);
@@ -195,7 +200,7 @@ public class Movement : MonoBehaviour
 
     public void Jump()
     {
-        if(currentJumps <= 0) return;
+        if(currentJumps <= 0 || !canMove) return;
         currentJumps --;
         isGroundPounding = false;
 
@@ -210,7 +215,7 @@ public class Movement : MonoBehaviour
 
     public IEnumerator Dash()
     {
-        if(currentStamina == 0 || isDashing || horizontalVelocity.magnitude < 0.1f) yield break;
+        if(currentStamina == 0 || isDashing || horizontalVelocity.magnitude < 0.1f || !canMove) yield break;
         currentStamina --;
         yVelocity = 0;
         forceReceiver.impact.y = 0;
@@ -226,7 +231,7 @@ public class Movement : MonoBehaviour
 
     public void GroundPound()
     {
-        if(currentStamina == 0 || isGroundPounding || characterController.isGrounded) return;
+        if(currentStamina == 0 || isGroundPounding || characterController.isGrounded || !canMove) return;
 
         isGroundPounding = true;
         isDashing = false;
@@ -269,14 +274,14 @@ public class Movement : MonoBehaviour
             if(enemy.GetComponent<Rigidbody>() != null)
             {
                 float launchStrength = Random.Range(groundPoundLaunchStrengthRange.x, groundPoundLaunchStrengthRange.y);
-                enemy.GetComponent<Rigidbody>().AddForce(new Vector3(0, launchStrength, 0), ForceMode.Impulse);
+                enemy.GetComponent<Rigidbody>().AddForce(new Vector3(0, launchStrength * rigirbodyMultipier, 0), ForceMode.Impulse);
             }
         }
     }
 
     public void Slide()
     {
-        if(horizontalVelocity.magnitude < 0.1f || isDashing || isSliding) return;
+        if(horizontalVelocity.magnitude < 0.1f || isDashing || isSliding || !canMove) return;
         playerCamera.position = new Vector3 (playerCamera.position.x, playerCamera.position.y - slidingCameraHeight, playerCamera.position.z);
 
         //slideParticle.Play();
@@ -332,5 +337,13 @@ public class Movement : MonoBehaviour
     {
         playerCamera = GetComponentInChildren<CameraMove>().gameObject.transform;
         ceilingCheck.position = playerCamera.position;
+    }
+
+    public void CancelAllActions()
+    {
+        CancelSlide();
+        isLongJumping = false;
+        isDashing = false;
+        isGroundPounding = false;
     }
 }

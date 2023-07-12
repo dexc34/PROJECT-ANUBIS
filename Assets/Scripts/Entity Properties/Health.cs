@@ -18,24 +18,35 @@ public class Health : MonoBehaviour
     [Tooltip ("How many seconds of invulnerability the enemy has on shield break")]
     private float shieldBreakIframes;
 
+
     [Header ("Health settings")]
+    
     [SerializeField]
     [Tooltip ("Amount of health object starts with")]
     public int maxHealth = 100;
 
+
+    [Header ("Audio")]
+
+    [SerializeField]
+    private AudioClip shieldBreakSFX;
+
+
     [Header("Enemy Particles")]
+
     [Tooltip("DOES NOT need to be set if player")]
     [SerializeField] ParticleSystem damageParticle;
     [SerializeField] ParticleSystem deathParticle;
 
     //Script variables
-    [HideInInspector] public int currentHealth;
+    [HideInInspector] public float currentHealth;
     private bool isPlayer = false;
     private bool isEnemy = false;
     private bool isDestructible = false;
 
     //Required components
     private Destructibles destructibleScript;
+    private AudioSource audioSource;
 
     //ANIMATION
     private Animator anim;
@@ -44,6 +55,7 @@ public class Health : MonoBehaviour
     private void Start() 
     {
         currentHealth = maxHealth;   
+        audioSource = GetComponent<AudioSource>();
         if(gameObject.CompareTag("Player")) isPlayer = true;
         else if(gameObject.CompareTag("Hackable"))
         {
@@ -60,7 +72,7 @@ public class Health : MonoBehaviour
 
     //quickly flashes gotHit for a frame then turns it off, for other scripts
     [HideInInspector] public bool gotHit;
-    public void TakeDamage(int damageTaken)
+    public void TakeDamage(float damageTaken)
     {
         StartCoroutine(CheckHit());
         if (isEnemy)
@@ -99,6 +111,7 @@ public class Health : MonoBehaviour
     private IEnumerator DeactivateShield()
     {
         yield return new WaitForSeconds(shieldBreakIframes);
+        audioSource.PlayOneShot(shieldBreakSFX);
         hasAntivirusShield = false;
     }
 
