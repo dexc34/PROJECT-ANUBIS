@@ -30,8 +30,8 @@ TagManager:
   - HackBlocker
   - Trigger
   - Ragdolls
-  - 
-  - 
+  - NeutralHurtbox
+  - Rigidbodies
   - 
   - 
   - 

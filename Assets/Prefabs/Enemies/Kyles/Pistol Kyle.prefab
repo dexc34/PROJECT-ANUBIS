@@ -69402,13 +69402,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5804433224005283669}
-  - component: {fileID: 4469680252961669679}
-  - component: {fileID: 2346298485365251906}
-  - component: {fileID: 5520644484464065751}
-  - component: {fileID: 2349576804883227892}
   - component: {fileID: 8169337285561336492}
-  - component: {fileID: 4782623068248602058}
+  - component: {fileID: 5520644484464065751}
+  - component: {fileID: 3464384569958364231}
+  - component: {fileID: 2349576804883227892}
+  - component: {fileID: 2346298485365251906}
   - component: {fileID: 6062646128548477663}
+  - component: {fileID: 4782623068248602058}
+  - component: {fileID: 4469680252961669679}
   m_Layer: 15
   m_Name: Pistol Kyle
   m_TagString: Hackable
@@ -69439,40 +69440,29 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!95 &4469680252961669679
-Animator:
-  serializedVersion: 4
+--- !u!114 &8169337285561336492
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7410150487050788166}
   m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 320b1c2af77554f99a1658df4a6d3d5c, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 1
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 1
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
---- !u!136 &2346298485365251906
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7410150487050788166}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  m_Radius: 0.41
-  m_Height: 2.14
-  m_Direction: 1
-  m_Center: {x: 0, y: 0.8816185, z: 0}
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0060248ca0c11cc41ae2a41f0e505b29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hasAntivirusShield: 0
+  antivirusShieldEnergy: 0
+  shieldBreakIframes: 0
+  maxHealth: 150
+  shieldBreakSFX: {fileID: 8300000, guid: 971a7af71e5fed34b88a57400b394b79, type: 3}
+  damageParticle: {fileID: 6432172357978731569}
+  deathParticle: {fileID: 8181767017477417196}
+  currentHealth: 0
+  isHitHash: 0
+  gotHit: 0
+  enemyIsDead: 0
 --- !u!114 &5520644484464065751
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -69486,7 +69476,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gunType: 0
-  secondaryType: 0
   weaponModelPrefab: {fileID: 8917654906818533202, guid: 2f3f987a8e3466b40a163d59acd73771,
     type: 3}
   bulletSpeed: 50
@@ -69520,6 +69509,22 @@ MonoBehaviour:
   viewModelScript: {fileID: 0}
   muzzleParticle: {fileID: 0}
   enemyBulletSpawn: {fileID: 0}
+--- !u!114 &3464384569958364231
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7410150487050788166}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 139e61aeadb740f49a3937e7fe997eb4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  secondaryType: 0
+  overrideCooldown: 0
+  abilityCooldown: 0
+  canUseAbility: 1
 --- !u!114 &2349576804883227892
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -69535,31 +69540,40 @@ MonoBehaviour:
   meleeType: 2
   layersToIgnore:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 458752
   meleeModel: {fileID: 0}
---- !u!114 &8169337285561336492
-MonoBehaviour:
+--- !u!136 &2346298485365251906
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7410150487050788166}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0060248ca0c11cc41ae2a41f0e505b29, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hasAntivirusShield: 0
-  antivirusShieldEnergy: 0
-  shieldBreakIframes: 0
-  maxHealth: 150
-  shieldBreakSFX: {fileID: 8300000, guid: 971a7af71e5fed34b88a57400b394b79, type: 3}
-  damageParticle: {fileID: 6432172357978731569}
-  deathParticle: {fileID: 8181767017477417196}
-  currentHealth: 0
-  isHitHash: 0
-  gotHit: 0
-  enemyIsDead: 0
+  m_Radius: 0.41
+  m_Height: 2.14
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.8816185, z: 0}
+--- !u!143 &6062646128548477663
+CharacterController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7410150487050788166}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Height: 2
+  m_Radius: 0.5
+  m_SlopeLimit: 45
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0.001
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!82 &4782623068248602058
 AudioSource:
   m_ObjectHideFlags: 0
@@ -69656,24 +69670,26 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!143 &6062646128548477663
-CharacterController:
+--- !u!95 &4469680252961669679
+Animator:
+  serializedVersion: 4
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7410150487050788166}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Height: 2
-  m_Radius: 0.5
-  m_SlopeLimit: 45
-  m_StepOffset: 0.3
-  m_SkinWidth: 0.08
-  m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 1, z: 0}
+  m_Avatar: {fileID: 9000000, guid: 320b1c2af77554f99a1658df4a6d3d5c, type: 3}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 1
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 1
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &7516523803167469946
 GameObject:
   m_ObjectHideFlags: 0
@@ -69748,7 +69764,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4069312474869677567}
   - component: {fileID: 5613342748926644535}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Hurtbox
   m_TagString: Hurtbox
   m_Icon: {fileID: 0}

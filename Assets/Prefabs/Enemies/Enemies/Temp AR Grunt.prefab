@@ -617,9 +617,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1436566667113641076}
-  - component: {fileID: 9035828357554313486}
-  - component: {fileID: 8983893404187472307}
   - component: {fileID: 7279770990871407370}
+  - component: {fileID: 8983893404187472307}
+  - component: {fileID: 2321760001690539143}
   - component: {fileID: 6604859245989945048}
   - component: {fileID: 3428554163278951166}
   - component: {fileID: 4961499851330923083}
@@ -630,6 +630,7 @@ GameObject:
   - component: {fileID: 4037489547474395612}
   - component: {fileID: 4761024544425331227}
   - component: {fileID: 4761024544425331215}
+  - component: {fileID: 9035828357554313486}
   m_Layer: 15
   m_Name: Temp AR Grunt
   m_TagString: Hackable
@@ -659,26 +660,29 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
---- !u!95 &9035828357554313486
-Animator:
-  serializedVersion: 4
+--- !u!114 &7279770990871407370
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2717056085296891495}
   m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 6a11a1603c66a6c4a8d034a7ad7139c2, type: 3}
-  m_Controller: {fileID: 9100000, guid: c48c02f67405d9b409aecae9a6bfbc0a, type: 2}
-  m_CullingMode: 1
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0060248ca0c11cc41ae2a41f0e505b29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hasAntivirusShield: 0
+  antivirusShieldEnergy: 0
+  shieldBreakIframes: 0
+  maxHealth: 150
+  shieldBreakSFX: {fileID: 8300000, guid: 971a7af71e5fed34b88a57400b394b79, type: 3}
+  damageParticle: {fileID: 7125288714949468103}
+  deathParticle: {fileID: 7790671792995254258}
+  currentHealth: 0
+  isHitHash: 0
+  gotHit: 0
+  enemyIsDead: 0
 --- !u!114 &8983893404187472307
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -692,7 +696,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gunType: 0
-  secondaryType: 0
   weaponModelPrefab: {fileID: 1063234480703678022, guid: 5dc97d5562f1c43479d41cf0d18435c9,
     type: 3}
   bulletSpeed: 50
@@ -726,7 +729,7 @@ MonoBehaviour:
   viewModelScript: {fileID: 0}
   muzzleParticle: {fileID: 0}
   enemyBulletSpawn: {fileID: 5657612136931325241}
---- !u!114 &7279770990871407370
+--- !u!114 &2321760001690539143
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -735,20 +738,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 2717056085296891495}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0060248ca0c11cc41ae2a41f0e505b29, type: 3}
+  m_Script: {fileID: 11500000, guid: 139e61aeadb740f49a3937e7fe997eb4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hasAntivirusShield: 0
-  antivirusShieldEnergy: 0
-  shieldBreakIframes: 0
-  maxHealth: 150
-  shieldBreakSFX: {fileID: 8300000, guid: 971a7af71e5fed34b88a57400b394b79, type: 3}
-  damageParticle: {fileID: 7125288714949468103}
-  deathParticle: {fileID: 7790671792995254258}
-  currentHealth: 0
-  isHitHash: 0
-  gotHit: 0
-  enemyIsDead: 0
+  secondaryType: 0
+  overrideCooldown: 0
+  abilityCooldown: 0
+  canUseAbility: 1
 --- !u!114 &6604859245989945048
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -761,10 +757,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f04b2505fa7ff342b59b15581806d9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  meleeType: 0
+  meleeType: 3
   layersToIgnore:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 458752
+  meleeModel: {fileID: 0}
 --- !u!136 &3428554163278951166
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1054,6 +1051,26 @@ MonoBehaviour:
   RagdollRoot: {fileID: 7165904939019581809}
   startRagdoll: 0
   rigidbodies: []
+--- !u!95 &9035828357554313486
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2717056085296891495}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: 6a11a1603c66a6c4a8d034a7ad7139c2, type: 3}
+  m_Controller: {fileID: 9100000, guid: c48c02f67405d9b409aecae9a6bfbc0a, type: 2}
+  m_CullingMode: 1
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &2890525479336166992
 GameObject:
   m_ObjectHideFlags: 0

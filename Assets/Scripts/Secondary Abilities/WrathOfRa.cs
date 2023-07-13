@@ -27,7 +27,8 @@ public class WrathOfRa : MonoBehaviour
     private void Start() 
     {    
         beamPrefab = (GameObject) Resources.Load("Beam");
-        virtualCamera = GetComponentInChildren<CameraMove>().transform;
+        if(gameObject.CompareTag("Player")) virtualCamera = GetComponentInChildren<CameraMove>().transform;
+        else virtualCamera = transform;
         beamContainer = Instantiate(beamPrefab, virtualCamera.position, virtualCamera.rotation);
         beamContainer.transform.parent = transform;
         beamVisuals = beamContainer.GetComponent<LineRenderer>();

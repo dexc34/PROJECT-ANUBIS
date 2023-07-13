@@ -934,10 +934,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2278879610033283837}
-  - component: {fileID: 8154390753666043783}
-  - component: {fileID: 8134259970024810298}
-  - component: {fileID: 5193542559064896798}
   - component: {fileID: 7586718256430775683}
+  - component: {fileID: 8134259970024810298}
+  - component: {fileID: 6478143850945753090}
+  - component: {fileID: 5193542559064896798}
   - component: {fileID: 2583706034593735799}
   - component: {fileID: 5230166774248914114}
   - component: {fileID: 6437968799744539435}
@@ -947,6 +947,7 @@ GameObject:
   - component: {fileID: 3767131834425800533}
   - component: {fileID: 5646686767285329042}
   - component: {fileID: 5646686767285329030}
+  - component: {fileID: 8154390753666043783}
   m_Layer: 15
   m_Name: Temp Shotgun Grunt
   m_TagString: Hackable
@@ -976,26 +977,29 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
---- !u!95 &8154390753666043783
-Animator:
-  serializedVersion: 4
+--- !u!114 &7586718256430775683
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3025131655661408494}
   m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 6a11a1603c66a6c4a8d034a7ad7139c2, type: 3}
-  m_Controller: {fileID: 9100000, guid: c48c02f67405d9b409aecae9a6bfbc0a, type: 2}
-  m_CullingMode: 1
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0060248ca0c11cc41ae2a41f0e505b29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hasAntivirusShield: 0
+  antivirusShieldEnergy: 0
+  shieldBreakIframes: 0
+  maxHealth: 150
+  shieldBreakSFX: {fileID: 8300000, guid: 971a7af71e5fed34b88a57400b394b79, type: 3}
+  damageParticle: {fileID: 7812736768511543969}
+  deathParticle: {fileID: 7477814878274860995}
+  currentHealth: 0
+  isHitHash: 0
+  gotHit: 0
+  enemyIsDead: 0
 --- !u!114 &8134259970024810298
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1009,7 +1013,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gunType: 0
-  secondaryType: 0
   weaponModelPrefab: {fileID: 1813343312999743701, guid: 5df9d016b99c66d488f2b99cae149943,
     type: 3}
   bulletSpeed: 50
@@ -1057,6 +1060,22 @@ MonoBehaviour:
   viewModelScript: {fileID: 0}
   muzzleParticle: {fileID: 0}
   enemyBulletSpawn: {fileID: 4813329204448420784}
+--- !u!114 &6478143850945753090
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3025131655661408494}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 139e61aeadb740f49a3937e7fe997eb4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  secondaryType: 0
+  overrideCooldown: 0
+  abilityCooldown: 0
+  canUseAbility: 1
 --- !u!114 &5193542559064896798
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1072,30 +1091,8 @@ MonoBehaviour:
   meleeType: 0
   layersToIgnore:
     serializedVersion: 2
-    m_Bits: 0
---- !u!114 &7586718256430775683
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3025131655661408494}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0060248ca0c11cc41ae2a41f0e505b29, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hasAntivirusShield: 0
-  antivirusShieldEnergy: 0
-  shieldBreakIframes: 0
-  maxHealth: 150
-  shieldBreakSFX: {fileID: 8300000, guid: 971a7af71e5fed34b88a57400b394b79, type: 3}
-  damageParticle: {fileID: 7812736768511543969}
-  deathParticle: {fileID: 7477814878274860995}
-  currentHealth: 0
-  isHitHash: 0
-  gotHit: 0
-  enemyIsDead: 0
+    m_Bits: 458752
+  meleeModel: {fileID: 0}
 --- !u!136 &2583706034593735799
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1385,6 +1382,26 @@ MonoBehaviour:
   RagdollRoot: {fileID: 8015819892448636920}
   startRagdoll: 0
   rigidbodies: []
+--- !u!95 &8154390753666043783
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3025131655661408494}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: 6a11a1603c66a6c4a8d034a7ad7139c2, type: 3}
+  m_Controller: {fileID: 9100000, guid: c48c02f67405d9b409aecae9a6bfbc0a, type: 2}
+  m_CullingMode: 1
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &3301267659267884329
 GameObject:
   m_ObjectHideFlags: 0

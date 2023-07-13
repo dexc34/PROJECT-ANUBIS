@@ -104,7 +104,13 @@ MonoBehaviour:
   antivirusShieldEnergy: 0
   shieldBreakIframes: 0
   maxHealth: 100
+  shieldBreakSFX: {fileID: 0}
+  damageParticle: {fileID: 0}
+  deathParticle: {fileID: 0}
   currentHealth: 0
+  isHitHash: 0
+  gotHit: 0
+  enemyIsDead: 0
 --- !u!114 &2780351778284197717
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -133,11 +139,13 @@ MonoBehaviour:
   damage: 100
   explosionRange: 5
   explosionForce: 100000
+  rigidBodyMultiplier: 0
   grenadeThrowForce: 0
   explodeOnImpact: 0
   overrideTimer: 1
   timer: 0
   explosionVisuals: {fileID: 5509709392938080078}
+  damageMultiplied: 0
 --- !u!1 &5508046649886984508
 GameObject:
   m_ObjectHideFlags: 0
@@ -39142,7 +39150,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6022828097933972915}
   - component: {fileID: 3826839877188122550}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Hurtbox
   m_TagString: Hurtbox
   m_Icon: {fileID: 0}

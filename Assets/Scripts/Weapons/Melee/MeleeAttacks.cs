@@ -48,6 +48,9 @@ public class MeleeAttacks : ScriptableObject
     [Tooltip ("Model that will be used for the attack (eg. knife)")]
     public GameObject weaponModel;
 
+    [Tooltip ("Animation clip that will play when using melee")]
+    public AnimationClip swingAnimation;
+
     [Header ("Audio")]
 
     [Tooltip ("Sound that will play when weapon is used")]

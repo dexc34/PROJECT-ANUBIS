@@ -103,11 +103,13 @@ public class CloserToThePrey : MonoBehaviour
         Destroy(originPoint);
         movementScript.yVelocity = 0;
         movementScript.canMove = true;
+        movementScript.canAct = true;
     }
 
     private IEnumerator BeginPull()
     {
         movementScript.canMove = false;
+        movementScript.canAct = false;
         movementScript.CancelAllActions();
         abilityInUse = false;
         currentDistance = 0;

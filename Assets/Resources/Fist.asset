@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8d3e4dd255e6d345aef78e02288ab53, type: 3}
+  m_Name: Fist
+  m_EditorClassIdentifier: 
+  damage: 126
+  attacksPerSecond: 1.4
+  criticalMultiplier: 1.5
+  attackDelay: 0.08
+  range: 7
+  enemyKnockback: 300
+  hasBackwardsKnockback: 1
+  backwardsKnockback: 800
+  canParry: 0
+  parryRange: 0
+  parryWindow: 0
+  parryActiveTime: 0
+  parryMultiplier: 0
+  weaponModel: {fileID: 0}
+  swingAnimation: {fileID: 0}
+  weaponSwingSFX: {fileID: 8300000, guid: 73f070692509dfe42af168aa8634cb71, type: 3}
+  hitSFX: {fileID: 8300000, guid: 838182509b35d584994f9f1b36fae164, type: 3}
+  parrySFX: {fileID: 0}

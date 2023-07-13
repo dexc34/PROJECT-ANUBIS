@@ -10,7 +10,7 @@ public class Movement : MonoBehaviour
 {
     //In-editor tools 
     
-    [SerializeField] private float speed;
+    public float speed;
 
     [Header ("Jump Settings")]
     [SerializeField] private float jumpHeight;
@@ -89,8 +89,10 @@ public class Movement : MonoBehaviour
     [HideInInspector] public bool isDashing = false;
     [HideInInspector] public bool isGroundPounding = false;
     [HideInInspector] public bool isSliding = false;
+    [SerializeField] public bool isLeaping = false;
     private bool isLongJumping = false;
     [HideInInspector] public bool canMove = true;
+    [HideInInspector] public bool canAct = true;
 
     //Used to calculate force applied on ground pound bounce
     private Vector3 groundPoundStartPosition;
@@ -150,7 +152,7 @@ public class Movement : MonoBehaviour
         }
     }
 
-    private void ApplyGravity()
+    public void ApplyGravity()
     {
         if(isDashing || forceReceiver.receivedExplosion) return;
         //No gravity gets applied if grounded
@@ -200,29 +202,31 @@ public class Movement : MonoBehaviour
 
     public void Jump()
     {
-        if(currentJumps <= 0 || !canMove) return;
+        if(currentJumps <= 0 || !canAct) return;
         currentJumps --;
         isGroundPounding = false;
+        isLeaping = false;
 
         if(isSliding)
         {
             StartCoroutine("LongJump");
             return;
         }
+
         playerAudio.PlayJumpSFX();
         yVelocity = jumpHeight;
     }
 
     public IEnumerator Dash()
     {
-        if(currentStamina == 0 || isDashing || horizontalVelocity.magnitude < 0.1f || !canMove) yield break;
+        if(currentStamina == 0 || isDashing || horizontalVelocity.magnitude < 0.1f || !canAct) yield break;
         currentStamina --;
         yVelocity = 0;
         forceReceiver.impact.y = 0;
         moveDirection.y = yVelocity;
         playerAudio.PlayDashSFX();
+        CancelAllActions();
         isDashing = true;
-        isGroundPounding = false;
 
         yield return new WaitForSeconds(dashDuration);
         isDashing = false;
@@ -231,7 +235,9 @@ public class Movement : MonoBehaviour
 
     public void GroundPound()
     {
-        if(currentStamina == 0 || isGroundPounding || characterController.isGrounded || !canMove) return;
+        if(currentStamina == 0 || isGroundPounding || characterController.isGrounded || !canAct) return;
+
+        CancelAllActions();
 
         isGroundPounding = true;
         isDashing = false;
@@ -281,7 +287,7 @@ public class Movement : MonoBehaviour
 
     public void Slide()
     {
-        if(horizontalVelocity.magnitude < 0.1f || isDashing || isSliding || !canMove) return;
+        if(horizontalVelocity.magnitude < 0.1f || isDashing || isSliding || !canAct) return;
         playerCamera.position = new Vector3 (playerCamera.position.x, playerCamera.position.y - slidingCameraHeight, playerCamera.position.z);
 
         //slideParticle.Play();
@@ -345,5 +351,6 @@ public class Movement : MonoBehaviour
         isLongJumping = false;
         isDashing = false;
         isGroundPounding = false;
+        isLeaping = false;
     }
 }

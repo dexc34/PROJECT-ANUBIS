@@ -19,11 +19,14 @@ MonoBehaviour:
   range: 4
   enemyKnockback: 100
   hasBackwardsKnockback: 1
-  backwardsKnockback: 300
+  backwardsKnockback: 500
   canParry: 0
   parryRange: 0
   parryWindow: 0
+  parryActiveTime: 0
+  parryMultiplier: 0
   weaponModel: {fileID: 0}
+  swingAnimation: {fileID: 0}
   weaponSwingSFX: {fileID: 8300000, guid: 317f7ae79dcd7ea43a58197b56dde1d2, type: 3}
   hitSFX: {fileID: 8300000, guid: 3bb25e625623b9440b3484d3945ffc21, type: 3}
   parrySFX: {fileID: 0}
