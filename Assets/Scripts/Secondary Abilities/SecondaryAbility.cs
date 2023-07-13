@@ -12,14 +12,24 @@ public class SecondaryAbility : MonoBehaviour
 
     //Script variables
     [HideInInspector] public bool canUseAbility = true;
-    private UnityEvent secondaryFunction = new UnityEvent();
 
-    //Removes any extra secondary ability scripts
+    //Required components
+    private UnityEvent secondaryFunction = new UnityEvent();
+    private Transform secondaryOrigin;
+
+    private void Start() 
+    {
+        if(transform.CompareTag("Player")) secondaryOrigin = GetComponentInChildren<CameraMove>().transform;
+        else secondaryOrigin = transform;
+    }
 
     public void UpdateSecondary(SecondaryDropdownOptions secondaryEnum)
     {
         RemoveUnnecessaryComponents();
         secondaryFunction.RemoveAllListeners();
+
+        if(transform.CompareTag("Player")) secondaryOrigin = GetComponentInChildren<CameraMove>().transform;
+        else secondaryOrigin = transform;
 
         //Adds necessary scripts for the required secondary ability, and adds event listener
         try
@@ -29,23 +39,25 @@ public class SecondaryAbility : MonoBehaviour
                 case SecondaryDropdownOptions.ImpactGrenade:
                     ImpactGrenade tempGrenade = gameObject.AddComponent(typeof(ImpactGrenade)) as ImpactGrenade;
                     abilityCooldown = tempGrenade.cooldown;
-                    secondaryFunction.AddListener(tempGrenade.UseImpactGrenade);
+                    secondaryFunction.AddListener(delegate {tempGrenade.UseImpactGrenade(secondaryOrigin);});
                     break;
 
                 case SecondaryDropdownOptions.Barrage:
                     Barrage tempBarrage = gameObject.AddComponent(typeof (Barrage)) as Barrage;
                     abilityCooldown = tempBarrage.cooldown;
-                    secondaryFunction.AddListener(tempBarrage.UseBarrage);
+                    secondaryFunction.AddListener(delegate {tempBarrage.UseBarrage(secondaryOrigin);});
                     break;
 
                 case SecondaryDropdownOptions.WrathOfRa:
                     WrathOfRa tempWrathOfRa = gameObject.AddComponent(typeof (WrathOfRa)) as WrathOfRa;
                     abilityCooldown = tempWrathOfRa.cooldown;
-                    secondaryFunction.AddListener(tempWrathOfRa.UseWrathOfRa);
+                    secondaryFunction.AddListener(delegate {tempWrathOfRa.UseWrathOfRa(secondaryOrigin);});
                     break;
 
                 case SecondaryDropdownOptions.CloserToThePrey:
-                    Debug.Log("No closer to the prey script has been made yet");
+                    CloserToThePrey tempCloserToThePrey = gameObject.AddComponent(typeof (CloserToThePrey)) as CloserToThePrey;
+                    abilityCooldown = tempCloserToThePrey.cooldown;
+                    secondaryFunction.AddListener(delegate {tempCloserToThePrey.UseCloserToThePrey(secondaryOrigin);});
                     break;    
             }
         }
@@ -67,6 +79,9 @@ public class SecondaryAbility : MonoBehaviour
 
         WrathOfRa tempWrathOfRa = GetComponent<WrathOfRa>();
         if(tempWrathOfRa) Destroy(tempWrathOfRa);
+
+        CloserToThePrey tempCloserToThePrey = GetComponent<CloserToThePrey>();
+        if(tempCloserToThePrey) Destroy(tempCloserToThePrey);
         //Add new scripts to destroy here
     }
 

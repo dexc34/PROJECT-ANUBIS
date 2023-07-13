@@ -90,6 +90,7 @@ public class Movement : MonoBehaviour
     [HideInInspector] public bool isGroundPounding = false;
     [HideInInspector] public bool isSliding = false;
     private bool isLongJumping = false;
+    [HideInInspector] public bool canMove = true;
 
     //Used to calculate force applied on ground pound bounce
     private Vector3 groundPoundStartPosition;
@@ -168,6 +169,7 @@ public class Movement : MonoBehaviour
 
     private void ApplyMovement()
     {
+        if(!canMove) return;
         if(isDashing)
         {
             characterController.Move(moveDirection * dashSpeed * Time.deltaTime);
@@ -198,7 +200,7 @@ public class Movement : MonoBehaviour
 
     public void Jump()
     {
-        if(currentJumps <= 0) return;
+        if(currentJumps <= 0 || !canMove) return;
         currentJumps --;
         isGroundPounding = false;
 
@@ -213,7 +215,7 @@ public class Movement : MonoBehaviour
 
     public IEnumerator Dash()
     {
-        if(currentStamina == 0 || isDashing || horizontalVelocity.magnitude < 0.1f) yield break;
+        if(currentStamina == 0 || isDashing || horizontalVelocity.magnitude < 0.1f || !canMove) yield break;
         currentStamina --;
         yVelocity = 0;
         forceReceiver.impact.y = 0;
@@ -229,7 +231,7 @@ public class Movement : MonoBehaviour
 
     public void GroundPound()
     {
-        if(currentStamina == 0 || isGroundPounding || characterController.isGrounded) return;
+        if(currentStamina == 0 || isGroundPounding || characterController.isGrounded || !canMove) return;
 
         isGroundPounding = true;
         isDashing = false;
@@ -279,7 +281,7 @@ public class Movement : MonoBehaviour
 
     public void Slide()
     {
-        if(horizontalVelocity.magnitude < 0.1f || isDashing || isSliding) return;
+        if(horizontalVelocity.magnitude < 0.1f || isDashing || isSliding || !canMove) return;
         playerCamera.position = new Vector3 (playerCamera.position.x, playerCamera.position.y - slidingCameraHeight, playerCamera.position.z);
 
         //slideParticle.Play();
@@ -335,5 +337,13 @@ public class Movement : MonoBehaviour
     {
         playerCamera = GetComponentInChildren<CameraMove>().gameObject.transform;
         ceilingCheck.position = playerCamera.position;
+    }
+
+    public void CancelAllActions()
+    {
+        CancelSlide();
+        isLongJumping = false;
+        isDashing = false;
+        isGroundPounding = false;
     }
 }

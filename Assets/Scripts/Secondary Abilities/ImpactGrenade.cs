@@ -6,24 +6,18 @@ public class ImpactGrenade : MonoBehaviour
 {
     [HideInInspector] public float cooldown = 8;
     private GameObject grenadePrefab;
-    private Transform virtualCamera;
+    //
+    private Transform originPoint;
 
     private void Start() 
     {
-        virtualCamera = GetComponentInChildren<CameraMove>().gameObject.transform;
         grenadePrefab = (GameObject) Resources.Load("Grenade Alt");
-        //= GameObject.Find("Secondary Container").GetComponent<PrefabContainer>().impactGrenadePrefab;
-
     }
-    public void UseImpactGrenade()
+    public void UseImpactGrenade(Transform origin)
     {
-        GameObject grenade = Instantiate(grenadePrefab, virtualCamera.position + virtualCamera.forward, virtualCamera.rotation);
+        originPoint = origin;
+        GameObject grenade = Instantiate(grenadePrefab, originPoint.position + originPoint.forward, originPoint.rotation);
         Explosion explosionScript = grenade.GetComponent<Explosion>();
-        grenade.GetComponent<Rigidbody>().AddForce(virtualCamera.forward * explosionScript.grenadeThrowForce, ForceMode.Impulse);
-    }
-
-    public void SelfDestruct()
-    {
-        Destroy(this);
+        grenade.GetComponent<Rigidbody>().AddForce(originPoint.forward * explosionScript.grenadeThrowForce, ForceMode.Impulse);
     }
 }
