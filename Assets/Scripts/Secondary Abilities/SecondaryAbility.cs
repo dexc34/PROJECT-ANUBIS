@@ -51,7 +51,7 @@ public class SecondaryAbility : MonoBehaviour
                 case SecondaryDropdownOptions.WrathOfRa:
                     WrathOfRa tempWrathOfRa = gameObject.AddComponent(typeof (WrathOfRa)) as WrathOfRa;
                     abilityCooldown = tempWrathOfRa.cooldown;
-                    secondaryFunction.AddListener(delegate {tempWrathOfRa.UseWrathOfRa(secondaryOrigin);});
+                    secondaryFunction.AddListener(tempWrathOfRa.UseWrathOfRa);
                     break;
 
                 case SecondaryDropdownOptions.CloserToThePrey:
