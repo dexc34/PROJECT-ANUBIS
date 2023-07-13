@@ -14,6 +14,7 @@ public class Melee : MonoBehaviour
     private LayerMask layersToIgnore;
 
     //Script variables
+    private bool isMainWeapon = false;
     private bool canAttack = true;
     private float meleeCooldown;
     private bool isParrying = false;
@@ -208,6 +209,9 @@ public class Melee : MonoBehaviour
         attackDelay = meleeScriptable.attackDelay;
         range = meleeScriptable.range;
 
+        if(meleeType.ToString() == "Kick") isMainWeapon = false;
+        else isMainWeapon = true;
+
         //Knockback stats
         enemyKnockback = meleeScriptable.enemyKnockback;
         hasBackwardsKnockback = meleeScriptable.hasBackwardsKnockback;
@@ -240,11 +244,12 @@ public class Melee : MonoBehaviour
         meleeAudioSource = audioSources[1];
 
         //Create new weapon
+        if(!hasModel) return;
         GameObject weaponHolder = transform.GetComponentInChildren<CameraMove>().gameObject.transform.Find("Weapon Holder").gameObject;
         GameObject newWeapon = Instantiate(meleeModel, weaponHolder.transform.position, weaponHolder.transform.rotation);
         newWeapon.transform.parent = weaponHolder.transform;
         animators.Clear();
         animators.AddRange(newWeapon.GetComponentsInChildren<Animator>());
-        foreach(Animator animator in animators) Debug.Log(animator.gameObject.name);
+        if(!isMainWeapon) newWeapon.SetActive(false);
     }
 }
