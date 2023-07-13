@@ -6,14 +6,11 @@ using UnityEngine.Rendering.Universal;
 using UnityEngine.UI;
 
 public enum GunTypeDropdownOptions{Pistol, Shotgun, AssaultRifle, RocketLauncher, Staff, Melee};
-public enum SecondaryDropdownOptions{ImpactGrenade, Barrage, WrathOfRa, CloserToThePrey};
+
 public class Gun : MonoBehaviour
 {
     //Editor tools
     public GunTypeDropdownOptions gunType = new GunTypeDropdownOptions();  
-
-    [SerializeField]
-    SecondaryDropdownOptions secondaryType = new SecondaryDropdownOptions();
 
     [SerializeField]
     private GameObject weaponModelPrefab;
@@ -119,7 +116,6 @@ public class Gun : MonoBehaviour
     //Required components
     private GameObject playerPos;
     private Transform virtualCamera;   
-    private SecondaryAbility secondaryAbilityScript;
     public WeaponViewmodelAnimations viewModelScript;
     public ParticleSystem muzzleParticle;
 
@@ -239,7 +235,6 @@ public class Gun : MonoBehaviour
         gunType = gunScriptToPullFrom.gunType;
         if(gunType.ToString() == "Melee") primaryIsMelee = true;
         else primaryIsMelee = false;
-        secondaryType = gunScriptToPullFrom.secondaryType;
 
         weaponModelPrefab = gunScriptToPullFrom.weaponModelPrefab;
         if(weaponModelPrefab == null) weaponModelPrefab = GetComponent<Melee>().meleeModel;
@@ -289,10 +284,6 @@ public class Gun : MonoBehaviour
         cameraData.cameraStack.Insert(0, viewmodelCam);
 
         virtualCamera = GetComponentInChildren<CameraMove>().gameObject.transform;
-
-        //Update secondary ability script
-        secondaryAbilityScript = GetComponent<SecondaryAbility>();
-        secondaryAbilityScript.UpdateSecondary(secondaryType);
 
         //Update UI
         currentAmmoText.text = currentMagazine.ToString();

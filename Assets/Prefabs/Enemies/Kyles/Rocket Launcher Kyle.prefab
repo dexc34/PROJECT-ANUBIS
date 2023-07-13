@@ -34293,7 +34293,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8600293284485846990}
   - component: {fileID: 1552090787286239707}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Hurtbox
   m_TagString: Hurtbox
   m_Icon: {fileID: 0}
@@ -69770,13 +69770,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4697187874436747943}
-  - component: {fileID: 3433362211153100765}
-  - component: {fileID: 3543493108319118000}
-  - component: {fileID: 6719364970652320037}
-  - component: {fileID: 4225794007978298750}
   - component: {fileID: 6989004730120847198}
-  - component: {fileID: 9055692021369694668}
+  - component: {fileID: 6719364970652320037}
+  - component: {fileID: 6893364955424799380}
+  - component: {fileID: 4225794007978298750}
+  - component: {fileID: 3543493108319118000}
   - component: {fileID: 4741248421536203269}
+  - component: {fileID: 9055692021369694668}
+  - component: {fileID: 3433362211153100765}
   m_Layer: 15
   m_Name: Rocket Launcher Kyle
   m_TagString: Hackable
@@ -69807,40 +69808,29 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 240, z: 0}
---- !u!95 &3433362211153100765
-Animator:
-  serializedVersion: 4
+--- !u!114 &6989004730120847198
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8607674820274282676}
   m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 320b1c2af77554f99a1658df4a6d3d5c, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 1
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 1
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
---- !u!136 &3543493108319118000
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8607674820274282676}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  m_Radius: 0.41
-  m_Height: 2.14
-  m_Direction: 1
-  m_Center: {x: 0, y: 0.8816185, z: 0}
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0060248ca0c11cc41ae2a41f0e505b29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hasAntivirusShield: 0
+  antivirusShieldEnergy: 0
+  shieldBreakIframes: 0
+  maxHealth: 300
+  shieldBreakSFX: {fileID: 8300000, guid: 971a7af71e5fed34b88a57400b394b79, type: 3}
+  damageParticle: {fileID: 4125948691279928001}
+  deathParticle: {fileID: 3149424160477946214}
+  currentHealth: 0
+  isHitHash: 0
+  gotHit: 0
+  enemyIsDead: 0
 --- !u!114 &6719364970652320037
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -69854,7 +69844,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gunType: 3
-  secondaryType: 1
   weaponModelPrefab: {fileID: 5140375815798691381, guid: 2333df652f6b05d43b7ab2074c07cbae,
     type: 3}
   bulletSpeed: 500
@@ -69888,6 +69877,22 @@ MonoBehaviour:
   viewModelScript: {fileID: 0}
   muzzleParticle: {fileID: 0}
   enemyBulletSpawn: {fileID: 0}
+--- !u!114 &6893364955424799380
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8607674820274282676}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 139e61aeadb740f49a3937e7fe997eb4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  secondaryType: 1
+  overrideCooldown: 0
+  abilityCooldown: 0
+  canUseAbility: 1
 --- !u!114 &4225794007978298750
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -69903,31 +69908,40 @@ MonoBehaviour:
   meleeType: 2
   layersToIgnore:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 458752
   meleeModel: {fileID: 0}
---- !u!114 &6989004730120847198
-MonoBehaviour:
+--- !u!136 &3543493108319118000
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8607674820274282676}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0060248ca0c11cc41ae2a41f0e505b29, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hasAntivirusShield: 0
-  antivirusShieldEnergy: 0
-  shieldBreakIframes: 0
-  maxHealth: 300
-  shieldBreakSFX: {fileID: 8300000, guid: 971a7af71e5fed34b88a57400b394b79, type: 3}
-  damageParticle: {fileID: 4125948691279928001}
-  deathParticle: {fileID: 3149424160477946214}
-  currentHealth: 0
-  isHitHash: 0
-  gotHit: 0
-  enemyIsDead: 0
+  m_Radius: 0.41
+  m_Height: 2.14
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.8816185, z: 0}
+--- !u!143 &4741248421536203269
+CharacterController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8607674820274282676}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Height: 2
+  m_Radius: 0.5
+  m_SlopeLimit: 45
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0.001
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!82 &9055692021369694668
 AudioSource:
   m_ObjectHideFlags: 0
@@ -70024,24 +70038,26 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!143 &4741248421536203269
-CharacterController:
+--- !u!95 &3433362211153100765
+Animator:
+  serializedVersion: 4
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8607674820274282676}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Height: 2
-  m_Radius: 0.5
-  m_SlopeLimit: 45
-  m_StepOffset: 0.3
-  m_SkinWidth: 0.08
-  m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 1, z: 0}
+  m_Avatar: {fileID: 9000000, guid: 320b1c2af77554f99a1658df4a6d3d5c, type: 3}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 1
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 1
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &8687968675043104373
 GameObject:
   m_ObjectHideFlags: 0

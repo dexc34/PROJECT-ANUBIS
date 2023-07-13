@@ -5,7 +5,7 @@ using UnityEngine;
 public class Melee : MonoBehaviour
 {
     //Editor tools
-    private enum MeleeTypeDropdown { SingleSword, DualWieldedChainSwords, Kick };
+    private enum MeleeTypeDropdown { SingleSword, DualWieldedChainSwords, Fist, Kick };
     [SerializeField]
     [Tooltip("What kind of melee to perform")]
     MeleeTypeDropdown meleeType = new MeleeTypeDropdown();
@@ -42,6 +42,7 @@ public class Melee : MonoBehaviour
     private float parryMultiplier;
 
     [HideInInspector] public GameObject meleeModel;
+    private AnimationClip swingAnimation;
 
     private AudioClip swingSFX;
     private AudioClip hitSFX;
@@ -79,7 +80,7 @@ public class Melee : MonoBehaviour
         if (canParry) StartCoroutine(ParryTimer(parryWindow));
         StartCoroutine("Attack");
         StartCoroutine("MeleeCooldown");
-        if(hasModel) PlayAnimation("sword_swing");
+        if(hasModel) PlayAnimation();
     }
 
     private IEnumerator Attack()
@@ -184,15 +185,16 @@ public class Melee : MonoBehaviour
         canAttack = true;
     }
 
-    private void PlayAnimation(string animationClipName)
+    private void PlayAnimation()
     {
+        Debug.Log(swingAnimation.ToString());
         if(animators.Count == 1)
         {
-            animators[0].Play(animationClipName);
+            animators[0].Play(swingAnimation.name);
         }
         else
         {
-            animators[animatorIndex].Play(animationClipName);
+            animators[animatorIndex].Play(swingAnimation.name);
             if(animatorIndex == 0) animatorIndex = 1;
             else animatorIndex = 0;
         }
@@ -231,11 +233,37 @@ public class Melee : MonoBehaviour
             hasModel = true;
         }
         else hasModel = false;
+        if(meleeScriptable.swingAnimation) swingAnimation = meleeScriptable.swingAnimation;
 
         //Audio clips
         swingSFX = meleeScriptable.weaponSwingSFX;
         hitSFX = meleeScriptable.hitSFX;
         parrySFX = meleeScriptable.parrySFX;
+
+        if(isPlayer)
+        {
+            //Add enemy layer 
+            layersToIgnore |= (1 << 10);
+            //Remove player layer
+            layersToIgnore &= ~(1 << 7);
+            if(canParry) 
+            {
+                //Add enemy bullet layer
+                layersToIgnore |= (1 << 9);
+                //Remove player bullet layer
+                layersToIgnore &= ~(1 << 3);
+            }
+        }
+        else
+        {   
+            layersToIgnore &= ~(1 << 10);
+            layersToIgnore |= (1 << 7);
+            if(canParry)
+            {
+                layersToIgnore &= ~(1 << 9);
+                layersToIgnore |= (1 << 3);
+            }
+        }
 
         if (!isPlayer) return;
 

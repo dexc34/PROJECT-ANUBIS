@@ -490,13 +490,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3404781720649108108}
-  - component: {fileID: 4740660030168901622}
-  - component: {fileID: 6864314480008657563}
-  - component: {fileID: 3697472081520548110}
-  - component: {fileID: 2789647457828322386}
   - component: {fileID: 1049931721283403697}
-  - component: {fileID: 6297272461405881626}
+  - component: {fileID: 3697472081520548110}
+  - component: {fileID: 4582988152603844481}
+  - component: {fileID: 2789647457828322386}
+  - component: {fileID: 6864314480008657563}
   - component: {fileID: 2258269392407410682}
+  - component: {fileID: 6297272461405881626}
+  - component: {fileID: 4740660030168901622}
   m_Layer: 15
   m_Name: Shotgun Kyle
   m_TagString: Hackable
@@ -527,40 +528,29 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 104.989, z: 0}
---- !u!95 &4740660030168901622
-Animator:
-  serializedVersion: 4
+--- !u!114 &1049931721283403697
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1809161959122040991}
   m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 320b1c2af77554f99a1658df4a6d3d5c, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 1
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 1
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
---- !u!136 &6864314480008657563
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1809161959122040991}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  m_Radius: 0.41
-  m_Height: 2.14
-  m_Direction: 1
-  m_Center: {x: 0, y: 0.8816185, z: 0}
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0060248ca0c11cc41ae2a41f0e505b29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hasAntivirusShield: 0
+  antivirusShieldEnergy: 0
+  shieldBreakIframes: 0
+  maxHealth: 150
+  shieldBreakSFX: {fileID: 8300000, guid: 971a7af71e5fed34b88a57400b394b79, type: 3}
+  damageParticle: {fileID: 2111133124903113496}
+  deathParticle: {fileID: 8298086008519806157}
+  currentHealth: 0
+  isHitHash: 0
+  gotHit: 0
+  enemyIsDead: 0
 --- !u!114 &3697472081520548110
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -574,7 +564,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gunType: 1
-  secondaryType: 0
   weaponModelPrefab: {fileID: 1813343312999743701, guid: 5df9d016b99c66d488f2b99cae149943,
     type: 3}
   bulletSpeed: 50
@@ -622,6 +611,22 @@ MonoBehaviour:
   viewModelScript: {fileID: 0}
   muzzleParticle: {fileID: 0}
   enemyBulletSpawn: {fileID: 0}
+--- !u!114 &4582988152603844481
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1809161959122040991}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 139e61aeadb740f49a3937e7fe997eb4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  secondaryType: 0
+  overrideCooldown: 0
+  abilityCooldown: 0
+  canUseAbility: 1
 --- !u!114 &2789647457828322386
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -637,31 +642,40 @@ MonoBehaviour:
   meleeType: 2
   layersToIgnore:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 458752
   meleeModel: {fileID: 0}
---- !u!114 &1049931721283403697
-MonoBehaviour:
+--- !u!136 &6864314480008657563
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1809161959122040991}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0060248ca0c11cc41ae2a41f0e505b29, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hasAntivirusShield: 0
-  antivirusShieldEnergy: 0
-  shieldBreakIframes: 0
-  maxHealth: 150
-  shieldBreakSFX: {fileID: 8300000, guid: 971a7af71e5fed34b88a57400b394b79, type: 3}
-  damageParticle: {fileID: 2111133124903113496}
-  deathParticle: {fileID: 8298086008519806157}
-  currentHealth: 0
-  isHitHash: 0
-  gotHit: 0
-  enemyIsDead: 0
+  m_Radius: 0.41
+  m_Height: 2.14
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.8816185, z: 0}
+--- !u!143 &2258269392407410682
+CharacterController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1809161959122040991}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Height: 2
+  m_Radius: 0.5
+  m_SlopeLimit: 45
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0.001
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!82 &6297272461405881626
 AudioSource:
   m_ObjectHideFlags: 0
@@ -758,24 +772,26 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!143 &2258269392407410682
-CharacterController:
+--- !u!95 &4740660030168901622
+Animator:
+  serializedVersion: 4
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1809161959122040991}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Height: 2
-  m_Radius: 0.5
-  m_SlopeLimit: 45
-  m_StepOffset: 0.3
-  m_SkinWidth: 0.08
-  m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 1, z: 0}
+  m_Avatar: {fileID: 9000000, guid: 320b1c2af77554f99a1658df4a6d3d5c, type: 3}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 1
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 1
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &2103312349301009752
 GameObject:
   m_ObjectHideFlags: 0
@@ -35608,7 +35624,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8613737478587087703}
   - component: {fileID: 3663150929155802185}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Hurtbox
   m_TagString: Hurtbox
   m_Icon: {fileID: 0}

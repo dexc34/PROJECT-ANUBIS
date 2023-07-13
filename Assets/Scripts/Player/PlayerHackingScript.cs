@@ -60,6 +60,9 @@ public class PlayerHackingScript : MonoBehaviour
     private LineRenderer lineRenderer;
     private Movement playerMovementScript;
     private Gun gunScript;
+//  Remove before pulling
+    private SecondaryAbility secondaryAbility;
+//
     private Melee meleeScript;
 
     //Script variables
@@ -84,6 +87,9 @@ public class PlayerHackingScript : MonoBehaviour
         mainCameraBrain = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Cinemachine.CinemachineBrain>();
         playerMovementScript = GetComponent<Movement>();
         gunScript = GetComponent<Gun>();
+//  Remove before pulling
+        secondaryAbility = GetComponent<SecondaryAbility>();
+//
         meleeScript = GetComponent<Melee>();
     }
 
@@ -308,6 +314,9 @@ public class PlayerHackingScript : MonoBehaviour
         //Update player stats
         playerMovementScript.ChangeStats();
         gunScript.UpdateGunStats(currentlyStoredEnemy.GetComponent<Gun>());
+//  Remove before pulling
+        secondaryAbility.UpdateSecondary(currentlyStoredEnemy.GetComponent<SecondaryAbility>());
+//
         meleeScript.UpdateMelee(currentlyStoredEnemy.GetComponent<Melee>());
     
         ExitHackMode();

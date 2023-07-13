@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1486897482335782012}
   - component: {fileID: 6910567403335046543}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Hurtbox
   m_TagString: Hurtbox
   m_Icon: {fileID: 0}
@@ -21316,7 +21316,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0060248ca0c11cc41ae2a41f0e505b29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hasAntivirusShield: 0
+  antivirusShieldEnergy: 0
+  shieldBreakIframes: 0
   maxHealth: 10
+  shieldBreakSFX: {fileID: 0}
+  damageParticle: {fileID: 0}
+  deathParticle: {fileID: 0}
+  currentHealth: 0
+  isHitHash: 0
+  gotHit: 0
+  enemyIsDead: 0
 --- !u!114 &4431521649470524034
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21345,12 +21355,14 @@ MonoBehaviour:
   damage: 100
   explosionRange: 5
   explosionForce: 100
+  rigidBodyMultiplier: 0
   grenadeThrowForce: 0
   explodeOnImpact: 0
   overrideTimer: 1
   timer: 0
   explosionVisuals: {fileID: 1121192042590650, guid: e1b08032bec16ba4eb1ae23cbd572664,
     type: 3}
+  damageMultiplied: 0
 --- !u!1 &5560706657221578243
 GameObject:
   m_ObjectHideFlags: 0
