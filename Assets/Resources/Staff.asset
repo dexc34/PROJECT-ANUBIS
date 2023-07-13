@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c6b59979eacb6c4494d42b7cddf537e, type: 3}
+  m_Name: Staff
+  m_EditorClassIdentifier: 
+  damagePerBullet: 0
+  bulletSpeed: 30
+  bulletLifetime: 100
+  criticalMultiplier: 1
+  isAutomatic: 1
+  fireRate: 1.5
+  reloadSpeed: 3.5
+  totalAmmo: 20
+  magazineSize: 8
+  bulletsPerBurst: 3
+  bulletSpread:
+  - {x: 0, y: 0}
+  - {x: 0.8, y: 0}
+  - {x: -0.8, y: 0}
+  zSpread: 5
+  weaponModelPrefab: {fileID: 6967275028543347153, guid: c5d698707de8f764496cca3bec984c90,
+    type: 3}
+  crosshairSrpite: {fileID: 21300000, guid: 3bef07b66e7a97c4580102cfea4ff112, type: 3}
+  fireModeString: AUTO
+  gunAudioScript: {fileID: 11400000, guid: 729d171cb3a7245429c9c9c43462c7b4, type: 2}
+  needsCock: 0
+  bulletPrefab: {fileID: 1488270266907980684, guid: e84b6fdba2439e94a84dd3ba2cbe4856,
+    type: 3}

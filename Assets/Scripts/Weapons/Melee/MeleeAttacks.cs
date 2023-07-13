@@ -5,7 +5,7 @@ using UnityEngine;
 [CreateAssetMenu (fileName = "New Melee Attack", menuName = "Melee")]
 public class MeleeAttacks : ScriptableObject
 {
-    [Tooltip ("How much damage an indiviual hit deals")]
+    
     public int damage;
 
     [Tooltip("How many times you may attack per second")]

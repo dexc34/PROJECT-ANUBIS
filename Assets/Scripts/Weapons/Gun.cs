@@ -12,58 +12,38 @@ public class Gun : MonoBehaviour
     //Editor tools
     public GunTypeDropdownOptions gunType = new GunTypeDropdownOptions();  
 
-    [SerializeField]
-    private GameObject weaponModelPrefab;
-
-    [SerializeField] 
-    private float bulletSpeed;
+    [Header ("Cheats")]
 
     [SerializeField]
-    [Tooltip ("How long bullets will exist before dissapearing in seconds")]
-    private float bulletLifetime = 5;
+    private bool infiteAmmo;
 
-    [SerializeField] 
+    [SerializeField]
+    private bool instantReload;
+
+    //Inherited variables from scriptable
     private int damagePerBullet;
-
-    [SerializeField] 
-    [Tooltip ("Damage multiplier when hitting a critical point (eg. headshots)")] 
+    private float bulletSpeed;
+    private float bulletLifetime;
     private float criticalMultiplier;
-
-    [SerializeField]
-    [Tooltip ("Can the player hold to shoot?")]
-    public bool isAutomatic = false;
-
-    [SerializeField] 
-    [Tooltip ("Meassured in bursts fired per second")] 
+    [HideInInspector] public bool isAutomatic;
     private float fireRate;
-
-    [SerializeField] 
-    [Tooltip ("How long it takes to reload, meassured in seconds")] 
     private float reloadSpeed; 
-
-    [SerializeField] 
-    [Tooltip ("Total amount of bullets available")] 
     private int totalAmmo;
-
-    [SerializeField] 
-    [Tooltip ("How many bullets can be fired before needing to reload")] 
     private int magazineSize;
-
-    [SerializeField] 
-    [Tooltip ("How many bullets come out of the gun on shoot")] 
     private int bulletsPerBurst;
-
-    [SerializeField] 
-    [Tooltip ("Array size should match the amount of Bullets Per Burst (0, 0, 0 means it will have no spread)")] 
     private Vector2[] bulletSpread;
-
-    [SerializeField]
-    [Tooltip ("Amount of units it takes for a bullet to reach its spread pattern")]
     private float zSpread = 5;
 
-    [SerializeField] 
-    [Tooltip ("Bullet prefab goes here")] 
+    private GameObject weaponModelPrefab;
+
+    private Sprite crosshairSprite;
+    private string fireModeString;
+
+    private GunAudio gunAudioScript;
+    private bool needsCock;
     private GameObject bulletPrefab;
+    
+    //------------------------------------------------------CAN PROBABLY GET THESE VIA SCRIPT vv
 
     [Header ("UI")]
 
@@ -73,15 +53,10 @@ public class Gun : MonoBehaviour
     private Text reserveAmmoText;
     [SerializeField]
     private Text fireModeText;
-    [SerializeField]
-    private string fireModeString;
 
     [SerializeField] 
     [Tooltip ("Must only be specified if this is the player")]
     private Image crosshairUiElement;
-    [SerializeField] 
-    [Tooltip ("Sprite of the corresponding weapon")]
-    private Sprite crosshair;
 
     //gets viewmodel camera for the gun
     [SerializeField]
@@ -90,14 +65,8 @@ public class Gun : MonoBehaviour
     [SerializeField]
     [Tooltip("Must only be specified if this is the player")]
     private Camera mainCam;
+    //------------------------------------------------------CAN PROBABLY GET THESE VIA SCRIPT ^^
 
-    //Gets sound effects for the guns
-    [SerializeField]
-    [Tooltip("Must only be specified if this is the player")]
-    private GunAudio gunAudioScript;
-    [SerializeField]
-    [Tooltip("Must only be specified if this is the player")]
-    private AudioSource shootAudioSource;
 
     //Script variables
     [HideInInspector] public bool primaryIsMelee = false;
@@ -109,21 +78,23 @@ public class Gun : MonoBehaviour
     private bool isEnemy = true;
     private int layerToApplyToBullet;
 
-    [SerializeField]
-    [Tooltip("Does the gun need to be cocked?")]
-    bool needsCock;
 
     //Required components
     private GameObject playerPos;
     private Transform virtualCamera;   
+
     public WeaponViewmodelAnimations viewModelScript;
     public ParticleSystem muzzleParticle;
+    private GunTemplate gunScriptable;
+    private AudioSource shootAudioSource;
 
     void Start()
     {
         playerPos = GameObject.Find("Player");
-        currentAmmo = totalAmmo;
         shootAudioSource = GetComponent<AudioSource>();
+        gunScriptable = (GunTemplate) Resources.Load(gunType.ToString());
+        currentAmmo = gunScriptable.totalAmmo;
+
         if(gameObject.CompareTag("Player")) 
         {
             isEnemy = false;
@@ -143,7 +114,7 @@ public class Gun : MonoBehaviour
         if(!canFire || currentAmmo <= 0) return;
         
         canFire = false;
-        currentAmmo --;
+        if(!infiteAmmo)currentAmmo --;
         currentMagazine --;
 
         gunAudioScript.PlayShootClip(shootAudioSource);
@@ -206,6 +177,8 @@ public class Gun : MonoBehaviour
 
         gunAudioScript.PlayReloadClip(shootAudioSource);
 
+        if(instantReload) reloadSpeed = shootCooldown;
+
         yield return new WaitForSeconds(reloadSpeed);
 
         //If you have enough ammo for a full magazine, fill it up, and display remaining ammo
@@ -229,37 +202,52 @@ public class Gun : MonoBehaviour
     //Used when hacking a new body, update gun stats to match the enemy's gun
     public void UpdateGunStats(Gun gunScriptToPullFrom)
     {
-//        isShoothing = false;
-
-        //Apply serializable gun stats
         gunType = gunScriptToPullFrom.gunType;
+        gunScriptable = (GunTemplate) Resources.Load(gunType.ToString());
+
         if(gunType.ToString() == "Melee") primaryIsMelee = true;
         else primaryIsMelee = false;
 
-        weaponModelPrefab = gunScriptToPullFrom.weaponModelPrefab;
+        //Inhertit scriptable variables
+
+        //Stats
+        damagePerBullet = gunScriptable.damagePerBullet;
+        bulletSpeed = gunScriptable.bulletSpeed;
+        bulletLifetime = gunScriptable.bulletLifetime;
+        criticalMultiplier = gunScriptable.criticalMultiplier;
+        isAutomatic = gunScriptable.isAutomatic;
+        fireRate = gunScriptable.fireRate;
+        reloadSpeed = gunScriptable.reloadSpeed;
+        totalAmmo = gunScriptable.totalAmmo;
+        magazineSize = gunScriptable.magazineSize;
+        bulletsPerBurst = gunScriptable.bulletsPerBurst;
+        bulletSpread = gunScriptable.bulletSpread;
+        zSpread = gunScriptable.zSpread;
+
+        //Visuals
+        weaponModelPrefab = gunScriptable.weaponModelPrefab;
         if(weaponModelPrefab == null) weaponModelPrefab = GetComponent<Melee>().meleeModel;
 
-        bulletSpeed = gunScriptToPullFrom.bulletSpeed;
-        bulletLifetime = gunScriptToPullFrom.bulletLifetime;
-        damagePerBullet = gunScriptToPullFrom.damagePerBullet;
-        criticalMultiplier = gunScriptToPullFrom.criticalMultiplier;
-        isAutomatic = gunScriptToPullFrom.isAutomatic;
-        fireRate = gunScriptToPullFrom.fireRate;
-        reloadSpeed = gunScriptToPullFrom.reloadSpeed;
-        totalAmmo = gunScriptToPullFrom.totalAmmo;
-        magazineSize = gunScriptToPullFrom.magazineSize;
-        bulletPrefab = gunScriptToPullFrom.bulletPrefab;
-        bulletsPerBurst = gunScriptToPullFrom.bulletsPerBurst;
-        bulletSpread = gunScriptToPullFrom.bulletSpread;
+        //UI
+        crosshairSprite = gunScriptable.crosshairSrpite;
+
+        //Audio
+        gunAudioScript = gunScriptable.gunAudioScript;
+        needsCock = gunScriptable.needsCock;
+
+        //Objects
+        bulletPrefab = gunScriptable.bulletPrefab;
 
         //Apply internally tracked stats
         currentAmmo = gunScriptToPullFrom.currentAmmo;
+        Debug.Log(currentAmmo);
+        shootCooldown = 1/fireRate;
 
         //Make sure player can fire again if last body they hacked ran out of bullets
         if(currentAmmo <= 0) canFire = false;
         else canFire = true;
 
-        if(currentAmmo <= gunScriptToPullFrom.magazineSize)
+        if(currentAmmo <= magazineSize)
         {
             currentMagazine = currentAmmo;
             ammoToDisplay = 0;            
@@ -270,7 +258,6 @@ public class Gun : MonoBehaviour
             ammoToDisplay = currentAmmo - magazineSize;
         }
 
-        shootCooldown = 1/fireRate;
 
         if(isEnemy) return;
 
@@ -288,17 +275,8 @@ public class Gun : MonoBehaviour
         //Update UI
         currentAmmoText.text = currentMagazine.ToString();
         reserveAmmoText.text = ammoToDisplay.ToString();
-        //sets the string for fire mode 
-        fireModeText.text = gunScriptToPullFrom.fireModeString;
-
-        //sets new sounds for new gun
-        gunAudioScript = gunScriptToPullFrom.gunAudioScript;
-
-        //checks to see if new gun needs to be cocked
-        needsCock = gunScriptToPullFrom.needsCock;
-
-        crosshair = gunScriptToPullFrom.crosshair;
-        crosshairUiElement.sprite = crosshair;
+        crosshairUiElement.sprite = crosshairSprite;
+        fireModeText.text = gunScriptable.fireModeString;
 
         //Update gun model
         if(gunType.ToString() == "Melee") return;

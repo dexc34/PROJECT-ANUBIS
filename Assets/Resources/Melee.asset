@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c6b59979eacb6c4494d42b7cddf537e, type: 3}
+  m_Name: Melee
+  m_EditorClassIdentifier: 
+  damagePerBullet: 0
+  bulletSpeed: 0
+  bulletLifetime: 0
+  criticalMultiplier: 0
+  isAutomatic: 0
+  fireRate: 0
+  reloadSpeed: 0
+  totalAmmo: 0
+  magazineSize: 0
+  bulletsPerBurst: 0
+  bulletSpread: []
+  zSpread: 5
+  weaponModelPrefab: {fileID: 0}
+  crosshairSrpite: {fileID: 21300000, guid: 2f56c44ec82d44947ad9891c45244a85, type: 3}
+  fireModeString: MELEE
+  gunAudioScript: {fileID: 0}
+  needsCock: 0
+  bulletPrefab: {fileID: 0}

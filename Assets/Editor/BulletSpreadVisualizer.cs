@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEditor;
 
-[CustomEditor (typeof (Gun)), CanEditMultipleObjects]
+[CustomEditor (typeof (GunTemplate)), CanEditMultipleObjects]
 public class BulletSpreadVisualizer : Editor
 {
 	private SerializedProperty _vectors;

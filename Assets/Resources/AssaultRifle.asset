@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c6b59979eacb6c4494d42b7cddf537e, type: 3}
+  m_Name: AssaultRifle
+  m_EditorClassIdentifier: 
+  damagePerBullet: 36
+  bulletSpeed: 50
+  bulletLifetime: 5
+  criticalMultiplier: 1.5
+  isAutomatic: 1
+  fireRate: 7.5
+  reloadSpeed: 1.5
+  totalAmmo: 60
+  magazineSize: 30
+  bulletsPerBurst: 1
+  bulletSpread:
+  - {x: 0, y: 0}
+  zSpread: 5
+  weaponModelPrefab: {fileID: 1063234480703678022, guid: 5dc97d5562f1c43479d41cf0d18435c9,
+    type: 3}
+  crosshairSrpite: {fileID: 21300000, guid: 2f56c44ec82d44947ad9891c45244a85, type: 3}
+  fireModeString: AUTO
+  gunAudioScript: {fileID: 11400000, guid: 96656fe07e7b7c44691d229408f75f17, type: 2}
+  needsCock: 0
+  bulletPrefab: {fileID: 6044169562527316349, guid: 4a1c4de0f1f1e384f957d625d1980b5c,
+    type: 3}
