@@ -3,10 +3,12 @@ using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using System.Net;
+using System.Runtime.CompilerServices;
 using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.PlayerLoop;
 
 public class PlayerHackingScript : MonoBehaviour
 {
@@ -124,17 +126,26 @@ public class PlayerHackingScript : MonoBehaviour
             EnemyDetectionRaycast();
         }
 
-        if (transitioningBetweenEnemies)
-        {
-            currentCamera.transform.position = Vector3.MoveTowards(currentCamera.transform.position, newCamera.transform.position, moveStep);
 
-            CameraMove newCameraMovementScript = newCamera.GetComponent<CameraMove>();
-            newCameraMovementScript.enabled = false;
-            newCamera.transform.rotation = Quaternion.Euler(currentCamera.transform.eulerAngles);
-            newCameraMovementScript.enabled = true;
-        }
+
 
         RunTimer();
+    }
+
+    private void FixedUpdate()
+    {
+        if (transitioningBetweenEnemies)
+        {
+            CameraMove newCameraMovementScript = newCamera.GetComponent<CameraMove>();
+            CameraMove currentCameraMoveScript = currentCamera.GetComponent<CameraMove>();
+            newCameraMovementScript.enabled = currentCameraMoveScript.enabled = false;
+
+            currentCamera.transform.position = Vector3.MoveTowards(currentCamera.transform.position, newCamera.transform.position, moveStep);
+            newCamera.transform.rotation = Quaternion.Euler(currentCamera.transform.eulerAngles);
+
+            newCameraMovementScript.enabled = currentCameraMoveScript.enabled = true;
+        }
+        
     }
 
     //The Raycasting
