@@ -1,0 +1,144 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &5268526618466601109
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5268526618466601111}
+  - component: {fileID: 5268526618466601097}
+  - component: {fileID: 5268526618466601110}
+  - component: {fileID: 5268526618466601096}
+  - component: {fileID: 5268526618466601099}
+  - component: {fileID: 5268526618466601108}
+  m_Layer: 0
+  m_Name: Secondary Ability Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5268526618466601111
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5268526618466601109}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 125.528465, y: 10.530534, z: -27.133038}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5268526618466601097
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5268526618466601109}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31a481e654a683d429572adfce3d8d93, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stopAllFunctionality: 1
+  cooldown: 8
+  grenadePrefab: {fileID: 1488270266907980684, guid: e20a151c051dcdf45b88b63deb79e5ec,
+    type: 3}
+  throwSFX: {fileID: 0}
+--- !u!114 &5268526618466601110
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5268526618466601109}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 325473779dbf36f4eacc2912a1f5c20c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stopAllFunctionality: 1
+  cooldown: 12
+  gridSize: 3
+  explosiveSpacing: 1
+  zSpread: 5
+  barrageExplosivePrefab: {fileID: 1488270266907980684, guid: fd1954e71684e214a83b5c8a6d70f1d1,
+    type: 3}
+  throwSFX: {fileID: 0}
+--- !u!114 &5268526618466601096
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5268526618466601109}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 457645146a0a5374dbf33fd2b0ecfef1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stopAllFunctionality: 1
+  cooldown: 9
+  damagePerShot: 5
+  shotsPerSecond: 50
+  range: 50
+  layersToCheck:
+    serializedVersion: 2
+    m_Bits: 483327
+  beamForce: 0.2
+  beamDuration: 6
+  beamPrefab: {fileID: 797078667022977561, guid: 7fa11237d0eb7324a910f1f3b953c79f,
+    type: 3}
+--- !u!114 &5268526618466601099
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5268526618466601109}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db7ebab841bb84b44a0eca30c4371a83, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stopAllFunctionality: 1
+  cooldown: 6
+  range: 30
+  timeToReachMaxRange: 0.5
+  pullTime: 0.3
+  pullDelay: 0.1
+  pullCancelDelay: 0.1
+  layersToCheck:
+    serializedVersion: 2
+    m_Bits: 515575
+--- !u!114 &5268526618466601108
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5268526618466601109}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10bb07f4c23c1dd48a24d2d050473070, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stopAllFunctionality: 1
+  cooldown: 6
+  leapHorizontalSpeed: 18
+  leapHeight: 2.5
+  pounceDamage: 50
+  pounceRange: 10
+  pounceStength: 3
+  rigirbodyMultipier: 15
+  bounceHeight: 1
+  leapSFX: {fileID: 8300000, guid: d605fff833e3f9847afecb79aa4938a7, type: 3}
+  pounceSFX: {fileID: 8300000, guid: 7d35fc5aeb6f7ab4e82e0bd6a274cc6d, type: 3}

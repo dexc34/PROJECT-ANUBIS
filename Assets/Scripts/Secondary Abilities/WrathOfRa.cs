@@ -4,14 +4,42 @@ using UnityEngine;
 
 public class WrathOfRa : MonoBehaviour
 {
+    //Editor Tools
+    [SerializeField]
+    private bool stopAllFunctionality = false;
+
+    [Header("Stats")]
+    public float cooldown;
+
+    [SerializeField]
+    [Tooltip("How much each hit of the laser will deal")]
+    private int damagePerShot;
+
+    [SerializeField]
+    [Tooltip("How many hits will occur every second while aiming at something")]
+    private int shotsPerSecond;
+
+    [SerializeField]
+    [Tooltip("How many units the raycast will go for when checking for targets")]
+    private float range;
+
+    [SerializeField]
+    [Tooltip("What layers does the raycast check for")]
+    private LayerMask layersToCheck;
+
+    [SerializeField]
+    [Tooltip("How much force the beam will apply to rigidbodies")]
+    private float beamForce;
+
+    [SerializeField]
+    [Tooltip("How long in seconds will te beam last for")]
+    private float beamDuration;
+
+    [SerializeField]
+    private GameObject beamPrefab;
+
     //Script variables
-    [HideInInspector] public float cooldown = 9;
-    private int damagePerShot = 5;
-    private int shotsPerSecond = 50;
     private bool canDamage = true;
-    private float range = 50;
-    private float beamForce = .2f;
-    private float beamDuration = 6;
     private bool isFiring;
     private float raycastVisualRange;
 
@@ -19,49 +47,54 @@ public class WrathOfRa : MonoBehaviour
     private Transform virtualCamera;
     private Transform particleTransform;
     private LineRenderer beamVisuals;
-    private GameObject beamPrefab;
     private GameObject beamContainer;
     private Ray beamRay;
     private Gun gunScript;
 
-    private void Start() 
-    {    
-        beamPrefab = (GameObject) Resources.Load("Beam");
-        if(gameObject.CompareTag("Player")) virtualCamera = GetComponentInChildren<CameraMove>().transform;
+    private void Start()
+    {
+        if (stopAllFunctionality) return;
+
+        GetStats(GameObject.Find("Secondary Ability Manager").GetComponent<WrathOfRa>());
+
+        if (gameObject.CompareTag("Player")) virtualCamera = GetComponentInChildren<CameraMove>().transform;
         else virtualCamera = transform;
+
         beamContainer = Instantiate(beamPrefab, virtualCamera.position, virtualCamera.rotation);
         beamContainer.transform.parent = transform;
         beamVisuals = beamContainer.GetComponent<LineRenderer>();
         particleTransform = beamContainer.GetComponentInChildren<ParticleSystem>().transform;
         gunScript = GetComponent<Gun>();
         beamContainer.SetActive(false);
+
+        //Set layer mask
+        if (transform.CompareTag("Player")) layersToCheck &= ~(1 << 7);
+        else layersToCheck &= ~(1 << 10);
     }
 
-    private void Update() 
+    private void Update()
     {
-        if(!isFiring) return;
-
-        if(gunScript.canFire) gunScript.canFire = false;
-
+        if (stopAllFunctionality) return;
+        if (!isFiring) return;
 
         beamVisuals.SetPosition(0, transform.position);
         beamRay = new Ray(virtualCamera.position, virtualCamera.forward);
 
-        if(Physics.Raycast(beamRay, out RaycastHit hitInfo, range, 15))
+        if (Physics.Raycast(beamRay, out RaycastHit hitInfo, range, layersToCheck))
         {
             beamVisuals.SetPosition(1, beamRay.GetPoint(hitInfo.distance));
             particleTransform.position = beamRay.GetPoint(hitInfo.distance);
-            if(hitInfo.transform.CompareTag("Hurtbox"))
+            if (hitInfo.transform.CompareTag("Hurtbox"))
             {
-                if(canDamage)
+                if (canDamage)
                 {
                     hitInfo.transform.parent.gameObject.GetComponent<Health>().TakeDamage(damagePerShot);
                     StartCoroutine("DamageCooldown");
                 }
             }
-            
+
             Rigidbody rb = hitInfo.transform.gameObject.GetComponent<Rigidbody>();
-            if(rb)
+            if (rb)
             {
                 Vector3 forceDirection = (rb.transform.position - transform.position).normalized;
                 rb.AddForce(forceDirection * beamForce, ForceMode.Impulse);
@@ -76,7 +109,9 @@ public class WrathOfRa : MonoBehaviour
 
     public void UseWrathOfRa()
     {
+        StopCoroutine("StopBeam");
         beamContainer.SetActive(true);
+        gunScript.interruptFire = true;
         isFiring = true;
         StartCoroutine("StopBeam");
     }
@@ -86,20 +121,32 @@ public class WrathOfRa : MonoBehaviour
         yield return new WaitForSeconds(beamDuration);
         isFiring = false;
         beamContainer.SetActive(false);
-        gunScript.canFire = true;
+        gunScript.interruptFire = false;
     }
 
     private IEnumerator DamageCooldown()
     {
-        if(!canDamage) yield break;
+        if (!canDamage) yield break;
         canDamage = false;
 
-        yield return new WaitForSeconds(1/shotsPerSecond);
+        yield return new WaitForSeconds(1 / shotsPerSecond);
 
         canDamage = true;
     }
 
-    private void OnDestroy() 
+    private void GetStats(WrathOfRa wrathOfRaScriptToPullFrom)
+    {
+        cooldown = wrathOfRaScriptToPullFrom.cooldown;
+        damagePerShot = wrathOfRaScriptToPullFrom.damagePerShot;
+        shotsPerSecond = wrathOfRaScriptToPullFrom.shotsPerSecond;
+        range = wrathOfRaScriptToPullFrom.range;
+        layersToCheck = wrathOfRaScriptToPullFrom.layersToCheck;
+        beamForce = wrathOfRaScriptToPullFrom.beamForce;
+        beamDuration = wrathOfRaScriptToPullFrom.beamDuration;
+        beamPrefab = wrathOfRaScriptToPullFrom.beamPrefab;
+    }
+
+    private void OnDestroy()
     {
         Destroy(beamContainer);
     }

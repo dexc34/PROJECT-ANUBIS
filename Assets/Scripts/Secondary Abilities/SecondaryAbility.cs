@@ -20,11 +20,14 @@ public class SecondaryAbility : MonoBehaviour
     //Required components
     private UnityEvent secondaryFunction = new UnityEvent();
     private Transform secondaryOrigin;
+    private GameObject secondaryManager;
 
     private void Start() 
     {
         if(transform.CompareTag("Player")) secondaryOrigin = GetComponentInChildren<CameraMove>().transform;
         else secondaryOrigin = transform;
+
+        secondaryManager = GameObject.Find("Secondary Ability Manager");
 
         UpdateSecondary(this);
     }
@@ -46,31 +49,31 @@ public class SecondaryAbility : MonoBehaviour
             {
                 case SecondaryDropdownOptions.ImpactGrenade:
                     ImpactGrenade tempGrenade = gameObject.AddComponent<ImpactGrenade>();
-                    abilityCooldown = tempGrenade.cooldown;
+                    abilityCooldown = secondaryManager.GetComponent<ImpactGrenade>().cooldown;
                     secondaryFunction.AddListener(delegate {tempGrenade.UseImpactGrenade(secondaryOrigin);});
                     break;
 
                 case SecondaryDropdownOptions.Barrage:
                     Barrage tempBarrage = gameObject.AddComponent<Barrage>();
-                    abilityCooldown = tempBarrage.cooldown;
+                    abilityCooldown = secondaryManager.GetComponent<Barrage>().cooldown;
                     secondaryFunction.AddListener(delegate {tempBarrage.UseBarrage(secondaryOrigin);});
                     break;
 
                 case SecondaryDropdownOptions.WrathOfRa:
                     WrathOfRa tempWrathOfRa = gameObject.AddComponent<WrathOfRa>();
-                    abilityCooldown = tempWrathOfRa.cooldown;
+                    abilityCooldown = secondaryManager.GetComponent<WrathOfRa>().cooldown;
                     secondaryFunction.AddListener(tempWrathOfRa.UseWrathOfRa);
                     break;
 
                 case SecondaryDropdownOptions.CloserToThePrey:
                     CloserToThePrey tempCloserToThePrey = gameObject.AddComponent<CloserToThePrey>();
-                    abilityCooldown = tempCloserToThePrey.cooldown;
+                    abilityCooldown = secondaryManager.GetComponent<CloserToThePrey>().cooldown;
                     secondaryFunction.AddListener(delegate {tempCloserToThePrey.UseCloserToThePrey(secondaryOrigin);});
                     break;    
 
                 case SecondaryDropdownOptions.Leap:
                     Leap tempLeap = gameObject.AddComponent<Leap>();
-                    abilityCooldown = tempLeap.cooldown;
+                    abilityCooldown = secondaryManager.GetComponent<Leap>().cooldown;
                     secondaryFunction.AddListener(tempLeap.UseLeap);
                     break;
             }
@@ -80,6 +83,7 @@ public class SecondaryAbility : MonoBehaviour
             Debug.Log("No secondary detected");
         }
 
+        ResetCooldown();
         if(overrideCooldown) abilityCooldown = 0;
     }
     private void RemoveUnnecessaryComponents()
@@ -111,6 +115,12 @@ public class SecondaryAbility : MonoBehaviour
     {
         yield return new WaitForSeconds(abilityCooldown);
 
+        canUseAbility = true;
+    }
+
+    public void ResetCooldown()
+    {
+        StopCoroutine("AbilityCooldown");
         canUseAbility = true;
     }
 }

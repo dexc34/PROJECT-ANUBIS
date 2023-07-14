@@ -9,7 +9,6 @@ using UnityEngine.SceneManagement;
 public class Movement : MonoBehaviour
 {
     //In-editor tools 
-    
     public float speed;
 
     [Header ("Jump Settings")]
@@ -265,7 +264,7 @@ public class Movement : MonoBehaviour
         Collider[] nearbyEnemies = Physics.OverlapCapsule(transform.position, transform.position, groundPoundLaunchRange);
         foreach(Collider enemy in nearbyEnemies)
         {
-            if(enemy.CompareTag("Hurtbox"))
+            if(enemy.CompareTag("Hurtbox") && enemy.gameObject.layer != gameObject.layer)
             {
                 CharacterController enemyController = enemy.transform.parent.GetComponent<CharacterController>();
                 if(enemyController)

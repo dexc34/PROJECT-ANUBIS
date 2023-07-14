@@ -58,10 +58,6 @@ public class Gun : MonoBehaviour
     [Tooltip ("Must only be specified if this is the player")]
     private Image crosshairUiElement;
 
-    //gets viewmodel camera for the gun
-    [SerializeField]
-    [Tooltip("Must only be specified if this is the player")]
-    private Camera viewmodelCam;
     [SerializeField]
     [Tooltip("Must only be specified if this is the player")]
     private Camera mainCam;
@@ -77,6 +73,7 @@ public class Gun : MonoBehaviour
     private float shootCooldown;
     private bool isEnemy = true;
     private int layerToApplyToBullet;
+    [HideInInspector] public bool interruptFire = false;
 
 
     //Required components
@@ -84,9 +81,10 @@ public class Gun : MonoBehaviour
     private Transform virtualCamera;   
 
     public WeaponViewmodelAnimations viewModelScript;
-    public ParticleSystem muzzleParticle;
+    private ParticleSystem muzzleParticle;
     private GunTemplate gunScriptable;
     private AudioSource shootAudioSource;
+    private Camera viewmodelCam;
 
     void Start()
     {
@@ -111,7 +109,7 @@ public class Gun : MonoBehaviour
     //----------------------------------Player Functions-----------------------------------------------------------------------------------
     public void FireBullet()
     {
-        if(!canFire || currentAmmo <= 0) return;
+        if(!canFire || currentAmmo <= 0 || interruptFire) return;
         
         canFire = false;
         if(!infiteAmmo)currentAmmo --;
@@ -202,6 +200,8 @@ public class Gun : MonoBehaviour
     //Used when hacking a new body, update gun stats to match the enemy's gun
     public void UpdateGunStats(Gun gunScriptToPullFrom)
     {
+        interruptFire = true;
+
         gunType = gunScriptToPullFrom.gunType;
         gunScriptable = (GunTemplate) Resources.Load(gunType.ToString());
 
@@ -240,7 +240,6 @@ public class Gun : MonoBehaviour
 
         //Apply internally tracked stats
         currentAmmo = gunScriptToPullFrom.currentAmmo;
-        Debug.Log(currentAmmo);
         shootCooldown = 1/fireRate;
 
         //Make sure player can fire again if last body they hacked ran out of bullets
@@ -258,6 +257,7 @@ public class Gun : MonoBehaviour
             ammoToDisplay = currentAmmo - magazineSize;
         }
 
+        interruptFire = false;
 
         if(isEnemy) return;
 

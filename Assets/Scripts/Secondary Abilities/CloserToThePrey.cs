@@ -6,25 +6,35 @@ public class CloserToThePrey : MonoBehaviour
 {
     //Editor tools
     [SerializeField]
-    public float cooldown = 6;
+    private bool stopAllFunctionality = false;
+
+
+    [Header("Stats")]
+    public float cooldown;
 
     [SerializeField]
-    private float range = 30;
+    [Tooltip("How long it takes for the ability to become available after being used")]
+    private float range;
 
     [SerializeField]
     [Tooltip("How long in seconds it will take for the blade to reach the end of the range")]
-    private float timeToReachMaxRange = .5f;
+    private float timeToReachMaxRange;
 
     [SerializeField]
     [Tooltip("How long in seconds it will take for the player to be pulled towards the target")]
-    private float pullTime = .3f;
+    private float pullTime;
 
     [SerializeField]
     [Tooltip("How long in seconds is the delay before you start getting pulled towards target upon hitting them")]
-    private float pullDelay = .1f;
+    private float pullDelay;
 
     [SerializeField]
-    private LayerMask layersToIgnore;
+    [Tooltip("How long in seconds it takes for the player to start moving after reaching their target")]
+    private float pullCancelDelay;
+
+    [SerializeField]
+    [Tooltip("What layers does the raycast check for")]
+    private LayerMask layersToCheck;
 
     //Script variables
     private bool abilityInUse = false;
@@ -42,29 +52,23 @@ public class CloserToThePrey : MonoBehaviour
 
     private void Start()
     {
+        if(stopAllFunctionality) return;
+
+        GetStats(GameObject.Find("Secondary Ability Manager").GetComponent<CloserToThePrey>());
+
         characterController = GetComponent<CharacterController>();
         movementScript = GetComponent<Movement>();
-        layersToIgnore |= (1 << 0);
-        layersToIgnore |= (1 << 1);
-        layersToIgnore |= (1 << 2);
-        layersToIgnore |= (1 << 4);
-        layersToIgnore |= (1 << 5);
-        layersToIgnore |= (1 << 6);
-        layersToIgnore |= (1 << 7);
-        layersToIgnore |= (1 << 8);
-        layersToIgnore |= (1 << 10);
-        layersToIgnore |= (1 << 11);
-        layersToIgnore |= (1 << 12);
-        layersToIgnore |= (1 << 14);
-        layersToIgnore |= (1 << 15);
-        if(transform.CompareTag("Player")) 
+
+        if (transform.CompareTag("Player"))
         {
-            layersToIgnore &= ~(1 << 7);
+            layersToCheck &= ~(1 << 7);
         }
     }
 
     private void Update()
     {
+        if(stopAllFunctionality) return;
+
         //Raycast
         if (abilityInUse)
         {
@@ -73,9 +77,8 @@ public class CloserToThePrey : MonoBehaviour
             throwRaycast = new Ray(originPoint.transform.position, originPoint.transform.forward);
             Debug.DrawLine(originPoint.transform.position, throwRaycast.GetPoint(currentDistance), Color.red);
 
-            if (Physics.Raycast(throwRaycast, out RaycastHit hitInfo, currentDistance, layersToIgnore))
+            if (Physics.Raycast(throwRaycast, out RaycastHit hitInfo, currentDistance, layersToCheck))
             {
-                Debug.Log("Object hit: " + hitInfo + ", Layer: " + hitInfo.transform.gameObject.layer);
                 targetPosition = throwRaycast.GetPoint(currentDistance);
                 StartCoroutine("BeginPull");
             }
@@ -101,6 +104,9 @@ public class CloserToThePrey : MonoBehaviour
 
         isGettingPulled = false;
         Destroy(originPoint);
+
+        yield return new WaitForSeconds(pullCancelDelay);
+
         movementScript.yVelocity = 0;
         movementScript.canMove = true;
         movementScript.canAct = true;
@@ -108,6 +114,7 @@ public class CloserToThePrey : MonoBehaviour
 
     private IEnumerator BeginPull()
     {
+        movementScript.yVelocity = 0;
         movementScript.canMove = false;
         movementScript.canAct = false;
         movementScript.CancelAllActions();
@@ -116,6 +123,7 @@ public class CloserToThePrey : MonoBehaviour
         moveDirection = (targetPosition - transform.position).normalized;
         pullForce = (targetPosition - transform.position).magnitude / pullTime;
         StartCoroutine("CancelPull");
+        if (movementScript.currentJumps <= 0) movementScript.currentJumps++;
 
         yield return new WaitForSeconds(pullDelay);
 
@@ -125,14 +133,25 @@ public class CloserToThePrey : MonoBehaviour
     public void UseCloserToThePrey(Transform origin)
     {
         currentDistance = 0;
-        originPoint =  new GameObject("Closer to the prey origin"); 
+        originPoint = new GameObject("Closer to the prey origin");
         originPoint.transform.position = origin.position;
         originPoint.transform.rotation = origin.rotation;
         moveDirection = Vector3.zero;
         abilityInUse = true;
     }
 
-    private void OnDestroy() 
+    private void GetStats(CloserToThePrey closerToThePreyScriptToPullFrom)
+    {
+        cooldown = closerToThePreyScriptToPullFrom.cooldown;
+        range = closerToThePreyScriptToPullFrom.range;
+        timeToReachMaxRange = closerToThePreyScriptToPullFrom.timeToReachMaxRange;
+        pullTime = closerToThePreyScriptToPullFrom.pullTime;
+        pullDelay = closerToThePreyScriptToPullFrom.pullDelay;
+        pullCancelDelay = closerToThePreyScriptToPullFrom.pullCancelDelay;
+        layersToCheck = closerToThePreyScriptToPullFrom.layersToCheck;
+    }
+
+    private void OnDestroy()
     {
         Destroy(originPoint);
     }

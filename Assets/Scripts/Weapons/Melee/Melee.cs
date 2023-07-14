@@ -11,7 +11,7 @@ public class Melee : MonoBehaviour
     MeleeTypeDropdown meleeType = new MeleeTypeDropdown();
 
     [SerializeField]
-    private LayerMask layersToIgnore;
+    private LayerMask layersToCheck;
 
     //Script variables
     private bool isMainWeapon = false;
@@ -61,6 +61,9 @@ public class Melee : MonoBehaviour
         forceReceiverScript = GetComponent<ForceReceiver>();
         if (transform.CompareTag("Player")) isPlayer = true;
         else isPlayer = false;
+        layersToCheck |= (1 << 16);
+        layersToCheck |= (1 << 17);
+        layersToCheck |= (1 << 18);
 
         UpdateMelee(this);
     }
@@ -89,7 +92,7 @@ public class Melee : MonoBehaviour
 
         meleeRaycast = new Ray(virtualCamera.position, virtualCamera.forward);
         Debug.DrawRay(virtualCamera.position, virtualCamera.forward, Color.green, 10);
-        if (Physics.Raycast(meleeRaycast, out RaycastHit hitInfo, range, layersToIgnore))
+        if (Physics.Raycast(meleeRaycast, out RaycastHit hitInfo, range, layersToCheck))
         {
             meleeAudioSource.PlayOneShot(hitSFX);
 
@@ -119,7 +122,7 @@ public class Melee : MonoBehaviour
 
     private void Parry()
     {
-        Collider[] nearbyObjects = Physics.OverlapSphere(virtualCamera.position + (virtualCamera.forward * (range/2)), range, layersToIgnore);
+        Collider[] nearbyObjects = Physics.OverlapSphere(virtualCamera.position + (virtualCamera.forward * (range/2)), range, layersToCheck);
         foreach (Collider collider in nearbyObjects)
         {
             if (collider.CompareTag("Bullet"))
@@ -187,7 +190,6 @@ public class Melee : MonoBehaviour
 
     private void PlayAnimation()
     {
-        Debug.Log(swingAnimation.ToString());
         if(animators.Count == 1)
         {
             animators[0].Play(swingAnimation.name);
@@ -211,8 +213,8 @@ public class Melee : MonoBehaviour
         attackDelay = meleeScriptable.attackDelay;
         range = meleeScriptable.range;
 
-        if(meleeType.ToString() == "Kick") isMainWeapon = false;
-        else isMainWeapon = true;
+        if(GetComponent<Gun>().gunType.ToString() == "Melee") isMainWeapon = true;
+        else isMainWeapon = false;
 
         //Knockback stats
         enemyKnockback = meleeScriptable.enemyKnockback;
@@ -243,25 +245,25 @@ public class Melee : MonoBehaviour
         if(isPlayer)
         {
             //Add enemy layer 
-            layersToIgnore |= (1 << 10);
+            layersToCheck |= (1 << 10);
             //Remove player layer
-            layersToIgnore &= ~(1 << 7);
+            layersToCheck &= ~(1 << 7);
             if(canParry) 
             {
                 //Add enemy bullet layer
-                layersToIgnore |= (1 << 9);
+                layersToCheck |= (1 << 9);
                 //Remove player bullet layer
-                layersToIgnore &= ~(1 << 3);
+                layersToCheck &= ~(1 << 3);
             }
         }
         else
         {   
-            layersToIgnore &= ~(1 << 10);
-            layersToIgnore |= (1 << 7);
+            layersToCheck &= ~(1 << 10);
+            layersToCheck |= (1 << 7);
             if(canParry)
             {
-                layersToIgnore &= ~(1 << 9);
-                layersToIgnore |= (1 << 3);
+                layersToCheck &= ~(1 << 9);
+                layersToCheck |= (1 << 3);
             }
         }
 

@@ -1009,40 +1009,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gunType: 0
-  secondaryType: 0
-  isEnemy: 1
-  weaponModelPrefab: {fileID: 8917654906818533202, guid: 2f3f987a8e3466b40a163d59acd73771,
-    type: 3}
-  bulletSpeed: 50
-  bulletLifetime: 5
-  damagePerBullet: 33
-  criticalMultiplier: 2
+  infiteAmmo: 0
+  instantReload: 0
   isAutomatic: 0
-  fireRate: 7.45
-  reloadSpeed: 1.5
-  totalAmmo: 64
-  magazineSize: 16
-  bulletsPerBurst: 1
-  bulletSpread:
-  - {x: 0, y: 0}
-  zSpread: 5
-  bulletPrefab: {fileID: 6044169562527316349, guid: 4a1c4de0f1f1e384f957d625d1980b5c,
-    type: 3}
   currentAmmoText: {fileID: 0}
   reserveAmmoText: {fileID: 0}
   fireModeText: {fileID: 0}
-  fireModeString: SEMI
   crosshairUiElement: {fileID: 0}
-  crosshair: {fileID: 21300000, guid: 2f56c44ec82d44947ad9891c45244a85, type: 3}
-  viewmodelCam: {fileID: 0}
   mainCam: {fileID: 0}
-  gunAudioScript: {fileID: 11400000, guid: ddc30c055f8b70d4ab14a522dc5a20a0, type: 2}
-  shootAudioSource: {fileID: 0}
   primaryIsMelee: 0
   canFire: 1
-  needsCock: 0
+  interruptFire: 0
   viewModelScript: {fileID: 0}
-  muzzleParticle: {fileID: 0}
   enemyBulletSpawn: {fileID: 0}
 --- !u!114 &5193542559064896798
 MonoBehaviour:
@@ -1056,11 +1034,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f04b2505fa7ff342b59b15581806d9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  meleeType: 0
-  layersToIgnore:
+  meleeType: 3
+  layersToCheck:
     serializedVersion: 2
     m_Bits: 0
-  isPlayer: 0
+  meleeModel: {fileID: 0}
 --- !u!114 &7586718256430775683
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1077,6 +1055,7 @@ MonoBehaviour:
   antivirusShieldEnergy: 0
   shieldBreakIframes: 0
   maxHealth: 150
+  shieldBreakSFX: {fileID: 0}
   damageParticle: {fileID: 7812736768511543969}
   deathParticle: {fileID: 7477814878274860995}
   currentHealth: 0

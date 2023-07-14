@@ -40,5 +40,6 @@ public class AbilityBarValues : MonoBehaviour
     {
         abilityBar.color = barFullColor;
         timeElapsed = 0;
+        abilityBar.current = abilityBar.maximum;
     }
 }

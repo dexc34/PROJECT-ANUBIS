@@ -4,25 +4,57 @@ using UnityEngine;
 
 public class Barrage : MonoBehaviour
 {
+    //Editor tools
+    [SerializeField]
+    private bool stopAllFunctionality = false;
+
+
+    [Header ("Stats")]
+
+    [Tooltip ("How long it takes for the ability to become available after being used")]
+    public float cooldown;
+
+    [SerializeField]
+    [Tooltip ("How big the grid of explosives will be (eg. 3 means 3x3 grid (9 explosives))")]
+    private int gridSize;
+
+    [SerializeField]
+    [Tooltip ("How much space there will be bewteen each explosive")]
+    private float explosiveSpacing;
+
+    [SerializeField]
+    [Tooltip ("How many units it'll take the explosives to reach their specified position")]
+    private float zSpread;
+
+    [SerializeField]
+    [Tooltip ("What explosive will be thrown")]
+    private GameObject barrageExplosivePrefab;
+
+
+    [Header ("Audio")]
+
+    [SerializeField]
+    [Tooltip ("Sound that will play when using ability")]
+    private AudioClip throwSFX;
+
     //Script variables
-    [HideInInspector] public float cooldown = 12;
-    private float explosiveSpacing = 1;
-    private int gridSize = 3;
     private int totalGridSize;
     private Vector2[] explosivePostion;
     private bool isEven;
-    private float zSpread = 5;
 
     //Required componets
-    private GameObject barrageExplosivePrefab;
     private Transform originPoint;
+    private AudioSource audioSource;
 
     // Start is called before the first frame update
     void Start()
     {
-        barrageExplosivePrefab = (GameObject) Resources.Load("Barrage Explosive");
+        if(stopAllFunctionality) return;
+
+        GetStats(GameObject.Find("Secondary Ability Manager").GetComponent<Barrage>());
         totalGridSize = gridSize * gridSize; 
         SetVectorPositions();
+        audioSource = GetComponent<AudioSource>();
     }
 
     public void UseBarrage(Transform origin)
@@ -34,6 +66,8 @@ public class Barrage : MonoBehaviour
             Vector3 bulletFinalDestination = (originPoint.right * explosivePostion[i].x) + (originPoint.up * explosivePostion[i].y) + (originPoint.forward * zSpread);
             explosive.GetComponent<Rigidbody>().AddForce(bulletFinalDestination * explosive.GetComponent<Explosion>().grenadeThrowForce/zSpread, ForceMode.Impulse);
         }
+
+        audioSource.PlayOneShot(throwSFX);
     }
 
     private void SetVectorPositions()
@@ -73,6 +107,19 @@ public class Barrage : MonoBehaviour
                 currentPosition = explosivePostion[i];
             }
         }            
+    }
+
+    private void GetStats(Barrage barrageScriptToPullFrom)
+    {
+        //Stats
+        cooldown = barrageScriptToPullFrom.cooldown;
+        gridSize = barrageScriptToPullFrom.gridSize;
+        explosiveSpacing = barrageScriptToPullFrom.explosiveSpacing;
+        zSpread = barrageScriptToPullFrom.zSpread;
+        barrageExplosivePrefab = barrageScriptToPullFrom.barrageExplosivePrefab;
+
+        //Audio
+        throwSFX = barrageScriptToPullFrom.throwSFX;
     }
 }
 

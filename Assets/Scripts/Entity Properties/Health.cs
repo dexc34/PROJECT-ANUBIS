@@ -68,6 +68,8 @@ public class Health : MonoBehaviour
             isDestructible = true;
             destructibleScript = GetComponent<Destructibles>();
         }
+
+        UpdateHealth(this);
     }
 
     //quickly flashes gotHit for a frame then turns it off, for other scripts
@@ -130,6 +132,12 @@ public class Health : MonoBehaviour
     private void DestroyDestructible()
     {
         destructibleScript.Destroyed();
+    }
+
+    public void UpdateHealth(Health healthScriptToPullFrom)
+    {
+        maxHealth = healthScriptToPullFrom.maxHealth;
+        currentHealth = healthScriptToPullFrom.currentHealth;
     }
 }
 
