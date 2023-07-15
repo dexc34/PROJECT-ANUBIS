@@ -696,38 +696,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gunType: 0
-  weaponModelPrefab: {fileID: 1063234480703678022, guid: 5dc97d5562f1c43479d41cf0d18435c9,
-    type: 3}
-  bulletSpeed: 50
-  bulletLifetime: 5
-  damagePerBullet: 48
-  criticalMultiplier: 1.5
+  infiteAmmo: 0
+  instantReload: 0
   isAutomatic: 1
-  fireRate: 7.5
-  reloadSpeed: 1.5
-  totalAmmo: 60
-  magazineSize: 30
-  bulletsPerBurst: 1
-  bulletSpread:
-  - {x: 0, y: 0}
-  zSpread: 5
-  bulletPrefab: {fileID: 6044169562527316349, guid: 4a1c4de0f1f1e384f957d625d1980b5c,
-    type: 3}
   currentAmmoText: {fileID: 0}
   reserveAmmoText: {fileID: 0}
   fireModeText: {fileID: 0}
-  fireModeString: AUTO
   crosshairUiElement: {fileID: 0}
-  crosshair: {fileID: 21300000, guid: 2f56c44ec82d44947ad9891c45244a85, type: 3}
-  viewmodelCam: {fileID: 0}
   mainCam: {fileID: 0}
-  gunAudioScript: {fileID: 11400000, guid: 96656fe07e7b7c44691d229408f75f17, type: 2}
-  shootAudioSource: {fileID: 0}
   primaryIsMelee: 0
   canFire: 1
-  needsCock: 0
+  interruptFire: 0
   viewModelScript: {fileID: 0}
-  muzzleParticle: {fileID: 0}
   enemyBulletSpawn: {fileID: 5657612136931325241}
 --- !u!114 &2321760001690539143
 MonoBehaviour:
@@ -758,9 +738,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   meleeType: 3
-  layersToIgnore:
+  layersToCheck:
     serializedVersion: 2
-    m_Bits: 458752
+    m_Bits: 0
   meleeModel: {fileID: 0}
 --- !u!136 &3428554163278951166
 CapsuleCollider:

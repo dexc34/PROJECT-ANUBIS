@@ -740,7 +740,9 @@ MonoBehaviour:
   isDashing: 0
   isGroundPounding: 0
   isSliding: 0
+  isLeaping: 0
   canMove: 1
+  canAct: 1
 --- !u!114 &5597575281648933856
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -760,11 +762,13 @@ MonoBehaviour:
   highlightWidth: 7
   tempHackingDurration: 5
   allowedHackingInterruption: 0.8
+  hackMoveDurration: 0.5
   cameraPrefab: {fileID: 2204471446375920961, guid: b3e138ead10845f489c0b036c6e863e9,
     type: 3}
   ignoredLayer:
     serializedVersion: 2
     m_Bits: 24575
+  newCamera: {fileID: 0}
   hackInputDetected: 0
   hackingTimer: -1000
   hackingInterruptionTimer: -1000
@@ -784,38 +788,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gunType: 0
-  secondaryType: 0
-  weaponModelPrefab: {fileID: 0}
-  bulletSpeed: 50
-  bulletLifetime: 5
-  damagePerBullet: 33
-  criticalMultiplier: 2
+  infiteAmmo: 0
+  instantReload: 0
   isAutomatic: 0
-  fireRate: 7.45
-  reloadSpeed: 1.5
-  totalAmmo: 64
-  magazineSize: 16
-  bulletsPerBurst: 1
-  bulletSpread:
-  - {x: 0, y: 0}
-  zSpread: 5
-  bulletPrefab: {fileID: 6044169562527316349, guid: 4a1c4de0f1f1e384f957d625d1980b5c,
-    type: 3}
   currentAmmoText: {fileID: 0}
   reserveAmmoText: {fileID: 0}
   fireModeText: {fileID: 0}
-  fireModeString: SEMI
   crosshairUiElement: {fileID: 0}
-  crosshair: {fileID: 0}
-  viewmodelCam: {fileID: 0}
   mainCam: {fileID: 0}
-  gunAudioScript: {fileID: 0}
-  shootAudioSource: {fileID: 1208286925109031014}
   primaryIsMelee: 0
   canFire: 1
-  needsCock: 0
+  interruptFire: 0
   viewModelScript: {fileID: 0}
-  muzzleParticle: {fileID: 0}
   enemyBulletSpawn: {fileID: 0}
 --- !u!114 &939384009908922275
 MonoBehaviour:
@@ -830,9 +814,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   meleeType: 3
-  layersToIgnore:
+  layersToCheck:
     serializedVersion: 2
-    m_Bits: 1024
+    m_Bits: 0
   meleeModel: {fileID: 0}
 --- !u!114 &2655479027469224854
 MonoBehaviour:
@@ -846,6 +830,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 139e61aeadb740f49a3937e7fe997eb4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  secondaryType: 0
   overrideCooldown: 0
   abilityCooldown: 0
   canUseAbility: 1
@@ -1692,6 +1677,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2204471446375921023, guid: b3e138ead10845f489c0b036c6e863e9,
+        type: 3}
+      propertyPath: m_Priority
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 2204471447130267913, guid: b3e138ead10845f489c0b036c6e863e9,
         type: 3}

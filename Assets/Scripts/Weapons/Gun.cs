@@ -270,6 +270,7 @@ public class Gun : MonoBehaviour
         viewmodelCam = transform.GetComponentInChildren<CameraMove>().GetComponentInChildren<Camera>();
         cameraData.cameraStack.Insert(0, viewmodelCam);
 
+
         virtualCamera = GetComponentInChildren<CameraMove>().gameObject.transform;
 
         //Update UI
