@@ -80,7 +80,7 @@ public class PlayerHackingScript : MonoBehaviour
 
     [HideInInspector] public bool hacking = false;
     [HideInInspector] public bool hackInterrupted = false;
-    private bool transitioningBetweenEnemies = false;
+    [HideInInspector] public bool transitioningBetweenEnemies = false;
     float distanceToEnemy;
     float moveStep;
     Vector3 directionToEnemy;
@@ -316,20 +316,11 @@ public class PlayerHackingScript : MonoBehaviour
         //stores the currently hacking enemy as a variable
         currentlyStoredEnemy = currentlyHackingEnemy;
 
-        currentlyStoredEnemy.GetComponent<NavMeshAgent>().enabled = false;
+
 
         StartCoroutine("CameraTransition");
 
-        currentlyStoredEnemy.GetComponent<NavMeshAgent>().enabled = true;
 
-        //Update player stats
-        playerMovementScript.ChangeStats();
-        currentCamera.transform.parent = null;
-        newCamera.transform.parent = transform;
-        gunScript.UpdateGunStats(currentlyStoredEnemy.GetComponent<Gun>());
-        currentCamera.transform.parent = transform;
-        newCamera.transform.parent = null;
-        meleeScript.UpdateMelee(currentlyStoredEnemy.GetComponent<Melee>());
 
         ExitHackMode();
     }
@@ -354,6 +345,9 @@ public class PlayerHackingScript : MonoBehaviour
 
     private IEnumerator CameraTransition()
     {
+        if (currentlyStoredEnemy.GetComponent<NavMeshAgent>())
+            currentlyStoredEnemy.GetComponent<NavMeshAgent>().enabled = false;
+
         //turns on the transitioning boolean, takes away the player's
         //ability to move, and turns off collisions so that the player
         //doesn't collide with things along the way
@@ -363,10 +357,10 @@ public class PlayerHackingScript : MonoBehaviour
 
         //Creates a new camera inside a set point of the hacked enemy
         currentCamera = transform.GetComponentInChildren<Cinemachine.CinemachineVirtualCamera>().gameObject;
-        newCamera = Instantiate(cameraPrefab, currentlyHackingEnemy.transform.Find("Camera Spawn Point").transform.position, currentlyStoredEnemy.transform.Find("Camera Spawn Point").transform.rotation);
+        //newCamera = Instantiate(cameraPrefab, currentlyHackingEnemy.transform.Find("Camera Spawn Point").transform.position, currentlyStoredEnemy.transform.Find("Camera Spawn Point").transform.rotation);
 
 
-        directionToEnemy = newCamera.transform.position - transform.position;
+        directionToEnemy = currentlyHackingEnemy.transform.Find("Camera Spawn Point").transform.position - transform.position;
 
 
         //Unparents both cameras to avoid affecting their positions accidentally
@@ -377,6 +371,9 @@ public class PlayerHackingScript : MonoBehaviour
 
         //Waits until the the transition (or camera blend) is over to continue the code, this parameter should be dynamic in the future
         yield return new WaitForSeconds(hackMoveDurration);
+
+        if (currentlyStoredEnemy.GetComponent<NavMeshAgent>())
+            currentlyStoredEnemy.GetComponent<NavMeshAgent>().enabled = true;
 
 
         //turns off the currently stored enemy and makes it the child of the player to be released later
@@ -394,12 +391,19 @@ public class PlayerHackingScript : MonoBehaviour
         characterController.enabled = true;
 
         //Parents new camera to the player
-        newCamera.transform.parent = transform;
+        //newCamera.transform.parent = transform;
 
-        newCamera.GetComponent<CinemachineVirtualCamera>().Priority += 1;
+        //newCamera.GetComponent<CinemachineVirtualCamera>().Priority += 1;
 
-        Destroy(currentCamera);
+        //Destroy(currentCamera);
 
         Physics.IgnoreLayerCollision(0, 7, false);
+
+        //Update player stats
+        playerMovementScript.ChangeStats();
+        gunScript.UpdateGunStats(currentlyStoredEnemy.GetComponent<Gun>());
+        meleeScript.UpdateMelee(currentlyStoredEnemy.GetComponent<Melee>());
+
+
     }
 }
