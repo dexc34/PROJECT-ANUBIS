@@ -36,6 +36,15 @@ public class CloserToThePrey : MonoBehaviour
     [Tooltip("What layers does the raycast check for")]
     private LayerMask layersToCheck;
 
+
+    [Header ("Visuals")]
+
+    [SerializeField]
+    [Tooltip ("Line renderer representing the chain")]
+    private GameObject chainPrefab;
+
+
+
     //Script variables
     private bool abilityInUse = false;
     private float pullForce;
@@ -49,6 +58,10 @@ public class CloserToThePrey : MonoBehaviour
     private Movement movementScript;
     private CharacterController characterController;
     private Ray throwRaycast;
+    private Melee meleeScript;
+    private GameObject swordToThrow;
+    private Vector3 swordStartingPosition;
+    private GameObject chainRenderer;
 
     private void Start()
     {
@@ -58,6 +71,7 @@ public class CloserToThePrey : MonoBehaviour
 
         characterController = GetComponent<CharacterController>();
         movementScript = GetComponent<Movement>();
+        meleeScript = GetComponent<Melee>();
 
         if (transform.CompareTag("Player"))
         {
@@ -75,7 +89,14 @@ public class CloserToThePrey : MonoBehaviour
             currentDistance += Time.deltaTime * (range / timeToReachMaxRange);
 
             throwRaycast = new Ray(originPoint.transform.position, originPoint.transform.forward);
-            Debug.DrawLine(originPoint.transform.position, throwRaycast.GetPoint(currentDistance), Color.red);
+
+            swordToThrow.transform.position = throwRaycast.GetPoint(currentDistance);
+            
+
+            //Set chain positions
+            chainRenderer.GetComponent<LineRenderer>().SetPosition(0, transform.position + transform.forward);
+            chainRenderer.GetComponent<LineRenderer>().SetPosition(1, throwRaycast.GetPoint(currentDistance));
+            chainRenderer.transform.position = transform.position + transform.forward;
 
             if (Physics.Raycast(throwRaycast, out RaycastHit hitInfo, currentDistance, layersToCheck))
             {
@@ -83,8 +104,15 @@ public class CloserToThePrey : MonoBehaviour
                 StartCoroutine("BeginPull");
             }
 
+            //Stop ability if reached max range without hitting anything
             if (currentDistance >= range)
             {
+                //Reset melee
+                meleeScript.interruptMelee = false;
+                swordToThrow.transform.localPosition = swordStartingPosition;
+
+                Destroy(chainRenderer);
+
                 Destroy(originPoint);
                 abilityInUse = false;
             }
@@ -94,6 +122,11 @@ public class CloserToThePrey : MonoBehaviour
         if (isGettingPulled)
         {
             characterController.Move(moveDirection * pullForce * Time.deltaTime);
+            swordToThrow.transform.position = throwRaycast.GetPoint(currentDistance);
+
+            chainRenderer.GetComponent<LineRenderer>().SetPosition(0, transform.position + transform.forward);
+            chainRenderer.GetComponent<LineRenderer>().SetPosition(1, throwRaycast.GetPoint(currentDistance));
+            chainRenderer.transform.position = transform.position + transform.forward;
         }
 
     }
@@ -104,12 +137,15 @@ public class CloserToThePrey : MonoBehaviour
 
         isGettingPulled = false;
         Destroy(originPoint);
+        Destroy(chainRenderer);
 
         yield return new WaitForSeconds(pullCancelDelay);
 
         movementScript.yVelocity = 0;
         movementScript.canMove = true;
         movementScript.canAct = true;
+        meleeScript.interruptMelee = false;
+        swordToThrow.transform.localPosition = swordStartingPosition;
     }
 
     private IEnumerator BeginPull()
@@ -119,7 +155,7 @@ public class CloserToThePrey : MonoBehaviour
         movementScript.canAct = false;
         movementScript.CancelAllActions();
         abilityInUse = false;
-        currentDistance = 0;
+        //currentDistance = 0;
         moveDirection = (targetPosition - transform.position).normalized;
         pullForce = (targetPosition - transform.position).magnitude / pullTime;
         StartCoroutine("CancelPull");
@@ -137,6 +173,15 @@ public class CloserToThePrey : MonoBehaviour
         originPoint.transform.position = origin.position;
         originPoint.transform.rotation = origin.rotation;
         moveDirection = Vector3.zero;
+        meleeScript.interruptMelee = true;
+
+        //Gets current sword object and position
+        swordToThrow = meleeScript.currentHand;
+        swordStartingPosition = swordToThrow.transform.localPosition;
+
+        //Create chain visual
+        chainRenderer = Instantiate(chainPrefab, originPoint.transform.position, originPoint.transform.rotation);
+
         abilityInUse = true;
     }
 
@@ -149,11 +194,13 @@ public class CloserToThePrey : MonoBehaviour
         pullDelay = closerToThePreyScriptToPullFrom.pullDelay;
         pullCancelDelay = closerToThePreyScriptToPullFrom.pullCancelDelay;
         layersToCheck = closerToThePreyScriptToPullFrom.layersToCheck;
+        chainPrefab = closerToThePreyScriptToPullFrom.chainPrefab;
     }
 
     private void OnDestroy()
     {
         Destroy(originPoint);
+        Destroy(chainRenderer);
     }
 
 }

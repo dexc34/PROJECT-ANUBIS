@@ -27,6 +27,8 @@ MonoBehaviour:
   zSpread: 5
   weaponModelPrefab: {fileID: 8917654906818533202, guid: 2f3f987a8e3466b40a163d59acd73771,
     type: 3}
+  bulletMarkPrefab: {fileID: 6059192535391221, guid: 4def6283232250b42813ae413293bb53,
+    type: 3}
   crosshairSrpite: {fileID: 21300000, guid: 2f56c44ec82d44947ad9891c45244a85, type: 3}
   fireModeString: SEMI
   gunAudioScript: {fileID: 11400000, guid: ddc30c055f8b70d4ab14a522dc5a20a0, type: 2}

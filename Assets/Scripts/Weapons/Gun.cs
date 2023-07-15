@@ -42,6 +42,7 @@ public class Gun : MonoBehaviour
     private GunAudio gunAudioScript;
     private bool needsCock;
     private GameObject bulletPrefab;
+    private GameObject bulletMarkPrefab;
     
     //------------------------------------------------------CAN PROBABLY GET THESE VIA SCRIPT vv
 
@@ -85,6 +86,7 @@ public class Gun : MonoBehaviour
     private GunTemplate gunScriptable;
     private AudioSource shootAudioSource;
     private Camera viewmodelCam;
+    private LayerMask bulletHoleLayersToCheck;
 
     void Start()
     {
@@ -92,6 +94,16 @@ public class Gun : MonoBehaviour
         shootAudioSource = GetComponent<AudioSource>();
         gunScriptable = (GunTemplate) Resources.Load(gunType.ToString());
         currentAmmo = gunScriptable.totalAmmo;
+
+        //Set layer mask
+        bulletHoleLayersToCheck = Physics.AllLayers;
+        bulletHoleLayersToCheck &= ~(1 << 3);
+        bulletHoleLayersToCheck &= ~(1 << 7);
+        bulletHoleLayersToCheck &= ~(1 << 9);
+        bulletHoleLayersToCheck &= ~(1 << 10);
+        bulletHoleLayersToCheck &= ~(1 << 13);
+        bulletHoleLayersToCheck &= ~(1 << 15);
+
 
         if(gameObject.CompareTag("Player")) 
         {
@@ -128,12 +140,19 @@ public class Gun : MonoBehaviour
             GameObject bullet = Instantiate(bulletPrefab, virtualCamera.position + virtualCamera.forward, virtualCamera.rotation);
             bullet.layer = layerToApplyToBullet;
             Vector3 bulletFinalDestination = (virtualCamera.right * bulletSpread[i].x) + (virtualCamera.up * bulletSpread[i].y) + (virtualCamera.forward * zSpread);
+
+            //Get bullet hole position
+            Physics.Raycast(virtualCamera.position + virtualCamera.forward, bulletFinalDestination, out RaycastHit hitInfo, bulletSpeed * bulletLifetime, bulletHoleLayersToCheck);
+            Vector3 holePosition = hitInfo.point + (hitInfo.normal * 0.1f);
+            Quaternion holeRotation = Quaternion.FromToRotation(Vector3.up,  hitInfo.normal);
+
             bullet.GetComponent<Rigidbody>().AddForce(bulletFinalDestination * bulletSpeed/zSpread, ForceMode.Impulse);
             //Does not apply to weapons that don't shoot bullets (eg. rocket launcher)
             if(bullet.GetComponent<Bullets>() != null)
             {
                 bullet.GetComponent<Bullets>().damage = damagePerBullet;
                 bullet.GetComponent<Bullets>().destroyTime = bulletLifetime;
+                bullet.GetComponent<Bullets>().GetBulletHoleInfo(bulletMarkPrefab, holePosition, holeRotation);
             }
         }
 
@@ -237,6 +256,7 @@ public class Gun : MonoBehaviour
 
         //Objects
         bulletPrefab = gunScriptable.bulletPrefab;
+        bulletMarkPrefab = gunScriptable.bulletMarkPrefab;
 
         //Apply internally tracked stats
         currentAmmo = gunScriptToPullFrom.currentAmmo;
@@ -305,16 +325,24 @@ public class Gun : MonoBehaviour
         //Fire a specified amount of bullets per burst
         for (int i = 0; i < bulletsPerBurst; i++)
         {
+            
             enemyBulletSpawn.transform.LookAt(playerPos.transform);
             GameObject bullet = Instantiate(bulletPrefab, enemyBulletSpawn.transform.position + enemyBulletSpawn.transform.forward, enemyBulletSpawn.transform.rotation);
             Vector3 bulletFinalDestination = (enemyBulletSpawn.transform.right * bulletSpread[i].x) + 
                 (enemyBulletSpawn.transform.up * bulletSpread[i].y) + (enemyBulletSpawn.transform.forward * zSpread);
+
+            //Set bullet hole info
+            Physics.Raycast(enemyBulletSpawn.transform.position + enemyBulletSpawn.transform.forward, bulletFinalDestination, out RaycastHit hitInfo, bulletSpeed * bulletLifetime, bulletHoleLayersToCheck);
+            Vector3 holePosition = hitInfo.point + (hitInfo.normal * 0.1f);
+            Quaternion holeRotation = Quaternion.FromToRotation(Vector3.up,  hitInfo.normal);
+
             bullet.GetComponent<Rigidbody>().AddForce(bulletFinalDestination * bulletSpeed/zSpread, ForceMode.Impulse);
             //Does not apply to weapons that don't shoot bullets (eg. rocket launcher)
             if(bullet.GetComponent<Bullets>() != null)
             {
                 bullet.GetComponent<Bullets>().damage = damagePerBullet;
                 bullet.GetComponent<Bullets>().destroyTime = bulletLifetime;
+                bullet.GetComponent<Bullets>().GetBulletHoleInfo(bulletMarkPrefab, holePosition, holeRotation);
             }
         }
 

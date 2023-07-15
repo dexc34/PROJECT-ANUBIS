@@ -5,6 +5,9 @@ using UnityEngine;
 public class Bullets : MonoBehaviour
 {
     [HideInInspector] public float destroyTime = 5;
+    private GameObject bulletHole;
+    private Vector3 holePosition;
+    private Quaternion holeRotation;
 
     //Script variables
     [HideInInspector] public float damage;
@@ -21,7 +24,7 @@ public class Bullets : MonoBehaviour
 
     private void OnCollisionEnter(Collision other) 
     {
-        //Ignore player and other bullets
+        Instantiate(bulletHole, holePosition, holeRotation).transform.parent = other.transform;
         if(other.gameObject.CompareTag("Hurtbox"))    
         {   
             healthToDamage = other.gameObject.transform.parent.gameObject.GetComponent<Health>();
@@ -33,21 +36,6 @@ public class Bullets : MonoBehaviour
             Destroy(gameObject);
         }   
     }
-
-    /*private void OnTriggerEnter(Collider other) 
-    {
-        //Ignore player and other bullets
-        if(other.gameObject.CompareTag("Hurtbox"))    
-        {   
-            healthToDamage = other.gameObject.transform.parent.gameObject.GetComponent<Health>();
-            DealDamage();
-        }
-        else
-        {
-            if(other.gameObject.CompareTag("Player") || other.gameObject.CompareTag("Bullet")) return;
-            Destroy(gameObject);
-        }   
-    }*/
 
     private void DealDamage()
     {
@@ -67,5 +55,12 @@ public class Bullets : MonoBehaviour
         yield return new WaitForSeconds(0.1f);
 
         GetComponent<Collider>().enabled = true;
+    }
+
+    public void GetBulletHoleInfo(GameObject holePrefab, Vector3 holePos, Quaternion holeRot)
+    {
+        bulletHole = holePrefab;
+        holePosition = holePos;
+        holeRotation = holeRot;
     }
 }

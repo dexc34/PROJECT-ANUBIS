@@ -342,6 +342,7 @@ public class Movement : MonoBehaviour
     {
         playerCamera = GetComponentInChildren<CameraMove>().gameObject.transform;
         ceilingCheck.position = playerCamera.position;
+        CancelAllActions();
     }
 
     public void CancelAllActions()

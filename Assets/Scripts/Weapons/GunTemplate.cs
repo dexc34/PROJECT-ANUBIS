@@ -46,6 +46,7 @@ public class GunTemplate : ScriptableObject
 
     [Header("Visuals")]
     public GameObject weaponModelPrefab;
+    public GameObject bulletMarkPrefab;
 
 
     [Header ("UI")]

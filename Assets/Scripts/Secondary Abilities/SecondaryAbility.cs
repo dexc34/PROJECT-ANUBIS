@@ -100,6 +100,9 @@ public class SecondaryAbility : MonoBehaviour
 
         CloserToThePrey tempCloserToThePrey = GetComponent<CloserToThePrey>();
         if(tempCloserToThePrey) Destroy(tempCloserToThePrey);
+
+        Leap tempLeap = GetComponent<Leap>();
+        if(tempLeap) Destroy(tempLeap);
         //Add new scripts to destroy here
     }
 

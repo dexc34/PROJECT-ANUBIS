@@ -16,6 +16,7 @@ public class Melee : MonoBehaviour
     //Script variables
     private bool isMainWeapon = false;
     private bool canAttack = true;
+    [HideInInspector] public bool interruptMelee = false;
     private float meleeCooldown;
     private bool isParrying = false;
     private bool isPlayer = false;
@@ -23,6 +24,7 @@ public class Melee : MonoBehaviour
     private bool hasModel = false;
     private int animatorIndex = 0;
     private List<Animator> animators = new List<Animator>();
+    [HideInInspector] public GameObject currentHand;
 
     //Variables inherited from scriptable object
     private int damage;
@@ -76,7 +78,7 @@ public class Melee : MonoBehaviour
 
     public void UseMelee()
     {
-        if (!canAttack) return;
+        if (!canAttack || interruptMelee) return;
 
         canAttack = false;
         meleeAudioSource.PlayOneShot(swingSFX);
@@ -190,15 +192,14 @@ public class Melee : MonoBehaviour
 
     private void PlayAnimation()
     {
-        if(animators.Count == 1)
-        {
-            animators[0].Play(swingAnimation.name);
-        }
+        if(animators.Count == 1) animators[0].Play(swingAnimation.name);
         else
         {
             animators[animatorIndex].Play(swingAnimation.name);
             if(animatorIndex == 0) animatorIndex = 1;
             else animatorIndex = 0;
+
+            currentHand = animators[animatorIndex].gameObject;
         }
     }
 
@@ -280,6 +281,7 @@ public class Melee : MonoBehaviour
         newWeapon.transform.parent = weaponHolder.transform;
         animators.Clear();
         animators.AddRange(newWeapon.GetComponentsInChildren<Animator>());
+        currentHand = animators[0].gameObject;
         if(!isMainWeapon) newWeapon.SetActive(false);
     }
 }

@@ -41,6 +41,8 @@ MonoBehaviour:
   zSpread: 5
   weaponModelPrefab: {fileID: 1813343312999743701, guid: 5df9d016b99c66d488f2b99cae149943,
     type: 3}
+  bulletMarkPrefab: {fileID: 6059192535391221, guid: 4def6283232250b42813ae413293bb53,
+    type: 3}
   crosshairSrpite: {fileID: 21300000, guid: 3bef07b66e7a97c4580102cfea4ff112, type: 3}
   fireModeString: PUMP
   gunAudioScript: {fileID: 11400000, guid: a2dabc96495cb404f9e32a7eec73812e, type: 2}
