@@ -80,6 +80,7 @@ public class PlayerHackingScript : MonoBehaviour
     private bool transitioningBetweenEnemies = false;
     float distanceToEnemy;
     float moveStep;
+    Vector3 directionToEnemy;
     GameObject currentCamera;
 
     private bool enemyHasShield = false;
@@ -101,11 +102,6 @@ public class PlayerHackingScript : MonoBehaviour
 
     void Update()
     {
-        if (currentlyStoredEnemy != null)
-        {
-            Debug.Log(currentlyStoredEnemy.transform.position + " || " + transform.position);
-        }
-
         //sets the first point of the hacking tether line to always be centered on the player
         lineRenderer.SetPosition(0, transform.position);
 
@@ -126,26 +122,17 @@ public class PlayerHackingScript : MonoBehaviour
             EnemyDetectionRaycast();
         }
 
-
-
-
         RunTimer();
     }
 
     private void FixedUpdate()
     {
+        //makes the player move in the direction of the enemy that they are hacking
         if (transitioningBetweenEnemies)
         {
-            CameraMove newCameraMovementScript = newCamera.GetComponent<CameraMove>();
-            CameraMove currentCameraMoveScript = currentCamera.GetComponent<CameraMove>();
-            newCameraMovementScript.enabled = currentCameraMoveScript.enabled = false;
-
-            currentCamera.transform.position = Vector3.MoveTowards(currentCamera.transform.position, newCamera.transform.position, moveStep);
-            newCamera.transform.rotation = Quaternion.Euler(currentCamera.transform.eulerAngles);
-
-            newCameraMovementScript.enabled = currentCameraMoveScript.enabled = true;
+            characterController.Move(directionToEnemy / 50);
         }
-        
+
     }
 
     //The Raycasting
@@ -326,16 +313,9 @@ public class PlayerHackingScript : MonoBehaviour
         //stores the currently hacking enemy as a variable
         currentlyStoredEnemy = currentlyHackingEnemy;
 
-        //teleports to the position of the currently stored
-        //enemy and facing in the same direction (the character
-        //controller has to be turned off because it messes up
-        //the teleport)
-        characterController.enabled = false;
-
-
         StartCoroutine("CameraTransition");
+
         transform.position = currentlyStoredEnemy.transform.position;
-        //transform.rotation = currentlyStoredEnemy.transform.rotation;
 
         //Parents new camera to the player
         newCamera.transform.parent = transform;
@@ -368,56 +348,41 @@ public class PlayerHackingScript : MonoBehaviour
 
     private IEnumerator CameraTransition()
     {
+        //turns on the transitioning boolean, takes away the player's
+        //ability to move, and turns off collisions so that the player
+        //doesn't collide with things along the way
+        transitioningBetweenEnemies = true;
+        playerMovementScript.canMove = false;
+        Physics.IgnoreLayerCollision(0, 7, true);
+
         //Creates a new camera inside a set point of the hacked enemy
         currentCamera = transform.GetComponentInChildren<Cinemachine.CinemachineVirtualCamera>().gameObject;
-        newCamera = Instantiate(cameraPrefab, currentlyStoredEnemy.transform.Find("Camera Spawn Point").transform.position, currentlyStoredEnemy.transform.Find("Camera Spawn Point").transform.rotation);
+        newCamera = Instantiate(cameraPrefab, currentlyHackingEnemy.transform.Find("Camera Spawn Point").transform.position, currentlyStoredEnemy.transform.Find("Camera Spawn Point").transform.rotation);
 
-        distanceToEnemy = Vector3.Distance(currentCamera.transform.position, newCamera.transform.position);
-        moveStep = (distanceToEnemy / hackMoveDurration) * Time.deltaTime;
 
-        transitioningBetweenEnemies = true;
-
-        //gets the camera move script of the cameras and then turns them off (you can't rotate the camera if this is on)
-        //CameraMove currentCameraMovementScript = currentCamera.GetComponent<CameraMove>();
-        //CameraMove newCameraMovementScript = newCamera.GetComponent<CameraMove>();
-        //currentCameraMovementScript.enabled = newCameraMovementScript.enabled = false;
-
-        //while (currentCamera.transform.position != newCamera.transform.position)
-        //{
-        //    transform.position = Vector3.MoveTowards(currentCamera.transform.position, newCamera.transform.position, moveStep);
-        //
-        //    //newCameraMovementScript.enabled = false;
-        //    //newCamera.transform.rotation = Quaternion.Euler(currentCamera.transform.eulerAngles);
-        //    //newCameraMovementScript.enabled = true;
-        //
-        //    yield return new WaitForEndOfFrame();
-        //    yield return null;
-        //}
+        directionToEnemy = newCamera.transform.position - currentCamera.transform.position;
 
 
         //Unparents both cameras to avoid affecting their positions accidentally
         currentCamera.transform.parent = null;
         newCamera.transform.parent = null;
 
-        //makes the current camera face towards the enemy and then makes the new camera face the same direction
-        //currentCamera.transform.LookAt(newCamera.transform.position);
 
 
         //Waits until the the transition (or camera blend) is over to continue the code, this parameter should be dynamic in the future
         yield return new WaitForSeconds(hackMoveDurration);
 
+
+        //turns off the transitioning boolean, gives back the player's
+        //ability to move, and turns collisions back on
         transitioningBetweenEnemies = false;
+        playerMovementScript.canMove = true;
+        Physics.IgnoreLayerCollision(0, 7, false);
+
 
         //turns off the currently stored enemy and makes it the child of the player to be released later
         currentlyStoredEnemy.SetActive(false);
         currentlyStoredEnemy.transform.parent = transform;
-
-        //Returns control to the player, destroys old camera, and turns the camera move script back on
-        characterController.enabled = true;
-        //newCameraMovementScript.enabled = true;
-
-        //Adds 1 to the priority parameter so that it will automatically target the new camera
-        newCamera.GetComponent<Cinemachine.CinemachineVirtualCamera>().Priority = currentCamera.GetComponent<Cinemachine.CinemachineVirtualCamera>().Priority + 1;
 
         Destroy(currentCamera);
     }
