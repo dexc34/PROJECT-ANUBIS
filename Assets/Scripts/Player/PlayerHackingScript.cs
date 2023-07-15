@@ -84,7 +84,7 @@ public class PlayerHackingScript : MonoBehaviour
     float distanceToEnemy;
     float moveStep;
     Vector3 directionToEnemy;
-    GameObject currentCamera;
+    GameObject playerCamera;
 
     private bool enemyHasShield = false;
     [HideInInspector] public bool needSecondInput = false;
@@ -98,6 +98,7 @@ public class PlayerHackingScript : MonoBehaviour
         characterController = GetComponent<CharacterController>();
         lineRenderer = GetComponent<LineRenderer>();
         mainCameraBrain = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Cinemachine.CinemachineBrain>();
+        playerCamera = transform.GetComponentInChildren<Cinemachine.CinemachineVirtualCamera>().gameObject;
         playerMovementScript = GetComponent<Movement>();
         gunScript = GetComponent<Gun>();
         meleeScript = GetComponent<Melee>();
@@ -105,6 +106,9 @@ public class PlayerHackingScript : MonoBehaviour
 
     void Update()
     {
+        Debug.Log("Move Step: " +  moveStep);
+
+
         //sets the first point of the hacking tether line to always be centered on the player
         lineRenderer.SetPosition(0, transform.position);
 
@@ -133,7 +137,7 @@ public class PlayerHackingScript : MonoBehaviour
         //makes the player move in the direction of the enemy that they are hacking
         if (transitioningBetweenEnemies)
         {
-            characterController.Move(directionToEnemy / 50);
+            characterController.Move(directionToEnemy * moveStep * Time.deltaTime);
         }
 
     }
@@ -176,7 +180,7 @@ public class PlayerHackingScript : MonoBehaviour
                 {
                     //stores the enemy's game object and also adds an outline to it
                     currentlySelectedEnemy = hit.collider.gameObject;
-                    selectedEnemiesOutline = currentlySelectedEnemy.gameObject.AddComponent<Outline>();
+                    selectedEnemiesOutline = currentlySelectedEnemy.AddComponent<Outline>();
 
                     //turns on the outline of the selected enemy, sets it's colour and it's width
                     selectedEnemiesOutline.enabled = true;
@@ -284,7 +288,7 @@ public class PlayerHackingScript : MonoBehaviour
         }
         else if (hackingTimer < 0.1f && hackingTimer > -0.1f)
         {
-            HackEnemy();
+            StartCoroutine("HackEnemy");
         }
 
         if (hackingInterruptionTimer > 0)
@@ -302,30 +306,6 @@ public class PlayerHackingScript : MonoBehaviour
 
     //Hacking Stuff
     //##############################################################################################
-    private void HackEnemy()
-    {
-        //releases the currently stored enemy if there is one
-        if (currentlyStoredEnemy != null)
-        {
-            //sets the enemy back to being it's own parent and turns it back on
-            currentlyStoredEnemy.transform.parent = null;
-            currentlyStoredEnemy.SetActive(true);
-            currentlyStoredEnemy.GetComponent<Gun>().UpdateGunStats(gunScript);
-        }
-
-        //stores the currently hacking enemy as a variable
-        currentlyStoredEnemy = currentlyHackingEnemy;
-
-
-
-        StartCoroutine("CameraTransition");
-
-
-
-        ExitHackMode();
-    }
-
-
     public void ExitHackMode()
     {
         hacking = false;
@@ -339,71 +319,98 @@ public class PlayerHackingScript : MonoBehaviour
         //variables that store the game object and the outline to
         //nothing
         hackingEnemiesOutline.OutlineColor = highlightColour;
-        currentlyHackingEnemy = null;
+
         hackingEnemiesOutline = null;
     }
 
-    private IEnumerator CameraTransition()
+    private IEnumerator HackEnemy()
     {
-        if (currentlyStoredEnemy.GetComponent<NavMeshAgent>())
-            currentlyStoredEnemy.GetComponent<NavMeshAgent>().enabled = false;
+        //saves the location of the player to put the stored player when it is released
+        Vector3 playerOriginPoint = transform.position;
+
+        //turns off all collisions for the player (idk if this even works)
+        for (int i = 0; i <= 31; i++)
+        {
+            Physics.IgnoreLayerCollision(0, i, true);
+        }
+
+        //turns off a bunch of stuff in the enememy so that it stops moving and doesn't interact with the player
+        if (currentlyHackingEnemy.GetComponent<GruntStateMachine>() && currentlyHackingEnemy.GetComponent<NavMeshAgent>())
+        {
+            currentlyHackingEnemy.GetComponent<NavMeshAgent>().enabled= false;
+            currentlyHackingEnemy.GetComponent<GruntStateMachine>().enabled = false;
+        }
+        currentlyHackingEnemy.GetComponent<CapsuleCollider>().enabled= false;
+
+
 
         //turns on the transitioning boolean, takes away the player's
         //ability to move, and turns off collisions so that the player
         //doesn't collide with things along the way
         transitioningBetweenEnemies = true;
         playerMovementScript.canMove = false;
-        Physics.IgnoreLayerCollision(0, 7, true);
 
-        //Creates a new camera inside a set point of the hacked enemy
-        currentCamera = transform.GetComponentInChildren<Cinemachine.CinemachineVirtualCamera>().gameObject;
-        //newCamera = Instantiate(cameraPrefab, currentlyHackingEnemy.transform.Find("Camera Spawn Point").transform.position, currentlyStoredEnemy.transform.Find("Camera Spawn Point").transform.rotation);
-
-
-        directionToEnemy = currentlyHackingEnemy.transform.Find("Camera Spawn Point").transform.position - transform.position;
+        
+        //calculates the angle to the enemy (normalized to a magnitude of 1), how far it is, and how fast it can get there
+        directionToEnemy = (currentlyHackingEnemy.transform.Find("Camera Spawn Point").transform.position - transform.position).normalized;
+        distanceToEnemy = Vector3.Distance(transform.position, currentlyHackingEnemy.transform.position);
+        moveStep = distanceToEnemy / hackMoveDurration;
 
 
-        //Unparents both cameras to avoid affecting their positions accidentally
-        //currentCamera.transform.parent = null;
-        //newCamera.transform.parent = null;
-
+        ExitHackMode();
 
 
         //Waits until the the transition (or camera blend) is over to continue the code, this parameter should be dynamic in the future
         yield return new WaitForSeconds(hackMoveDurration);
 
-        if (currentlyStoredEnemy.GetComponent<NavMeshAgent>())
-            currentlyStoredEnemy.GetComponent<NavMeshAgent>().enabled = true;
-
 
         //turns off the currently stored enemy and makes it the child of the player to be released later
-        currentlyStoredEnemy.SetActive(false);
-        currentlyStoredEnemy.transform.parent = transform;
+        currentlyHackingEnemy.SetActive(false);
+        currentlyHackingEnemy.transform.parent = transform;
 
 
-        //turns off the transitioning boolean, gives back the player's
-        //ability to move, and turns collisions back on
+        //turns the stuff in the enemy back on
+        if (currentlyStoredEnemy != null)
+        {
+            if (currentlyStoredEnemy.GetComponent<GruntStateMachine>())
+            {
+                currentlyStoredEnemy.GetComponent<GruntStateMachine>().enabled = true;
+                currentlyHackingEnemy.GetComponent<NavMeshAgent>().enabled= true;
+            }
+            currentlyStoredEnemy.GetComponent<CapsuleCollider>().enabled = true;
+        }
+
+
+        //turns off the transitioning boolean and gives back the player's ability to move
         transitioningBetweenEnemies = false;
         playerMovementScript.canMove = true;
 
-        characterController.enabled = false;
-        transform.position = currentlyStoredEnemy.transform.position;
-        characterController.enabled = true;
 
-        //Parents new camera to the player
-        //newCamera.transform.parent = transform;
+        //releases the currently stored enemy if there is one
+        if (currentlyStoredEnemy != null)
+        {
+            //sets the enemy back to being it's own parent, teleports it to where the player was when they started transitioning and turns it back on
+            currentlyStoredEnemy.transform.parent = null;
+            currentlyStoredEnemy.transform.position = playerOriginPoint;
+            currentlyStoredEnemy.SetActive(true);
+            currentlyStoredEnemy.GetComponent<Gun>().UpdateGunStats(gunScript);
+            Destroy(currentlyStoredEnemy.GetComponent<Outline>());
+        }
 
-        //newCamera.GetComponent<CinemachineVirtualCamera>().Priority += 1;
+        //stores the currently hacking enemy as a variable
+        currentlyStoredEnemy = currentlyHackingEnemy;
+        currentlyHackingEnemy = null;
 
-        //Destroy(currentCamera);
 
-        Physics.IgnoreLayerCollision(0, 7, false);
+        //turns the player's collisions back on
+        for (int i = 0; i <= 31; i++)
+        {
+            Physics.IgnoreLayerCollision(0, i, false);
+        }
 
         //Update player stats
         playerMovementScript.ChangeStats();
         gunScript.UpdateGunStats(currentlyStoredEnemy.GetComponent<Gun>());
         meleeScript.UpdateMelee(currentlyStoredEnemy.GetComponent<Melee>());
-
-
     }
 }

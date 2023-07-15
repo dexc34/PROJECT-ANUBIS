@@ -4,15 +4,9 @@ using UnityEngine;
 
 public class DestroyWhenHacking : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
     void Update()
     {
+        //if the player is hacking and the parent of the object is the player's weapon holder
         if (GameObject.Find("Player").GetComponent<PlayerHackingScript>().transitioningBetweenEnemies && transform.parent.name == "Weapon Holder")
         {
             Destroy(gameObject);
