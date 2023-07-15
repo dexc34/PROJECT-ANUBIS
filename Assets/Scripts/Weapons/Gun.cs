@@ -35,6 +35,7 @@ public class Gun : MonoBehaviour
     private float zSpread = 5;
 
     private GameObject weaponModelPrefab;
+    private GameObject newGun, oldGun;
 
     private Sprite crosshairSprite;
     private string fireModeString;
@@ -290,6 +291,7 @@ public class Gun : MonoBehaviour
         viewmodelCam = transform.GetComponentInChildren<CameraMove>().GetComponentInChildren<Camera>();
         cameraData.cameraStack.Insert(0, viewmodelCam);
 
+
         virtualCamera = GetComponentInChildren<CameraMove>().gameObject.transform;
 
         //Update UI
@@ -299,9 +301,16 @@ public class Gun : MonoBehaviour
         fireModeText.text = gunScriptable.fireModeString;
 
         //Update gun model
-        if(gunType.ToString() == "Melee") return;
+
+        if (gunType.ToString() == "Melee") return;
+        //destroys the previous weapon model
+        //if (newGun != null)
+        //{
+        //    oldGun = newGun;
+        //    Destroy(oldGun);
+        //}
         GameObject weaponHolder = transform.GetComponentInChildren<CameraMove>().gameObject.transform.Find("Weapon Holder").gameObject;
-        GameObject newGun = Instantiate(weaponModelPrefab, weaponHolder.transform.position, weaponHolder.transform.rotation);
+        newGun = Instantiate(weaponModelPrefab, weaponHolder.transform.position, weaponHolder.transform.rotation);
         newGun.transform.parent = weaponHolder.transform;
         viewModelScript = newGun.GetComponent<WeaponViewmodelAnimations>();
         muzzleParticle = newGun.GetComponentInChildren<ParticleSystem>();

@@ -44,6 +44,7 @@ public class Melee : MonoBehaviour
     private float parryMultiplier;
 
     [HideInInspector] public GameObject meleeModel;
+    private GameObject newWeapon, oldWeapon;
     private AnimationClip swingAnimation;
 
     private AudioClip swingSFX;
@@ -276,8 +277,13 @@ public class Melee : MonoBehaviour
 
         //Create new weapon
         if(!hasModel) return;
+        //if (newWeapon != null)
+        //{
+        //    oldWeapon= newWeapon;
+        //    Destroy(oldWeapon);
+        //}
         GameObject weaponHolder = transform.GetComponentInChildren<CameraMove>().gameObject.transform.Find("Weapon Holder").gameObject;
-        GameObject newWeapon = Instantiate(meleeModel, weaponHolder.transform.position, weaponHolder.transform.rotation);
+        newWeapon = Instantiate(meleeModel, weaponHolder.transform.position, weaponHolder.transform.rotation);
         newWeapon.transform.parent = weaponHolder.transform;
         animators.Clear();
         animators.AddRange(newWeapon.GetComponentsInChildren<Animator>());
