@@ -68,6 +68,8 @@ public class PlayerHackingScript : MonoBehaviour
     private Movement playerMovementScript;
     private Gun gunScript;
     private Melee meleeScript;
+    private Health healthScript;
+    private SecondaryAbility secondaryAbilityScript;
 
     //Script variables
     private float raycastDistance = Mathf.Infinity;
@@ -98,6 +100,8 @@ public class PlayerHackingScript : MonoBehaviour
         playerMovementScript = GetComponent<Movement>();
         gunScript = GetComponent<Gun>();
         meleeScript = GetComponent<Melee>();
+        healthScript = GetComponent<Health>();
+        secondaryAbilityScript = GetComponent<SecondaryAbility>();
     }
 
     void Update()
@@ -308,6 +312,7 @@ public class PlayerHackingScript : MonoBehaviour
             currentlyStoredEnemy.transform.parent = null;
             currentlyStoredEnemy.SetActive(true);
             currentlyStoredEnemy.GetComponent<Gun>().UpdateGunStats(gunScript);
+            currentlyStoredEnemy.GetComponent<Health>().UpdateHealth(healthScript);
         }
 
         //stores the currently hacking enemy as a variable
@@ -324,6 +329,8 @@ public class PlayerHackingScript : MonoBehaviour
         playerMovementScript.ChangeStats();
         gunScript.UpdateGunStats(currentlyStoredEnemy.GetComponent<Gun>());
         meleeScript.UpdateMelee(currentlyStoredEnemy.GetComponent<Melee>());
+        healthScript.UpdateHealth(currentlyStoredEnemy.GetComponent<Health>());
+        secondaryAbilityScript.UpdateSecondary(currentlyStoredEnemy.GetComponent<SecondaryAbility>());
 
         ExitHackMode();
     }
