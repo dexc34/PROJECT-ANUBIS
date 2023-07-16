@@ -32,15 +32,11 @@ public class MeleeAttacks : ScriptableObject
     [Tooltip ("How much backwards force the player receives (may ignore if previous bool was left as false)")]
     public float backwardsKnockback;
 
-    [Header ("Parry")]
-    public bool canParry;
-    public float parryRange;
-    [Tooltip ("How long of a window the player has to parry in seconds")]
-    public float parryWindow;
-    [Tooltip ("How long does the parry stay active for after reflecting its first projectile")]
-    public float parryActiveTime;
-    [Tooltip ("How much a bullet's damage will be multiplied by after getting reflected")]
-    public int parryMultiplier;
+    [HideInInspector] public bool canParry;
+    [HideInInspector] public float parryRange;
+    [HideInInspector] public float parryWindow;
+    [HideInInspector] public float parryActiveTime;
+    [HideInInspector] public float parryMultiplier;
 
 
     [Header ("Visuals")]
