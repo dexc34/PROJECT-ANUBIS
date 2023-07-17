@@ -110,7 +110,7 @@ public class PlayerHackingScript : MonoBehaviour
 
     void Update()
     {
-        Debug.Log("Move Step: " +  moveStep);
+//        Debug.Log("Move Step: " +  moveStep);
 
 
         //sets the first point of the hacking tether line to always be centered on the player

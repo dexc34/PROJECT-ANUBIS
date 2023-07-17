@@ -35,7 +35,7 @@ public class StaminBarValues : MonoBehaviour
     {
         movementScript = GameObject.Find("Player").GetComponent<Movement>();
         totalStaminaBars = movementScript.maxStamina;
-        currentStaminaBar = movementScript.maxStamina;
+        currentStaminaBar = movementScript.maxStamina - 1;
 
         //gets the starting position for where to spawn the bars
         startPosition = barBounds.transform.position;
@@ -105,5 +105,7 @@ public class StaminBarValues : MonoBehaviour
     void ResetTimer()
     {
         timeElapsed = 0;
+        staminaBars[currentStaminaBar].current = staminaBars[currentStaminaBar].maximum;
+        staminaBars[currentStaminaBar].color = barFullColor;
     }
 }

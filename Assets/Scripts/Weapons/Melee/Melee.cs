@@ -23,6 +23,7 @@ public class Melee : MonoBehaviour
     private bool hasParried = false;
     private bool hasModel = false;
     private int animatorIndex = 0;
+    [HideInInspector] public bool oneHanded;
     private List<Animator> animators = new List<Animator>();
     [HideInInspector] public GameObject currentHand;
 
@@ -197,11 +198,16 @@ public class Melee : MonoBehaviour
         else
         {
             animators[animatorIndex].Play(swingAnimation.name);
-            if(animatorIndex == 0) animatorIndex = 1;
-            else animatorIndex = 0;
-
-            currentHand = animators[animatorIndex].gameObject;
+            SwitchHand();
         }
+    }
+
+    public void SwitchHand()
+    {
+        if(animatorIndex == 0) animatorIndex = 1;
+        else animatorIndex = 0;
+
+        currentHand = animators[animatorIndex].gameObject;
     }
 
     public void UpdateMelee(Melee meleeScriptToPullFrom)
@@ -288,6 +294,8 @@ public class Melee : MonoBehaviour
         animators.Clear();
         animators.AddRange(newWeapon.GetComponentsInChildren<Animator>());
         currentHand = animators[0].gameObject;
+        if(animators.Count == 1) oneHanded = true;
+        else oneHanded = false;
         if(!isMainWeapon) newWeapon.SetActive(false);
     }
 }

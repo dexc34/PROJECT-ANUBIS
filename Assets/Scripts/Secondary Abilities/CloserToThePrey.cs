@@ -115,6 +115,8 @@ public class CloserToThePrey : MonoBehaviour
 
                 Destroy(originPoint);
                 abilityInUse = false;
+
+                GetComponent<SecondaryAbility>().ResetCooldown();
             }
         }
 
@@ -178,6 +180,9 @@ public class CloserToThePrey : MonoBehaviour
         //Gets current sword object and position
         swordToThrow = meleeScript.currentHand;
         swordStartingPosition = swordToThrow.transform.localPosition;
+
+        //Switch hands for the next throw
+        if(!meleeScript.oneHanded) meleeScript.SwitchHand();
 
         //Create chain visual
         chainRenderer = Instantiate(chainPrefab, originPoint.transform.position, originPoint.transform.rotation);

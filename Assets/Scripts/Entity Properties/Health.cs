@@ -103,6 +103,14 @@ public class Health : MonoBehaviour
         }
     }
 
+    public void Heal(float amountToHeal)
+    {
+        float previousHealth = currentHealth;
+        currentHealth += amountToHeal;
+        currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
+        Debug.Log("Before: " + previousHealth + "| After: " + currentHealth);
+    }
+
     IEnumerator CheckHit()
     {
         gotHit = true;

@@ -85,6 +85,7 @@ public class Movement : MonoBehaviour
     [HideInInspector] public int currentJumps; // Amount of jumps available to the player at any given time
     [HideInInspector] public int currentStamina; // Amount of dashes available to the player at any given time
     [HideInInspector] public bool staminaCooldownDone = true;
+    private List<Coroutine> staminaRecoveryCoroutines = new List<Coroutine>();
     [HideInInspector] public bool isDashing = false;
     [HideInInspector] public bool isGroundPounding = false;
     [HideInInspector] public bool isSliding = false;
@@ -229,7 +230,7 @@ public class Movement : MonoBehaviour
 
         yield return new WaitForSeconds(dashDuration);
         isDashing = false;
-        StartCoroutine("RecoverStamina");
+        staminaRecoveryCoroutines.Add(StartCoroutine("StaminaCooldown"));
     }
 
     public void GroundPound()
@@ -245,7 +246,7 @@ public class Movement : MonoBehaviour
         yVelocity = groundPoundStrength;
         forceReceiver.impact.y = 0;
 
-        StartCoroutine("RecoverStamina");
+        staminaRecoveryCoroutines.Add(StartCoroutine("StaminaCooldown"));
     }
 
     public void GroundPoundBounce()
@@ -325,8 +326,10 @@ public class Movement : MonoBehaviour
     }
 
 
-    public IEnumerator RecoverStamina()
+    public IEnumerator StaminaCooldown()
     {
+        if(currentStamina >= maxStamina) yield break;
+
         //Dont start cooldown timer until the previous one is done
         while(!staminaCooldownDone) yield return null;
     
@@ -336,6 +339,24 @@ public class Movement : MonoBehaviour
         yield return new WaitForSeconds(staminaCooldown);
         staminaCooldownDone = true;
         currentStamina ++;
+        staminaRecoveryCoroutines.RemoveAt(0);
+        staminaRecoveryCoroutines.TrimExcess();
+    }
+
+    public void RecoverStamina(int howManyBarsToRecover)
+    {
+        //Add specified stamina bars, stop running instance of stamina cooldown coroutine
+        for(int i = 0; i < howManyBarsToRecover; i++)
+        {
+            if(currentStamina < maxStamina)
+            {
+                StopCoroutine(staminaRecoveryCoroutines[0]);
+                staminaRecoveryCoroutines.RemoveAt(0);
+                staminaRecoveryCoroutines.TrimExcess();
+                staminaCooldownDone = true;
+                currentStamina ++;
+            }
+        }
     }
 
     public void ChangeStats()
