@@ -27,6 +27,12 @@ public class GunTemplate : ScriptableObject
     [Tooltip ("How long it takes to reload, meassured in seconds")] 
     public float reloadSpeed; 
 
+    [Tooltip ("Does the gun reload all bullets all at once, or one at a time, makes reload interruptable")]
+    public bool individualBulletReload;
+
+    [Tooltip ("How long it takes to reload an individual bullet, ignores reload speed, only relevant if previous bool is true")]
+    public float individualBulletReloadSpeed;
+
     [Tooltip ("Total amount of bullets available")] 
     public int totalAmmo;
 

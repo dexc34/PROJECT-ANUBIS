@@ -146,7 +146,9 @@ public class InputHandler : MonoBehaviour
     public void Reload(InputAction.CallbackContext context)
     {
         if(!context.performed) return;
-        StartCoroutine(gunScript.Reload());
+
+        if(gunScript.individualBulletReload) gunScript.reloadCoroutine = StartCoroutine(gunScript.InterruptableReload());
+        else StartCoroutine(gunScript.Reload());
     }
 
     //Secondary ability actions

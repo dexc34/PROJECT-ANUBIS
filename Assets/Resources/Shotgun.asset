@@ -18,7 +18,9 @@ MonoBehaviour:
   criticalMultiplier: 1.2
   isAutomatic: 0
   fireRate: 1.1
-  reloadSpeed: 0.5
+  reloadSpeed: 0
+  individualBulletReload: 1
+  individualBulletReloadSpeed: 0.5
   totalAmmo: 18
   magazineSize: 6
   bulletsPerBurst: 15

@@ -28,6 +28,8 @@ public class Gun : MonoBehaviour
     [HideInInspector] public bool isAutomatic;
     private float fireRate;
     private float reloadSpeed; 
+    [HideInInspector] public bool individualBulletReload;
+    private float individualBulletReloadSpeed;
     private int totalAmmo;
     private int magazineSize;
     private int bulletsPerBurst;
@@ -76,6 +78,8 @@ public class Gun : MonoBehaviour
     private bool isEnemy = true;
     private int layerToApplyToBullet;
     [HideInInspector] public bool interruptFire = false;
+    private bool isReloading = false;
+    [HideInInspector] public Coroutine reloadCoroutine;
 
 
     //Required components
@@ -123,6 +127,10 @@ public class Gun : MonoBehaviour
     public void FireBullet()
     {
         if(!canFire || currentAmmo <= 0 || interruptFire) return;
+
+        //INterrupt individual bullet reload
+        if(reloadCoroutine != null) StopCoroutine(reloadCoroutine);
+        isReloading = false;
         
         canFire = false;
         if(!infiteAmmo)currentAmmo --;
@@ -171,7 +179,12 @@ public class Gun : MonoBehaviour
         if(currentMagazine <= 0)
         {
             canFire = true;
-            StartCoroutine("Reload");
+
+            if(individualBulletReload)
+            {
+                reloadCoroutine = StartCoroutine("InterruptableReload");
+            }
+            else StartCoroutine("Reload");
         }
         //If not necessary wait for the shoot cooldown
         else
@@ -216,6 +229,39 @@ public class Gun : MonoBehaviour
         canFire = true;
     }
 
+    public IEnumerator InterruptableReload()
+    {
+        if(currentMagazine == magazineSize || ammoToDisplay <= 0 ||!canFire || isReloading) yield break;
+
+        isReloading = true;
+        canFire = false;
+
+        if(infiteAmmo) individualBulletReloadSpeed = shootCooldown;
+
+        for(int i = currentMagazine; i < magazineSize; i ++)
+        {
+
+            yield return new WaitForSeconds(individualBulletReloadSpeed);
+
+            currentMagazine ++;
+            if(!infiteAmmo) ammoToDisplay --;
+
+            //Update UI
+            currentAmmoText.text = currentMagazine.ToString();
+            reserveAmmoText.text = ammoToDisplay.ToString();
+
+
+            gunAudioScript.PlayReloadClip(shootAudioSource);
+
+            canFire = true;
+            if(currentMagazine >= magazineSize || currentMagazine >= currentAmmo || ammoToDisplay <= 0)
+            {
+                isReloading = false;
+                yield break;
+            }
+        }
+    }
+
 
     //Used when hacking a new body, update gun stats to match the enemy's gun
     public void UpdateGunStats(Gun gunScriptToPullFrom)
@@ -238,6 +284,8 @@ public class Gun : MonoBehaviour
         isAutomatic = gunScriptable.isAutomatic;
         fireRate = gunScriptable.fireRate;
         reloadSpeed = gunScriptable.reloadSpeed;
+        individualBulletReload = gunScriptable.individualBulletReload;
+        individualBulletReloadSpeed = gunScriptable.individualBulletReloadSpeed;
         totalAmmo = gunScriptable.totalAmmo;
         magazineSize = gunScriptable.magazineSize;
         bulletsPerBurst = gunScriptable.bulletsPerBurst;
