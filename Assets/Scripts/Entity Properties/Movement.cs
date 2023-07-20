@@ -350,9 +350,12 @@ public class Movement : MonoBehaviour
         {
             if(currentStamina < maxStamina)
             {
-                StopCoroutine(staminaRecoveryCoroutines[0]);
-                staminaRecoveryCoroutines.RemoveAt(0);
-                staminaRecoveryCoroutines.TrimExcess();
+                if(staminaRecoveryCoroutines.Count > 0 && staminaRecoveryCoroutines[0] != null) 
+                {
+                    StopCoroutine(staminaRecoveryCoroutines[0]);
+                    staminaRecoveryCoroutines.RemoveAt(0);
+                    staminaRecoveryCoroutines.TrimExcess();
+                }
                 staminaCooldownDone = true;
                 currentStamina ++;
             }

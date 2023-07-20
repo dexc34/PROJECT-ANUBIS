@@ -128,7 +128,7 @@ public class Gun : MonoBehaviour
     {
         if(!canFire || currentAmmo <= 0 || interruptFire) return;
 
-        //INterrupt individual bullet reload
+        //Interrupt individual bullet reload
         if(reloadCoroutine != null) StopCoroutine(reloadCoroutine);
         isReloading = false;
         
@@ -203,7 +203,10 @@ public class Gun : MonoBehaviour
 
     public IEnumerator Reload()
     {
-        if(currentMagazine == magazineSize || ammoToDisplay <= 0 ||!canFire) yield break;
+        if(currentMagazine == magazineSize || ammoToDisplay <= 0 || isReloading) yield break;
+
+        isReloading = true;
+        StopCoroutine("ShootCooldown");
         canFire = false;
 
         gunAudioScript.PlayReloadClip(shootAudioSource);
@@ -226,14 +229,17 @@ public class Gun : MonoBehaviour
         }
         currentAmmoText.text = currentMagazine.ToString();
         reserveAmmoText.text = ammoToDisplay.ToString();
+
         canFire = true;
+        isReloading = false;
     }
 
     public IEnumerator InterruptableReload()
     {
-        if(currentMagazine == magazineSize || ammoToDisplay <= 0 ||!canFire || isReloading) yield break;
+        if(currentMagazine == magazineSize || ammoToDisplay <= 0 || isReloading) yield break;
 
         isReloading = true;
+        StopCoroutine("ShootCooldown");
         canFire = false;
 
         if(infiteAmmo) individualBulletReloadSpeed = shootCooldown;
