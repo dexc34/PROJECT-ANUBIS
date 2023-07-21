@@ -42,6 +42,9 @@ public class RecoveryOrbCustomEditor : Editor
         EditorGUILayout.LabelField("Ability", GUILayout.MaxWidth(40));
         script.recoverAbility = EditorGUILayout.Toggle(script.recoverAbility);
 
+        EditorGUILayout.LabelField("Ammo", GUILayout.MaxWidth(40));
+        script.recoverAmmo = EditorGUILayout.Toggle(script.recoverAmmo);
+
         GUILayout.EndHorizontal();
 
         //Draw health recovery options
@@ -72,6 +75,18 @@ public class RecoveryOrbCustomEditor : Editor
         {
             EditorGUILayout.Space();
             EditorGUILayout.LabelField("No Ability Recovery Settings", EditorStyles.boldLabel);
+        }
+
+        if(script.recoverAmmo)
+        {
+            EditorGUILayout.Space();
+            EditorGUILayout.LabelField("Ammo Recovery Settings", EditorStyles.boldLabel);
+
+            GUILayout.BeginHorizontal();
+            EditorGUILayout.LabelField("Ammo % to Recover");
+            script.ammoToRecoverPercent = EditorGUILayout.FloatField(script.ammoToRecoverPercent);
+            script.ammoToRecoverPercent = Mathf.Clamp(script.ammoToRecoverPercent, 0, 100);
+            GUILayout.EndHorizontal();
         }
 
         EditorUtility.SetDirty(target);

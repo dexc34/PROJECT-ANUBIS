@@ -147,8 +147,7 @@ public class InputHandler : MonoBehaviour
     {
         if(!context.performed) return;
 
-        if(gunScript.individualBulletReload) gunScript.reloadCoroutine = StartCoroutine(gunScript.InterruptableReload());
-        else StartCoroutine(gunScript.Reload());
+        gunScript.Reload();
     }
 
     //Secondary ability actions

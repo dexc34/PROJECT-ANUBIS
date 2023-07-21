@@ -102,8 +102,11 @@ public class Melee : MonoBehaviour
 
             //Deal damage to hurtboxes
             if (hitInfo.transform.CompareTag("Hurtbox"))
-            {
-                hitInfo.transform.parent.gameObject.GetComponent<Health>().TakeDamage(damage);
+            { 
+                //Deal crit damage
+                if(hitInfo.transform.name.Contains("Critical Hurtbox")) hitInfo.transform.parent.gameObject.GetComponent<Health>().TakeDamage(damage * criticalMultiplier);
+                //Deal regular damage
+                else hitInfo.transform.parent.gameObject.GetComponent<Health>().TakeDamage(damage);
             }
 
             //Apply force to rigidbodies

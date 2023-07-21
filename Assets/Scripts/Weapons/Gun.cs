@@ -20,6 +20,12 @@ public class Gun : MonoBehaviour
     [SerializeField]
     private bool instantReload;
 
+    [SerializeField]
+    private bool turboFireRate;
+
+    [SerializeField]
+    private bool automatic;
+
     //Inherited variables from scriptable
     private int damagePerBullet;
     private float bulletSpeed;
@@ -30,7 +36,7 @@ public class Gun : MonoBehaviour
     private float reloadSpeed; 
     [HideInInspector] public bool individualBulletReload;
     private float individualBulletReloadSpeed;
-    private int totalAmmo;
+    [HideInInspector] public int totalAmmo;
     private int magazineSize;
     private int bulletsPerBurst;
     private Vector2[] bulletSpread;
@@ -70,7 +76,7 @@ public class Gun : MonoBehaviour
 
     //Script variables
     [HideInInspector] public bool primaryIsMelee = false;
-    private int currentAmmo;
+    [HideInInspector] public int currentAmmo;
     private int currentMagazine;
     private int ammoToDisplay;
     [HideInInspector] public bool canFire = true;
@@ -160,6 +166,7 @@ public class Gun : MonoBehaviour
             if(bullet.GetComponent<Bullets>() != null)
             {
                 bullet.GetComponent<Bullets>().damage = damagePerBullet;
+                bullet.GetComponent<Bullets>().damageMultipler = criticalMultiplier;
                 bullet.GetComponent<Bullets>().destroyTime = bulletLifetime;
                 bullet.GetComponent<Bullets>().GetBulletHoleInfo(bulletMarkPrefab, holePosition, holeRotation);
             }
@@ -178,13 +185,7 @@ public class Gun : MonoBehaviour
         //Reload if necessary
         if(currentMagazine <= 0)
         {
-            canFire = true;
-
-            if(individualBulletReload)
-            {
-                reloadCoroutine = StartCoroutine("InterruptableReload");
-            }
-            else StartCoroutine("Reload");
+            Reload();
         }
         //If not necessary wait for the shoot cooldown
         else
@@ -195,13 +196,24 @@ public class Gun : MonoBehaviour
 
     private IEnumerator ShootCooldown()
     {
+        if(turboFireRate) shootCooldown = 0.1f;
+
         if (needsCock)
             gunAudioScript.PlayCockClip(shootAudioSource);
         yield return new WaitForSeconds(shootCooldown);
         canFire = true;
     }
 
-    public IEnumerator Reload()
+    public void Reload()
+    {
+        if(individualBulletReload)
+            {
+                reloadCoroutine = StartCoroutine("InterruptableReload");
+            }
+        else StartCoroutine("FullReload");
+    }
+
+    private IEnumerator FullReload()
     {
         if(currentMagazine == magazineSize || ammoToDisplay <= 0 || isReloading) yield break;
 
@@ -234,7 +246,7 @@ public class Gun : MonoBehaviour
         isReloading = false;
     }
 
-    public IEnumerator InterruptableReload()
+    private IEnumerator InterruptableReload()
     {
         if(currentMagazine == magazineSize || ammoToDisplay <= 0 || isReloading) yield break;
 
@@ -242,7 +254,7 @@ public class Gun : MonoBehaviour
         StopCoroutine("ShootCooldown");
         canFire = false;
 
-        if(infiteAmmo) individualBulletReloadSpeed = shootCooldown;
+        if(instantReload) individualBulletReloadSpeed = 0.1f;
 
         for(int i = currentMagazine; i < magazineSize; i ++)
         {
@@ -268,6 +280,16 @@ public class Gun : MonoBehaviour
         }
     }
 
+    public void RecoverAmmo(int ammoToRecover)
+    {
+        currentAmmo += ammoToRecover;
+        currentAmmo = Mathf.Clamp(currentAmmo, 0, totalAmmo);
+        ammoToDisplay = currentAmmo - currentMagazine;
+        reserveAmmoText.text = ammoToDisplay.ToString();
+
+        if(currentMagazine <= 0) Reload();
+    }
+
 
     //Used when hacking a new body, update gun stats to match the enemy's gun
     public void UpdateGunStats(Gun gunScriptToPullFrom)
@@ -288,6 +310,7 @@ public class Gun : MonoBehaviour
         bulletLifetime = gunScriptable.bulletLifetime;
         criticalMultiplier = gunScriptable.criticalMultiplier;
         isAutomatic = gunScriptable.isAutomatic;
+        if(automatic) isAutomatic = true;
         fireRate = gunScriptable.fireRate;
         reloadSpeed = gunScriptable.reloadSpeed;
         individualBulletReload = gunScriptable.individualBulletReload;
@@ -404,6 +427,7 @@ public class Gun : MonoBehaviour
             if(bullet.GetComponent<Bullets>() != null)
             {
                 bullet.GetComponent<Bullets>().damage = damagePerBullet;
+                bullet.GetComponent<Bullets>().damageMultipler = criticalMultiplier;
                 bullet.GetComponent<Bullets>().destroyTime = bulletLifetime;
                 bullet.GetComponent<Bullets>().GetBulletHoleInfo(bulletMarkPrefab, holePosition, holeRotation);
             }

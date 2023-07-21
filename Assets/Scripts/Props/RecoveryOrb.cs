@@ -11,10 +11,13 @@ public class RecoveryOrb : MonoBehaviour
     [HideInInspector] public bool recoverHealth;
     [HideInInspector] public bool recoverStamina;
     [HideInInspector] public bool recoverAbility;
+    [HideInInspector] public bool recoverAmmo;
 
     [HideInInspector] public float healthToRecover;
 
     [HideInInspector] public int staminaToRecover;
+
+    [HideInInspector] public float ammoToRecoverPercent;
 
     //Script variables
     private bool recovered = false;
@@ -24,55 +27,33 @@ public class RecoveryOrb : MonoBehaviour
     private Collider trigger;
     private AudioSource audioSource;
 
-    private void Start() 
+    private void Start()
     {
         meshRenderer = GetComponent<MeshRenderer>();
         trigger = GetComponent<Collider>();
         audioSource = GetComponent<AudioSource>();
     }
 
-    private void OnTriggerStay(Collider other) 
+    private void OnTriggerStay(Collider other)
     {
-        if(other.name == "Player")    
+        if (other.name == "Player")
         {
-            if(recoverHealth)
-            {
-                Health health = other.GetComponent<Health>();
-                if(health.currentHealth < health.maxHealth)
-                {
-                    other.GetComponent<Health>().Heal(healthToRecover);
-                    recovered = true;
-                } 
-                else Debug.Log("ALready at max health");
-            }
+            GameObject target = other.gameObject;
 
-            if(recoverStamina)
-            {
-                Movement movement = other.GetComponent<Movement>();
-                if(movement.currentStamina < movement.maxStamina)
-                {
-                    movement.RecoverStamina(staminaToRecover);
-                    recovered = true;
-                }
-                else Debug.Log("Already max stamina");
-            }
+            if (recoverHealth) RecoverHealth(target);
 
-            if(recoverAbility)
-            {
-                if(!other.GetComponent<SecondaryAbility>().canUseAbility)
-                {
-                    other.GetComponent<SecondaryAbility>().ResetCooldown();
-                    recovered = true;
-                }
-                else Debug.Log("Already has ability");
-            }
+            if (recoverStamina) RecoverStamina(target);
 
-            if(recovered)
+            if (recoverAbility) RecoverAbility(target);
+
+            if (recoverAmmo) RecoverAmmo(target);
+
+            if (recovered)
             {
                 audioSource.Play();
                 meshRenderer.enabled = false;
                 trigger.enabled = false;
-                if(canRespawn) StartCoroutine("OrbCooldown");
+                if (canRespawn) StartCoroutine("OrbCooldown");
             }
         }
     }
@@ -84,5 +65,52 @@ public class RecoveryOrb : MonoBehaviour
         meshRenderer.enabled = true;
         trigger.enabled = true;
         recovered = false;
+    }
+
+    private void RecoverHealth(GameObject target)
+    {
+        Health health = target.GetComponent<Health>();
+        if (health.currentHealth < health.maxHealth)
+        {
+            target.GetComponent<Health>().Heal(healthToRecover);
+            recovered = true;
+        }
+        else Debug.Log("Already at max health");
+
+    }
+
+    private void RecoverStamina(GameObject target)
+    {
+        Movement movement = target.GetComponent<Movement>();
+        if (movement.currentStamina < movement.maxStamina)
+        {
+            movement.RecoverStamina(staminaToRecover);
+            recovered = true;
+        }
+        else Debug.Log("Already has max stamina");
+    }
+
+    private void RecoverAbility(GameObject target)
+    {
+        if (!target.GetComponent<SecondaryAbility>().canUseAbility)
+        {
+            target.GetComponent<SecondaryAbility>().ResetCooldown();
+            recovered = true;
+        }
+        else Debug.Log("Already has ability");
+    }
+
+    private void RecoverAmmo(GameObject target)
+    {
+        Gun gun = target.GetComponent<Gun>();
+        if (gun.currentAmmo < gun.totalAmmo)
+        {
+            float maxAmmo = gun.totalAmmo;
+            float ammoToRecover = (maxAmmo / 100) * ammoToRecoverPercent;
+            Debug.Log(ammoToRecover);
+            gun.RecoverAmmo(((int)ammoToRecover));
+            recovered = true;
+        }
+        else Debug.Log("Already at max ammo");
     }
 }

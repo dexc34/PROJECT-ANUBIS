@@ -12,6 +12,7 @@ TagManager:
   - Rigidbody
   - Geometry
   - Node
+  - Critical Hurtbox
   layers:
   - Default
   - TransparentFX

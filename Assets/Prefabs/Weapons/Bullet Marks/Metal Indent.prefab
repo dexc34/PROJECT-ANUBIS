@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7779495058296010739}
   - component: {fileID: 1561673631084798359}
   - component: {fileID: 7693296583252540095}
+  - component: {fileID: -6198930275709293590}
   m_Layer: 0
   m_Name: Metal Indent
   m_TagString: Untagged
@@ -83,3 +84,15 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &-6198930275709293590
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6059192535391221}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3dc162284c7c0f64cb679a5eb1ec557b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

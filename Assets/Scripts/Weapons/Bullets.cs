@@ -11,7 +11,7 @@ public class Bullets : MonoBehaviour
 
     //Script variables
     [HideInInspector] public float damage;
-    [HideInInspector] public bool damageMultiplied = false;
+    [HideInInspector] public float damageMultipler;
 
     //Required components
     private Health healthToDamage;
@@ -19,7 +19,6 @@ public class Bullets : MonoBehaviour
     private void Start() 
     {
         StartCoroutine("DestroyTimer");
-        StartCoroutine("ActivateCollider");
     }
 
     private void OnCollisionEnter(Collision other) 
@@ -28,17 +27,19 @@ public class Bullets : MonoBehaviour
         if(other.gameObject.CompareTag("Hurtbox"))    
         {   
             healthToDamage = other.gameObject.transform.parent.gameObject.GetComponent<Health>();
-            DealDamage();
+            DealDamage(other.gameObject.name);
         }
         else
         {
-            if(other.gameObject.CompareTag("Player") || other.gameObject.CompareTag("Bullet")) return;
             Destroy(gameObject);
         }   
     }
 
-    private void DealDamage()
+    private void DealDamage(string hurtboxHit)
     {
+        //Deal crit damage to critical hurtboxes
+        if(hurtboxHit.Contains("Critical Hurtbox")) damage *= damageMultipler;
+            
         healthToDamage.TakeDamage(damage);
         Destroy(gameObject);
     }
@@ -48,13 +49,6 @@ public class Bullets : MonoBehaviour
         yield return new WaitForSeconds(destroyTime);
 
         Destroy(gameObject);
-    }
-
-    private IEnumerator ActivateCollider()
-    {
-        yield return new WaitForSeconds(0.1f);
-
-        GetComponent<Collider>().enabled = true;
     }
 
     public void GetBulletHoleInfo(GameObject holePrefab, Vector3 holePos, Quaternion holeRot)
