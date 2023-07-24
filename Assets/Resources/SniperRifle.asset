@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c6b59979eacb6c4494d42b7cddf537e, type: 3}
+  m_Name: SniperRifle
+  m_EditorClassIdentifier: 
+  bulletSpeed: 200
+  bulletLifetime: 5
+  criticalMultiplier: 2
+  isAutomatic: 0
+  fireRate: 0.75
+  reloadSpeed: 0
+  individualBulletReload: 1
+  individualBulletReloadSpeed: 0.5
+  totalAmmo: 15
+  magazineSize: 5
+  damagePerBullet: 100
+  bulletPenetrationAmount: 3
+  bulletsPerBurst: 1
+  bulletSpread:
+  - {x: 0, y: 0}
+  zSpread: 5
+  weaponModelPrefab: {fileID: 5140375815798691381, guid: 90111aca09da24a409eaf41351551563,
+    type: 3}
+  bulletMarkPrefab: {fileID: 6059192535391221, guid: 4def6283232250b42813ae413293bb53,
+    type: 3}
+  crosshairSrpite: {fileID: 21300000, guid: 2f56c44ec82d44947ad9891c45244a85, type: 3}
+  fireModeString: SEMI
+  gunAudioScript: {fileID: 11400000, guid: 7f783d2867b803d4d8658acaa0f94cf9, type: 2}
+  needsCock: 1
+  bulletPrefab: {fileID: 6044169562527316349, guid: 4a1c4de0f1f1e384f957d625d1980b5c,
+    type: 3}

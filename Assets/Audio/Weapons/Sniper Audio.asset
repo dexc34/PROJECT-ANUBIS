@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6c46fa5fac1c554ba8ea86ca8d44c48, type: 3}
+  m_Name: Sniper Audio
+  m_EditorClassIdentifier: 
+  volume: 1
+  fireClips:
+  - {fileID: 8300000, guid: bdadf7a04e4cbe94f865329208ac6dc2, type: 3}
+  cockClip: {fileID: 8300000, guid: 23168d309ac3a6b40a5fe92ba8ef5efe, type: 3}
+  reloadClip: {fileID: 8300000, guid: 3bd78245afec7d345833d60d2310baac, type: 3}

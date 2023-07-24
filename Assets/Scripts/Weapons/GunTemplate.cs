@@ -7,9 +7,6 @@ public class GunTemplate : ScriptableObject
 {
     [Header ("Stats")]
 
-    [Tooltip ("How much damage an indiviual hit deals")]
-    public int damagePerBullet;
-
     public float bulletSpeed;
 
     [Tooltip ("How long bullets will exist before dissapearing in seconds")]
@@ -38,6 +35,15 @@ public class GunTemplate : ScriptableObject
 
     [Tooltip ("How many bullets can be fired before needing to reload")] 
     public int magazineSize;
+
+
+    [Header ("Bullet Properties")]
+
+    [Tooltip ("How much damage an indiviual hit deals")]
+    public int damagePerBullet;
+
+    [Tooltip ("How many objects a bullet can go through before disappearing")]
+    public int bulletPenetrationAmount;
 
     [Tooltip ("How many bullets come out of the gun on shoot")] 
     public int bulletsPerBurst;

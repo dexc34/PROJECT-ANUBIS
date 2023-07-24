@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.Rendering.Universal;
 using UnityEngine.UI;
 
-public enum GunTypeDropdownOptions{Pistol, Shotgun, AssaultRifle, RocketLauncher, Staff, Melee};
+public enum GunTypeDropdownOptions{Pistol, Shotgun, AssaultRifle, RocketLauncher, SniperRifle, Staff, Melee};
 
 public class Gun : MonoBehaviour
 {
@@ -38,6 +38,7 @@ public class Gun : MonoBehaviour
     private float individualBulletReloadSpeed;
     [HideInInspector] public int totalAmmo;
     private int magazineSize;
+    private int bulletPenetrationAmount;
     private int bulletsPerBurst;
     private Vector2[] bulletSpread;
     private float zSpread = 5;
@@ -165,10 +166,13 @@ public class Gun : MonoBehaviour
             //Does not apply to weapons that don't shoot bullets (eg. rocket launcher)
             if(bullet.GetComponent<Bullets>() != null)
             {
-                bullet.GetComponent<Bullets>().damage = damagePerBullet;
-                bullet.GetComponent<Bullets>().damageMultipler = criticalMultiplier;
-                bullet.GetComponent<Bullets>().destroyTime = bulletLifetime;
-                bullet.GetComponent<Bullets>().GetBulletHoleInfo(bulletMarkPrefab, holePosition, holeRotation);
+                Bullets bulletScript = bullet.GetComponent<Bullets>();
+
+                bulletScript.damage = damagePerBullet;
+                bulletScript.damageMultipler = criticalMultiplier;
+                bulletScript.penetrationAmmout = bulletPenetrationAmount;
+                bulletScript.destroyTime = bulletLifetime;
+                bulletScript.GetBulletHoleInfo(bulletMarkPrefab, holePosition, holeRotation);
             }
         }
 
@@ -317,6 +321,7 @@ public class Gun : MonoBehaviour
         individualBulletReloadSpeed = gunScriptable.individualBulletReloadSpeed;
         totalAmmo = gunScriptable.totalAmmo;
         magazineSize = gunScriptable.magazineSize;
+        bulletPenetrationAmount = gunScriptable.bulletPenetrationAmount;
         bulletsPerBurst = gunScriptable.bulletsPerBurst;
         bulletSpread = gunScriptable.bulletSpread;
         zSpread = gunScriptable.zSpread;

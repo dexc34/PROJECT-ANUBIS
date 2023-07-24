@@ -12,6 +12,7 @@ public class Bullets : MonoBehaviour
     //Script variables
     [HideInInspector] public float damage;
     [HideInInspector] public float damageMultipler;
+    [HideInInspector] public int penetrationAmmout;
 
     //Required components
     private Health healthToDamage;
@@ -28,6 +29,8 @@ public class Bullets : MonoBehaviour
         {   
             healthToDamage = other.gameObject.transform.parent.gameObject.GetComponent<Health>();
             DealDamage(other.gameObject.name);
+            Destroy(gameObject);
+            //BulletPentrationCounter();
         }
         else
         {
@@ -41,7 +44,14 @@ public class Bullets : MonoBehaviour
         if(hurtboxHit.Contains("Critical Hurtbox")) damage *= damageMultipler;
             
         healthToDamage.TakeDamage(damage);
-        Destroy(gameObject);
+        
+    }
+
+    private void BulletPentrationCounter()
+    {
+        penetrationAmmout --;
+        if(penetrationAmmout <=0 ) Destroy(gameObject);
+        
     }
 
     private IEnumerator DestroyTimer()

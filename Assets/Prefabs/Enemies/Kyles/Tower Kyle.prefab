@@ -79176,16 +79176,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11c8381413c0c504f8dbe5bafa4437c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gunType: 5
+  gunType: 6
   infiteAmmo: 0
   instantReload: 0
+  turboFireRate: 0
+  automatic: 0
   isAutomatic: 0
+  individualBulletReload: 0
+  totalAmmo: 0
   currentAmmoText: {fileID: 0}
   reserveAmmoText: {fileID: 0}
   fireModeText: {fileID: 0}
   crosshairUiElement: {fileID: 0}
   mainCam: {fileID: 0}
   primaryIsMelee: 0
+  currentAmmo: 0
   canFire: 1
   interruptFire: 0
   viewModelScript: {fileID: 0}
@@ -79222,6 +79227,9 @@ MonoBehaviour:
   layersToCheck:
     serializedVersion: 2
     m_Bits: 0
+  interruptMelee: 0
+  oneHanded: 0
+  currentHand: {fileID: 0}
   meleeModel: {fileID: 0}
 --- !u!136 &2439440148750791759
 CapsuleCollider:

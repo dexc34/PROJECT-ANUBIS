@@ -609,9 +609,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11c8381413c0c504f8dbe5bafa4437c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gunType: 5
+  gunType: 6
   infiteAmmo: 0
   instantReload: 0
+  turboFireRate: 0
+  automatic: 0
   isAutomatic: 0
   individualBulletReload: 0
   totalAmmo: 0
