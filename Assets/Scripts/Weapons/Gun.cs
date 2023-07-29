@@ -380,7 +380,11 @@ public class Gun : MonoBehaviour
         //}
         GameObject weaponHolder = transform.GetComponentInChildren<CameraMove>().gameObject.transform.Find("Weapon Holder").gameObject;
         foreach(Transform child in weaponHolder.transform) if(child.CompareTag("Gun")) Destroy(child.gameObject);
-        if (gunType.ToString() == "Melee") return;
+        if (gunType.ToString() == "Melee") 
+        {
+            foreach(Transform child in weaponHolder.transform) if(child.CompareTag("Melee")) child.gameObject.SetActive(true);
+            return;
+        }
         foreach(Transform child in weaponHolder.transform) if(child.CompareTag("Melee")) child.gameObject.SetActive(false);
         newGun = Instantiate(weaponModelPrefab, weaponHolder.transform.position, weaponHolder.transform.rotation);
         newGun.transform.parent = weaponHolder.transform;
