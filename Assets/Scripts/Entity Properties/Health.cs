@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Health : MonoBehaviour
 {
@@ -127,7 +128,7 @@ public class Health : MonoBehaviour
 
     private void PlayerDie()
     {
-        Debug.Log("You died");
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     [HideInInspector] public bool enemyIsDead = false;

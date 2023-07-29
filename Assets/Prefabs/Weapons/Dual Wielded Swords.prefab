@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 3363426211194617831}
   - component: {fileID: 3363426211194617830}
   - component: {fileID: 5593544157822583904}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Dual Wielded Swords
-  m_TagString: Untagged
+  m_TagString: Melee
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -101,7 +101,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3363426211392139405}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Daggers
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -135,6 +135,10 @@ PrefabInstance:
     - target: {fileID: 1000013268969960, guid: 1dfc9f416f83bee4b861d75d1d50e5a5, type: 3}
       propertyPath: m_Name
       value: Dagger (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1000013268969960, guid: 1dfc9f416f83bee4b861d75d1d50e5a5, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 4000011981499248, guid: 1dfc9f416f83bee4b861d75d1d50e5a5, type: 3}
       propertyPath: m_RootOrder
@@ -219,6 +223,10 @@ PrefabInstance:
     - target: {fileID: 1000013268969960, guid: 1dfc9f416f83bee4b861d75d1d50e5a5, type: 3}
       propertyPath: m_Name
       value: Dagger
+      objectReference: {fileID: 0}
+    - target: {fileID: 1000013268969960, guid: 1dfc9f416f83bee4b861d75d1d50e5a5, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 1000013268969960, guid: 1dfc9f416f83bee4b861d75d1d50e5a5, type: 3}
       propertyPath: m_IsActive

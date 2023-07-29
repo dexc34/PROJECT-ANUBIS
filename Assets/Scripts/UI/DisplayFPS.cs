@@ -13,7 +13,7 @@ public class DisplayFPS : MonoBehaviour
     private Text fpsText;
     private bool counterUpdated = true;
 
-    private void Start() 
+    private void Awake() 
     {
         fpsText = GetComponent<Text>();
     }
@@ -36,5 +36,10 @@ public class DisplayFPS : MonoBehaviour
         displayFpsCount = (int) realFpsCount;
         fpsText.text = displayFpsCount.ToString();
         counterUpdated = true;
+    }
+
+    private void OnEnable() 
+    {
+        counterUpdated = true;    
     }
 }

@@ -12,6 +12,8 @@ TagManager:
   - Rigidbody
   - Geometry
   - Node
+  - Gun
+  - Melee
   layers:
   - Default
   - TransparentFX

@@ -8,10 +8,8 @@ using UnityEngine.Events;
 public enum SecondaryDropdownOptions{ImpactGrenade, Barrage, WrathOfRa, CloserToThePrey, Leap};
 public class SecondaryAbility : MonoBehaviour
 {
-    [SerializeField]
-    SecondaryDropdownOptions secondaryType = new SecondaryDropdownOptions();
-
-    [SerializeField] private bool overrideCooldown = false;
+    public SecondaryDropdownOptions secondaryType = new SecondaryDropdownOptions();
+    public bool overrideCooldown = false;
     [HideInInspector] public float abilityCooldown;
 
     //Script variables
@@ -84,7 +82,6 @@ public class SecondaryAbility : MonoBehaviour
         }
 
         ResetCooldown();
-        if(overrideCooldown) abilityCooldown = 0;
     }
     private void RemoveUnnecessaryComponents()
     {
@@ -116,7 +113,7 @@ public class SecondaryAbility : MonoBehaviour
 
     private IEnumerator AbilityCooldown()
     {
-        yield return new WaitForSeconds(abilityCooldown);
+        if(!overrideCooldown) yield return new WaitForSeconds(abilityCooldown);
 
         canUseAbility = true;
     }

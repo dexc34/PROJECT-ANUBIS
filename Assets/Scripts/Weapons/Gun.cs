@@ -13,18 +13,10 @@ public class Gun : MonoBehaviour
     public GunTypeDropdownOptions gunType = new GunTypeDropdownOptions();  
 
     [Header ("Cheats")]
-
-    [SerializeField]
-    private bool infiteAmmo;
-
-    [SerializeField]
-    private bool instantReload;
-
-    [SerializeField]
-    private bool turboFireRate;
-
-    [SerializeField]
-    private bool automatic;
+    public bool infiniteAmmo;
+    public bool instantReload;
+    public bool turboFireRate;
+    public bool automatic;
 
     //Inherited variables from scriptable
     private int damagePerBullet;
@@ -140,7 +132,7 @@ public class Gun : MonoBehaviour
         isReloading = false;
         
         canFire = false;
-        if(!infiteAmmo)currentAmmo --;
+        if(!infiniteAmmo)currentAmmo --;
         currentMagazine --;
 
         gunAudioScript.PlayShootClip(shootAudioSource);
@@ -200,11 +192,10 @@ public class Gun : MonoBehaviour
 
     private IEnumerator ShootCooldown()
     {
-        if(turboFireRate) shootCooldown = 0.1f;
-
         if (needsCock)
             gunAudioScript.PlayCockClip(shootAudioSource);
-        yield return new WaitForSeconds(shootCooldown);
+        if(turboFireRate) yield return new WaitForSeconds(0.1f);
+        else yield return new WaitForSeconds(shootCooldown);
         canFire = true;
     }
 
@@ -227,9 +218,8 @@ public class Gun : MonoBehaviour
 
         gunAudioScript.PlayReloadClip(shootAudioSource);
 
-        if(instantReload) reloadSpeed = shootCooldown;
-
-        yield return new WaitForSeconds(reloadSpeed);
+        if(instantReload) yield return new WaitForSeconds(shootCooldown);
+        else yield return new WaitForSeconds(reloadSpeed);
 
         //If you have enough ammo for a full magazine, fill it up, and display remaining ammo
         if(magazineSize <= currentAmmo)
@@ -258,15 +248,13 @@ public class Gun : MonoBehaviour
         StopCoroutine("ShootCooldown");
         canFire = false;
 
-        if(instantReload) individualBulletReloadSpeed = 0.1f;
-
         for(int i = currentMagazine; i < magazineSize; i ++)
         {
-
-            yield return new WaitForSeconds(individualBulletReloadSpeed);
+            if(instantReload) yield return new WaitForSeconds(0.1f);
+            else yield return new WaitForSeconds(individualBulletReloadSpeed);
 
             currentMagazine ++;
-            if(!infiteAmmo) ammoToDisplay --;
+            if(!infiniteAmmo) ammoToDisplay --;
 
             //Update UI
             currentAmmoText.text = currentMagazine.ToString();
@@ -384,7 +372,6 @@ public class Gun : MonoBehaviour
 
         //Update gun model
 
-        if (gunType.ToString() == "Melee") return;
         //destroys the previous weapon model
         //if (newGun != null)
         //{
@@ -392,6 +379,9 @@ public class Gun : MonoBehaviour
         //    Destroy(oldGun);
         //}
         GameObject weaponHolder = transform.GetComponentInChildren<CameraMove>().gameObject.transform.Find("Weapon Holder").gameObject;
+        foreach(Transform child in weaponHolder.transform) if(child.CompareTag("Gun")) Destroy(child.gameObject);
+        if (gunType.ToString() == "Melee") return;
+        foreach(Transform child in weaponHolder.transform) if(child.CompareTag("Melee")) child.gameObject.SetActive(false);
         newGun = Instantiate(weaponModelPrefab, weaponHolder.transform.position, weaponHolder.transform.rotation);
         newGun.transform.parent = weaponHolder.transform;
         viewModelScript = newGun.GetComponent<WeaponViewmodelAnimations>();

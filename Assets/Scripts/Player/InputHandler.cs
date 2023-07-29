@@ -11,6 +11,8 @@ public class InputHandler : MonoBehaviour
     [Tooltip ("How long crouch button stays registered after letting go")]
     private float crouchCancelDelay;
 
+    [SerializeField] private DebugMenu debugMenuScript;
+
     //Script variables
     private bool isShoothing = false;
     private bool isCrouching = false;

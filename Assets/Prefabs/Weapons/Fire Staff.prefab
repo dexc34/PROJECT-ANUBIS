@@ -4823,7 +4823,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2417205609008978453}
   - component: {fileID: 4568624399675921965}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: GameObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4950,7 +4950,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6967275028543018881}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: MetalstaffRings
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4985,7 +4985,7 @@ GameObject:
   - component: {fileID: 6967275028542989283}
   - component: {fileID: 6967275028546435263}
   - component: {fileID: 6967275028545278885}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: MetalstaffLargeRing
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5068,7 +5068,7 @@ GameObject:
   - component: {fileID: 6967275028542933685}
   - component: {fileID: 6967275028546444567}
   - component: {fileID: 6967275028545228815}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: MetalstaffInnerGem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5151,7 +5151,7 @@ GameObject:
   - component: {fileID: 6967275028542997533}
   - component: {fileID: 6967275028546424745}
   - component: {fileID: 6967275028545294725}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: MetalstaffRod
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5234,9 +5234,9 @@ GameObject:
   - component: {fileID: 6967275028542981165}
   - component: {fileID: 4599213214136524425}
   - component: {fileID: -1829115162108847345}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Fire Staff
-  m_TagString: Untagged
+  m_TagString: Gun
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5331,7 +5331,7 @@ GameObject:
   - component: {fileID: 6967275028543029465}
   - component: {fileID: 6967275028546447145}
   - component: {fileID: 6967275028545333049}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: MetalstaffCasing
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5414,7 +5414,7 @@ GameObject:
   - component: {fileID: 6967275028542918537}
   - component: {fileID: 6967275028546370773}
   - component: {fileID: 6967275028545337485}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: MetalstaffSmallRing
   m_TagString: Untagged
   m_Icon: {fileID: 0}

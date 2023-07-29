@@ -2,13 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum MeleeTypeDropdown { SingleSword, DualWieldedChainSwords, Fist, Kick };
 public class Melee : MonoBehaviour
 {
     //Editor tools
-    private enum MeleeTypeDropdown { SingleSword, DualWieldedChainSwords, Fist, Kick };
-    [SerializeField]
+    
     [Tooltip("What kind of melee to perform")]
-    MeleeTypeDropdown meleeType = new MeleeTypeDropdown();
+    public MeleeTypeDropdown meleeType = new MeleeTypeDropdown();
 
     [SerializeField]
     private LayerMask layersToCheck;
@@ -292,6 +292,7 @@ public class Melee : MonoBehaviour
         //    Destroy(oldWeapon);
         //}
         GameObject weaponHolder = transform.GetComponentInChildren<CameraMove>().gameObject.transform.Find("Weapon Holder").gameObject;
+        foreach(Transform child in weaponHolder.transform) if(child.CompareTag("Melee")) Destroy(child.gameObject);
         newWeapon = Instantiate(meleeModel, weaponHolder.transform.position, weaponHolder.transform.rotation);
         newWeapon.transform.parent = weaponHolder.transform;
         animators.Clear();
