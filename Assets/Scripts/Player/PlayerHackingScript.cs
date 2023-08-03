@@ -165,15 +165,7 @@ public class PlayerHackingScript : MonoBehaviour
             //checks to see if the object currently in the raycast is the enemy that is currently being stored
             if (hit.collider.gameObject != currentlySelectedEnemy)
             {
-                //deletes the enemy's outline and unstores the gameobject and outline
-                if (currentlySelectedEnemy != null)
-                {
-                    if (currentlySelectedEnemy != currentlyHackingEnemy)
-                        Destroy(currentlySelectedEnemy.GetComponent<Outline>());
-
-                    selectedEnemiesOutline = null;
-                    currentlySelectedEnemy = null;
-                }
+                UnstoreEnemy();
             }
 
 
@@ -187,9 +179,13 @@ public class PlayerHackingScript : MonoBehaviour
                     selectedEnemiesOutline = currentlySelectedEnemy.AddComponent<Outline>();
 
                     //turns on the outline of the selected enemy, sets it's colour and it's width
-                    selectedEnemiesOutline.enabled = true;
-                    selectedEnemiesOutline.OutlineColor = highlightColour;
-                    selectedEnemiesOutline.OutlineWidth = highlightWidth;
+                    if (selectedEnemiesOutline != null)
+                    {
+                        selectedEnemiesOutline.enabled = true;
+                        selectedEnemiesOutline.OutlineColor = highlightColour;
+                        selectedEnemiesOutline.OutlineWidth = highlightWidth;
+                    }
+
                 }
 
                 //some debug stuff we can get rid of later
@@ -216,17 +212,22 @@ public class PlayerHackingScript : MonoBehaviour
         }
         else
         {
-            //deletes the enemy's outline and unstores the gameobject and outline
-            if (currentlySelectedEnemy != null)
-            {
-                if (currentlySelectedEnemy != currentlyHackingEnemy)
-                    Destroy(currentlySelectedEnemy.GetComponent<Outline>());
-
-                selectedEnemiesOutline = null;
-                currentlySelectedEnemy = null;
-            }
+            UnstoreEnemy();
 
             Debug.DrawRay(raycastStart, raycastDirection * 1000, Color.white);
+        }
+    }
+
+    private void UnstoreEnemy()
+    {
+        //deletes the enemy's outline and unstores the gameobject and outline
+        if (currentlySelectedEnemy != null)
+        {
+            if (currentlySelectedEnemy != currentlyHackingEnemy)
+                Destroy(currentlySelectedEnemy.GetComponent<Outline>());
+
+            selectedEnemiesOutline = null;
+            currentlySelectedEnemy = null;
         }
     }
 
@@ -324,7 +325,12 @@ public class PlayerHackingScript : MonoBehaviour
         //nothing
         hackingEnemiesOutline.OutlineColor = highlightColour;
 
-        hackingEnemiesOutline = null;
+        if (!transitioningBetweenEnemies)
+        {
+            hackingEnemiesOutline = null;
+            currentlyHackingEnemy = null;
+        }
+
     }
 
     private IEnumerator HackEnemy()
@@ -376,10 +382,10 @@ public class PlayerHackingScript : MonoBehaviour
         //turns the stuff in the enemy back on
         if (currentlyStoredEnemy != null)
         {
-            if (currentlyStoredEnemy.GetComponent<GruntStateMachine>())
+            if (currentlyStoredEnemy.GetComponent<GruntStateMachine>() && currentlyStoredEnemy.GetComponent<NavMeshAgent>() )
             {
                 currentlyStoredEnemy.GetComponent<GruntStateMachine>().enabled = true;
-                currentlyHackingEnemy.GetComponent<NavMeshAgent>().enabled= true;
+                currentlyStoredEnemy.GetComponent<NavMeshAgent>().enabled= true;
             }
             currentlyStoredEnemy.GetComponent<CapsuleCollider>().enabled = true;
         }
