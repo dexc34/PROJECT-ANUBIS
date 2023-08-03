@@ -79,6 +79,7 @@ public class Gun : MonoBehaviour
     [HideInInspector] public bool interruptFire = false;
     private bool isReloading = false;
     [HideInInspector] public Coroutine reloadCoroutine;
+    private bool shootingAnim = false;
 
 
     //Required components
@@ -91,6 +92,7 @@ public class Gun : MonoBehaviour
     private AudioSource shootAudioSource;
     private Camera viewmodelCam;
     private LayerMask bulletHoleLayersToCheck;
+    private Animator gunAnim;
 
     void Start()
     {
@@ -135,6 +137,9 @@ public class Gun : MonoBehaviour
         if(!infiniteAmmo)currentAmmo --;
         currentMagazine --;
 
+        gunAnim.enabled = false;
+        gunAnim.enabled = true;
+        gunAnim.Play("Shoot");
         gunAudioScript.PlayShootClip(shootAudioSource);
         currentAmmoText.text = currentMagazine.ToString();
         reserveAmmoText.text = ammoToDisplay.ToString();
@@ -388,6 +393,7 @@ public class Gun : MonoBehaviour
         foreach(Transform child in weaponHolder.transform) if(child.CompareTag("Melee")) child.gameObject.SetActive(false);
         newGun = Instantiate(weaponModelPrefab, weaponHolder.transform.position, weaponHolder.transform.rotation);
         newGun.transform.parent = weaponHolder.transform;
+        gunAnim = newGun.GetComponentInChildren<Animator>();
         viewModelScript = newGun.GetComponent<WeaponViewmodelAnimations>();
         muzzleParticle = newGun.GetComponentInChildren<ParticleSystem>();
     }
