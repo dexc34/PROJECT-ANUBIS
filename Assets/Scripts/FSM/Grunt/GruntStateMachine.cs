@@ -15,6 +15,10 @@ public class GruntStateMachine : MonoBehaviour
 
     //REFERENCES//
     [Header("Refernces")]
+
+    [Tooltip("What particle to play on spawn")]
+    [SerializeField] public ParticleSystem spawnParticle;
+
     [HideInInspector] public GameObject player;
     [HideInInspector] public Gun gun;
     [HideInInspector] public Health health;
